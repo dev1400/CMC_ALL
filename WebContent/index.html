@@ -16,6 +16,9 @@
     </script>
 
     <script>
+    sap.ui.getCore().loadLibrary("openui5.googlemaps", "common/lib/openui5/googlemaps/");		
+	jQuery.sap.registerResourcePath("dia.cmc.contractsinamendment", "contractsinamendment/");
+	
         new sap.m.Shell({
             app: new sap.ui.core.ComponentContainer({
                 name: "dia.cmc.contractsinamendment"
