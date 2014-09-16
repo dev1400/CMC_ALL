@@ -1,0 +1,81 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:suite="sap.suite.ui.commons" controllerName="dia.cmc.contractsinamendment.view.AmendmentFlow"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="WorkFlow" showNavButton="true" navButtonPress="handleNavButtonPress">
+
+		<content>
+
+			<Panel>
+				<suite:ProcessFlow id="processflow1" zoomLevel="Two"
+					scrollable="false" nodePress="onNodePress" nodeTitlePress="onNodeTitlePress">
+					<suite:nodes>
+						<suite:ProcessFlowNode nodeId="1" laneId="id0"
+							title="Sales Order 1" titleAbbreviation="SO 1" isTitleClickable="true"
+							children="2,11,12" state="Positive" stateText="Positive Status"
+							texts="" />
+						<suite:ProcessFlowNode nodeId="2" laneId="id1"
+							title="Delivery 13" titleAbbreviation="DD 1" children="10" state="Positive"
+							stateText="OK Delivery" texts="this is delivery document" />
+						<suite:ProcessFlowNode nodeId="10" laneId="id3"
+							title="Accounting Document 7" titleAbbreviation="AD 7" state="Negative"
+							stateText="Negative Status" texts="text 1 runs over two rows but no  more than two" />
+						<suite:ProcessFlowNode nodeId="11" laneId="id2"
+							title="Invoice 4" titleAbbreviation="INV 4" state="Negative"
+							stateText="Negative Status should not run over more than two rows of text" />
+						<suite:ProcessFlowNode nodeId="12" laneId="id2"
+							title="Invoice 5" titleAbbreviation="INV 5" children="5" state="Neutral" />
+						<suite:ProcessFlowNode nodeId="5" laneId="id3"
+							title="Accounting Document 10" titleAbbreviation="AD 10" state="Planned" />
+					</suite:nodes>
+					<suite:lanes>
+						<suite:ProcessFlowLaneHeader laneId="id0"
+							iconSrc="sap-icon://order-status" text="In Order" position="0" />
+						<suite:ProcessFlowLaneHeader laneId="id1"
+							iconSrc="sap-icon://monitor-payments" text="In Delivery"
+							position="1" />
+						<suite:ProcessFlowLaneHeader laneId="id2"
+							iconSrc="sap-icon://payment-approval" text="In Invoice" position="2" />
+						<suite:ProcessFlowLaneHeader laneId="id3"
+							iconSrc="sap-icon://money-bills" text="In Accounting" position="3" />
+					</suite:lanes>
+				</suite:ProcessFlow>
+				<html:br />
+				<!-- <m:Button text="Click to display Process Flow" tap="onDisplayProcessFlow" />
+				<m:Button text="Click to display Highlight Path" tap="onHighlightPath" />
+				<m:Button text="Click to display Update Process Flow" tap="onUpdateProcessFlow" /> -->
+				<suite:ProcessFlow id="processflow2" zoomLevel="Two"
+					scrollable="false" nodes="{/nodes}" lanes="{/lanes}">
+					<suite:nodes>
+						<suite:ProcessFlowNode laneId="{lane}" nodeId="{id}"
+							title="{title}" children="{children}" state="{state}" stateText="{stateText}"
+							texts="{texts}" highlighted="{highlighted}" focused="{focused}" />
+					</suite:nodes>
+					<suite:lanes>
+						<suite:ProcessFlowLaneHeader laneId="{id}"
+							iconSrc="{icon}" text="{label}" position="{position}" />
+					</suite:lanes>
+				</suite:ProcessFlow>
+				<html:br />
+				
+				
+				<suite:ProcessFlow id="processflow3" zoomLevel="Two"
+					scrollable="false" nodes="{pf3>/nodes}" lanes="{pf3>/lanes}"
+					headerPress="onHeaderPress">
+					<suite:nodes>
+						<suite:ProcessFlowNode laneId="{pf3>lane}" nodeId="{pf3>id}"
+							title="{pf3>title}" children="{pf3>children}" state="{pf3>state}"
+							stateText="{pf3>stateText}" texts="{pf3>texts}" highlighted="{pf3>highlighted}"
+							focused="{pf3>focused}" />
+					</suite:nodes>
+					<suite:lanes>
+						<suite:ProcessFlowLaneHeader laneId="{pf3>id}"
+							iconSrc="{pf3>icon}" text="{pf3>label}" position="{pf3>position}" />
+					</suite:lanes>
+				</suite:ProcessFlow>
+				<html:br />
+
+			</Panel>
+
+		</content>
+	</Page>
+</core:View>
