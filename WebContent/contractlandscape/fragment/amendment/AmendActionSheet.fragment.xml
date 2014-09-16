@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <ActionSheet
+    title="{i18n>CreateAmendments}"
+    showCancelButton="true"
+    placement="Top">
+    <buttons>
+      <Button text="{i18n>Recalculation}" tooltip="{i18n>Recalculation}" icon="sap-icon://duplicate" press="handleAmendRecalculationPopup" />    
+      <!-- <Button id="idAddChangePrice" text="{i18n>AddChangePrice}" tooltip="{i18n>AddChangePrice}" icon="sap-icon://edit" press="handleAmendPricePopup" />
+      <Button id="idMaterialSub"	text="{i18n>MaterialSubstitution}" tooltip="{i18n>MaterialSubstitution}" icon="sap-icon://product" press="handleAmendProductSubPopup" />
+      <Button id="idAddChangeCommitment" text="{i18n>AddChangeCommitment}" tooltip="{i18n>AddChangeCommitment}" icon="sap-icon://edit" press="handleAmendCommitmentPopup" /> -->
+      <Button text="{i18n>ValidityChange}" tooltip="{i18n>ValidityChange}" icon="sap-icon://appointment" press="handleAmendValidityChangePopup" />
+      <Button text="{i18n>ContractTermination}" tooltip="{i18n>ContractTermination}" icon="sap-icon://contacts" press="handleAmendContractTermPopup" />
+    </buttons>
+  </ActionSheet>
+</core:FragmentDefinition>

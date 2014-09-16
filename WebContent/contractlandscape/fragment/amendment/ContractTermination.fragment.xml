@@ -1,0 +1,66 @@
+<core:FragmentDefinition
+
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  xmlns:commons="sap.ui.commons"
+  >
+  
+  <Dialog
+    title="{i18n>ContractTermination}"
+    class="sapUiPopupWithPadding" 
+    contentWidth="50%" contentHeight="45%" stretchOnPhone="true"  >
+
+	<customHeader>
+		<Bar>
+			<contentLeft>
+				<core:Icon src="sap-icon://contacts" />
+			</contentLeft>
+			<contentMiddle>
+				<Label text="{i18n>ContractTermination}" />
+			</contentMiddle>
+		</Bar>
+	</customHeader>
+
+  
+  <l:Grid
+    defaultSpan="L12 M12 S12"
+    width="auto">
+    
+    <l:content>
+    
+		<f:SimpleForm layout="ResponsiveGridLayout"
+			labelSpanL="4" labelSpanM="3" emptySpanL="4" emptySpanM="1" columnsL="1" columnsM="1">
+		
+			<f:content>
+			    <Label text="{i18n>TerminationReason}" />
+		  		<TextArea id="idTermReason" value="" cols="40" rows="5" />
+		  		
+		 		<Label text="{i18n>ContractEndDate}" />
+		 
+		        <DatePicker id="idTermEndDate" displayFormat="{i18n>DateFormat}">
+		        	<layoutData>
+		              <l:GridData span="L4 M3 S8" />
+		            </layoutData>
+		        </DatePicker>
+	
+			 </f:content>
+		</f:SimpleForm>
+
+	</l:content>
+
+  </l:Grid>
+
+  
+  	<beginButton>
+   		<Button icon="sap-icon://save"  press="handleAmendContractTermPost" />
+    </beginButton>
+    
+ 	<endButton>
+      <Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+    </endButton>
+    
+   </Dialog>
+  
+</core:FragmentDefinition>

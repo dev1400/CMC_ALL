@@ -1,0 +1,18 @@
+<core:View controllerName="dia.cmc.contractlandscape.view.detail.Reference"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<List items="{DealDetailModel>/ReferenceCollection}" headerText="Document References">
+		<items>
+			<CustomListItem type="Inactive" height="auto">
+				<Label text="{DealDetailModel>ReferenceTypeDesc}:" textAlign="Right"
+					width="35%" wrapping="true" />
+				<Text text="" width="1rem" />
+				<Link id="refLink" text="{DealDetailModel>ReferenceNumber}"
+					textAlign="Left" target="_blank" href="{DealDetailModel>HostUrl}"
+					wrapping="true" />
+			</CustomListItem>
+		</items>
+	</List>
+
+</core:View>

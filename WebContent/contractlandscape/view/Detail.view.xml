@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:View controllerName="dia.cmc.contractlandscape.view.Detail" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Page id="idDetailPage" class="sapUiFioriObjectPage"
+		title="{DealDetailModel>/DealDetail/CustomerName} {DealDetailModel>/DealDetail/ContractType} Deal"
+		showNavButton="{device>/isPhone}" navButtonPress="handleNavButtonPress">
+
+		<headerContent>
+			<Button icon="{Property>/FavButtonIcon}" tooltip="{Property>/FavButtonTooltip}"
+				press="handleFavorite" />
+		</headerContent>
+
+		<!-- <customHeader> <Bar> <contentLeft> <Button icon="sap-icon://close-command-field" 
+			press="handleNavButtonPress" visible="{device>/isPhone}" /> <Button icon="sap-icon://show" 
+			tooltip="Show / Hide Master List" press="handleShowHideMasterList" /> </contentLeft> 
+			<contentMiddle> <Label text="{DealDetailModel>/DealDetail/CustomerName} {DealDetailModel>/DealDetail/ContractType} 
+			Deal" /> </contentMiddle> <contentRight> <Button icon="{Property>/FavButtonIcon}" 
+			tooltip="{Property>/FavButtonTooltip}" press="handleFavorite" /> </contentRight> 
+			</Bar> </customHeader> -->
+
+		<content>
+
+			<Table width="100%" backgroundDesign="Transparent"
+				showSeparators="None">
+				<columns>
+					<Column hAlign="Left" />
+
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" />
+					<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Right"
+						width="10em" />
+				</columns>
+
+				<ColumnListItem>
+
+					<VBox width="100%">
+						<HBox width="auto" justifyContent="Start" fitContainer="false"
+							displayInline="true">
+
+							<VBox width="auto" alignItems="Center">
+								<core:Icon src="sap-icon://bar-chart" width="auto"
+									height="1.5rem" color="#FF0000" size="1.5rem" press="onKPIProfitability"
+									hoverColor="#0000FF" tooltip="Profitability" />
+
+								<Text text="Profitability">
+
+								</Text>
+
+							</VBox>
+
+							<VBox width="10%">
+							</VBox>
+
+							<VBox width="auto" alignItems="Center">
+								<core:Icon src="sap-icon://bar-chart" width="auto"
+									height="1.5rem" color="#FFFF00" size="1.5rem" press="onKPIEfficiency"
+									hoverColor="#0000FF" tooltip="Efficiency" />
+								<Text text="Efficiency" />
+							</VBox>
+
+							<VBox width="10%">
+							</VBox>
+
+							<VBox width="auto" alignItems="Center">
+								<core:Icon src="sap-icon://bar-chart" width="auto"
+									height="1.5rem" color="#00FF00" size="1.5rem" press="onKPICompliance"
+									hoverColor="#0000FF" tooltip="Compliance" />
+								<Text text="Compliance" />
+							</VBox>
+
+						</HBox>
+
+					</VBox>
+
+					<VBox width="100%">
+
+						<VBox width="auto">
+							<ProgressIndicator width="100%" percentValue="30"
+								displayValue="30%" showValue="true" state="Warning" height="1.0rem" />
+
+							<HBox justifyContent="SpaceBetween" displayInline="true"
+								width="auto">
+
+								<ObjectStatus
+									text="{
+									path: 'DealDetailModel>/DealDetail/ValidFrom',
+									formatter: 'dia.cmc.common.util.Formatter.date'
+								}"
+									state="Success" />
+
+								<ObjectStatus
+									text="{
+									path: 'DealDetailModel>/DealDetail/ValidTo',
+									formatter: 'dia.cmc.common.util.Formatter.date'
+								}"
+									state="Error" />
+
+							</HBox>
+						</VBox>
+
+					</VBox>
+
+
+					<VBox width="auto" alignItems="End" minScreenWidth="Desktop"
+						demandPopin="true">
+						<Link text="{i18n>ContractTerms}" press="handleContractTerm" />
+					</VBox>
+
+				</ColumnListItem>
+
+			</Table>
+
+
+			<IconTabBar expanded="true" id="" expandable="false"
+				select="handleMainTabSelect">
+
+				<items>
+					<IconTabFilter key="Landscape" icon="sap-icon://overview-chart"
+						iconColor="Neutral" text="Landscape" tooltip="Landscape">
+
+						<!-- <mvc:XMLView id="idLandscapeView" viewName="dia.cmc.contractlandscape.view.detail.Landscape" 
+							type="XML" /> -->
+
+							<FacetFilter id="idLandscapeFacetFilter" type="Simple"
+								showPersonalization="true" showReset="true" reset="handleFacetFilterReset">
+
+								<lists>
+									<FacetFilterList title="System Group" key="SystemGroupName"
+										multiselect="true" listClose="handleFacetFilterListClose"
+										items="{DealDetailModel>/SystemGroupNameCollection}">
+										<items>
+											<FacetFilterItem text="{DealDetailModel>SystemGroupName}"
+												key="{DealDetailModel>SystemGroupName}" count="{data}" />
+										</items>
+									</FacetFilterList>
+
+									<FacetFilterList title="Systems" key="SystemName"
+										multiselect="true" listClose="handleFacetFilterListClose"
+										items="{DealDetailModel>/SystemNameCollection}">
+										<items>
+											<FacetFilterItem text="{DealDetailModel>SystemName}"
+												key="{DealDetailModel>SystemName}" count="{data}" />
+										</items>
+									</FacetFilterList>
+
+								</lists>
+							</FacetFilter>
+
+
+							<Table id="idLandscapeTable"
+								items="{  path: 'DealDetailModel>/SystemCollection',
+														      sorter: {
+														        path: 'DealDetailModel>SystemSiteName',
+														        descending: false,
+														        group: true
+														      }
+														}">
+
+								<columns>
+
+									<Column mergeDuplicates="true">
+										<header>
+											<Label text="System" />
+										</header>
+									</Column>
+
+									<Column hAlign="Center">
+										<header>
+											<Label text="Serial / Module" />
+										</header>
+									</Column>
+
+									<Column minScreenWidth="Tablet" demandPopin="true"
+										hAlign="Center">
+										<header>
+											<Label text="Placement Details" />
+										</header>
+									</Column>
+
+
+									<Column minScreenWidth="Desktop" demandPopin="true"
+										hAlign="Center">
+										<header>
+											<Label text="Service Details" />
+										</header>
+									</Column>
+
+								</columns>
+
+
+								<ColumnListItem type="Navigation" press="handleSystemLineItemPress">
+
+									<ObjectIdentifier title="{DealDetailModel>SystemName}"
+										text="{DealDetailModel>SystemGroupName}" class="sapMTableContentMargin" />
+
+									<ObjectIdentifier
+										title="{DealDetailModel>SystemModuleSerial} / {DealDetailModel>SystemModule}"
+										text="{DealDetailModel>SystemModuleDescription}" class="sapMTableContentMargin" />
+
+									<ObjectIdentifier title="{DealDetailModel>SystemPlacementType}"
+										class="sapMTableContentMargin"
+										text="{
+															path: 'DealDetailModel>SystemModuleInstallDate',
+															formatter: 'dia.cmc.common.util.Formatter.systemInstallDate'
+														}" />
+
+									<ObjectIdentifier title="{DealDetailModel>SystemModuleServiceDesc}"
+										class="sapMTableContentMargin"
+										text="{ path: 'DealDetailModel>SystemModuleServiceFrom', formatter: 'dia.cmc.common.util.Formatter.date' } To 
+									  { path: 'DealDetailModel>SystemModuleServiceTo', formatter: 'dia.cmc.common.util.Formatter.date' }" />
+								</ColumnListItem>
+
+							</Table>
+
+					</IconTabFilter>
+
+
+					<IconTabFilter key="Partners" icon="sap-icon://group"
+						iconColor="Positive" text="Partners">
+
+						<!-- <mvc:XMLView id="idPartnerView" viewName="dia.cmc.contractlandscape.view.detail.Partner" 
+							type="XML" /> -->
+
+						<FacetFilter id="idPartnerFacetFilter" type="Simple"
+							showPersonalization="true" showReset="true" reset="handleFacetFilterReset">
+
+							<lists>
+								<FacetFilterList title="Partner Function" key="PartnerFunctionDesc"
+									multiselect="true" listClose="handleFacetFilterListClose"
+									items="{DealDetailModel>/PartnerFunctionDescCollection}">
+									<items>
+										<FacetFilterItem text="{DealDetailModel>PartnerFunctionDesc}"
+											key="{DealDetailModel>PartnerFunctionDesc}" count="{data}" />
+									</items>
+								</FacetFilterList>
+
+								<FacetFilterList title="Partner Name" key="PartnerName"
+									multiselect="true" listClose="handleListClose"
+									items="{DealDetailModel>/PartnerNameCollection}">
+									<items>
+										<FacetFilterItem text="{DealDetailModel>PartnerName}"
+											key="{DealDetailModel>PartnerName}" count="{data}" />
+									</items>
+								</FacetFilterList>
+
+							</lists>
+						</FacetFilter>
+
+						<!-- <html:a href="http://maps.google.com">Open Google Map</html:a> -->
+						<List id="idPartnerList" items="{DealDetailModel>/PartnerCollection}">
+							<CustomListItem type="Inactive">
+								<l:form.SimpleForm id="PartnerDetails"
+									maxContainerCols="2" layout="ResponsiveGridLayout">
+
+									<Label text="Name" />
+
+									<HBox fitContainer="true" alignItems="Start"
+										justifyContent="SpaceBetween">
+
+										<HBox fitContainer="true" alignItems="Start">
+
+											<core:Icon src="sap-icon://customer-and-contacts"
+												size="0.5rem" width="1.5rem" />
+
+
+											<Text text="{DealDetailModel>PartnerName}" align="Right" />
+
+										</HBox>
+
+										<Text text="{DealDetailModel>PartnerFunctionDesc}" />
+
+									</HBox>
+
+
+									<Label text="Address" />
+
+									<HBox fitContainer="true" alignItems="Start"
+										justifyContent="SpaceBetween">
+
+										<HBox fitContainer="true" alignItems="Start">
+											<core:Icon src="sap-icon://addresses" size="0.5rem"
+												width="1.5rem" />
+											<Link
+												text="{DealDetailModel>PartnerStreet1}, {DealDetailModel>PartnerCity}, {DealDetailModel>Country} - {DealDetailModel>PartnerZip}"
+												wrapping="true" press="handlePartnerAddressPress" />
+										</HBox>
+
+										<Text text="{DealDetailModel>PartnerNumber}" class="sapUiHideOnPhone" />
+									</HBox>
+
+									<Label text="Phone" />
+									<HBox fitContainer="true" alignItems="Start">
+										<core:Icon src="sap-icon://phone" size="0.5rem"
+											width="1.5rem" />
+										<Link id="idPartnerPhone" text="{DealDetailModel>PartnerPhone}"
+											press="handlePartnerNumber" />
+									</HBox>
+									<Label text="E-Mail" />
+									<HBox fitContainer="true" alignItems="Start">
+										<core:Icon src="sap-icon://email" size="0.5rem"
+											width="1.5rem" />
+										<Link id="idPartnerEmail" text="{DealDetailModel>PartnerEmail}"
+											align="Right" press="handlePartnerEmail" />
+									</HBox>
+								</l:form.SimpleForm>
+							</CustomListItem>
+						</List>
+
+					</IconTabFilter>
+
+
+					<IconTabFilter key="Pricing" icon="sap-icon://simple-payment"
+						iconColor="Critical" text="Pricing">
+	
+						<!-- <mvc:XMLView id="idPricingView" viewName="dia.cmc.contractlandscape.view.detail.Pricing" 
+							type="XML" /> -->
+
+						<Bar width="100%">
+							<contentLeft>
+								<SearchField id="idPricingSearchField" liveChange="handlePricingSearch"
+									search="handlePricingSearch" width="100%" showRefreshButton="false">
+								</SearchField>
+							</contentLeft>
+
+
+							<contentRight>
+
+								<HBox alignItems="End">
+
+									<Select id="idPriceFilterSelect" selectedKey="1" type="IconOnly"
+										icon="sap-icon://filter" autoAdjustWidth="true"
+										change="handlePricingFilterChange">
+										<core:Item key="" text="None" />
+										<!-- <core:Item key="1" text="Valid" /> -->
+										<core:Item key="1" text="Valid As On" />
+										<core:Item key="2" text="Expired" />
+
+									</Select>
+
+									<VBox alignItems="End" fitContainer="true"
+										justifyContesnt="SpaceBetween">
+
+										<DatePicker id="idPriceValidOnDate" visible="false"
+											displayFormat="{i18n>DateFormat}" width="9em"
+											change="handlePricingValidOnDateChange" />
+
+									</VBox>
+								</HBox>
+
+							</contentRight>
+
+						</Bar>
+
+
+						<IconTabBar id="idPricingTabBar" expanded="true"
+							expandable="false" select="handlePricingTabSelect">
+							<items>
+								<IconTabFilter key="MatPrice"
+									text="{i18n&gt;ProductPriceAgreements}">
+									<Table id="idMatPriceTable"
+										items="{  path: 'DealDetailModel>/MaterialPriceCollection',
+																	      sorter: {
+																	        path: 'DealDetailModel>AgreementTypeDesc',
+																	        descending: false,
+																	        group: true
+																	      }
+																	}"
+										showNoData="true" mode="None">
+
+
+										<columns>
+
+											<Column hAlign="Center">
+												<header>
+													<Label text="{i18n&gt;Product}" />
+												</header>
+											</Column>
+
+											<Column hAlign="Center">
+												<header>
+													<Label text="Price" />
+												</header>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true"
+												hAlign="Center">
+												<header>
+													<Label text="Validity Period" />
+
+												</header>
+											</Column>
+											<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"> 
+												<header> <Label text="Valid To" /> </header> </Column> -->
+
+											<Column minScreenWidth="Desktop" demandPopin="true"
+												hAlign="Right" width="3em">
+												<header>
+													<Label text="Action" />
+												</header>
+											</Column>
+
+
+										</columns>
+										<ColumnListItem>
+											<cells>
+
+												<!-- <ObjectIdentifier title="{DealDetailModel>AgreementTypeDesc}" 
+													class="sapMTableContentMargin"/> <RadioButton groupName="Select" /> -->
+												<ObjectIdentifier title="{DealDetailModel>MaterialDescription}"
+													class="sapMTableContentMargin" text="{DealDetailModel>Material}" />
+
+												<ObjectIdentifier
+													title="{DealDetailModel>Rate} {DealDetailModel>CurrencyCode}"
+													class="sapMTableContentMargin"
+													text="{i18n>Per} {DealDetailModel>Unit} {DealDetailModel>Uom}" />
+
+												<Text
+													text="{
+															path: 'DealDetailModel>ValidFrom',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} 
+														To 
+														{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} " />
+
+												<!-- <Text text="{ path: 'DealDetailModel>ValidTo', formatter: 
+													'dia.cmc.common.util.Formatter.date' }" /> -->
+
+
+												<Button id="idChangeProductPrice" icon="sap-icon://edit"
+													tooltip="{i18n>ChangePrice}"
+													visible="{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.amendmentChangeBtnVisi'
+														}"
+													press="handleAmendPricePopup" />
+
+											</cells>
+										</ColumnListItem>
+									</Table>
+								</IconTabFilter>
+							</items>
+
+							<items>
+
+								<IconTabFilter key="TestPrice" text="{i18n&gt;TestPriceAgreements}">
+									<Table id="idTestPriceTable"
+										items="{  path: 'DealDetailModel>/TestPriceCollection',
+																	      sorter: {
+																	        path: 'DealDetailModel>AgreementTypeDesc',
+																	        descending: false,
+																	        group: true
+																	      }
+																	}"
+										showNoData="true" mode="None">
+
+										<columns>
+
+											<Column hAlign="Center">
+												<header>
+													<Label text="{i18n&gt;Test}" />
+												</header>
+											</Column>
+											<Column hAlign="Center">
+												<header>
+													<Label text="Price" />
+												</header>
+											</Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"
+												hAlign="Center">
+												<header>
+													<Label text="Validity Period" />
+
+												</header>
+											</Column>
+											<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"> 
+												<header> <Label text="Valid to" /> </header> </Column> -->
+
+											<Column hAlign="Right" width="3em">
+												<header>
+													<Label text="Action" />
+												</header>
+											</Column>
+
+										</columns>
+										<ColumnListItem>
+											<cells>
+
+												<ObjectIdentifier title="{DealDetailModel>MaterialDescription}"
+													class="sapMTableContentMargin" text="{DealDetailModel>Material}" />
+
+												<ObjectIdentifier
+													title="{DealDetailModel>Rate} {DealDetailModel>CurrencyCode}"
+													class="sapMTableContentMargin"
+													text="{i18n>Per} {DealDetailModel>Unit} {DealDetailModel>Uom}" />
+
+												<Text
+													text="{
+															path: 'DealDetailModel>ValidFrom',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} 
+														To 
+														{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} " />
+
+
+												<!-- <Text text="{ path: 'DealDetailModel>ValidTo', formatter: 
+													'dia.cmc.common.util.Formatter.date' }" /> -->
+
+												<Button id="idChangeTestPrice" icon="sap-icon://edit"
+													tooltip="{i18n>ChangePrice}"
+													visible="{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.amendmentChangeBtnVisi'
+														}"
+													press="handleAmendPricePopup" />
+											</cells>
+										</ColumnListItem>
+									</Table>
+								</IconTabFilter>
+							</items>
+							<items>
+								<IconTabFilter key="MatDisc"
+									text="{i18n&gt;ProductPriceDiscounts}">
+
+									<Table id="idMatDiscTable"
+										items="{  path: 'DealDetailModel>/MaterialDiscountCollection',
+																      sorter: {
+																        path: 'DealDetailModel>AgreementTypeDesc',
+																        descending: false,
+																        group: true
+																      }
+																}"
+										showNoData="true" selectionMode="SingleSelectMaster">
+
+										<columns>
+
+											<Column hAlign="Center">
+												<header>
+													<Label text="Product" />
+												</header>
+											</Column>
+											<Column hAlign="Center">
+												<header>
+													<Label text="Discount" />
+												</header>
+											</Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"
+												hAlign="Center">
+												<header>
+													<Label text="Validity Period" />
+
+												</header>
+											</Column>
+											<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"> 
+												<header> <Label text="Valid to" /> </header> </Column> -->
+										</columns>
+										<ColumnListItem>
+											<cells>
+
+												<ObjectIdentifier title="{DealDetailModel>MaterialDescription}"
+													class="sapMTableContentMargin" text="{DealDetailModel>Material}" />
+
+												<ObjectIdentifier title="{DealDetailModel>Discount} %"
+													class="sapMTableContentMargin" />
+												<Text
+													text="{
+															path: 'DealDetailModel>ValidFrom',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} 
+														To 
+														{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} " />
+
+												<!-- <Text text="{ path: 'DealDetailModel>ValidTo', formatter: 
+													'dia.cmc.common.util.Formatter.date' }" /> -->
+											</cells>
+										</ColumnListItem>
+									</Table>
+
+
+								</IconTabFilter>
+							</items>
+							<items>
+								<IconTabFilter key="HierDisc"
+									text="{i18n&gt;HierarchicalDiscounts}">
+									<Table id="idHierDiscTable"
+										items="{DealDetailModel>/HierarchyDiscountCollection}"
+										showNoData="true" selectionMode="None">
+										<columns>
+
+											<Column hAlign="Center">
+												<header>
+													<Label text="Product Hierarchy" />
+												</header>
+											</Column>
+											<Column hAlign="Center">
+												<header>
+													<Label text="Discount" />
+												</header>
+											</Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"
+												hAlign="Center">
+												<header>
+													<Label text="Validity Period" />
+												</header>
+											</Column>
+											<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"> 
+												<header> <Label text="Valid To" /> </header> </Column> -->
+										</columns>
+										<ColumnListItem>
+											<cells>
+												<ObjectIdentifier title="{DealDetailModel>HierarchyDescription}"
+													class="sapMTableContentMargin" />
+												<ObjectIdentifier title="{DealDetailModel>Discount}%"
+													class="sapMTableContentMargin" />
+
+												<Text
+													text="{
+															path: 'DealDetailModel>ValidFrom',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} 
+														To 
+														{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} " />
+												<!-- <Text text="{ path: 'DealDetailModel>ValidTo', formatter: 
+													'dia.cmc.common.util.Formatter.date' }" /> -->
+											</cells>
+										</ColumnListItem>
+									</Table>
+								</IconTabFilter>
+							</items>
+							<items>
+								<IconTabFilter key="GrpDisc" text="{i18n&gt;MatGroupDiscounts}">
+									<Table id="idGrpDiscTable" items="{DealDetailModel>/GroupDiscountCollection}"
+										showNoData="true" selectionMode="None">
+										<columns>
+											<Column hAlign="Center">
+												<header>
+													<Label text="Product Group" />
+												</header>
+											</Column>
+											<Column hAlign="Center">
+												<header>
+													<Label text="Discount" />
+												</header>
+											</Column>
+											<Column minScreenWidth="Tablet" demandPopin="true"
+												hAlign="Center">
+												<header>
+													<Label text="Validity Period" />
+												</header>
+											</Column>
+											<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"> 
+												<header> <Label text="Valid To" /> </header> </Column> -->
+										</columns>
+										<ColumnListItem>
+											<cells>
+
+												<ObjectIdentifier title="{DealDetailModel>MatGroupDescription}"
+													class="sapMTableContentMargin" />
+												<ObjectIdentifier title="{DealDetailModel>Discount}%"
+													class="sapMTableContentMargin" />
+
+												<Text
+													text="{
+															path: 'DealDetailModel>ValidFrom',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} 
+														To 
+														{
+															path: 'DealDetailModel>ValidTo',
+															formatter: 'dia.cmc.common.util.Formatter.date'
+														} " />
+
+											</cells>
+										</ColumnListItem>
+									</Table>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+
+
+					</IconTabFilter>
+
+
+					<IconTabFilter key="Commitments" icon="sap-icon://overview-chart"
+						iconColor="Neutral" text="Commitments" tooltip="Commitments">
+
+						<!-- <mvc:XMLView id="idCommitmentView" viewName="dia.cmc.contractlandscape.view.detail.Commitment" 
+							type="XML" /> -->
+
+					<Bar width="100%">
+							<contentLeft>
+								<SearchField id="idCommitmentSearchField" liveChange="handleCommitmentSearch"
+									search="handleCommitmentSearch" width="100%" showRefreshButton="false">
+								</SearchField>
+							</contentLeft>
+
+
+							<contentRight>
+
+								<HBox alignItems="End">
+
+									<Select id="idCommitmentFilterSelect" selectedKey="1" type="IconOnly"
+										icon="sap-icon://filter" autoAdjustWidth="true"
+										change="handleCommitmentFilterChange">
+										<core:Item key="" text="None" />
+										<!-- <core:Item key="1" text="Valid" /> -->
+										<core:Item key="1" text="Valid As On" />
+										<core:Item key="2" text="Expired" />
+
+									</Select>
+
+									<VBox alignItems="End" fitContainer="true"
+										justifyContesnt="SpaceBetween">
+
+										<DatePicker id="idCommitmentValidOnDate" visible="false"
+											displayFormat="{i18n>DateFormat}" width="9em"
+											change="handleCommitmentValidOnDateChange" />
+
+									</VBox>
+								</HBox>
+
+							</contentRight>
+
+						</Bar>
+
+
+						<Table id="idCommitmentTable"
+							items="{  path: 'DealDetailModel>/CommitmentCollection',
+														      sorter: {
+														        path: 'DealDetailModel>PartnerName',
+														        descending: false,
+														        group: true
+														      }
+														}">
+
+							<columns>
+
+								<Column mergeDuplicates="true" hAlign="Center">
+									<header>
+										<Label text="Product" />
+									</header>
+								</Column>
+
+								<Column hAlign="Center">
+									<header>
+										<Label text="Quantity" />
+									</header>
+								</Column>
+
+								<Column minScreenWidth="Desktop" demandPopin="true"
+									hAlign="Center">
+									<header>
+										<Label text="Validity Period" />
+									</header>
+								</Column>
+
+								<Column minScreenWidth="Desktop" demandPopin="true"
+									hAlign="Right" width="3em">
+									<header>
+										<Label text="Action" />
+									</header>
+								</Column>
+							</columns>
+
+
+							<ColumnListItem>
+
+								<ObjectIdentifier title="{DealDetailModel>MaterialDescription}"
+									text="{DealDetailModel>Material}" class="sapMTableContentMargin" />
+
+								<ObjectIdentifier
+									title="{DealDetailModel>Quantity} {DealDetailModel>Uom}" class="sapMTableContentMargin" />
+
+								<Text
+									text="{
+											path: 'DealDetailModel>ValidFrom',
+											formatter: 'dia.cmc.common.util.Formatter.date'
+										} 
+										To 
+										{
+											path: 'DealDetailModel>ValidTo',
+											formatter: 'dia.cmc.common.util.Formatter.date'
+										} " />
+
+								<Button id="idChangeCommitment" icon="sap-icon://edit"
+									press="handleAmendCommitmentPopup" />
+
+							</ColumnListItem>
+
+						</Table>
+
+
+					</IconTabFilter>
+
+
+					<IconTabFilter key="Documents" icon="sap-icon://attachment"
+						iconColor="Positive" text="Documents">
+
+						<!-- <mvc:XMLView id="idDocumentView" viewName="dia.cmc.contractlandscape.view.detail.Document" 
+							type="XML" /> -->
+
+						<List id="AttachmentList" items="{DealDetailModel>/DocumentCollection}"
+							headerText="Contract Documents">
+
+							<items>
+
+								<StandardListItem
+									title="{DealDetailModel>DocumentTitle}, {path: 'DealDetailModel>DocumentSize'}"
+									description="{DealDetailModel>DocumentDescription}" icon="sap-icon://document"
+									type="Active" iconDensityAware="false"
+									info="{		
+										path: 'DealDetailModel>DocumentDate',
+										formatter: 'dia.cmc.common.util.Formatter.date'
+									}"
+									infoState="Success" press="handleDocumentDisplay" />
+
+							</items>
+						</List>
+
+
+					</IconTabFilter>
+
+					<IconTabFilter key="References" icon="sap-icon://activity-items"
+						iconColor="Critical" text="References">
+
+						<!-- <mvc:XMLView id="idReferenceView" viewName="dia.cmc.contractlandscape.view.detail.Reference" 
+							type="XML" /> -->
+
+						<List items="{DealDetailModel>/ReferenceCollection}"
+							headerText="Document References">
+							<items>
+								<CustomListItem type="Inactive" height="auto">
+									<Label text="{DealDetailModel>ReferenceTypeDesc}:"
+										textAlign="Right" width="35%" wrapping="true" />
+									<Text text="" width="1rem" />
+									<Link id="refLink" text="{DealDetailModel>ReferenceNumber}"
+										textAlign="Left" target="_blank" href="{DealDetailModel>HostUrl}"
+										wrapping="true" />
+								</CustomListItem>
+							</items>
+						</List>
+
+
+					</IconTabFilter>
+
+					<IconTabFilter key="Timeline" icon="sap-icon://history"
+						iconColor="Neutral" text="Timeline">
+
+						<!-- <mvc:XMLView id="idTimelineView" viewName="dia.cmc.contractlandscape.view.detail.Timeline" 
+							type="XML" /> -->
+
+						<Text text="Past events and future actions" />
+
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+
+		</content>
+
+		<footer>
+
+			<Bar>
+				<contentRight>
+
+					<Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}"
+						icon="sap-icon://add" press="handleAmendPricePopup" visible="{Property>/PricingActionButtonVisi}" />
+					<Button id="idAddCommitment" text="{i18n>AddCommitment}"
+						tooltip="{i18n>AddCommitment}" icon="sap-icon://add" press="handleAmendCommitmentPopup"
+						visible="{Property>/CommitmentActionButtonVisi}" />
+
+					<!-- <Button id="idChangePrice" text="{i18n>ChangePrice}" tooltip="{i18n>ChangePrice}" 
+						icon="sap-icon://edit" press="handleAmendPricePopup" visible="{Property>/PricingActionButtonVisi}"/> -->
+					<!-- <Button id="idMaterialSub" text="{i18n>MaterialSubstitution}" tooltip="{i18n>MaterialSubstitution}" 
+						icon="sap-icon://product" press="handleAmendProductSubPopup" visible="{Property>/PricingActionButtonVisi}"/> -->
+
+					<Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit"
+						press="handleAmend" />
+					<Button icon="sap-icon://action" press="handleFurtherAction" />
+
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

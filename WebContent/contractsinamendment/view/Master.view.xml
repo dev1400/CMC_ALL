@@ -1,0 +1,125 @@
+<core:View controllerName="dia.cmc.contractsinamendment.view.Master" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons">
+
+	<Page>
+		<customHeader>
+			<Bar areaDesign="Transparent">
+
+				<!-- <contentLeft> <Button icon="sap-icon://home" press="handleHome"></Button> 
+					</contentLeft> -->
+
+				<contentMiddle>
+					<Image src="common/mime/Roche.jpg" alt="{i18n>/RocheCMC}"></Image>
+					<Label text="{i18>;MasterTitle}"></Label>
+				</contentMiddle>
+
+
+				<contentRight>
+
+					<Button icon="sap-icon://settings" press="handlePreferencesActionSheet" />
+
+					<!-- <ToggleButton text="Compact" press="handleCompact" /> <Button icon="sap-icon://close-command-field" 
+						press="hideMaster" class="sapUiHideOnDesktop" visible="false"></Button> -->
+
+				</contentRight>
+
+			</Bar>
+		</customHeader>
+
+		<subHeader>
+			<Bar>
+				<contentLeft>
+					<SearchField liveChange="handleSearch" search="handleSearch"
+						width="100%" showRefreshButton="true">
+					</SearchField>
+				</contentLeft>
+
+			</Bar>
+		</subHeader>
+
+		<List id="idDealList" mode="{device>/listMode}" select="handleListSelect"
+			items="{/DealCollection}">
+
+			<ObjectListItem type="{device>/listItemType}" press="handleListItemPress"
+				title="{CustomerName}"
+				markFavorite="{
+						path: 'IsFavorite',
+						formatter: 'dia.cmc.common.util.Formatter.convertBoolean'
+					}"
+				markFlagged="{
+						path: 'IsFlagged',
+						formatter: 'dia.cmc.common.util.Formatter.convertBoolean'
+					}"
+				showMarkers="true">
+
+				<attributes>
+					<ObjectAttribute text="{CustomerCity}"></ObjectAttribute>
+					<ObjectAttribute text="{DealMasterPO}"></ObjectAttribute>
+					<ObjectAttribute text="{DealMasterDescr}"></ObjectAttribute>
+				</attributes>
+
+				<firstStatus>
+					<ObjectStatus
+						text="{
+								path: 'ValidFrom',
+								formatter: 'dia.cmc.common.util.Formatter.date'
+							}"
+						state="Success" />
+				</firstStatus>
+
+				<secondStatus>
+					<ObjectStatus
+						text="{
+								path: 'ValidTo',
+								formatter: 'dia.cmc.common.util.Formatter.date'
+							}"
+						state="Error" />
+				</secondStatus>
+
+			</ObjectListItem>
+		</List>
+
+		<footer class="footerBar">
+			<Bar class="footerBar">
+				<contentLeft>
+					<Button icon="sap-icon://sys-find" press="handleBackendSearch">
+					</Button>
+				</contentLeft>
+
+
+				<contentRight>
+
+					<HBox alignItems="End">
+
+						<Select id="idPricingSelect" type="IconOnly" icon="sap-icon://filter"
+							autoAdjustWidth="true" change="handleDealFilter">
+							<core:Item key="" text="None" />
+							<core:Item key="1" text="Valid" />
+							<core:Item key="2" text="Expired" />
+							<core:Item key="3" text="Valid As On" />
+							<core:Item key="4" text="Flagged" />
+						</Select>
+
+						<VBox alignItems="End" fitContainer="true" justifyContesnt="SpaceBetween">
+
+							<DatePicker id="idDealValidOnDate" visible="false"
+								displayFormat="{i18n>DateFormat}" width="9em"
+								change="handleFilterValidOnDateChange" />
+
+						</VBox>
+					</HBox>
+
+
+					<!-- <Button icon="sap-icon://sort" press="handleSort"></Button> <Select 
+						id="groupSelect" change="handleGroup" icon="sap-icon://group-2" type="IconOnly" 
+						selectedKey="None" autoAdjustWidth="true" visible="true"> <core:Item key="None" 
+						text="{i18n>MasterGroupNone}" /> <core:Item key="GrossAmount" text="{i18n>MasterGroupAmount}" 
+						/> <core:Item key="LifecycleStatus" text="{i18n>MasterGroupStatus}" /> </Select> -->
+
+				</contentRight>
+
+
+			</Bar>
+		</footer>
+	</Page>
+</core:View>

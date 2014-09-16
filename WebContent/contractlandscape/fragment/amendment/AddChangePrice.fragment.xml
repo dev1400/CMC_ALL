@@ -1,0 +1,137 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons">
+
+	<Dialog title="{i18n>AddChangePrice}" class="sapUiPopupWithPadding"
+		contentWidth="50%" contentHeight="45%" stretchOnPhone="true">
+
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<core:Icon src="sap-icon://edit" />
+				</contentLeft>
+				<contentMiddle>
+					<Label text="{Property>/AmendPriceTitle}" />
+				</contentMiddle>
+			</Bar>
+		</customHeader>
+
+
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+
+			<l:content>
+
+				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="4"
+					labelSpanM="3" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+
+					<f:content>
+						<Label text="{Property>/MaterialLabel}" />
+						<Input id="idPAProduct" value="{DealDetailModel>/SelectedPriceItem/Material}"
+							enabled="{Property>/MaterialEnable}"
+							showValueHelp="true" valueHelpRequest="handleValueHelp">
+
+							<layoutData>
+								<l:GridData span="L2 M3 S4" />
+							</layoutData>
+
+						</Input>
+
+						<Input id="idPAProductDesc"
+							value="{DealDetailModel>/SelectedPriceItem/MaterialDescription}"
+							enabled="false">
+
+							<layoutData>
+								<l:GridData span="L4 M6 S7" />
+							</layoutData>
+
+						</Input>
+
+					<!-- 	<Label text="{i18n>CurrentPrice}" />
+
+						<Input id="idPACurrentPrice" value="{DealDetailModel>/SelectedPriceItem/Rate}"
+							enabled="false">
+
+							<layoutData>
+								<l:GridData span="L4 M4 S6" />
+							</layoutData>
+
+						</Input>
+
+						<Input id="idPACurrentPricePerX" value="{DealDetailModel>/SelectedPriceItem/Unit}"
+							placeholder="{i18n>PerX}" enabled="false">
+							<layoutData>
+								<l:GridData span="L2 M2 S3" />
+							</layoutData>
+						</Input>
+
+						<Input id="idPACurrentPriceUOM" value="{DealDetailModel>/SelectedPriceItem/Uom}"
+							placeholder="{i18n>UOM}" enabled="false">
+							<layoutData>
+								<l:GridData span="L2 M2 S3" />
+							</layoutData>
+						</Input> -->
+						
+						<Label text="{i18n>NewPrice}" />
+
+						<Input id="idPANewPrice" value="{DealDetailModel>/SelectedPriceItem/Rate}" type="Number">
+							<layoutData>
+								<l:GridData span="L4 M4 S6" />
+							</layoutData>
+						</Input>
+
+						<Input id="idPANewPricePerX" value="{DealDetailModel>/SelectedPriceItem/Unit}" 
+									 type="Number" placeholder="{i18n>PerX}">
+							<layoutData>
+								<l:GridData span="L2 M2 S3" />
+							</layoutData>
+						</Input>
+
+						<Input id="idPANewPriceUOM" value="{DealDetailModel>/SelectedPriceItem/Uom}" placeholder="{i18n>UOM}"
+							enabled="false">
+							<layoutData>
+								<l:GridData span="L2 M2 S3" />
+							</layoutData>
+						</Input>
+						
+						<Label text="{i18n>NewValidityDate}" />
+
+						<DateRangeSelection id="idPAValidity"
+							delimiter="To" displayFormat="{i18n>DateFormat}"
+							enabled="true" >
+							
+							<layoutData>
+								<l:GridData span="L4 M6 S8" />
+							</layoutData>
+							
+						</DateRangeSelection>
+									
+<!-- 						<DatePicker id="idPAValidFrom" displayFormat="{i18n>DateFormat}">
+							<layoutData>
+								<l:GridData span="L4 M3 S6" />
+							</layoutData>
+						</DatePicker>
+
+						<DatePicker id="idPAValidTo" displayFormat="{i18n>DateFormat}">
+							<layoutData>
+								<l:GridData span="L4 M3 S6" />
+							</layoutData>
+						</DatePicker> -->
+
+					</f:content>
+				</f:SimpleForm>
+
+			</l:content>
+
+		</l:Grid>
+
+
+		<beginButton>
+			<Button icon="sap-icon://save" press="handleAmendPricePost" />
+		</beginButton>
+
+		<endButton>
+			<Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+		</endButton>
+
+	</Dialog>
+
+</core:FragmentDefinition>

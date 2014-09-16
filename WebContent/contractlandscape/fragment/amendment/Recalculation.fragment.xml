@@ -1,0 +1,70 @@
+<core:FragmentDefinition
+
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+  
+  <Dialog
+    title="{i18n>SearchByCustomer}"
+    class="sapUiPopupWithPadding" 
+		contentWidth="50%" contentHeight="40%" 
+ 		stretchOnPhone="true"  >
+
+	<customHeader>
+		<Bar>
+			<contentLeft>
+				<core:Icon src="sap-icon://duplicate" />
+			</contentLeft>
+			<contentMiddle>
+				<Label text="{i18n>Recalculation}" />
+			</contentMiddle>
+		</Bar>
+	</customHeader>
+	
+	
+	<l:Grid
+	    defaultSpan="L12 M12 S12"
+	    width="auto">
+	    
+	    <l:content>
+	    
+			<f:SimpleForm layout="ResponsiveGridLayout"
+				labelSpanL="4" labelSpanM="2" emptySpanL="4" emptySpanM="1" columnsL="2" columnsM="2">
+			
+				<f:content>
+					<Label text="" />
+		          	<RadioButton id="idAmendContract" groupName="Type" text="{i18n>AmendContract}" selected="true" >
+						<layoutData>
+					    	<l:GridData span="L4 M4 S6" />
+					   	</layoutData>
+					</RadioButton>
+			
+		          	<RadioButton id="idRenewContract" groupName="Type" text="{i18n>RenewContract}" >
+		          		<layoutData>
+					    	<l:GridData span="L4 M4 S6" />
+					   	</layoutData>
+					</RadioButton>
+			
+					<Label text="{i18n>Description}" />
+					<TextArea id="idDesc" value="" cols="40" rows="5" 
+								valueStateText="Please enter description."/>
+		
+				 </f:content>
+			</f:SimpleForm>
+		
+		</l:content>
+	
+	</l:Grid>
+  
+  	<beginButton>
+   		<Button icon="sap-icon://save"  press="handleAmendRecalculationPost" />
+    </beginButton>
+    
+ 	<endButton>
+      <Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+    </endButton>
+    
+   </Dialog>
+  
+</core:FragmentDefinition>

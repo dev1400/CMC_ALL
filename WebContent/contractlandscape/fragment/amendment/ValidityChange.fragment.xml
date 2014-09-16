@@ -1,0 +1,97 @@
+<core:FragmentDefinition
+
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  xmlns:commons="sap.ui.commons"
+  >
+  
+  <Dialog
+    title="{i18n>ValidityChange}"
+    class="sapUiPopupWithPadding" 
+    contentWidth="50%" contentHeight="50%" stretchOnPhone="true"  >
+
+	<customHeader>
+		<Bar>
+			<contentLeft>
+				<core:Icon src="sap-icon://appointment" />
+			</contentLeft>
+			<contentMiddle>
+				<Label text="{i18n>ValidityChange}" />
+			</contentMiddle>
+		</Bar>
+	</customHeader>
+
+  
+  <l:Grid
+    defaultSpan="L12 M12 S12"
+    width="auto">
+    
+    <l:content>
+    
+	<f:SimpleForm layout="ResponsiveGridLayout"
+		labelSpanL="4" labelSpanM="3" emptySpanL="4" emptySpanM="1" columnsL="1" columnsM="1">
+	
+		<f:content>
+		    <Label text="{i18n>ContractEndDate}" />
+		    
+		    <DatePicker id="idContractEndDate" displayFormat="{i18n>DateFormat}" >
+	  			<layoutData>
+	              <l:GridData span="L2 M4 S6" />
+	            </layoutData>
+	        </DatePicker>
+	  		
+	  		<Label text="" />
+	 		<RadioButton groupName="Type" id="idHeaderLevel" text="{i18n>HeaderLevel}" selected="true" select="handleAmentValidityItemsSelect"/>
+	 		<Label text="" />
+            <RadioButton groupName="Type" id="idValiditySelectedItems" text="{i18n>SelectedItems}" select="handleAmentValidityItemsSelect" />
+          
+          	<VBox id="idSelectedItemsVBox" visible="false">
+          		<CheckBox id="idServiceItems" text="{i18n>ServiceItems}" />
+          		<CheckBox id="idInstrumentItems" text="{i18n>InstrumentItems}" />
+          		<CheckBox id="idPricingAgreeItems" text="{i18n>PricingAgreements}" />
+          	</VBox>
+          	
+          	<!-- 
+            <CheckBox text="ServiceItems" >
+            	<layoutData>
+	              <l:GridData span="L2 M2 S6" />
+	            </layoutData>
+	        </CheckBox>
+	        
+	        <Label text="" />
+	        
+		    <CheckBox text="InstrumentItems" >
+		    	<layoutData>
+	              <l:GridData span="L2 M8 S6" />
+	            </layoutData>
+		    </CheckBox>
+		    
+		    <Label text="" />
+		    <CheckBox text="PricingAgreements" >
+		   		<layoutData>
+	              <l:GridData span="L2 M8 S6" />
+	            </layoutData> 
+		    </CheckBox>
+     -->
+     
+		 </f:content>
+	</f:SimpleForm>
+
+	</l:content>
+
+  </l:Grid>
+  
+  
+  	<beginButton>
+   		<Button icon="sap-icon://save"  press="handleAmendValidityPost" />
+    </beginButton>
+    
+ 	<endButton>
+      <Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+    </endButton>
+    
+   </Dialog>
+  
+</core:FragmentDefinition>

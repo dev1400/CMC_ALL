@@ -1,0 +1,66 @@
+<core:FragmentDefinition
+
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+  
+  <Dialog
+    title="{i18n>SearchByReferences}"
+    class="sapUiPopupWithPadding" 
+    contentWidth="50%" contentHeight="70%" stretchOnPhone="true"  >
+    
+	<customHeader>
+		<Bar>
+			<contentLeft>
+				<core:Icon src="sap-icon://notes" />
+			</contentLeft>
+			<contentMiddle>
+				<Label text="{i18n>SearchByReferences}" />
+			</contentMiddle>
+		</Bar>
+	</customHeader>
+	
+	<f:SimpleForm layout="ResponsiveGridLayout" 
+		labelSpanL="10" labelSpanM="4" emptySpanL="0" emptySpanM="3" columnsL="2" columnsM="2">
+	
+		<f:content>
+		
+          <Label text="{i18n>SalesforceOpportunity}" />
+          <Input id="idSalesforceOpportunity" value="{SalesforceOpportunity}" />
+
+          <Label text="{i18n>GDCDeal}" />
+          <Input id="idGDCDeal" value="{GDCDeal}" />
+
+		  <Label text="{i18n>DealMasterContract}" />
+          <Input id="idDealMasterContract" value="{DealMasterContract}" />
+
+          <Label text="{i18n>BillingContract}" />
+          <Input id="idBillingContract" value="{BillingContract}" />
+
+          <Label text="{i18n>AgiloftAgreement}" />
+          <Input id="idAgiloftAgreement" value="{AgiloftAgreement}" />
+
+          <Label text="{i18n>DealMasterPO}" />
+          <Input id="idDealMasterPO" value="{DealMasterPO}" />
+
+          <Label text="{i18n>ExternalReference}" />
+          <Input id="idExternalReference" value="{ExternalReference}" />
+          
+          <Label />
+	      <CheckBox id="idRefValidDeals" text="{i18n>ValidDeals}" selected="true"/>
+
+		 </f:content>
+	</f:SimpleForm>
+	
+  	<beginButton>
+   		<Button icon="sap-icon://sys-find"  press="handleSearchByReferences" />
+    </beginButton>
+    
+ 	<endButton>
+      <Button icon="sap-icon://decline" press="handleSearchPopupClose" />
+    </endButton>
+    
+   </Dialog>
+  
+</core:FragmentDefinition>

@@ -1,0 +1,108 @@
+<core:View controllerName="dia.cmc.contractlandscape.view.detail.Landscape"
+		xmlns:core="sap.ui.core" 
+		xmlns:mvc="sap.ui.core.mvc" 
+		xmlns="sap.m"
+		xmlns:html="http://www.w3.org/1999/xhtml">
+
+<!-- 	<Page id="idLandscapePage" class="sapUiFioriObjectPage">
+		<content> -->
+				<FacetFilter
+				        id="idLandscapeFacetFilter"
+				        type="Simple"
+				        showPersonalization="true"
+				        showReset="true"
+				        reset="handleFacetFilterReset">
+				        
+				        <lists>
+				          <FacetFilterList
+				            title="System Group"
+				            key="SystemGroupName"	
+				            multiselect="true"
+				            listClose="handleFacetFilterListClose"
+				            items="{DealDetailModel>/SystemGroupNameCollection}" >
+				            <items>
+				              <FacetFilterItem
+				                text="{DealDetailModel>SystemGroupName}"
+				                key="{DealDetailModel>SystemGroupName}"
+				                count="{data}" />
+				            </items>
+				          </FacetFilterList>
+				          
+				          <FacetFilterList
+				            title="Systems"
+				            key="SystemName"
+				            multiselect="true"
+				            listClose="handleFacetFilterListClose"
+				            items="{DealDetailModel>/SystemNameCollection}" >
+				            <items>
+				              <FacetFilterItem
+				                text="{DealDetailModel>SystemName}"
+				                key="{DealDetailModel>SystemName}"
+				                count="{data}" />
+				            </items>
+				          </FacetFilterList>
+				          
+				        </lists>
+				   </FacetFilter>
+					      
+      
+					<Table id="idLandscapeTable" items="{  path: 'DealDetailModel>/SystemCollection',
+														      sorter: {
+														        path: 'DealDetailModel>SystemSiteName',
+														        descending: false,
+														        group: true
+														      }
+														}" 
+						>
+						
+						<columns>
+							
+							<Column mergeDuplicates="true">
+								<header>
+									<Label text="System" />
+								</header>
+							</Column>
+							
+							<Column hAlign="Center">
+								<header>
+									<Label text="Serial / Module" />
+								</header>
+							</Column>
+							
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<header>
+									<Label text="Placement Details" />
+								</header>
+							</Column>
+							
+
+							<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+								<header>
+									<Label text="Service Details" />
+								</header>
+							</Column>
+							
+						</columns>
+						
+						
+						<ColumnListItem type="Navigation" press="handleSystemLineItemPress" >
+						
+							<ObjectIdentifier title="{DealDetailModel>SystemName}" text="{DealDetailModel>SystemGroupName}" class="sapMTableContentMargin"/>
+							
+							<ObjectIdentifier title="{DealDetailModel>SystemModuleSerial} / {DealDetailModel>SystemModule}" text="{DealDetailModel>SystemModuleDescription}" class="sapMTableContentMargin"/>
+							
+							<ObjectIdentifier title="{DealDetailModel>SystemPlacementType}" class="sapMTableContentMargin"
+												text="{
+															path: 'DealDetailModel>SystemModuleInstallDate',
+															formatter: 'dia.cmc.common.util.Formatter.systemInstallDate'
+														}" 	/>
+								
+							<ObjectIdentifier title="{DealDetailModel>SystemModuleServiceDesc}" class="sapMTableContentMargin"
+								text="{ path: 'DealDetailModel>SystemModuleServiceFrom', formatter: 'dia.cmc.common.util.Formatter.date' } To 
+									  { path: 'DealDetailModel>SystemModuleServiceTo', formatter: 'dia.cmc.common.util.Formatter.date' }" />
+						</ColumnListItem>
+						
+					</Table>
+<!-- 			</content>
+		</Page> -->
+</core:View>
