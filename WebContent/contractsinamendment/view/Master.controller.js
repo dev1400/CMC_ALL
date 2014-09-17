@@ -20,16 +20,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         var oModel = new sap.ui.model.json.JSONModel("contractsinamendment/model/products.json");
         this.getView().setModel(oModel);
 
-        /*  var oComp = sap.ui.getCore().createComponent({
-              name: 'dia.cmc.contractsinamendment.tableview'
-          });
-          oComp.setModel(this.getView().getModel());
-          this._oTable = oComp.getTable();
-          this.getView().byId("idIconTabBar").insertContent(this._oTable);*/
-
-        /*  var bus = sap.ui.getCore().getEventBus();
-          bus.subscribe("nav", "to", sap.ui.controller("dia.cmc.contractsinamendment.view.App").navToHandler, this);
-          bus.subscribe("nav", "back", sap.ui.controller("dia.cmc.contractsinamendment.view.App").navBackHandler, this);*/
         $(document).ready(function() {
             $("#__xmlview1--idIconTabBar-content").remove();
         });
