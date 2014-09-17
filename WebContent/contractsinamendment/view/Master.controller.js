@@ -26,9 +26,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable = oComp.getTable();
         this.getView().byId("idIconTabBar").insertContent(this._oTable);*/
         
-        var bus = sap.ui.getCore().getEventBus();
+      /*  var bus = sap.ui.getCore().getEventBus();
         bus.subscribe("nav", "to", sap.ui.controller("dia.cmc.contractsinamendment.view.App").navToHandler, this);
-        bus.subscribe("nav", "back", sap.ui.controller("dia.cmc.contractsinamendment.view.App").navBackHandler, this);
+        bus.subscribe("nav", "back", sap.ui.controller("dia.cmc.contractsinamendment.view.App").navBackHandler, this);*/
  	
 
     },
@@ -57,13 +57,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         console.log("This will navigate to details page");
 
     },
-    /**
-	 * Navigate back to main page.
-	 */
-	navBackHandler : function() {
-	   this.app.back();
-    },
-	
+   
     /**
      * Navigate to Amendment Flow.
      */
@@ -94,17 +88,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		});
 		},
 	_displayDealDetail: function(oContext){
-
-////		// To reduce the initial application load, load google map library when user select any contract from least instead of loading at start of application
-//		sap.ui.getCore().loadLibrary("openui5.googlemaps", "lib/openui5/googlemaps/"); 
-
-//		// Read selected deal details
-//		var oDealDetailModel = this.ModelHelper.readDealDetail(oContext.getPath());
-//
-//		// If Deal detail is successfully fetched and context is build navigate to Detail view
-//		if(oDealDetailModel != null && oDealDetailModel != undefined)
-//			this.nav.to("Detail", oDealDetailModel);
-		
 		// set selected Deal path to helper class
 		this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
 		
