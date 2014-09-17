@@ -1,6 +1,14 @@
+jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
+jQuery.sap.require("dia.cmc.common.helper.CommonController");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
+    
+    	// Model Helper reference
+		this.ModelHelper = dia.cmc.common.helper.ModelHelper;		
 
+		// Common Controller reference
+		this.CommonController = dia.cmc.common.helper.CommonController;
+		
         // set i18n model
         var i18nModel = new sap.ui.model.resource.ResourceModel({
             bundleUrl: "contractsinamendment/i18n/messageBundle.properties"
@@ -59,15 +67,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Navigate to Amendment Flow.
      */
-    handleWorkFlowPress : function(evt) {	
-	   var bindingContext = evt.oSource.getBindingContext();
-	   var bus = sap.ui.getCore().getEventBus();
-	   bus.publish("nav", "to", { 
-	       id : "AmendmentFlow",
-	       data : {
-	                context : bindingContext
-	       }
-	    });				
+    handleWorkFlowPress : function(oEvent) {	
+    	
+    	var oContext = oEvent.getSource().getBindingContext();
+		this._displayDealDetail(oContext);	 
 	},
 	/**
 	 * Display pop-up.
@@ -89,7 +92,34 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		jQuery.sap.delayedCall(0, this, function() {
 		this._oPopover.openBy(oButton);
 		});
-		}
+		},
+	_displayDealDetail: function(oContext){
+
+////		// To reduce the initial application load, load google map library when user select any contract from least instead of loading at start of application
+//		sap.ui.getCore().loadLibrary("openui5.googlemaps", "lib/openui5/googlemaps/"); 
+
+//		// Read selected deal details
+//		var oDealDetailModel = this.ModelHelper.readDealDetail(oContext.getPath());
+//
+//		// If Deal detail is successfully fetched and context is build navigate to Detail view
+//		if(oDealDetailModel != null && oDealDetailModel != undefined)
+//			this.nav.to("Detail", oDealDetailModel);
+		
+		// set selected Deal path to helper class
+		this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
+		
+		// If we're on a phone, include nav in history; if not, don't.
+		var bReplace = jQuery.device.is.phone ? false : true;
+		
+		var oDealDetail = this.getView().getModel().getProperty(oContext.getPath());
+		
+		this.CommonController.getRouter(this).navTo("AmendmentFlow", {
+			from: "master",
+			dealId: oDealDetail.DealId,
+		}, bReplace);
+		
+		
+	},
     
 
 });

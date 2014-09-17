@@ -1,4 +1,4 @@
-jQuery.sap.declare("dia.cmc.contractsinamendment.Component");
+/*jQuery.sap.declare("dia.cmc.contractsinamendment.Component");
 
 sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 	
@@ -21,12 +21,11 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 	}
 	
 });
+*/
 
-
-/*jQuery.sap.declare("dia.cmc.contractsinamendment.Component");
+jQuery.sap.declare("dia.cmc.contractsinamendment.Component");
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.util.MyRouter");
-//
 
 sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 
@@ -46,9 +45,9 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
             config : {
                 routerClass : dia.cmc.common.util.MyRouter,
                 viewType : "XML",
-                viewPath : "dia.cmc",
-                targetControl : "idAppControl",
+                viewPath : "dia.cmc",               
                 targetAggregation: "pages",
+                targetControl : "idAppControl",
                 clearTarget : false
             },
             
@@ -59,18 +58,20 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
                     name : "main",
                     view : "contractsinamendment.view.Master",
                     targetAggregation : "pages",
+                    
                 },
                 {
                     pattern : "Deal({dealId})",
                     name : "dealDetail",
                     view : "contractlandscape.view.Detail",
-                    transition : "show"
+                    transition : "show",                    
                 },
 	                {
-	                pattern : "Deal({dealId})/Workflow",
-	                name : "workflowDetail",
-	                view : "contractsinamendment.view.WorkflowDetail",
-	                transition : "show"
+	                pattern : "Workflow",
+	                name : "AmendmentFlow",
+	                view : "contractsinamendment.view.AmendmentFlow",
+	                transition : "show",
+	             
                 }
             ]
         }
@@ -134,4 +135,4 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 	}
    
 
-});*/
+});
