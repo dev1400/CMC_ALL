@@ -1,12 +1,11 @@
+jQuery.sap.require("dia.cmc.common.helper.CommonController");
 sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
-	/**
-	 * Go back to main page
-	 */
-	handleNavButtonPress : function (evt) {
-		this.nav.back("Master");
-	},
+	
 
-	onInit: function () {
+	onInit: function () {		
+		// Common Controller reference
+		this.CommonController = dia.cmc.common.helper.CommonController;
+		
 	    var oDataProcessFlowLanesOnly = {
 	        lanes:
 	          [
@@ -27,6 +26,13 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	    view.setModel(oModel, "pf3");
 
 	    view.byId("processflow3").updateModel();
+	  },
+	  
+	  /**
+	   * Go back to main page
+	   */
+	  handleNavButtonPress : function (evt) {
+		this.CommonController.getRouter(this).myNavBack("main");
 	  },
 
 	  onHeaderPress: function( event ) {
