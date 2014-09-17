@@ -34,11 +34,7 @@
 				path: 'Name'
 			}
 		}">
-			<headerToolbar>
-				<Toolbar>
-					<Label text="{i18n>Heading}"></Label>
-				</Toolbar>
-			</headerToolbar>
+			
 			<columns>
 				<Column width="12em" hAlign="Center">
 					<Text text="{i18n>AmendmentIDAndType}" />

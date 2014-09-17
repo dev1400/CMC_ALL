@@ -1,5 +1,6 @@
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.helper.CommonController");
+jQuery.sap.require("sap.ca.ui.dialog.factory");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
     
@@ -57,8 +58,27 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         console.log("This will navigate to details page");
     },
     
+    
+    
     handleCancelPress: function(evt) {
-        console.log("Cancel pressed.");
+        
+    	console.log("{i18n>CancelAmendment}");
+        
+        var fnClose = function(oResult) {
+            if (oResult) {
+                /*console.log("isConfirmed:" + oResult.isConfirmed);
+                if (oResult.sNote) {
+                    console.log(oResult.sNote);
+                }*/
+            }
+        }
+        
+      //open the confirmation dialog
+        sap.ca.ui.dialog.confirmation.open({
+            question : "Would you like to cancel selected amendment ?",            
+            title : "Cancel Amendment",
+            confirmButtonLabel : "Ok"
+        }, fnClose);
     },
    
     /**
