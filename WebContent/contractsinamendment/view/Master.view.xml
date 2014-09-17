@@ -27,7 +27,7 @@
 		</items>		
 		
 	</IconTabBar>
-	<Table  id="idTable" headerText=""
+	<Table  id="idTable" fixedLayout="true" headerText=""
 			items="{
 			path: '/AmendmentsCollection',
 			sorter: {
@@ -40,27 +40,27 @@
 				</Toolbar>
 			</headerToolbar>
 			<columns>
-				<Column width="12em">
+				<Column width="12em" hAlign="Center">
 					<Text text="{i18n>AmendmentIDAndType}" />
 				</Column>
-				<Column minScreenWidth="Tablet" demandPopin="true">
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>DealIDAndDescription}" />
 				</Column>
-				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>AmendmentDescription}" />
 				</Column>
-				<Column hAlign="Right">
+				<Column hAlign="Center">
 					<Text text="{i18n>AmendmentStatus}" />
 				</Column>
-				<Column hAlign="Right">
+				<Column hAlign="Center">
 					<Text text="{i18n>CancelAmendment}" />
 				</Column>
 			</columns>
 			<items>
-				<ColumnListItem type="Navigation" press="handleLineItemPress">
+				<ColumnListItem type="Navigation" press="handleLineItemPress" >
 				
 					<cells>
 					
@@ -76,7 +76,7 @@
 
 						<c:Icon src="sap-icon://workflow-tasks" press="handleWorkFlowPress" />
 						
-						<Button type="Reject" text="X" press="" />
+						<c:Icon src="sap-icon://sys-cancel" press="handleCancelPress" />
 					</cells>
 				</ColumnListItem>
 			</items>

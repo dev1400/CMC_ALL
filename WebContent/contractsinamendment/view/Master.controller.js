@@ -55,7 +55,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     },
     handleLineItemPress: function(evt) {
         console.log("This will navigate to details page");
-
+    },
+    
+    handleCancelPress: function(evt) {
+        console.log("Cancel pressed.");
     },
    
     /**
