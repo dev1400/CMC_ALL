@@ -73,6 +73,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     	 var oBundle = jQuery.sap.resources({url : "contractsinamendment/i18n/messageBundle.properties", locale: sLocale});
      	
     	
+    	
         var fnClose = function(oResult) {
             if (oResult) {
                 /*console.log("isConfirmed:" + oResult.isConfirmed);
