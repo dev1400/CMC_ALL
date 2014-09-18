@@ -21,7 +21,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.getView().setModel(oModel);
 
         $(document).ready(function() {
-            $("#__xmlview1--idIconTabBar-content").remove();
+        	
+        	  $("[id$='idIconTabBar-content']").remove();
+//            $("#__xmlview1--idIconTabBar-content").remove();
         });
 
     },
