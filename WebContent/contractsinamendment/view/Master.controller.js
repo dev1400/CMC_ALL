@@ -69,9 +69,12 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
     handleCancelPress: function(evt) {
     	//Get values from messageBundle.properties
-    	 var sLocale = sap.ui.getCore().getConfiguration().getLanguage();
+    	/* var sLocale = sap.ui.getCore().getConfiguration().getLanguage();
     	 var oBundle = jQuery.sap.resources({url : "contractsinamendment/i18n/messageBundle.properties", locale: sLocale});
-     	
+    	 oBundle.getText("AmendmentCancellationMessage"),
+    	 oBundle.getText("CancelAmendment")
+    	 oBundle.getText("Ok")
+     	*/
     	
     	
         var fnClose = function(oResult) {
@@ -85,9 +88,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
         //open the confirmation dialog
         sap.ca.ui.dialog.confirmation.open({
-            question: oBundle.getText("AmendmentCancellationMessage"),
-            title: oBundle.getText("CancelAmendment"),
-            confirmButtonLabel: oBundle.getText("Ok")
+            question: this.getView().getModel("i18n").getProperty("AmendmentCancellationMessage"),
+            title: this.getView().getModel("i18n").getProperty("CancelAmendment"),
+            confirmButtonLabel: this.getView().getModel("i18n").getProperty("Ok")
         }, fnClose);
     },
 
