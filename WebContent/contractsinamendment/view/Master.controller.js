@@ -8,7 +8,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
 
         // Common Controller reference
-        this.CommonController = dia.cmc.common.helper.CommonController;       
+        this.CommonController = dia.cmc.common.helper.CommonController;
 
         // set i18n model
         var i18nModel = new sap.ui.model.resource.ResourceModel({
@@ -66,17 +66,11 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         }, bReplace);
     },
 
-
+    /**
+     * Cancel an Amendment handler.
+     */
     handleCancelPress: function(evt) {
-    	//Get values from messageBundle.properties
-    	/* var sLocale = sap.ui.getCore().getConfiguration().getLanguage();
-    	 var oBundle = jQuery.sap.resources({url : "contractsinamendment/i18n/messageBundle.properties", locale: sLocale});
-    	 oBundle.getText("AmendmentCancellationMessage"),
-    	 oBundle.getText("CancelAmendment")
-    	 oBundle.getText("Ok")
-     	*/
-    	
-    	
+
         var fnClose = function(oResult) {
             if (oResult) {
                 /*console.log("isConfirmed:" + oResult.isConfirmed);
