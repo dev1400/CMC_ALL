@@ -37,7 +37,7 @@ dia.cmc.common.helper.ModelHelper = {
 		
 		// set i18n model
 		var i18nModel = new sap.ui.model.resource.ResourceModel({
-			bundleUrl : "contractlandscape/i18n/messageBundle.properties"
+			bundleUrl : "contractsinamendment/i18n/messageBundle.properties"
 		});
 		
 		this.oBundle = i18nModel.getResourceBundle();

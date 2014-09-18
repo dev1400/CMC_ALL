@@ -79,12 +79,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                 }*/
             }
         }
-
-        //open the confirmation dialog
+        
+        /**
+         * Opens the confirmation dialog
+         */
         sap.ca.ui.dialog.confirmation.open({
-            question: this.getView().getModel("i18n").getProperty("AmendmentCancellationMessage"),
-            title: this.getView().getModel("i18n").getProperty("CancelAmendment"),
-            confirmButtonLabel: this.getView().getModel("i18n").getProperty("Ok")
+            question: this.ModelHelper.getText("AmendmentCancellationMessage"),
+            title: this.ModelHelper.getText("CancelAmendment"),
+            confirmButtonLabel: this.ModelHelper.getText("Ok")
         }, fnClose);
     },
 
