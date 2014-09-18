@@ -4,23 +4,23 @@
 	<Page enableScrolling="true">
 	<IconTabBar enableScrolling="true" expanded="true" expandable="false" id="idIconTabBar" select="handleIconTabBarSelect">
 		<items>
-			<IconTabFilter icon="sap-icon://begin" iconColor="Positive"
+			<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
 				design="Horizontal"
 				count=""
 				text="{i18n>AllAmendments}" key="{i18n>AllAmendments}" >		
 			</IconTabFilter>			
 			<IconTabSeparator icon="sap-icon://open-command-field" />
-			<IconTabFilter icon="sap-icon://compare" iconColor="Critical"
+			<IconTabFilter icon="sap-icon://value-help" iconColor="Critical"
 				design="Horizontal"
 				count=""
 				text="{i18n>CreatedAmendments}" key="{i18n>CreatedAmendments}" />
 			<IconTabSeparator icon="sap-icon://open-command-field" />
-			<IconTabFilter icon="sap-icon://inventory" iconColor="Negative"
+			<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative"
 				design="Horizontal"
 				count=""
 				text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
 			<IconTabSeparator icon="sap-icon://open-command-field" />
-			<IconTabFilter icon="sap-icon://begin" iconColor="Positive"
+			<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
 				design="Horizontal"
 				count=""
 				text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />
