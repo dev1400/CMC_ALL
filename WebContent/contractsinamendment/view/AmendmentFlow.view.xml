@@ -1,12 +1,13 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" xmlns:suite="sap.suite.ui.commons" controllerName="dia.cmc.contractsinamendment.view.AmendmentFlow"
-	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="WorkFlow" showNavButton="true" navButtonPress="handleNavButtonPress">
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:z="sap.ca.ui">
+	<Page enableScrolling="true" title="WorkFlow" showNavButton="true" navButtonPress="handleNavButtonPress">
 
 		<content>
 
-			<Panel>
-				<suite:ProcessFlow id="processflow1" zoomLevel="Two"
+			<Panel >
+			<!-- 	<suite:ProcessFlow id="processflow1" zoomLevel="Two"
 					scrollable="false" nodePress="onNodePress" nodeTitlePress="onNodeTitlePress">
 					<suite:nodes>
 						<suite:ProcessFlowNode nodeId="1" laneId="id0"
@@ -40,9 +41,9 @@
 					</suite:lanes>
 				</suite:ProcessFlow>
 				<html:br />
-				<!-- <m:Button text="Click to display Process Flow" tap="onDisplayProcessFlow" />
+				<m:Button text="Click to display Process Flow" tap="onDisplayProcessFlow" />
 				<m:Button text="Click to display Highlight Path" tap="onHighlightPath" />
-				<m:Button text="Click to display Update Process Flow" tap="onUpdateProcessFlow" /> -->
+				<m:Button text="Click to display Update Process Flow" tap="onUpdateProcessFlow" />
 				<suite:ProcessFlow id="processflow2" zoomLevel="Two"
 					scrollable="false" nodes="{/nodes}" lanes="{/lanes}">
 					<suite:nodes>
@@ -55,10 +56,9 @@
 							iconSrc="{icon}" text="{label}" position="{position}" />
 					</suite:lanes>
 				</suite:ProcessFlow>
-				<html:br />
-				
-				
-				<suite:ProcessFlow id="processflow3" zoomLevel="Two"
+				<html:br /> -->
+				<z:ZoomableScrollContainer zoomable="true">
+				     <suite:ProcessFlow id="processflow3" zoomLevel="Two"
 					scrollable="false" nodes="{pf3>/nodes}" lanes="{pf3>/lanes}"
 					headerPress="onHeaderPress">
 					<suite:nodes>
@@ -72,7 +72,9 @@
 							iconSrc="{pf3>icon}" text="{pf3>label}" position="{pf3>position}" />
 					</suite:lanes>
 				</suite:ProcessFlow>
-				<html:br />
+				<html:br /> 
+				
+				</z:ZoomableScrollContainer>				
 
 			</Panel>
 
