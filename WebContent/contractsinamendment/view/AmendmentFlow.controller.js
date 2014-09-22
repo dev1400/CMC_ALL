@@ -15,8 +15,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	            {id: "3", icon: "sap-icon://money-bills", label: "In Accounting", position: 3},
 	            {id: "4", icon: "sap-icon://payment-approval", label: "In Payment", position: 4},
 	            {id: "5", icon: "sap-icon://nurse", label: "Delivered", position: 5},
-	            {id: "6", icon: "sap-icon://retail-store", label: "In Return Process", position: 6},
-	            {id: "7", icon: "sap-icon://monitor-payments", label: "In Credit Return", position: 7}
+	            /*{id: "6", icon: "sap-icon://retail-store", label: "In Return Process", position: 6},
+	            {id: "7", icon: "sap-icon://monitor-payments", label: "In Credit Return", position: 7}*/
 	          ]
 	    };
 
@@ -44,14 +44,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	          {id: "10", lane: "1" , title: "Outbound Delivery 40", children: [20, 21], state: sap.suite.ui.commons.ProcessFlowNodeState.Negative, stateText: "NOT OK", texts: ["text 1", "text 2"]},
 	          {id: "11", lane: "1" , title: "Outbound Delivery 43", children: [20], texts: ["text 1", "text 2"]},
 	          {id: "12", lane: "1" , title: "Outbound Delivery 45", children: [20]},
-	          {id: "20",  lane: "2" , title: "Invoice 9",  children: [31, 51], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+	          {id: "20",  lane: "2" , title: "Invoice 9",  children: null /*[31, 51], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive*/, stateText: "OK status"},
 	          {id: "21", lane: "2" , title: "Invoice planned", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Planned},
-	          {id: "31",  lane: "3" , title: "Accounting Document 7",  children: [41], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+	         /* {id: "31",  lane: "3" , title: "Accounting Document 7",  children: [41], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
 	          {id: "41",  lane: "4" , title: "Payment Document 75",  children: [51], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
 	          {id: "51",  lane: "5" , title: "Acceptance Letter 14",  children: [61], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
 	          {id: "61",  lane: "6" , title: "Credit Voucher 67",  children: [71], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
 	          {id: "71",  lane: "7" , title: "Credit Return 77",  children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Planned, stateText: "Planned status text"}
-	        ],
+	      */  ],
 	        lanes:
 	        [
 	          {id: "0", icon: "sap-icon://order-status", label: "In Order", position: 0},
@@ -60,8 +60,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	          {id: "3", icon: "sap-icon://money-bills", label: "In Accounting", position: 3},
 	          {id: "4", icon: "sap-icon://payment-approval", label: "In Payment", position: 4},
 	          {id: "5", icon: "sap-icon://nurse", label: "Delivered", position: 5},
-	          {id: "6", icon: "sap-icon://retail-store", label: "In Return Process", position: 6},
-	          {id: "7", icon: "sap-icon://monitor-payments", label: "In Credit Return", position: 7}
+	         /* {id: "6", icon: "sap-icon://retail-store", label: "In Return Process", position: 6},
+	          {id: "7", icon: "sap-icon://monitor-payments", label: "In Credit Return", position: 7}*/
 	        ]
 	      };
 
