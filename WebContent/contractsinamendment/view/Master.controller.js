@@ -52,13 +52,13 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
        
 
         if (sKey === "Created") {
-        	//destroy 
+    
         	this._oRespFlowLayout.removeAllContent();
         	
             oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ", "Created");
             oBinding.filter([oFilter]);
         } else if (sKey === "Released") {
-        	//destroy
+       
         	this._oRespFlowLayout.removeAllContent();
         	
             oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ", "Released");
@@ -69,7 +69,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ", "Executed");
             oBinding.filter([oFilter]);
         } else {
-        	//destroy
+        
         	this._oRespFlowLayout.removeAllContent();
             oBinding.filter([]);
         }
