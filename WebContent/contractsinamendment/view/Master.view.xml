@@ -19,7 +19,7 @@
 				design="Horizontal"
 				count=""
 				text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
-			<IconTabSeparator icon="sap-icon://open-command-field" />
+			 <IconTabSeparator icon=""/>
 			<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
 				design="Horizontal"
 				count=""
