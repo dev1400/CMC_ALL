@@ -1,52 +1,37 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
-	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core"
+	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns:rfl="sap.ui.layout"
 	xmlns="sap.m">
 	<Page enableScrolling="true">
-	<IconTabBar enableScrolling="true" expanded="true" expandable="false" id="idIconTabBar" select="handleIconTabBarSelect">
-		<items>
-			<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
-				design="Horizontal"
-				count=""
-				text="{i18n>AllDealsinAmendment}" key="{AllDealsinAmendment}" >		
-			</IconTabFilter>			
-			<IconTabSeparator icon="sap-icon://open-command-field" />
-			<IconTabFilter icon="sap-icon://value-help" iconColor="Critical"
-				design="Horizontal"
-				count=""
-				text="{i18n>CreatedAmendments}" key="{i18n>CreatedAmendments}" />
-			<IconTabSeparator icon="sap-icon://open-command-field" />
-			<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative"
-				design="Horizontal"
-				count=""
-				text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
-			<IconTabSeparator icon=""/>
-			<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
-				design="Horizontal"
-				count=""
-				text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />
-		</items>		
-		
-	</IconTabBar>
-	
-	<DateRangeSelection
-      id="idExecutedAmendments"
-      from="{path:'/fromidExecutedAmendments'}"
-      to="{path:'/toidExecutedAmendments'}"
-      change="handleChange"
-    />	
-    <Button type="Accept" text="{i18n>Go}" press="" >
-     <layoutData>
-            <FlexItemData growFactor="1" />
-     </layoutData>
-    </Button>
-	<Table  id="idTable" fixedLayout="true" headerText=""
+		<IconTabBar enableScrolling="true" expanded="true"
+			expandable="false" id="idIconTabBar" select="handleIconTabBarSelect">
+			<items>
+				<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
+					design="Horizontal" count="" text="{i18n>AllDealsinAmendment}" key="{AllDealsinAmendment}">
+				</IconTabFilter>
+				<IconTabSeparator icon="sap-icon://open-command-field" />
+				<IconTabFilter icon="sap-icon://value-help" iconColor="Critical"
+					design="Horizontal" count="" text="{i18n>CreatedAmendments}" key="{i18n>CreatedAmendments}" />
+				<IconTabSeparator icon="sap-icon://open-command-field" />
+				<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative"
+					design="Horizontal" count="" text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
+				<IconTabSeparator icon="" />
+				<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
+					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />
+			</items>
+
+		</IconTabBar>
+		<rfl:ResponsiveFlowLayout id="idRespFlowLayout">			
+				
+		</rfl:ResponsiveFlowLayout>
+
+		<Table id="idTable" fixedLayout="true" headerText=""
 			items="{
-			path: '/AmendmentsCollection',
+			path: '/DealInAmendmentCollection',
 			sorter: {
-				path: 'Name'
+				path: 'AmendmentType'
 			}
 		}">
-			
+
 			<columns>
 				<Column width="12em" hAlign="Center">
 					<Text text="{i18n>AmendmentIDAndType}" />
@@ -68,10 +53,10 @@
 				</Column>
 			</columns>
 			<items>
-				<ColumnListItem type="Navigation" press="handleLineItemPress" >
-				
+				<ColumnListItem type="Navigation" press="handleLineItemPress">
+
 					<cells>
-					
+
 						<ObjectIdentifier title="{AmendmentType}" text="{AmendmentId}"
 							class="sapMTableContentMargin" />
 						<ObjectIdentifier title="{DealDescription}" text="{DealId}"
@@ -83,7 +68,7 @@
 						<c:Icon src="sap-icon://popup-window" press="handlePopoverPress" />
 
 						<c:Icon src="sap-icon://workflow-tasks" press="handleWorkFlowPress" />
-						
+
 						<c:Icon src="sap-icon://sys-cancel" press="handleCancelPress" />
 					</cells>
 				</ColumnListItem>

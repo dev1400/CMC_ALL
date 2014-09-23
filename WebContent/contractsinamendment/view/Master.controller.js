@@ -1,6 +1,10 @@
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.helper.CommonController");
 jQuery.sap.require("sap.ca.ui.dialog.factory");
+jQuery.sap.require("sap.m.Button");
+jQuery.sap.require("sap.m.DateRangeSelection");
+
+
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
 
@@ -17,16 +21,20 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.getView().setModel(i18nModel, "i18n");
 
         // set explored app's demo model on this sample
-        var oModel = new sap.ui.model.json.JSONModel("contractsinamendment/model/products.json");
-        this.getView().setModel(oModel);
+       /* var oModel = new sap.ui.model.json.JSONModel("contractsinamendment/model/products.json");
+        this.getView().setModel(oModel);*/
         
         var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
 	    
 		// Set OData Model
 		this.getView().setModel(oODataModel ,"ODataModel");
 		
-		console.log(oODataModel);
+	    //layout reference
+		this._oRespFlowLayout = this.getView().byId("idRespFlowLayout");
 		
+		this._oButton = new sap.m.Button({type:"Accept",text:"{i18n>Go}"});
+		this._oDateRangeSelection = new sap.m.DateRangeSelection({id:"idExecutedAmendments",from:"{path:'/fromidExecutedAmendments'}", 
+    		to:"{path:'/toidExecutedAmendments'}"});
 
         $(document).ready(function() {
         	
@@ -41,17 +49,28 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         var oBinding = this._oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
+       
 
         if (sKey === "Created") {
+        	//destroy 
+        	this._oRespFlowLayout.removeAllContent();
+        	
             oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ", "Created");
             oBinding.filter([oFilter]);
         } else if (sKey === "Released") {
+        	//destroy
+        	this._oRespFlowLayout.removeAllContent();
+        	
             oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ", "Released");
             oBinding.filter([oFilter]);
         } else if (sKey === "Executed") {
+        	this._oRespFlowLayout.addContent(this._oDateRangeSelection);
+        	this._oRespFlowLayout.addContent(this._oButton);
             oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ", "Executed");
             oBinding.filter([oFilter]);
         } else {
+        	//destroy
+        	this._oRespFlowLayout.removeAllContent();
             oBinding.filter([]);
         }
 
