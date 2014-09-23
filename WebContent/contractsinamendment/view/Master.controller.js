@@ -19,6 +19,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // set explored app's demo model on this sample
         var oModel = new sap.ui.model.json.JSONModel("contractsinamendment/model/products.json");
         this.getView().setModel(oModel);
+        
+        var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
+	    
+		// Set OData Model
+		this.getView().setModel(oODataModel ,"ODataModel");
+		
+		console.log(oODataModel);
+		
 
         $(document).ready(function() {
         	

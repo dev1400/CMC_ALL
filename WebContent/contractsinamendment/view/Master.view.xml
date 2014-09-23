@@ -19,7 +19,7 @@
 				design="Horizontal"
 				count=""
 				text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
-			 <IconTabSeparator icon=""/>
+			<IconTabSeparator icon=""/>
 			<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
 				design="Horizontal"
 				count=""
@@ -27,6 +27,18 @@
 		</items>		
 		
 	</IconTabBar>
+	
+	<DateRangeSelection
+      id="idExecutedAmendments"
+      from="{path:'/fromidExecutedAmendments'}"
+      to="{path:'/toidExecutedAmendments'}"
+      change="handleChange"
+    />	
+    <Button type="Accept" text="{i18n>Go}" press="" >
+     <layoutData>
+            <FlexItemData growFactor="1" />
+     </layoutData>
+    </Button>
 	<Table  id="idTable" fixedLayout="true" headerText=""
 			items="{
 			path: '/AmendmentsCollection',
