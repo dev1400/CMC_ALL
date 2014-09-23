@@ -7,7 +7,7 @@
 			<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
 				design="Horizontal"
 				count=""
-				text="{i18n>AllAmendments}" key="{i18n>AllAmendments}" >		
+				text="{i18n>AllDealsinAmendment}" key="{AllDealsinAmendment}" >		
 			</IconTabFilter>			
 			<IconTabSeparator icon="sap-icon://open-command-field" />
 			<IconTabFilter icon="sap-icon://value-help" iconColor="Critical"
