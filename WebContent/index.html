@@ -1,32 +1,47 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
 
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta charset="UTF-8">
+		<title>CMC Contract Landscape</title>
 
-    <title>CMC Contract Amendments</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
-    <script id="sap-ui-bootstrap" src="resources/sap-ui-core.js" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-libs="sap.m, sap.suite.ui.commons" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-resourceroots='{
+		<script
+			id="sap-ui-bootstrap"
+			src="./resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-xx-bindingSyntax="complex"
+			data-sap-ui-resourceroots='{
 				"dia.cmc": "./"
-			}'>
-    </script>
+			}' >
+		</script>
 
-    <script>
-    sap.ui.getCore().loadLibrary("openui5.googlemaps", "common/lib/openui5/googlemaps/");		
-	jQuery.sap.registerResourcePath("dia.cmc.contractsinamendment", "contractsinamendment/");
-	
-        new sap.m.Shell({
-            app: new sap.ui.core.ComponentContainer({
-                name: "dia.cmc.contractsinamendment"
-            })
-        }).placeAt("content");
-    </script>
+		<link rel="stylesheet" type="text/css" href="common/css/style.css">
 
-</head>
+		<link rel="shortcut icon" href="common/mime/favicon.png" />
+		<link rel="apple-touch-icon" href="common/mime/favicon.png" />
 
-<body class="sapUiBody" id="content">
+		<script>
+		
+ 		sap.ui.getCore().loadLibrary("openui5.googlemaps", "common/lib/openui5/googlemaps/");
+ 						
+ 		/* jQuery.sap.registerResourcePath("dia.cmc.contractlandscape", "contractlandscape/")  */
+		
+		var shell = new sap.m.Shell({
+				app : new sap.ui.core.ComponentContainer({
+				name : "dia.cmc.contractlandscape"
+				})
+			});
+		
+		shell.setAppWidthLimited(false);
+		shell.placeAt("content");
+
+
+	    
+		</script>
+
+	</head>
+<body class="sapUiBody" id="content" >
 </body>
-
 </html>

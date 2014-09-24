@@ -1,5 +1,5 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
-	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns:rfl="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns:layout="sap.ui.layout"
 	xmlns="sap.m">
 	<Page enableScrolling="true">
 		<IconTabBar enableScrolling="true" expanded="true"
@@ -20,8 +20,9 @@
 			</items>
 
 		</IconTabBar>
-		<rfl:ResponsiveFlowLayout id="idRespFlowLayout">
-		</rfl:ResponsiveFlowLayout>
+		<layout:ResponsiveFlowLayout id="idRespFlowLayout" >
+		 
+		</layout:ResponsiveFlowLayout>
 
 		<Table id="idTable" fixedLayout="true" headerText=""
 			items="{/DealInAmendmentCollection}">
