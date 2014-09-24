@@ -83,8 +83,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
 			this._oRespFlowLayout.removeAllContent();
 
-			oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
-					"Created");
+			oFilter = new sap.ui.model.Filter("Status", "EQ",
+					"CRTD");
 			oBinding.filter([ oFilter ]);
 		} else if (sKey === "Released") {
 
@@ -195,7 +195,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 				"dia.cmc.contractsinamendment.fragments.AmendmentDescription",
 				this);
 		this.getView().addDependent(this._oPopover);
-		this._oPopover.bindElement("/DealInAmendmentCollection/0");
+		this._oPopover.bindElement("/DealInAmendmentCollection/");
 		// }
 		
 		
