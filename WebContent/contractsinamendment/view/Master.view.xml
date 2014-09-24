@@ -24,12 +24,7 @@
 		</rfl:ResponsiveFlowLayout>
 
 		<Table id="idTable" fixedLayout="true" headerText=""
-			items="{
-			path: '/DealInAmendmentCollection',
-			sorter: {
-				path: 'AmendmentType'
-			}
-		}">
+			items="{/DealInAmendmentCollection}">
 
 			<columns>
 				<Column width="12em" hAlign="Center">
@@ -61,7 +56,7 @@
 						<ObjectIdentifier title="{DealDescription}" text="{DealId}"
 							class="sapMTableContentMargin" />
 						<ObjectIdentifier title="{CustomerName}"
-							text="{i18n>Customeron} {Date} {i18n>Customerfrom} {System} "
+							text="{i18n>Customeron} {StartDate} {i18n>Customerfrom} {TriggeredBy} "
 							class="sapMTableContentMargin" />
 
 						<c:Icon src="sap-icon://popup-window" press="handlePopoverPress" />
