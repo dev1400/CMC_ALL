@@ -19,7 +19,7 @@ dia.cmc.common.helper.ModelHelper = {
 	getServiceUrl : function () {
 		
 		// OData Service URL
-		var sServiceUrl = "/sap/opu/odata/sap/ZV80_SA_CM_CE_CMS_DEAL_SRV/DealInAmendmentCollection";
+		var sServiceUrl = "/sap/opu/odata/sap/ZV80_SA_CM_CE_CMS_DEAL_SRV/";
 		
 		//for local testing prefix with proxy
 		  if (window.location.hostname == "localhost") {

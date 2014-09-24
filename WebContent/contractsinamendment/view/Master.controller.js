@@ -14,20 +14,23 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
 
-        // set i18n model
-        var i18nModel = new sap.ui.model.resource.ResourceModel({
-            bundleUrl: "contractsinamendment/i18n/messageBundle.properties"
-        });
-        this.getView().setModel(i18nModel, "i18n");
+//        // set i18n model
+//        var i18nModel = new sap.ui.model.resource.ResourceModel({
+//            bundleUrl: "contractsinamendment/i18n/messageBundle.properties"
+//        });
+//        this.getView().setModel(i18nModel, "i18n");
 
         // set explored app's demo model on this sample
        /* var oModel = new sap.ui.model.json.JSONModel("contractsinamendment/model/products.json");
         this.getView().setModel(oModel);*/
         
-        var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
+       /* var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
 	    
 		// Set OData Model
-		this.getView().setModel(oODataModel ,"ODataModel");
+		this.getView().setModel(oODataModel ,"ODataModel");*/
+        
+        
+        
 		
 	    //layout reference
 		this._oRespFlowLayout = this.getView().byId("idRespFlowLayout");

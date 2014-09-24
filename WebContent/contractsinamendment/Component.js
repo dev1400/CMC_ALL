@@ -63,7 +63,8 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 	    var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
 	    
 		// Set OData Model
-		this.setModel(oODataModel ,"ODataModel");
+//		this.setModel(oODataModel ,"ODataModel");
+	    this.setModel(oODataModel);
 		
 	    // Get i18n model 
 		var i18nModel =	dia.cmc.common.helper.ModelHelper.getI18nModel();
