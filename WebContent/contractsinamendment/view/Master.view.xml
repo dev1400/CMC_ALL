@@ -20,7 +20,7 @@
 			</items>
 
 		</IconTabBar>
-		<layout:ResponsiveFlowLayout id="idRespFlowLayout" >
+		<layout:ResponsiveFlowLayout id="idRespFlowLayout" responsive="true">
 		 
 		</layout:ResponsiveFlowLayout>
 
@@ -52,15 +52,19 @@
 
 					<cells>
 
-						<ObjectIdentifier title="{AmendmentType}" text="{AmendmentId}"
+						<ObjectIdentifier title="{AmendmentId}" text="{AmendmentType}"
 							class="sapMTableContentMargin" />
-						<ObjectIdentifier title="{DealDescription}" text="{DealId}"
+						<ObjectIdentifier title="{DealId}" text="{DealDescription}"
 							class="sapMTableContentMargin" />
 						<ObjectIdentifier title="{CustomerName}"
-							text="{i18n>Customeron} {StartDate} {i18n>Customerfrom} {TriggeredBy} "
+							text="{i18n>Customeron} {
+														path: 'StartDate',
+														formatter: 'dia.cmc.common.util.Formatter.date'
+														}
+														{i18n>Customerfrom} {TriggeredBy} "
 							class="sapMTableContentMargin" />
 
-						<c:Icon src="sap-icon://popup-window" press="handlePopoverPress" />
+						<c:Icon src="sap-icon://popup-window" press="handlePopoverPress" id="idToolPopUp"/>
 
 						<c:Icon src="sap-icon://workflow-tasks" press="handleWorkFlowPress" />
 

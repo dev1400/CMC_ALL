@@ -2,8 +2,9 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core">
   <Popover
+    id="idFragment"
     title="{AmendmentId}"
     class="sapUiPopupWithPadding">
-    <Text text="{AmendmentDescription}" />   
+    <Text text="{Description}" />   
   </Popover>
 </core:FragmentDefinition>
