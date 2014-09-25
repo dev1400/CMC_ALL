@@ -46,25 +46,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 			type : "Accept",
 			text : "{i18n>Go}"
 		});
-		this._oLayout = new sap.ui.commons.layout.MatrixLayout({
-			id : "idMatrixLayout",
-			layoutFixed : false,
-			
-		});
-	/*	this._oLayout1 = new sap.m.HBox({id : "idHbox", setAlignItems : sap.ui.commons.layout.VAlign.Middle});*/
-
-		// layout reference
-		this._oRespFlowLayout = this.getView().byId("idRespFlowLayout");
-
-		/*
-		 * this._oButton = new sap.m.Button({type:"Accept",text:"{i18n>Go}"});
-		 * this._oDateRangeSelection = new
-		 * sap.m.DateRangeSelection({id:"idExecutedAmendments",from:"{path:'/fromidExecutedAmendments'}",
-		 * to:"{path:'/toidExecutedAmendments'}"}); this._oTextView = new
-		 * sap.ui.commons.TextView({text:"Select date range", textAlign:
-		 * "Center"});
-		 */
 		
+	/*	this._oLayout1 = new sap.m.HBox({id : "idHbox", setAlignItems : sap.ui.commons.layout.VAlign.Middle});*/
+		
+		this._oLayout = this.getView().byId("idMatrixLayout");
 		
 		$(document).ready(function() {
 
@@ -80,34 +65,27 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 				.getParameter("selectedKey"), oFilter;
 
 		if (sKey === "Created") {
-			if(this._oRespFlowLayout!==null){				
-				this._oRespFlowLayout.removeAllContent();
-			}
+			
+			this._oLayout.removeAllRows();
 
 			oFilter = new sap.ui.model.Filter("Status", "EQ",
 					"CRTD");
 			oBinding.filter([ oFilter ]);
 		} else if (sKey === "Released") {
-			if(this._oRespFlowLayout!==null){				
-				this._oRespFlowLayout.removeAllContent();
-			}
+			
+			this._oLayout.removeAllRows();
+			
 			oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
 					"Released");
 			oBinding.filter([ oFilter ]);
 		} else if (sKey === "Executed") {
-			/*console.log(this._oRespFlowLayout);
-			if(this._oRespFlowLayout === null){*/
-				/*this._oRespFlowLayout = this.getView().byId("idRespFlowLayout");*/
-			/*}*/
 			
-
-			this._oRespFlowLayout.removeAllContent();
-			
+			this._oLayout.removeAllRows();
 			var oInput1Column1 = new sap.ui.commons.layout.MatrixLayoutCell();
             oInput1Column1.setColSpan(1);
             oInput1Column1.setRowSpan(1);
             oInput1Column1.setVAlign(sap.ui.commons.layout.VAlign.Middle);
-            oInput1Column1.setHAlign(sap.ui.commons.layout.HAlign.Center);
+            oInput1Column1.setHAlign(sap.ui.commons.layout.HAlign.Right);
             oInput1Column1.addContent(this._oLabel);
             
             var oInput1Column2 = new sap.ui.commons.layout.MatrixLayoutCell();
@@ -121,33 +99,18 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             oInput1Column3.setColSpan(1);
             oInput1Column3.setRowSpan(1);
             oInput1Column3.setVAlign(sap.ui.commons.layout.VAlign.Middle);
-            oInput1Column3.setHAlign(sap.ui.commons.layout.HAlign.Center);
+            oInput1Column3.setHAlign(sap.ui.commons.layout.HAlign.Left);
             oInput1Column3.addContent(this._oButton);
             
+            
 			this._oLayout.createRow(oInput1Column1, oInput1Column2, oInput1Column3);
-			//this._oLabel, this._oDateRangeSelection,this._oButton
-			//, this._oLabel, this._oDateRangeSelection,			this._oButton
-			/*new sap.ui.commons.layout.MatrixLayoutCell({
-	            backgroundDesign : "Header", 
-	            hAlign : sap.ui.commons.layout.HAlign.Center,
-	            content : new sap.ui.commons.Label({design : "Bold", text : "Row 1"})
-	          })*/
-			
-			/*this._oLayout1.addItem(this._oButton);*/
-
-			this._oRespFlowLayout.addContent(this._oLayout);
-			oInput1Column1=null;
-			oInput1Column2=null;
-			oInput1Column3=null;
-
+          
 			oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
 					"Executed");
 			oBinding.filter([ oFilter ]);
 		} else {
 
-			if(this._oRespFlowLayout!==null){				
-				this._oRespFlowLayout.removeAllContent();
-			}
+			this._oLayout.removeAllRows();
 			oBinding.filter([]);
 		}
 
@@ -223,25 +186,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	 * Display pop-up.
 	 */
 	handlePopoverPress : function(oEvent) {
-		/*var btn1 = oEvent.getSource();
 		
-		this._otp1 = new sap.ui.ux3.ToolPopup({
-			content : [ new sap.ui.commons.Label({
-				text : "{AmendmentId}"
-			}) ],
-			opener : btn1
-		});
-		
-		if (this._otp1.isOpen()) {
-			this._otp1.close();
-		} else {
-			this._otp1.open();
-		}
-	 */
-	  
-		/*var local = oEvent.getParameters();
-		var lastChar = local.id;
-		lastChar = lastChar.substr(lastChar.length - 1);*/
 		var oButton = oEvent.getSource();
 
 		// create popover
@@ -251,15 +196,17 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 				"dia.cmc.contractsinamendment.fragments.AmendmentDescription",
 				this);
 		
-		this.getView().addDependent(this._oPopover);
+		this.getView().addDependent(this._oPopover);		
+		
+		var test = this.getView().byId("idOI1");
+		console.dir(test);
+		console.log(test.getId());
+		console.log(test.getTitle());
 		this._oPopover.bindElement("/DealInAmendmentCollection/");
 		}
 		
 		this._oPopover.openBy(oButton);
 		
-		/*jQuery.sap.delayedCall(0, this, function() {
-			
-		});*/
 	},
 
 });
