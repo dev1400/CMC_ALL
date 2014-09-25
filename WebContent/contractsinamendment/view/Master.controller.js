@@ -30,11 +30,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		 * this.getView().setModel(oModel);
 		 */
 
-		/*
-		 * var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
-		 *  // Set OData Model this.getView().setModel(oODataModel
-		 * ,"ODataModel");
-		 */
+	
 
 		this._oLabel = new sap.ui.commons.Label({
 			text : "Select date range:",
@@ -68,6 +64,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		 * sap.ui.commons.TextView({text:"Select date range", textAlign:
 		 * "Center"});
 		 */
+		
+		
 		$(document).ready(function() {
 
 			$("[id$='idIconTabBar-content']").remove();
@@ -225,26 +223,40 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	 * Display pop-up.
 	 */
 	handlePopoverPress : function(oEvent) {
-	 
+		/*var btn1 = oEvent.getSource();
+		
+		this._otp1 = new sap.ui.ux3.ToolPopup({
+			content : [ new sap.ui.commons.Label({
+				text : "{AmendmentId}"
+			}) ],
+			opener : btn1
+		});
+		
+		if (this._otp1.isOpen()) {
+			this._otp1.close();
+		} else {
+			this._otp1.open();
+		}
+	 */
 	  
 		/*var local = oEvent.getParameters();
 		var lastChar = local.id;
 		lastChar = lastChar.substr(lastChar.length - 1);*/
+		var oButton = oEvent.getSource();
 
 		// create popover
-		// if (!this._oPopover) {
+		if (!this._oPopover) {		
+		
 		this._oPopover = sap.ui.xmlfragment(
 				"dia.cmc.contractsinamendment.fragments.AmendmentDescription",
 				this);
+		
 		this.getView().addDependent(this._oPopover);
 		this._oPopover.bindElement("/DealInAmendmentCollection/");
-		// }
-		
+		}
 		
 		this._oPopover.openBy(oButton);
-
-		var oButton = oEvent.getSource();
-		this._oPopover.openBy(oButton);
+		
 		/*jQuery.sap.delayedCall(0, this, function() {
 			
 		});*/
