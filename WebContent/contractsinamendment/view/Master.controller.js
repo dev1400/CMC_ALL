@@ -188,25 +188,69 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	 */
 	handlePopoverPress : function(oEvent) {
 		
+/*
+new sap.ui.table.Table(), new sap.ui.commons.Label({
+		text : oEvent.getSource().getBindingContext().getObject().AmendmentId}),new sap.ui.commons.Label({
+			text : oEvent.getSource().getBindingContext().getObject().AmendmentId})*/ 		
 		var oButton = oEvent.getSource();
-
+		
+		/*sap.ui.jsfragment ( "myFragTitle",{ 
+			createContent: function (oController ) {
+		        var oButton  = new sap.ui.commons.Button({ 
+					text: "Hello World" , 
+					press:oController.doSomething 
+				}); 
+				return oButton; 
+			} 
+		});
+		
+		var myButton = sap.ui.jsfragment("myFragTitle",this);
+      */
 		// create popover
-		if (!this._oPopover) {		
-		
-		this._oPopover = sap.ui.xmlfragment(
+//		if (!this._oPopover) {				
+		/*this._oPopover = sap.ui.xmlfragment(
 				"dia.cmc.contractsinamendment.fragments.AmendmentDescription",
-				this);
+				this);*/
+		this._oPopover = new sap.m.Popover({
+		    title : oEvent.getSource().getBindingContext().getObject().AmendmentId,
+		    content : [new sap.m.Text({
+				text : oEvent.getSource().getBindingContext().getObject().Description})]
+		    
+		});
 		
-		this.getView().addDependent(this._oPopover);		
+		this.getView().addDependent(this._oPopover);
 		
-		var test = this.getView().byId("idOI1");
-		console.dir(test);
+		/*var myControl = this.getView().byId("myControl");
+		myControl.setText(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
+		
+		/*console.dir(myControl);*/
+		
+		/*this._oPopover.bindElement(oEvent.getSource().getBindingContext());*/
+		
+		/*var test1 = oEvent.getSource().getBindingContext().getObject();
+		console.dir(test1);
+		console.log(oEvent.getSource().getBindingContext().getObject().AmendmentId);
+		var test2=oEvent.getSource().getBindingContext();
+		console.dir(test2);*/
+		/*console.dir(test);
 		console.log(test.getId());
-		console.log(test.getTitle());
-		this._oPopover.bindElement("/DealInAmendmentCollection/");
-		}
+		console.log(test.getTitle());*/
+		/*this._oPopover.bindElement("/DealInAmendmentCollection/");*/		
 		
+		/*this._oPopover.setTitle(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
+		
+		/*console.log(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
+		
+	/*	this._oPopover.removeAllContent();
+		console.log(this._oPopover);*/
+		//}
+		/*var myControl = sap.ui.core.Fragment.byId("myFrag", "myControl");
+		myControl.setText(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
 		this._oPopover.openBy(oButton);
+	/*	}else{
+			this._oPopover.destroyContent();		
+		}*/
+		
 		
 	},
 
