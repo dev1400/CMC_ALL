@@ -1,5 +1,6 @@
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.helper.CommonController");
+jQuery.sap.require("dia.cmc.common.util.Formatter");
 jQuery.sap.require("sap.ca.ui.dialog.factory");
 jQuery.sap.require("sap.m.Button");
 jQuery.sap.require("sap.m.DateRangeSelection");
