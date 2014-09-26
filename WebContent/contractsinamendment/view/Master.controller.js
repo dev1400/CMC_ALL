@@ -68,17 +68,16 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		if (sKey === "Created") {
 			
 			this._oLayout.removeAllRows();
-
-			oFilter = new sap.ui.model.Filter("Status", "EQ",
-					"CRTD");
-			oBinding.filter([ oFilter ]);
+			
+			oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "CRTD");			
+	        oBinding.filter([ oFilter ]);
+	       
 		} else if (sKey === "Released") {
 			
 			this._oLayout.removeAllRows();
 			
-			/*oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
-					"Released");
-			oBinding.filter([ oFilter ]);*/
+			oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RELE");
+			oBinding.filter([ oFilter ]);
 		} else if (sKey === "Executed") {
 			
 			this._oLayout.removeAllRows();
@@ -106,13 +105,15 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             
 			this._oLayout.createRow(oLabelColumn1, oDateRangeSelectionColumn2, oButtonColumn3);
           
-			/*oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
-					"Executed");
-			oBinding.filter([ oFilter ]);*/
+			oFilter = new sap.ui.model.Filter("Status", "EQ",
+					"EXEC");
+			oBinding.filter([ oFilter ]);
 		} else {
 
 			this._oLayout.removeAllRows();
-			oBinding.filter([]);
+			oBinding.filter([new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ,
+			"CRTD"), new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ,
+			"RELE")]);
 		}
 
 	},
