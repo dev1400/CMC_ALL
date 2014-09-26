@@ -18,21 +18,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		// Common Controller reference
 		this.CommonController = dia.cmc.common.helper.CommonController;
 
-		// // set i18n model
-		// var i18nModel = new sap.ui.model.resource.ResourceModel({
-		// bundleUrl: "contractsinamendment/i18n/messageBundle.properties"
-		// });
-		// this.getView().setModel(i18nModel, "i18n");
-
-		// set explored app's demo model on this sample
-		/*
-		 * var oModel = new
-		 * sap.ui.model.json.JSONModel("contractsinamendment/model/products.json");
-		 * this.getView().setModel(oModel);
-		 */
-
-	
-
 		this._oLabel = new sap.ui.commons.Label({
 			text : "Select date range:",
 			labelFor : this._oDateRangeSelection
@@ -47,8 +32,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 			type : "Accept",
 			text : "{i18n>Go}"
 		});
-		
-	/*	this._oLayout1 = new sap.m.HBox({id : "idHbox", setAlignItems : sap.ui.commons.layout.VAlign.Middle});*/
 		
 		this._oLayout = this.getView().byId("idMatrixLayout");
 		
