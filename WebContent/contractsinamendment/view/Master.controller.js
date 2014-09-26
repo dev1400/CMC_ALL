@@ -82,29 +82,29 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		} else if (sKey === "Executed") {
 			
 			this._oLayout.removeAllRows();
-			var oInput1Column1 = new sap.ui.commons.layout.MatrixLayoutCell();
-            oInput1Column1.setColSpan(1);
-            oInput1Column1.setRowSpan(1);
-            oInput1Column1.setVAlign(sap.ui.commons.layout.VAlign.Middle);
-            oInput1Column1.setHAlign(sap.ui.commons.layout.HAlign.Right);
-            oInput1Column1.addContent(this._oLabel);
+			var oLabelColumn1 = new sap.ui.commons.layout.MatrixLayoutCell();
+			oLabelColumn1.setColSpan(1);
+			oLabelColumn1.setRowSpan(1);
+			oLabelColumn1.setVAlign(sap.ui.commons.layout.VAlign.Middle);
+			oLabelColumn1.setHAlign(sap.ui.commons.layout.HAlign.Right);
+			oLabelColumn1.addContent(this._oLabel);
             
-            var oInput1Column2 = new sap.ui.commons.layout.MatrixLayoutCell();
-            oInput1Column2.setColSpan(1);
-            oInput1Column2.setRowSpan(1);
-            oInput1Column2.setVAlign(sap.ui.commons.layout.VAlign.Middle);
-            oInput1Column2.setHAlign(sap.ui.commons.layout.HAlign.Center);
-            oInput1Column2.addContent(this._oDateRangeSelection);
+            var oDateRangeSelectionColumn2 = new sap.ui.commons.layout.MatrixLayoutCell();
+            oDateRangeSelectionColumn2.setColSpan(1);
+            oDateRangeSelectionColumn2.setRowSpan(1);
+            oDateRangeSelectionColumn2.setVAlign(sap.ui.commons.layout.VAlign.Middle);
+            oDateRangeSelectionColumn2.setHAlign(sap.ui.commons.layout.HAlign.Center);
+            oDateRangeSelectionColumn2.addContent(this._oDateRangeSelection);
             
-            var oInput1Column3 = new sap.ui.commons.layout.MatrixLayoutCell();
-            oInput1Column3.setColSpan(1);
-            oInput1Column3.setRowSpan(1);
-            oInput1Column3.setVAlign(sap.ui.commons.layout.VAlign.Middle);
-            oInput1Column3.setHAlign(sap.ui.commons.layout.HAlign.Left);
-            oInput1Column3.addContent(this._oButton);
+            var oButtonColumn3 = new sap.ui.commons.layout.MatrixLayoutCell();
+            oButtonColumn3.setColSpan(1);
+            oButtonColumn3.setRowSpan(1);
+            oButtonColumn3.setVAlign(sap.ui.commons.layout.VAlign.Middle);
+            oButtonColumn3.setHAlign(sap.ui.commons.layout.HAlign.Left);
+            oButtonColumn3.addContent(this._oButton);
             
             
-			this._oLayout.createRow(oInput1Column1, oInput1Column2, oInput1Column3);
+			this._oLayout.createRow(oLabelColumn1, oDateRangeSelectionColumn2, oButtonColumn3);
           
 			/*oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
 					"Executed");
