@@ -1,7 +1,7 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns:layout="sap.ui.commons.layout"
 	xmlns="sap.m" >
-	<Page enableScrolling="true" >
+	<Page enableScrolling="true" title="{i18n>ApplicationTitle}">
 		<IconTabBar enableScrolling="true" expanded="true"
 			expandable="false" id="idIconTabBar" select="handleIconTabBarSelect">
 			<items>

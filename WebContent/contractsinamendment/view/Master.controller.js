@@ -134,7 +134,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		this.CommonController.getRouter(this).navTo("dealDetail", {
 			from : "master",
 			dealId : oDealDetail.DealId,
-		}, bReplace);
+		}, false);
 	},
 
 	/**
@@ -191,10 +191,11 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		var oButton = oEvent.getSource();		
 		//added amendment description and amendmetId in popup
 		this._oPopover = new sap.m.Popover({
-		    title : oEvent.getSource().getBindingContext().getObject().AmendmentId,
+		    title : "{i18n>AmendmentDescription}",
 		    content : [new sap.m.Bar({contentMiddle : new sap.m.Text({
 				text : oEvent.getSource().getBindingContext().getObject().Description}) })]
-		    /*content : [new sap.m.Text({
+		    /*oEvent.getSource().getBindingContext().getObject().AmendmentId
+		     * content : [new sap.m.Text({
 				text : oEvent.getSource().getBindingContext().getObject().Description})]*/
 		    
 		});
