@@ -189,11 +189,13 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	handlePopoverPress : function(oEvent) {		
 
 		var oButton = oEvent.getSource();		
-		
+		//added amendment description and amendmetId in popup
 		this._oPopover = new sap.m.Popover({
 		    title : oEvent.getSource().getBindingContext().getObject().AmendmentId,
-		    content : [new sap.m.Text({
-				text : oEvent.getSource().getBindingContext().getObject().Description})]
+		    content : [new sap.m.Bar({contentMiddle : new sap.m.Text({
+				text : oEvent.getSource().getBindingContext().getObject().Description}) })]
+		    /*content : [new sap.m.Text({
+				text : oEvent.getSource().getBindingContext().getObject().Description})]*/
 		    
 		});
 		
