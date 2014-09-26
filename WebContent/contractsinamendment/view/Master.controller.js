@@ -76,9 +76,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 			
 			this._oLayout.removeAllRows();
 			
-			oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
+			/*oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
 					"Released");
-			oBinding.filter([ oFilter ]);
+			oBinding.filter([ oFilter ]);*/
 		} else if (sKey === "Executed") {
 			
 			this._oLayout.removeAllRows();
@@ -106,9 +106,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             
 			this._oLayout.createRow(oInput1Column1, oInput1Column2, oInput1Column3);
           
-			oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
+			/*oFilter = new sap.ui.model.Filter("AmendmentStatus", "EQ",
 					"Executed");
-			oBinding.filter([ oFilter ]);
+			oBinding.filter([ oFilter ]);*/
 		} else {
 
 			this._oLayout.removeAllRows();
@@ -186,31 +186,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	/**
 	 * Display pop-up.
 	 */
-	handlePopoverPress : function(oEvent) {
+	handlePopoverPress : function(oEvent) {		
+
+		var oButton = oEvent.getSource();		
 		
-/*
-new sap.ui.table.Table(), new sap.ui.commons.Label({
-		text : oEvent.getSource().getBindingContext().getObject().AmendmentId}),new sap.ui.commons.Label({
-			text : oEvent.getSource().getBindingContext().getObject().AmendmentId})*/ 		
-		var oButton = oEvent.getSource();
-		
-		/*sap.ui.jsfragment ( "myFragTitle",{ 
-			createContent: function (oController ) {
-		        var oButton  = new sap.ui.commons.Button({ 
-					text: "Hello World" , 
-					press:oController.doSomething 
-				}); 
-				return oButton; 
-			} 
-		});
-		
-		var myButton = sap.ui.jsfragment("myFragTitle",this);
-      */
-		// create popover
-//		if (!this._oPopover) {				
-		/*this._oPopover = sap.ui.xmlfragment(
-				"dia.cmc.contractsinamendment.fragments.AmendmentDescription",
-				this);*/
 		this._oPopover = new sap.m.Popover({
 		    title : oEvent.getSource().getBindingContext().getObject().AmendmentId,
 		    content : [new sap.m.Text({
@@ -218,40 +197,10 @@ new sap.ui.table.Table(), new sap.ui.commons.Label({
 		    
 		});
 		
-		this.getView().addDependent(this._oPopover);
+		this.getView().addDependent(this._oPopover);		
 		
-		/*var myControl = this.getView().byId("myControl");
-		myControl.setText(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
-		
-		/*console.dir(myControl);*/
-		
-		/*this._oPopover.bindElement(oEvent.getSource().getBindingContext());*/
-		
-		/*var test1 = oEvent.getSource().getBindingContext().getObject();
-		console.dir(test1);
-		console.log(oEvent.getSource().getBindingContext().getObject().AmendmentId);
-		var test2=oEvent.getSource().getBindingContext();
-		console.dir(test2);*/
-		/*console.dir(test);
-		console.log(test.getId());
-		console.log(test.getTitle());*/
-		/*this._oPopover.bindElement("/DealInAmendmentCollection/");*/		
-		
-		/*this._oPopover.setTitle(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
-		
-		/*console.log(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
-		
-	/*	this._oPopover.removeAllContent();
-		console.log(this._oPopover);*/
-		//}
-		/*var myControl = sap.ui.core.Fragment.byId("myFrag", "myControl");
-		myControl.setText(oEvent.getSource().getBindingContext().getObject().AmendmentId);*/
 		this._oPopover.openBy(oButton);
-	/*	}else{
-			this._oPopover.destroyContent();		
-		}*/
-		
-		
+
 	},
 
 });
