@@ -67,7 +67,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 	    this.setModel(oODataModel);
 		
 	    // Get i18n model 
-		var i18nModel =	dia.cmc.common.helper.ModelHelper.getI18nModel();
+		var i18nModel =	dia.cmc.common.helper.ModelHelper.getI18nModel("contractsinamendment/i18n/messageBundle.properties");
 		
 		// set i18n model
 		this.setModel(i18nModel, "i18n");

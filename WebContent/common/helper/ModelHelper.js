@@ -33,11 +33,11 @@ dia.cmc.common.helper.ModelHelper = {
 	/**
 	 * Build i18n Model instance and return
 	 */
-	getI18nModel : function () {
+	getI18nModel : function (sPath) {
 		
 		// set i18n model
 		var i18nModel = new sap.ui.model.resource.ResourceModel({
-			bundleUrl : "contractsinamendment/i18n/messageBundle.properties"
+			bundleUrl : sPath
 		});
 		
 		this.oBundle = i18nModel.getResourceBundle();

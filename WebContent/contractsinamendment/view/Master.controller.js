@@ -30,7 +30,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 			change : function (oEvent) {
 			    var sFrom = oEvent.getParameter("from");
 			    var sTo = oEvent.getParameter("to");
-			    /*console.log("Id: " + oEvent.oSource.getId() + "\nFrom: " + sFrom + "\nTo: " + sTo);	*/		    
+			    console.log("Id: " + oEvent.oSource.getId() + "\nFrom: " + sFrom + "\nTo: " + sTo);			    
 			  }
 		});
 		this._oButton = new sap.m.Button({
