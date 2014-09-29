@@ -26,7 +26,12 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 			id : "idExecutedAmendments",
 			from : "{path:'/fromidExecutedAmendments'}",
 			to : "{path:'/toidExecutedAmendments'}",
-			displayFormat : "{i18n>DateFormat}"
+			displayFormat : "{i18n>DateFormat}",
+			change : function (oEvent) {
+			    var sFrom = oEvent.getParameter("from");
+			    var sTo = oEvent.getParameter("to");
+			    /*console.log("Id: " + oEvent.oSource.getId() + "\nFrom: " + sFrom + "\nTo: " + sTo);	*/		    
+			  }
 		});
 		this._oButton = new sap.m.Button({
 			type : "Accept",
@@ -100,6 +105,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		}
 
 	},
+	
+	
+
+
 	/**
 	 * Navigate to Deal Detail.
 	 */
