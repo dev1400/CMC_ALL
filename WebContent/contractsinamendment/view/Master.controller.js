@@ -11,6 +11,8 @@ jQuery.sap.require("sap.ui.ux3.ToolPopup");
 
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
+    	
+    	 var _sFrom, _sTo;
 
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -22,20 +24,30 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             text: "Select date range:",
             labelFor: this._oDateRangeSelection
         });
+        
+       
+        
         this._oDateRangeSelection = new sap.m.DateRangeSelection({
             id: "idExecutedAmendments",
             from: "{path:'/fromidExecutedAmendments'}",
             to: "{path:'/toidExecutedAmendments'}",
             displayFormat: "{i18n>DateFormat}",
             change: function(oEvent) {
-                var sFrom = oEvent.getParameter("from");
+            	
+            	_sFrom = oEvent.getParameter("from");
+            	_sTo = oEvent.getParameter("to");
+               /* var sFrom = oEvent.getParameter("from");
                 var sTo = oEvent.getParameter("to");
-                console.log("Id: " + oEvent.oSource.getId() + "\nFrom: " + sFrom + "\nTo: " + sTo);
+                console.log("Id: " + oEvent.oSource.getId() + "\nFrom: " + sFrom + "\nTo: " + sTo);*/
             }
         });
         this._oButton = new sap.m.Button({
             type: "Accept",
-            text: "{i18n>Go}"
+            text: "{i18n>Go}",
+            press : function() {
+            	 /*console.log("\nFrom: " + dia.cmc.common.util.Formatter.date(_sFrom) );
+            	 console.log("\nTo: " + dia.cmc.common.util.Formatter.date(_sTo) );*/
+            }
         });
 
         this._oLayout = this.getView().byId("idMatrixLayout");
