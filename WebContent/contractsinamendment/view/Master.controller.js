@@ -8,12 +8,16 @@ jQuery.sap.require("sap.ui.commons.Label");
 jQuery.sap.require("sap.ui.table.Table");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
-        var _sFrom, _sTo;
+    	
+        _oTable = this.getView().byId("idTable");        
+        _oLayout = this.getView().byId("idMatrixLayout");
+        _oLayout.setVisible(false); 
+        
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
-        this._oLabel = new sap.ui.commons.Label({
+       /* this._oLabel = new sap.ui.commons.Label({
             text: "Select date range:",
             labelFor: this._oDateRangeSelection
         });
@@ -31,35 +35,86 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             type: "Accept",
             text: "{i18n>Go}",
             press: function() {
-                /*console.log("\nFrom: " + dia.cmc.common.util.Formatter.date(_sFrom) );
-            	 console.log("\nTo: " + dia.cmc.common.util.Formatter.date(_sTo) );*/
+                 console.log("\nFrom: " + dia.cmc.common.util.Formatter.date(_sFrom) );
+            	 console.log("\nTo: " + dia.cmc.common.util.Formatter.date(_sTo) );
+            	 
+            	 console.log("\nFrom: " + _sFrom.toJSON().slice(0,10) + "T00:00:00");
+            	 console.log("\nTo: " + _sTo.toJSON().slice(0,10) + "T00:00:00" );
+            	  
+            	 var i=_sTo.toJSON().slice(0,10) + "T00:00:00";
+            	 
+                  var oBinding = _oTable.getBinding("items"),oFilter;
+                  _oTable.setVisible(true); 
+                  oFilter = new sap.ui.model.Filter("StartDate", sap.ui.model
+                          .FilterOperator.EQ, _sFrom.toJSON().slice(0,10) + "T00:00:00");
+                  oBinding.filter([oFilter]);
+                  
+        		
             }
-        });
-        this._oLayout = this.getView().byId("idMatrixLayout");
+        });*/
+       
         $(document).ready(function() {
             $("[id$='idIconTabBar-content']").remove();
         });
+    },
+    handleAmendmentDateRangeChange : function(oEvent){
+    	
+    	
+    	this._sDateFrom = oEvent.getParameter("from");
+    	this._sDateTo = oEvent.getParameter("to");
+    	
+    },
+    handleAmendmentDateRangePress : function(oEvent){    	
+    	
+    	var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateFrom);
+    	var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateTo);
+    	
+    	var oBinding = _oTable.getBinding("items"),sFilter;
+        _oTable.setVisible(true); 
+        sFilter = new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.EQ, sFromDate);
+        oBinding.filter([sFilter]);
     },
     /**
      * Show amendment details based on icon tab bar selection.
      */
     handleAmendmentIconTabBarSelect: function(oEvent) {
-        this._oTable = this.getView().byId("idTable");
-        var oBinding = this._oTable.getBinding("items"),
+//    	 this._oTable = this.getView().byId("idTable");
+        var oBinding = _oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
+       
         if (sKey === "Created") {
-            this._oLayout.removeAllRows();
+        	_oTable.setVisible(true);
+        	_oLayout.setVisible(false); 
+        	
+           
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "CRTD");
             oBinding.filter([oFilter]);
+            
+            $(document).ready(function() {
+                $("[id$='idIconTabBar-content']").remove();
+            });
         } else if (sKey === "Released") {
-            this._oLayout.removeAllRows();
+        	_oLayout.setVisible(false);  
+        	_oTable.setVisible(true);     
+        	
+            
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "RELE");
             oBinding.filter([oFilter]);
+            
+            $(document).ready(function() {
+                $("[id$='idIconTabBar-content']").remove();
+            });
+           
         } else if (sKey === "Executed") {
-            this._oLayout.removeAllRows();
+        	_oLayout.setVisible(true); 
+        	_oTable.setVisible(false);
+        	
+        	 
+        	
+          /*  this._oLayout.removeAllRows();
             var oLabelColumn1 = new sap.ui.commons.layout.MatrixLayoutCell();
             oLabelColumn1.setColSpan(1);
             oLabelColumn1.setRowSpan(1);
@@ -82,12 +137,18 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             oButtonColumn3.setHAlign(sap.ui.commons.layout.HAlign.Left);
             oButtonColumn3.addContent(this._oButton);
             this._oLayout.createRow(oLabelColumn1,
-                oDateRangeSelectionColumn2, oButtonColumn3);
-            oFilter = new sap.ui.model.Filter("Status", sap.ui.model
+                oDateRangeSelectionColumn2, oButtonColumn3);*/
+            /*oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "EXEC");
-            oBinding.filter([oFilter]);
+            oBinding.filter([oFilter]);*/
+            
+          
         } else {
-            this._oLayout.removeAllRows();
+        	_oLayout.setVisible(false); 
+        	_oTable.setVisible(true);
+        	
+        	 
+           
             oBinding.filter([new sap.ui.model.Filter("Status", sap.ui
                     .model.FilterOperator.EQ, "CRTD"), new sap
                 .ui.model.Filter("Status", sap.ui.model.FilterOperator

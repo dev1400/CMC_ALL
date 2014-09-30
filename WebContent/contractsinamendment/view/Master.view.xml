@@ -16,14 +16,39 @@
 					design="Horizontal" count="" text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
 				<IconTabSeparator icon="" />
 				<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
-					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />
+					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" >
+					
+		           
+				</IconTabFilter>
 			</items>
 
 		</IconTabBar>
 		
 		<layout:MatrixLayout id="idMatrixLayout">
+            <layout:MatrixLayoutRow>
+                <layout:MatrixLayoutCell vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
+                         <Label text="{i18n>DateRangeSelectionLabel}" />
+                </layout:MatrixLayoutCell>
+                <layout:MatrixLayoutCell vAlign="Middle" hAlign="Center" rowSpan="1" colSpan="1">
+                       <DateRangeSelection id="idExecutedAmendments" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
+                       </DateRangeSelection>
+                </layout:MatrixLayoutCell>
+                <layout:MatrixLayoutCell vAlign="Middle" hAlign="Left" rowSpan="1" colSpan="1">
+                        <Button type = "Accept" text= "{i18n>Go}" press="handleAmendmentDateRangePress"/>
+                </layout:MatrixLayoutCell>
+             </layout:MatrixLayoutRow>
+         </layout:MatrixLayout>
+		
+		<!--  <HBox justifyContent="Center" alignItems="Center">
+		       <Label text="{i18n>DateRangeSelectionLabel}" />
+		       <DateRangeSelection></DateRangeSelection>
+		 </HBox>	 -->
+		
+	<!-- 	<layout:MatrixLayout id="idMatrixLayout">
 		 
-		</layout:MatrixLayout>	
+		</layout:MatrixLayout>	 -->
+		
+	
 		
 		<Table id="idTable" fixedLayout="true" headerText=""
 			items="{/DealInAmendmentCollection}">
