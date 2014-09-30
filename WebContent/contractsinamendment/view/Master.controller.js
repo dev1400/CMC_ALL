@@ -6,7 +6,7 @@ jQuery.sap.require("sap.m.Button");
 jQuery.sap.require("sap.m.DateRangeSelection");
 jQuery.sap.require("sap.ui.commons.Label");
 jQuery.sap.require("sap.ui.table.Table");
-jQuery.sap.require("sap.ui.ux3.ToolPopup");
+
 
 
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
