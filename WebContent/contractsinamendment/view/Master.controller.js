@@ -8,7 +8,6 @@ jQuery.sap.require("sap.ui.commons.Label");
 jQuery.sap.require("sap.ui.table.Table");
 
 
-
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
     	
@@ -23,9 +22,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oLabel = new sap.ui.commons.Label({
             text: "Select date range:",
             labelFor: this._oDateRangeSelection
-        });
-        
-       
+        });       
         
         this._oDateRangeSelection = new sap.m.DateRangeSelection({
             id: "idExecutedAmendments",
@@ -35,12 +32,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             change: function(oEvent) {
             	
             	_sFrom = oEvent.getParameter("from");
-            	_sTo = oEvent.getParameter("to");
-               /* var sFrom = oEvent.getParameter("from");
-                var sTo = oEvent.getParameter("to");
-                console.log("Id: " + oEvent.oSource.getId() + "\nFrom: " + sFrom + "\nTo: " + sTo);*/
+            	_sTo = oEvent.getParameter("to");              
             }
         });
+        
         this._oButton = new sap.m.Button({
             type: "Accept",
             text: "{i18n>Go}",
@@ -55,12 +50,16 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         $(document).ready(function() {
 
             $("[id$='idIconTabBar-content']").remove();
-            // $("#__xmlview1--idIconTabBar-content").remove();
+            
         });
 
     },
+    
+    /**
+     * Show amendment details based on icon tab bar selection. 
+     */
 
-    handleIconTabBarSelect: function(oEvent) {
+    handleAmendmentIconTabBarSelect: function(oEvent) {
         this._oTable = this.getView().byId("idTable");
         var oBinding = this._oTable.getBinding("items"),
             sKey = oEvent
@@ -104,10 +103,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             oButtonColumn3.setHAlign(sap.ui.commons.layout.HAlign.Left);
             oButtonColumn3.addContent(this._oButton);
 
-
             this._oLayout.createRow(oLabelColumn1, oDateRangeSelectionColumn2, oButtonColumn3);
 
-            oFilter = new sap.ui.model.Filter("Status", "EQ",
+            oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ,
                 "EXEC");
             oBinding.filter([oFilter]);
         } else {
@@ -123,7 +121,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Navigate to Deal Detail.
      */
-    handleLineItemPress: function(oEvent) {
+    handleAmendmentItemPress: function(oEvent) {
 
         var oContext = oEvent.getSource().getBindingContext();
         // set selected Deal path to helper class
@@ -142,9 +140,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     },
 
     /**
-     * Cancel an Amendment handler.
+     * Handle amendment cancellation.
      */
-    handleCancelPress: function(evt) {
+    handleAmendmentCancelPress: function(evt) {
 
         var fnClose = function(oResult) {
             if (oResult) {
@@ -169,7 +167,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Navigate to Amendment Flow.
      */
-    handleWorkFlowPress: function(oEvent) {
+    handleAmendmentWorkFlowPress: function(oEvent) {
 
         var oContext = oEvent.getSource().getBindingContext();
 
@@ -187,9 +185,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         }, bReplace);
     },
     /**
-     * Display pop-up.
+     * Display pop-up with amendment decription.
      */
-    handlePopoverPress: function(oEvent) {
+    handleAmendmentPopoverPress: function(oEvent) {
 
         var oButton = oEvent.getSource();
         //added amendment description and amendmetId in popup

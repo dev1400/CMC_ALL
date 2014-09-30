@@ -1,4 +1,3 @@
-
 jQuery.sap.declare("dia.cmc.contractsinamendment.Component");
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.util.MyRouter");
@@ -63,7 +62,6 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 	    var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
 	    
 		// Set OData Model
-//		this.setModel(oODataModel ,"ODataModel");
 	    this.setModel(oODataModel);
 		
 	    // Get i18n model 
@@ -89,23 +87,6 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
 		// Property Model
 		var oPropertyModel = dia.cmc.common.helper.ModelHelper.initalizePropertyModel();
 		this.setModel(oPropertyModel, "Property");
-		
-		// Google Map Model
-		var oLocations = [{
-		    name: "",
-		    lat: -33.890542,
-		    lng: 151.274856,
-		}];
-		
-
-		var oMapModel = new sap.ui.model.json.JSONModel();
-
-		oMapModel.setData({
-			Title: '',
-		    Locations: oLocations
-		});
-
-		this.setModel(oMapModel,"MapModel");
 
         this.getRouter().initialize();
 

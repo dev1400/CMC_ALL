@@ -3,7 +3,7 @@
 	xmlns="sap.m" >
 	<Page enableScrolling="true" title="{i18n>ApplicationTitle}">
 		<IconTabBar enableScrolling="true" expanded="true"
-			expandable="false" id="idIconTabBar" select="handleIconTabBarSelect">
+			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
 				<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
 					design="Horizontal" count="" text="{i18n>AllDealsinAmendment}" key="{AllDealsinAmendment}">
@@ -49,7 +49,7 @@
 				</Column>
 			</columns>
 			<items>
-				<ColumnListItem type="Navigation" press="handleLineItemPress">
+				<ColumnListItem type="Navigation" press="handleAmendmentItemPress">
 
 					<cells>
 
@@ -65,11 +65,11 @@
 														{i18n>Customerfrom} {TriggeredBy} "
 							class="sapMTableContentMargin" />
 
-						<c:Icon src="sap-icon://popup-window" press="handlePopoverPress" id="idToolPopUp"/>
+						<c:Icon src="sap-icon://popup-window" press="handleAmendmentPopoverPress" id="idToolPopUp"/>
 
-						<c:Icon src="sap-icon://workflow-tasks" press="handleWorkFlowPress" />
+						<c:Icon src="sap-icon://workflow-tasks" press="handleAmendmentWorkFlowPress" />
 
-						<c:Icon src="sap-icon://sys-cancel" press="handleCancelPress" />
+						<c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
 					</cells>
 				</ColumnListItem>
 			</items>
