@@ -37,17 +37,7 @@
                         <Button type = "Accept" text= "{i18n>Go}" press="handleAmendmentDateRangePress"/>
                 </layout:MatrixLayoutCell>
              </layout:MatrixLayoutRow>
-         </layout:MatrixLayout>
-		
-		<!--  <HBox justifyContent="Center" alignItems="Center">
-		       <Label text="{i18n>DateRangeSelectionLabel}" />
-		       <DateRangeSelection></DateRangeSelection>
-		 </HBox>	 -->
-		
-	<!-- 	<layout:MatrixLayout id="idMatrixLayout">
-		 
-		</layout:MatrixLayout>	 -->
-		
+         </layout:MatrixLayout>		
 	
 		
 		<Table id="idTable" fixedLayout="true" headerText=""

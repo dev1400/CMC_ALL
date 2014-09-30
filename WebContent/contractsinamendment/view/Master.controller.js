@@ -76,9 +76,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
            
         } else if (sKey === "Executed") {
         	_oLayout.setVisible(true); 
-        	_oTable.setVisible(false);
+        	_oTable.setVisible(true);
         	
-        	 
+        	
        
           
         } else {
