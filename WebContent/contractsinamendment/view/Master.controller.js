@@ -129,6 +129,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         sap.ca.ui.dialog.confirmation.open({
             question: this.ModelHelper.getText(
                 "AmendmentCancellationMessage"),
+            noteMandatory : true,
             title: this.ModelHelper.getText(
                 "CancelAmendment"),
             confirmButtonLabel: this.ModelHelper.getText(
