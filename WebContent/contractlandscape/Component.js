@@ -80,7 +80,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
 		this.setModel(oODataModel ,"ODataModel");
 		
 	    // Get i18n model 
-		var i18nModel =	dia.cmc.common.helper.ModelHelper.getI18nModel();
+		var i18nModel =	dia.cmc.common.helper.ModelHelper.getI18nModel("contractlandscape/i18n/messageBundle.properties");
 		
 		// set i18n model
 		this.setModel(i18nModel, "i18n");
