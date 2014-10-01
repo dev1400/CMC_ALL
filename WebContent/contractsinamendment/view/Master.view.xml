@@ -16,12 +16,9 @@
 					design="Horizontal" count="" text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
 				<IconTabSeparator icon="" />
 				<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
-					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />				    
-				
+					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />				
 			</items>
-			
-
-		</IconTabBar>
+	   </IconTabBar>
 		
 		<layout:MatrixLayout id="idMatrixLayout">
             <layout:MatrixLayoutRow>
