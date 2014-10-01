@@ -9,9 +9,9 @@ jQuery.sap.require("sap.ui.table.Table");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
     	
-        _oTable = this.getView().byId("idTable");        
-        _oLayout = this.getView().byId("idMatrixLayout");
-        _oLayout.setVisible(false); 
+        this._oTable = this.getView().byId("idTable");        
+        this._oLayout = this.getView().byId("idMatrixLayout");
+        this._oLayout.setVisible(false); 
         
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -19,21 +19,27 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.CommonController = dia.cmc.common.helper.CommonController;       
       
     },
+    /**
+     * Get From and To date when date range is selected.
+     */
     handleAmendmentDateRangeChange : function(oEvent){    	
     	
     	this._sDateFrom = oEvent.getParameter("from");
     	this._sDateTo = oEvent.getParameter("to");
     	
     },
+    /**
+     * Show amendments based on selected date range.
+     */
     handleAmendmentDateRangePress : function(oEvent){    	
     	
     	if(this._sDateFrom !== undefined | this._sDateTo !== undefined){
     		
     	var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateFrom);
     	var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateTo);
-    	console.log(sFromDate+" "+sToDate);
-    	var oBinding = _oTable.getBinding("items"),sFilter;
-        _oTable.setVisible(true);         
+    	
+    	var oBinding = this._oTable.getBinding("items"),sFilter;
+        this._oTable.setVisible(true);         
      
         oBinding.filter([new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate), 
                          new sap.ui.model.Filter("EndDate", sap.ui.model.FilterOperator.LT, sToDate)]);
@@ -47,14 +53,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      */
     handleAmendmentIconTabBarSelect: function(oEvent) {    	
     	
-        var oBinding = _oTable.getBinding("items"),
+        var oBinding = this._oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
        
         if (sKey === "Created") {
         	
-        	_oTable.setVisible(true);
-        	_oLayout.setVisible(false);         	
+        	this._oTable.setVisible(true);
+        	this._oLayout.setVisible(false);         	
            
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "CRTD");
@@ -63,8 +69,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
            
         } else if (sKey === "Released") {        	
            
-        	_oLayout.setVisible(false);  
-        	_oTable.setVisible(true);           	
+        	this._oLayout.setVisible(false);  
+        	this._oTable.setVisible(true);           	
             
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "RELE");
@@ -73,14 +79,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
            
         } else if (sKey === "Executed") {  
         	
-        	_oLayout.setVisible(true); 
-        	_oTable.setVisible(false);
+        	this._oLayout.setVisible(true); 
+        	this._oTable.setVisible(false);
         	
         
         } else {
         	
-        	_oLayout.setVisible(false); 
-        	_oTable.setVisible(true);
+        	this._oLayout.setVisible(false); 
+        	this._oTable.setVisible(true);
         	
             oBinding.filter([new sap.ui.model.Filter("Status", sap.ui
                     .model.FilterOperator.EQ, "CRTD"), new sap
@@ -163,9 +169,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                             .getObject().Description
                     })
                 })]
-                /*oEvent.getSource().getBindingContext().getObject().AmendmentId
-		         * content : [new sap.m.Text({
-				   text : oEvent.getSource().getBindingContext().getObject().Description})]*/
+                
         });
         this.getView().addDependent(this._oPopover);
         this._oPopover.openBy(oButton);
