@@ -43,7 +43,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable.setVisible(true);         
      
         oBinding.filter([new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate), 
-                        /* new sap.ui.model.Filter("EndDate", sap.ui.model.FilterOperator.LT, sToDate)*/]);
+                         new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.LE, sToDate)]);
     	}
         else{
         	sap.m.MessageToast.show(this.ModelHelper.getText("EmptyDateRangeToast"));
@@ -125,7 +125,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                      
                      if(oResult.sNote) { 
                     	 oParentContext._oAmend.RequestDescr = oResult.sNote;
-                    	 
+                    	 oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
                     	 }
                 }
             }
