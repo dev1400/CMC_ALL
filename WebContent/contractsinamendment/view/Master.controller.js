@@ -12,6 +12,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable = this.getView().byId("idTable");        
         this._oLayout = this.getView().byId("idMatrixLayout");
         this._oLayout.setVisible(false); 
+        this._oAmend = { DealId : "", AmendmentId : "", RequestDescr : "", Action : "C" };
         
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -42,7 +43,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable.setVisible(true);         
      
         oBinding.filter([new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate), 
-                         new sap.ui.model.Filter("EndDate", sap.ui.model.FilterOperator.LT, sToDate)]);
+                        /* new sap.ui.model.Filter("EndDate", sap.ui.model.FilterOperator.LT, sToDate)*/]);
     	}
         else{
         	sap.m.MessageToast.show(this.ModelHelper.getText("EmptyDateRangeToast"));
@@ -114,13 +115,18 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Handle amendment cancellation.
      */
-    handleAmendmentCancelPress: function(evt) {
+    handleAmendmentCancelPress: function(oEvent) {
+    
+    	this._oAmend.DealId =  oEvent.getSource().getBindingContext().getObject().DealId;
+    	this._oAmend.AmendmentId = oEvent.getSource().getBindingContext().getObject().AmendmentId;
+    	var oParentContext = this;
         var fnClose = function(oResult) {
-                if (oResult) {
-                    /*
-                     * console.log("isConfirmed:" + oResult.isConfirmed); if
-                     * (oResult.sNote) { console.log(oResult.sNote); }
-                     */
+                if (oResult) {                    
+                     
+                     if(oResult.sNote) { 
+                    	 oParentContext._oAmend.RequestDescr = oResult.sNote;
+                    	 
+                    	 }
                 }
             }
             /**

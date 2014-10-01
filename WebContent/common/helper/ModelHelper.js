@@ -555,4 +555,33 @@ dia.cmc.common.helper.ModelHelper = {
 		
 		return oDefaultParameter;
 	},
+	/** Cancel an Amendment
+	 * @param oDefaultParameter : Default Parameters
+	 */
+	updateAmendment : function(oDealId, oAmendmentId, oDefaultParameter){
+		
+		// Call ODataModel Update method to post data to SAP
+		this.oODataModel.update("/DealCollection("+oDealId+")/AmendmentCollection("+oAmendmentId+")", oDefaultParameter, null, function(){
+			// This is update success event handler. Will be called when update operation is successful.
+				
+			oDefaultParameter.Message = "Passed: User defaults were updated!";
+			oDefaultParameter.MessageType = "S";
+			
+		},function(oResponse){
+			// This is update error event handler. Will be called when update operation is failed.
+			
+			oResponse = jQuery.parseJSON(oResponse.response.body);
+			
+			oDefaultParameter.Message = oResponse.error.message.value;
+			oDefaultParameter.MessageType = "E";
+		});
+		
+		
+		//Update the UserPa and DealDetailModel to reflect the latest values
+		if(oDefaultParameter.MessageType != "E"){
+			this.oDefaultParameterModel.setData(oDefaultParameter);
+		}
+		
+		return oDefaultParameter;
+	},
 };
