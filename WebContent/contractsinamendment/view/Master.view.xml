@@ -2,7 +2,7 @@
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns:layout="sap.ui.commons.layout"
 	xmlns="sap.m" >
 	<Page enableScrolling="true" title="{i18n>ApplicationTitle}">
-		<IconTabBar enableScrolling="true" expanded="true"
+		<IconTabBar enableScrolling="true" expanded="false"
 			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
 				<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
@@ -16,11 +16,10 @@
 					design="Horizontal" count="" text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
 				<IconTabSeparator icon="" />
 				<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
-					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" >
-					
-		           
-				</IconTabFilter>
+					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />				    
+				
 			</items>
+			
 
 		</IconTabBar>
 		
@@ -38,6 +37,8 @@
                 </layout:MatrixLayoutCell>
              </layout:MatrixLayoutRow>
          </layout:MatrixLayout>		
+		           
+		
 	
 		
 		<Table id="idTable" fixedLayout="true" headerText=""

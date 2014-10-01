@@ -16,11 +16,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
         // Common Controller reference
-        this.CommonController = dia.cmc.common.helper.CommonController;
-       
-        $(document).ready(function() {
-            $("[id$='idIconTabBar-content']").remove();
-        });
+        this.CommonController = dia.cmc.common.helper.CommonController;       
+      
     },
     handleAmendmentDateRangeChange : function(oEvent){    	
     	
@@ -31,14 +28,15 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     handleAmendmentDateRangePress : function(oEvent){    	
     	
     	if(this._sDateFrom !== undefined | this._sDateTo !== undefined){
+    		
     	var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateFrom);
     	var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateTo);
-    	
+    	console.log(sFromDate+" "+sToDate);
     	var oBinding = _oTable.getBinding("items"),sFilter;
         _oTable.setVisible(true);         
      
         oBinding.filter([new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate), 
-                         new sap.ui.model.Filter("EndDate", sap.ui.model.FilterOperator.LT, sFromDate)]);
+                         new sap.ui.model.Filter("EndDate", sap.ui.model.FilterOperator.LT, sToDate)]);
     	}
         else{
         	sap.m.MessageToast.show(this.ModelHelper.getText("EmptyDateRangeToast"));
@@ -47,41 +45,40 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Show amendment details based on icon tab bar selection.
      */
-    handleAmendmentIconTabBarSelect: function(oEvent) {
+    handleAmendmentIconTabBarSelect: function(oEvent) {    	
     	
         var oBinding = _oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
        
         if (sKey === "Created") {
-        	_oTable.setVisible(true);
-        	_oLayout.setVisible(false); 
         	
+        	_oTable.setVisible(true);
+        	_oLayout.setVisible(false);         	
            
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "CRTD");
             oBinding.filter([oFilter]);
             
            
-        } else if (sKey === "Released") {
+        } else if (sKey === "Released") {        	
+           
         	_oLayout.setVisible(false);  
-        	_oTable.setVisible(true);     
-        	
+        	_oTable.setVisible(true);           	
             
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "RELE");
-            oBinding.filter([oFilter]);
-            
+            oBinding.filter([oFilter]);         
            
            
-        } else if (sKey === "Executed") {
+        } else if (sKey === "Executed") {  
+        	
         	_oLayout.setVisible(true); 
         	_oTable.setVisible(false);
         	
-        	
-       
-          
+        
         } else {
+        	
         	_oLayout.setVisible(false); 
         	_oTable.setVisible(true);
         	
