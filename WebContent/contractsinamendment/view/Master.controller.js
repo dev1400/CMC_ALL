@@ -39,11 +39,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     	var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateFrom);
     	var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateTo);
     	
-    	var oBinding = this._oTable.getBinding("items"),sFilter;
-        this._oTable.setVisible(true);         
-     
-        oBinding.filter([new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate), 
-                         new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.LE, sToDate)]);
+    	var oBinding = this._oTable.getBinding("items");
+        this._oTable.setVisible(true);
+        var ofilters =[];
+        ofilters = new sap.ui.model.Filter(
+				[new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate),
+				 new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.LE, sToDate)], true);
+        
+        oBinding.filter(ofilters);
     	}
         else{
         	sap.m.MessageToast.show(this.ModelHelper.getText("EmptyDateRangeToast"));
