@@ -69,12 +69,14 @@
 
 						<VBox width="auto">
 							<commons:TextView text="{Description}" design="Standard" />
-							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">		
-								<commons:TextView text="{Status}" design="Standard" />		
-								<commons:TextView textAlign="Center" text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>AmendmentbyCustomeron} {
+							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
+								<commons:TextView text="{Status}" design="Standard" />
+								<commons:TextView textAlign="Center"
+									text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>AmendmentbyCustomeron} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
-														}" design="Standard" />										
+														}"
+									design="Standard" />
 							</HBox>
 						</VBox>
 
@@ -108,19 +110,29 @@
 		<footer>
 			<Bar>
 				<contentLeft>
-					<Button icon="sap-icon://sys-find" press="handleBackendSearch">
-					</Button>
-					<SearchField liveChange="" search=""
-						placeholder="{i18n>SearchbySerialNumber}" width="100%"
-						showRefreshButton="true">
-
-					</SearchField>
-
+					<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
+						<Button icon="sap-icon://sys-find" press="handleBackendSearch">
+						</Button>
+						<SearchField placeholder="{i18n>SearchbySerialNumber}" tooltip="{i18n>SearchbySerialNumber}">
+						</SearchField>
+						<Select id="" type="IconOnly" icon="sap-icon://filter"
+							autoAdjustWidth="true" change="">
+							<c:Item key="1" text="Option 1" />
+							<c:Item key="2" text="Option 2" />
+							<c:Item key="3" text="Option 3" />
+							<c:Item key="4" text="Option 4" />
+						</Select>
+					</HBox>
 				</contentLeft>
 
 				<contentRight>
-					<HBox alignItems="End">
-						
+					<HBox width="auto" justifyContent="SpaceBetween"  alignItems="Center">
+						<ActionSheet >
+							<buttons>
+								<Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" />
+								<Button text="{i18n>FurtherActions}" tooltip="{i18n>FurtherActions}" icon="sap-icon://action" />
+							</buttons>
+						</ActionSheet>
 					</HBox>
 				</contentRight>
 			</Bar>
