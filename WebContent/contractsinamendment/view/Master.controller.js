@@ -49,7 +49,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         oBinding.filter(ofilters);
     	}
         else{
-        	sap.m.MessageToast.show(this.ModelHelper.getText("EmptyDateRangeToast"));
+        	sap.m.MessageToast.show(this.ModelHelper.getText("PleaseSelectaDateRange"));
         }
     },
     /**

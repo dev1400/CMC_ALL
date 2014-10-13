@@ -1,7 +1,7 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core"
 	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout">
-	<Page enableScrolling="true" title="{i18n>ApplicationTitle}">
+	<Page enableScrolling="true" title="{i18n>ContractsinAmendment}">
 		<IconTabBar enableScrolling="true" expanded="false"
 			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
@@ -10,13 +10,13 @@
 				</IconTabFilter>
 				<IconTabSeparator icon="sap-icon://open-command-field" />
 				<IconTabFilter icon="sap-icon://value-help" iconColor="Critical"
-					design="Horizontal" count="" text="{i18n>CreatedAmendments}" key="{i18n>CreatedAmendments}" />
+					design="Horizontal" count="" text="{i18n>Created}" key="{i18n>Created}" />
 				<IconTabSeparator icon="sap-icon://open-command-field" />
 				<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative"
-					design="Horizontal" count="" text="{i18n>ReleasedAmendments}" key="{i18n>ReleasedAmendments}" />
+					design="Horizontal" count="" text="{i18n>Released}" key="{i18n>Released}" />
 				<IconTabSeparator icon="" />
 				<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
-					design="Horizontal" count="" text="{i18n>ExecutedAmendments}" key="{i18n>ExecutedAmendments}" />
+					design="Horizontal" count="" text="{i18n>Executed}" key="{i18n>Executed}" />
 			</items>
 		</IconTabBar>
 
@@ -24,7 +24,7 @@
 			<layout:MatrixLayoutRow>
 				<layout:MatrixLayoutCell vAlign="Middle"
 					hAlign="Right" rowSpan="1" colSpan="1">
-					<Label text="{i18n>DateRangeSelectionLabel}" />
+					<Label text="{i18n>SelectDateRange}" />
 				</layout:MatrixLayoutCell>
 				<layout:MatrixLayoutCell vAlign="Middle"
 					hAlign="Center" rowSpan="1" colSpan="1">
@@ -72,7 +72,7 @@
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
 								<commons:TextView text="{Status}" design="Standard" />
 								<commons:TextView textAlign="Center"
-									text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>AmendmentbyCustomeron} {
+									text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>On} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
@@ -86,20 +86,20 @@
 						<VBox width="auto">
 							<ObjectIdentifier title="{CustomerName}" text=""
 								class="sapMTableContentMargin" />
-							<commons:TextView text="{i18n>CustomerDetailsAccountno} {CustomerId}"
+							<commons:TextView text="{i18n>Accountno} {CustomerId}"
 								design="Italic" />
 						</VBox>
 
 						<VBox width="auto">
 							<ProgressIndicator width="100%" percentValue="11"
-								displayValue="11% {i18n>OverallProgressCompleted}" showValue="true"
+								displayValue="11% {i18n>Completed}" showValue="true"
 								height="1.0rem" />
 							<Link text="{i18n>ClickforWorkflowOverview}" press="handleWorkflowOverviewLinkPress" />
 						</VBox>
 
 						<VBox width="auto" alignItems="Center">
-							<Text text="{i18n>CurrentActivityStatus}" />
-							<commons:TextView text="{i18n>CurrentActivityPendingat}"
+							<Text text="{i18n>ApproveRequest}" />
+							<commons:TextView text="{i18n>Pendingat}"
 								design="Italic" />
 						</VBox>
 
