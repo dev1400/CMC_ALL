@@ -55,10 +55,6 @@
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
-				<!-- <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"> 
-					<Text text="{i18n>AmendmentDescription}" /> </Column> <Column hAlign="Center"> 
-					<Text text="{i18n>AmendmentStatus}" /> </Column> <Column hAlign="Center"> 
-					<Text text="{i18n>CancelAmendment}" /> </Column> -->
 				<Column hAlign="Center">
 					<Text text="{i18n>OverallProgress}" />
 				</Column>
@@ -75,16 +71,12 @@
 							<commons:TextView text="{Description}" design="Standard" />
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">		
 								<commons:TextView text="{Status}" design="Standard" />		
-								<commons:TextView text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>AmendmentbyCustomeron} {
+								<commons:TextView textAlign="Center" text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>AmendmentbyCustomeron} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
-														}" design="Standard" />				
-								
+														}" design="Standard" />										
 							</HBox>
-							
-
 						</VBox>
-
 
 						<ObjectIdentifier title="{DealId}" text="{DealDescription}"
 							class="sapMTableContentMargin" />
@@ -94,24 +86,19 @@
 								class="sapMTableContentMargin" />
 							<commons:TextView text="{i18n>CustomerDetailsAccountno} {CustomerId}"
 								design="Italic" />
-
 						</VBox>
-
 
 						<VBox width="auto">
 							<ProgressIndicator width="100%" percentValue="11"
 								displayValue="11% {i18n>OverallProgressCompleted}" showValue="true"
 								height="1.0rem" />
-
 							<Link text="{i18n>ClickforWorkflowOverview}" press="handleWorkflowOverviewLinkPress" />
-
 						</VBox>
 
 						<VBox width="auto" alignItems="Center">
 							<Text text="{i18n>CurrentActivityStatus}" />
 							<commons:TextView text="{i18n>CurrentActivityPendingat}"
 								design="Italic" />
-
 						</VBox>
 
 					</cells>
@@ -133,13 +120,7 @@
 
 				<contentRight>
 					<HBox alignItems="End">
-						<!-- <Select id="idPricingSelect" type="IconOnly" icon="sap-icon://filter" 
-							autoAdjustWidth="true" change="handleDealFilter"> <c:Item key="" text="None" 
-							/> <c:Item key="1" text="Valid" /> <c:Item key="2" text="Expired" /> <c:Item 
-							key="3" text="Valid As On" /> <c:Item key="4" text="Flagged" /> </Select> 
-							<VBox alignItems="End" fitContainer="true" justifyContesnt="SpaceBetween"> 
-							<DatePicker id="idDealValidOnDate" visible="false" displayFormat="{i18n>DateFormat}" 
-							width="9em" change="handleFilterValidOnDateChange" /> </VBox> -->
+						
 					</HBox>
 				</contentRight>
 			</Bar>
