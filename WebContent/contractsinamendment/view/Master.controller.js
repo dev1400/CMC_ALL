@@ -148,7 +148,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Navigate to Amendment Flow.
      */
-    handleAmendmentWorkFlowPress: function(oEvent) {
+   /* handleAmendmentWorkFlowPress: function(oEvent) {
         var oContext = oEvent.getSource().getBindingContext();
         this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
         // If we're on a phone, include nav in history; if not, don't.
@@ -159,7 +159,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             from: "master",
             dealId: oDealDetail.DealId,
         }, bReplace);
-    },
+    },*/
     /**
      * Display pop-up with amendment decription.
      */
@@ -184,4 +184,19 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.getView().addDependent(this._oPopover);
         this._oPopover.openBy(oButton);
     },
+    /**
+     * Navigate to Workflow overview page. 
+     */
+    handleWorkflowOverviewLinkPress: function (oEvent) {
+    	 var oContext = oEvent.getSource().getBindingContext();
+         this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
+         // If we're on a phone, include nav in history; if not, don't.
+         var bReplace = jQuery.device.is.phone ? false : true;
+         var oDealDetail = this.getView().getModel().getProperty(
+             oContext.getPath());
+         this.CommonController.getRouter(this).navTo("AmendmentFlow", {
+             from: "master",
+             dealId: oDealDetail.DealId,
+         }, bReplace);
+      }
 });
