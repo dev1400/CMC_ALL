@@ -203,7 +203,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Show options when Further Actions button is pressed.
      */
     handleFurtherActionsButtonPress : function(oEvent) {
-  		// Get reference of Amendment button
+  		// Get reference of Further Actions Button
   		var oFurtherActionsButton = oEvent.getSource();
 
   		// create action sheet only once
