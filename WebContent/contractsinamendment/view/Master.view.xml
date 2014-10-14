@@ -67,8 +67,8 @@
 
 					<cells>
 
-						<VBox width="auto">
-							<commons:TextView text="{Description}" design="Standard" />
+						<VBox alignItems="Start" fitContainer="true" justifyContesnt="SpaceBetween" >
+							<commons:TextView text="{Description}" design="Standard" textAlign="Begin"/>
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
 								<commons:TextView text="{Status}" design="Standard" />
 								<commons:TextView textAlign="Center"
