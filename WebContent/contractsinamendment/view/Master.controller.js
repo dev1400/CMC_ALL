@@ -185,7 +185,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oPopover.openBy(oButton);
     },
     /**
-     * Navigate to Workflow overview page. 
+     * Navigate to WorkFlow overview page. 
      */
     handleWorkflowOverviewLinkPress: function (oEvent) {
     	 var oContext = oEvent.getSource().getBindingContext();
@@ -198,5 +198,21 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
              from: "master",
              dealId: oDealDetail.DealId,
          }, bReplace);
-      }
+      },
+    /**
+     * Show options when Further Actions button is pressed.
+     */
+    handleFurtherActionsButtonPress : function(oEvent) {
+  		// Get reference of Amendment button
+  		var oFurtherActionsButton = oEvent.getSource();
+
+  		// create action sheet only once
+  		if (!this._actionSheet) {
+  			this._actionSheet = sap.ui.xmlfragment(
+  					"dia.cmc.contractsinamendment.fragment.FurtherActionsActionSheet", this);
+  			this.getView().addDependent(this._actionSheet);
+  		}
+
+  		this._actionSheet.openBy(oFurtherActionsButton);
+  	},
 });
