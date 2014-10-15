@@ -61,6 +61,9 @@
 				<Column hAlign="Center">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
+				<Column hAlign="Center">
+					<Text text="{i18n>CancelAmendment}" />
+				</Column>
 			</columns>
 			<items>
 				<ColumnListItem type="Navigation" press="handleAmendmentItemPress">
@@ -102,6 +105,8 @@
 							<commons:TextView text="{i18n>Pendingat}"
 								design="Italic" />
 						</VBox>
+						
+						<c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
 
 					</cells>
 				</ColumnListItem>
