@@ -47,7 +47,7 @@
 
 			<columns>
 				<Column width="12em" hAlign="Center">
-					<Text text="{i18n>AmendmentIDAndType}" />
+					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>DealIDAndDescription}" />
@@ -73,7 +73,7 @@
 						<VBox alignItems="Start" fitContainer="true" justifyContesnt="SpaceBetween" >
 							<commons:TextView text="{Description}" design="Standard" textAlign="Begin"/>
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
-								<commons:TextView text="{Status}" design="Standard" />
+								<commons:TextView text="{AmendmentType}" design="Standard" />
 								<commons:TextView textAlign="Center"
 									text="{i18n>AmendmentInitiatedby} {TriggeredByUserName} {i18n>On} {
 														path: 'StartDate',
