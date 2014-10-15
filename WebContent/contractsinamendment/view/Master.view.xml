@@ -75,7 +75,7 @@
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
 								<commons:TextView text="{Status}" design="Standard" />
 								<commons:TextView textAlign="Center"
-									text="{i18n>AmendmentInitiatedby} {TriggeredBy} {i18n>On} {
+									text="{i18n>AmendmentInitiatedby} {TriggeredByUserName} {i18n>On} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
@@ -87,15 +87,15 @@
 							class="sapMTableContentMargin" />
 
 						<VBox width="auto">
-							<ObjectIdentifier title="{CustomerName}" text=""
+							<ObjectIdentifier title="{CustomerName}" text="{CustomerCity}, {CustomerCountry} {CustomerZip}"
 								class="sapMTableContentMargin" />
 							<commons:TextView text="{i18n>Accountno} {CustomerId}"
 								design="Italic" />
 						</VBox>
 
 						<VBox width="auto">
-							<ProgressIndicator width="100%" percentValue="11"
-								displayValue="11% {i18n>Completed}" showValue="true"
+							<ProgressIndicator width="100%" percentValue="{ValidPercentage}"
+								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}" showValue="true"
 								height="1.0rem" />
 							<Link text="{i18n>ClickforWorkflowOverview}" press="handleWorkflowOverviewLinkPress" />
 						</VBox>
