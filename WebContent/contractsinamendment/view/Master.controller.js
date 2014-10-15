@@ -12,7 +12,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable = this.getView().byId("idTable");        
         this._oLayout = this.getView().byId("idMatrixLayout");
         this._oLayout.setVisible(false); 
-        this._oAmend = { DealId : "", AmendmentId : "", RequestDescr : "", Action : "C" };
+        this._oAmend = { DealId : "", AmendmentId : "", RequestDesc : "", Action : "UCA" };
         
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -127,7 +127,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                 if (oResult) {                    
                      
                      if(oResult.sNote) { 
-                    	 oParentContext._oAmend.RequestDescr = oResult.sNote;
+                    	 oParentContext._oAmend.RequestDesc	 = oResult.sNote;
                     	 oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
                     	 }
                 }

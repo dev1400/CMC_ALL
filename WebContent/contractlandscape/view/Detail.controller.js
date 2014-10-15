@@ -1294,7 +1294,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			uiType : "TB",
 			value : "",
 			mandatory : true,
-			field : "RequestDescr"
+			field : "RequestDesc"
 		} ];
 
 		// Validate and post amendment to SAP
@@ -1364,7 +1364,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			uiType : "TB",
 			value : "",
 			mandatory : true,
-			field : "RequestDescr"
+			field : "RequestDesc"
 		}, {
 			id : "idTermEndDate",
 			uiType : "DT",
