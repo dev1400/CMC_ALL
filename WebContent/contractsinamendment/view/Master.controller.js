@@ -9,92 +9,97 @@ jQuery.sap.require("sap.ui.table.Table");
 jQuery.sap.require("sap.m.MessageBox");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
-    	
-        this._oTable = this.getView().byId("idTable");        
+
+        this._oTable = this.getView().byId("idTable");
         this._oLayout = this.getView().byId("idMatrixLayout");
-        this._oLayout.setVisible(false); 
-        this._oAmend = { DealId : "", AmendmentId : "", RequestDesc : "", Action : "UCA" };
+        this._oLayout.setVisible(false);
+        this._oAmend = {
+            DealId: "",
+            AmendmentId: "",
+            RequestDesc: "",
+            Action: "UCA"
+        };
         this._oAmendmentIdforCancellation = null;
         this._oDealIdforCancellation = null;
-        
+
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
         // Common Controller reference
-        this.CommonController = dia.cmc.common.helper.CommonController;       
-      
+        this.CommonController = dia.cmc.common.helper.CommonController;
+
     },
     /**
      * Get From and To date when date range is selected.
      */
-    handleAmendmentDateRangeChange : function(oEvent){    	
-    	
-    	this._sDateFrom = oEvent.getParameter("from");
-    	this._sDateTo = oEvent.getParameter("to");
-    	
+    handleAmendmentDateRangeChange: function(oEvent) {
+
+        this._sDateFrom = oEvent.getParameter("from");
+        this._sDateTo = oEvent.getParameter("to");
+
     },
     /**
      * Show amendments based on selected date range.
      */
-    handleAmendmentDateRangePress : function(oEvent){    	
-    	
-    	if(this._sDateFrom !== undefined | this._sDateTo !== undefined){
-    		
-    	var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateFrom);
-    	var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateTo);
-    	
-    	var oBinding = this._oTable.getBinding("items");
-        this._oTable.setVisible(true);
-        var ofilters =[];
-        ofilters = new sap.ui.model.Filter(
-				[new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate),
-				 new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.LE, sToDate)], true);
-        
-        oBinding.filter(ofilters);
-    	}
-        else{
-        	sap.m.MessageToast.show(this.ModelHelper.getText("PleaseSelectaDateRange"));
+    handleAmendmentDateRangePress: function(oEvent) {
+
+        if (this._sDateFrom !== undefined | this._sDateTo !== undefined) {
+
+            var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateFrom);
+            var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(this._sDateTo);
+
+            var oBinding = this._oTable.getBinding("items");
+            this._oTable.setVisible(true);
+            var ofilters = [];
+            ofilters = new sap.ui.model.Filter(
+                [new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.GE, sFromDate),
+                    new sap.ui.model.Filter("StartDate", sap.ui.model.FilterOperator.LE, sToDate)
+                ], true);
+
+            oBinding.filter(ofilters);
+        } else {
+            sap.m.MessageToast.show(this.ModelHelper.getText("PleaseSelectaDateRange"));
         }
     },
     /**
      * Show amendment details based on icon tab bar selection.
      */
-    handleAmendmentIconTabBarSelect: function(oEvent) {    	
-    	
+    handleAmendmentIconTabBarSelect: function(oEvent) {
+
         var oBinding = this._oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
-       
+
         if (sKey === "Created") {
-        	
-        	this._oTable.setVisible(true);
-        	this._oLayout.setVisible(false);         	
-           
+
+            this._oTable.setVisible(true);
+            this._oLayout.setVisible(false);
+
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "CRTD");
             oBinding.filter([oFilter]);
-            
-           
-        } else if (sKey === "Released") {        	
-           
-        	this._oLayout.setVisible(false);  
-        	this._oTable.setVisible(true);           	
-            
+
+
+        } else if (sKey === "Released") {
+
+            this._oLayout.setVisible(false);
+            this._oTable.setVisible(true);
+
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "RELE");
-            oBinding.filter([oFilter]);         
-           
-           
-        } else if (sKey === "Executed") {  
-        	
-        	this._oLayout.setVisible(true); 
-        	this._oTable.setVisible(false);
-        	
-        
+            oBinding.filter([oFilter]);
+
+
+        } else if (sKey === "Executed") {
+
+            this._oLayout.setVisible(true);
+            this._oTable.setVisible(false);
+
+
         } else {
-        	
-        	this._oLayout.setVisible(false); 
-        	this._oTable.setVisible(true);
-        	
+
+            this._oLayout.setVisible(false);
+            this._oTable.setVisible(true);
+
             oBinding.filter([new sap.ui.model.Filter("Status", sap.ui
                     .model.FilterOperator.EQ, "CRTD"), new sap
                 .ui.model.Filter("Status", sap.ui.model.FilterOperator
@@ -122,37 +127,62 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Handle amendment cancellation.
      */
     handleAmendmentCancelPress: function(oEvent) {
-    	
-    	if(this._oAmendmentIdforCancellation !== null &  this._oDealIdforCancellation !== null){
-    		
-    		this._oAmend.DealId =  this._oDealIdforCancellation;
-        	this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
-        	var oParentContext = this;
-          
-                /**
-                 * Opens the confirmation message box.
-                 */
-            sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), 
-            		                 { icon: sap.m.MessageBox.Icon.QUESTION,
-            	                       title: this.ModelHelper.getText("CancelAmendment"),
-            		                   actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-            		                   onClose: function(oAction) {
-            		                   if (oAction === oParentContext.ModelHelper.getText("OK")){            		                    		  
-            		                         	  oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
-            		                    	  }
-            		                     }
-                                      });
-           
-    	}else{
-    		sap.m.MessageToast.show(this.ModelHelper.getText("SelecetAnAmendmentForCancellation"));
-    	}
-    
-    	
+
+        if (this._oAmendmentIdforCancellation !== null & this._oDealIdforCancellation !== null) {
+
+            this._oAmend.DealId = this._oDealIdforCancellation;
+            this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
+            var oParentContext = this;
+
+            /**
+             * Opens the confirmation message box.
+             */
+            sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
+                icon: sap.m.MessageBox.Icon.QUESTION,
+                title: this.ModelHelper.getText("CancelAmendment"),
+                actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                onClose: function(oAction) {
+                    if (oAction === oParentContext.ModelHelper.getText("OK")) {
+                        oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
+                    }
+                }
+            });
+
+        } else {
+            sap.m.MessageToast.show(this.ModelHelper.getText("SelectAnAmendmentForCancellation"));
+        }
+
+
+    },
+
+    /**
+     * Display pop-up with amendment decription.
+     */
+    handleAmendmentPopoverPress: function(oEvent) {
+        var oButton = oEvent.getSource();
+        //added amendment description and amendmetId in popup
+        this._oPopover = new sap.m.Popover({
+            title: "{i18n>AmendmentDescription}",
+            content: [new sap.m.VBox({
+                justifyContent: sap.m.FlexJustifyContent
+                    .Center,
+                alignItems: sap.m.FlexAlignItems
+                    .Center,
+                items: new sap.m.Text({
+                    text: oEvent.getSource()
+                        .getBindingContext()
+                        .getObject().Description
+                })
+            })]
+
+        });
+        this.getView().addDependent(this._oPopover);
+        this._oPopover.openBy(oButton);
     },
     /**
-     * Navigate to Amendment Flow.
+     * Navigate to WorkFlow overview page.
      */
-   /* handleAmendmentWorkFlowPress: function(oEvent) {
+    handleWorkflowOverviewLinkPress: function(oEvent) {
         var oContext = oEvent.getSource().getBindingContext();
         this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
         // If we're on a phone, include nav in history; if not, don't.
@@ -163,72 +193,30 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             from: "master",
             dealId: oDealDetail.DealId,
         }, bReplace);
-    },*/
-    /**
-     * Display pop-up with amendment decription.
-     */
-    handleAmendmentPopoverPress: function(oEvent) {
-        var oButton = oEvent.getSource();
-        //added amendment description and amendmetId in popup
-        this._oPopover = new sap.m.Popover({
-            title: "{i18n>AmendmentDescription}",
-            content: [new sap.m.VBox({
-                    justifyContent: sap.m.FlexJustifyContent
-                        .Center,
-                    alignItems: sap.m.FlexAlignItems
-                        .Center,
-                    items: new sap.m.Text({
-                        text: oEvent.getSource()
-                            .getBindingContext()
-                            .getObject().Description
-                    })
-                })]
-                
-        });
-        this.getView().addDependent(this._oPopover);
-        this._oPopover.openBy(oButton);
     },
     /**
-     * Navigate to WorkFlow overview page. 
+     * Show options when Additional Actions button is pressed.
      */
-    handleWorkflowOverviewLinkPress: function (oEvent) {
-    	 var oContext = oEvent.getSource().getBindingContext();
-         this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
-         // If we're on a phone, include nav in history; if not, don't.
-         var bReplace = jQuery.device.is.phone ? false : true;
-         var oDealDetail = this.getView().getModel().getProperty(
-             oContext.getPath());
-         this.CommonController.getRouter(this).navTo("AmendmentFlow", {
-             from: "master",
-             dealId: oDealDetail.DealId,
-         }, bReplace);
-      },
+    handleAdditionalActionsButtonPress: function(oEvent) {
+        // Get reference of Further Actions Button
+        var oAdditionalActionsButton = oEvent.getSource();
+
+        // create action sheet only once
+        if (!this._actionSheet) {
+            this._actionSheet = sap.ui.xmlfragment(
+                "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
+            this.getView().addDependent(this._actionSheet);
+        }
+
+        this._actionSheet.openBy(oAdditionalActionsButton);
+    },
     /**
-     * Show options when Further Actions button is pressed.
+     * Get context of selected check box.
      */
-    handleFurtherActionsButtonPress : function(oEvent) {
-  		// Get reference of Further Actions Button
-  		var oFurtherActionsButton = oEvent.getSource();
+    handleCancelAmendmentRadioButtonSelect: function(oEvent) {
 
-  		// create action sheet only once
-  		if (!this._actionSheet) {
-  			this._actionSheet = sap.ui.xmlfragment(
-  					"dia.cmc.contractsinamendment.fragment.FurtherActionsActionSheet", this);
-  			this.getView().addDependent(this._actionSheet);
-  		}
+        this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
+        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
 
-  		this._actionSheet.openBy(oFurtherActionsButton);
-  	},
-  	/**
-  	 * Get context of selected check box.
-  	 */
-  	handleCancelAmendmentRadioButtonSelect : function(oEvent) {
-  		
-  		console.log(oEvent.oSource.sId);
-  		/*console.log(oEvent.getSource().getBindingContext().getObject());*/
-  		
-  		this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
-  		this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
-  		
-  	},
+    },
 });

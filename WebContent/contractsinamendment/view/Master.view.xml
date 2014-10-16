@@ -138,7 +138,7 @@
 						<ActionSheet >
 							<buttons>
 								<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" /> -->
-								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleFurtherActionsButtonPress"/>
+								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleAdditionalActionsButtonPress"/>
 							</buttons>
 						</ActionSheet>
 					</HBox>
