@@ -5,17 +5,18 @@
 		<IconTabBar enableScrolling="true" expanded="false"
 			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
-				<IconTabFilter icon="sap-icon://accept" iconColor="Positive"
+				<IconTabFilter icon="sap-icon://accept" 
 					design="Horizontal" count="" text="{i18n>AllDealsinAmendment}" key="{AllDealsinAmendment}">
 				</IconTabFilter>
 				<IconTabSeparator icon="sap-icon://open-command-field" />
-				<IconTabFilter icon="sap-icon://value-help" iconColor="Critical"
+				<IconTabFilter icon="sap-icon://value-help" 
 					design="Horizontal" count="" text="{i18n>Created}" key="{i18n>Created}" />
 				<IconTabSeparator icon="sap-icon://open-command-field" />
-				<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative"
+				<IconTabFilter icon="sap-icon://unlocked"
 					design="Horizontal" count="" text="{i18n>Released}" key="{i18n>Released}" />
+				<IconTabSeparator icon="sap-icon://open-command-field" />
 				<IconTabSeparator icon="" />
-				<IconTabFilter icon="sap-icon://complete" iconColor="Positive"
+				<IconTabFilter icon="sap-icon://complete" 
 					design="Horizontal" count="" text="{i18n>Executed}" key="{i18n>Executed}" />
 			</items>
 		</IconTabBar>
@@ -50,7 +51,7 @@
 					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
-					<Text text="{i18n>DealIDAndDescription}" />
+					<Text text="{i18n>DealDetails}" />
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
@@ -139,8 +140,8 @@
 					<HBox width="auto" justifyContent="SpaceBetween"  alignItems="Center">
 						<ActionSheet >
 							<buttons>
-								<Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" />
-								<Button text="{i18n>FurtherActions}" tooltip="{i18n>FurtherActions}" icon="sap-icon://action" press="handleFurtherActionsButtonPress"/>
+								<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" /> -->
+								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleFurtherActionsButtonPress"/>
 							</buttons>
 						</ActionSheet>
 					</HBox>
