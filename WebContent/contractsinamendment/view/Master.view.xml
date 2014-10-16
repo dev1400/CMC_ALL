@@ -61,9 +61,9 @@
 				<Column hAlign="Center">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
-				<Column hAlign="Center">
+				<!-- <Column hAlign="Center">
 					<Text text="{i18n>CancelAmendment}" />
-				</Column>
+				</Column> -->
 			</columns>
 			<items>
 				<ColumnListItem type="Navigation" press="handleAmendmentItemPress">
@@ -106,7 +106,7 @@
 								design="Italic" />
 						</VBox>
 						
-						<c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
+						<!-- <c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" /> -->
 
 					</cells>
 				</ColumnListItem>
@@ -115,7 +115,7 @@
 		<footer>
 			<Bar>
 				<contentLeft>
-					<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
+					<!-- <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
 						<Button icon="sap-icon://sys-find" press="handleBackendSearch">
 						</Button>
 						<SearchField placeholder="{i18n>SearchbySerialNumber}" tooltip="{i18n>SearchbySerialNumber}">
@@ -127,7 +127,7 @@
 							<c:Item key="3" text="Option 3" />
 							<c:Item key="4" text="Option 4" />
 						</Select>
-					</HBox>
+					</HBox> -->
 				</contentLeft>
 
 				<contentRight>
