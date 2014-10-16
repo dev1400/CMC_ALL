@@ -5,7 +5,7 @@
     showCancelButton="true"
     placement="Top">
     <buttons>
-      <Button text="{i18n>CancelAmendment}" tooltip="{i18n>CancelAmendment}" icon="sap-icon://sys-cancel" press="" />
+      <Button text="{i18n>CancelAmendment}" tooltip="{i18n>CancelAmendment}" icon="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
     </buttons>
   </ActionSheet>
 </core:FragmentDefinition>

@@ -561,7 +561,7 @@ dia.cmc.common.helper.ModelHelper = {
 	updateAmendment : function(oAmendmentDetails){
 		
 		// Call ODataModel Update method to post data to SAP
-		this.oODataModel.update("/DealCollection('"+oAmendmentDetails.DealId+"')/AmendmentCollection('"+oAmendmentDetails.AmendmentId+"')", oAmendmentDetails, null, function(){
+		this.oODataModel.update("/AmendmentCollection('"+oAmendmentDetails.AmendmentId+"')", oAmendmentDetails, null, function(){
 			// This is update success event handler. Will be called when update operation is successful.
 				
 			oAmendmentDetails.Message = "Passed: User defaults were updated!";

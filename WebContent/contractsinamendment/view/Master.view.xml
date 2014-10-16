@@ -61,9 +61,9 @@
 				<Column hAlign="Center">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
-				<!-- <Column hAlign="Center">
+				<Column hAlign="Center">
 					<Text text="{i18n>CancelAmendment}" />
-				</Column> -->
+				</Column>
 			</columns>
 			<items>
 				<ColumnListItem type="Navigation" press="handleAmendmentItemPress">
@@ -107,6 +107,11 @@
 						</VBox>
 						
 						<!-- <c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" /> -->
+						<!-- <CheckBox select="handleCancelAmendmentCheckboxChange" ></CheckBox> -->
+						<RadioButton groupName="AmendmentCancellationGroup" select="handleCancelAmendmentRadioButtonSelect"> 
+						        
+						</RadioButton>
+					
 
 					</cells>
 				</ColumnListItem>
