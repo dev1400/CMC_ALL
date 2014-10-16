@@ -108,8 +108,8 @@
 						</VBox>
 						
 						<!-- <c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" /> -->
-						<!-- <CheckBox select="handleCancelAmendmentCheckboxChange" ></CheckBox> -->
-						<RadioButton groupName="AmendmentCancellationGroup" select="handleCancelAmendmentRadioButtonSelect"> 
+						
+						<RadioButton groupName="{i18n>AmendmentCancellationGroup}" select="handleCancelAmendmentRadioButtonSelect"> 
 						        
 						</RadioButton>
 					
