@@ -128,10 +128,7 @@
 						</SearchField>
 						<Select id="" type="IconOnly" icon="sap-icon://filter"
 							autoAdjustWidth="true" change="">
-							<c:Item key="1" text="Option 1" />
-							<c:Item key="2" text="Option 2" />
-							<c:Item key="3" text="Option 3" />
-							<c:Item key="4" text="Option 4" />
+							
 						</Select>
 					</HBox> -->
 				</contentLeft>
