@@ -123,7 +123,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     handleAmendmentCancelPress: function(oEvent) {
     	
     	if(this._oAmendmentIdforCancellation !== null &  this._oDealIdforCancellation !== null){
-    		console.log(this._oAmendmentIdforCancellation+" "+this._oDealIdforCancellation);
+    		
     		this._oAmend.DealId =  this._oDealIdforCancellation;
         	this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
         	var oParentContext = this;
@@ -228,9 +228,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
   	 * Get context of selected check box.
   	 */
   	handleCancelAmendmentRadioButtonSelect : function(oEvent) {
-  		/*console.dir(oEvent);*/
+  		
   		console.log(oEvent.oSource.sId);
-  		console.log(oEvent.getSource().getBindingContext().getObject());
+  		/*console.log(oEvent.getSource().getBindingContext().getObject());*/
   		
   		this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
   		this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
