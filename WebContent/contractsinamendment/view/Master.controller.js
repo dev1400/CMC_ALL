@@ -6,6 +6,7 @@ jQuery.sap.require("sap.m.Button");
 jQuery.sap.require("sap.m.DateRangeSelection");
 jQuery.sap.require("sap.ui.commons.Label");
 jQuery.sap.require("sap.ui.table.Table");
+jQuery.sap.require("sap.m.MessageBox");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
     	
@@ -127,27 +128,21 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     		this._oAmend.DealId =  this._oDealIdforCancellation;
         	this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
         	var oParentContext = this;
-            var fnClose = function(oResult) {
-                    if (oResult) {                    
-                         
-                         if(oResult.sNote) { 
-                        	 oParentContext._oAmend.RequestDesc	 = oResult.sNote;
-                        	 oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
-                        	 }
-                    }
-                }
+          
                 /**
-                 * Opens the confirmation dialog
+                 * Opens the confirmation message box.
                  */
-            sap.ca.ui.dialog.confirmation.open({
-                question: this.ModelHelper.getText(
-                    "AmendmentCancellationMessage"),
-                noteMandatory : true,
-                title: this.ModelHelper.getText(
-                    "CancelAmendment"),
-                confirmButtonLabel: this.ModelHelper.getText(
-                    "Ok")
-            }, fnClose);
+            sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), 
+            		                 { icon: sap.m.MessageBox.Icon.QUESTION,
+            	                       title: this.ModelHelper.getText("CancelAmendment"),
+            		                   actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+            		                   onClose: function(oAction) {
+            		                   if (oAction === oParentContext.ModelHelper.getText("OK")){            		                    		  
+            		                         	  oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
+            		                    	  }
+            		                     }
+                                      });
+           
     	}else{
     		sap.m.MessageToast.show(this.ModelHelper.getText("SelecetAnAmendmentForCancellation"));
     	}
