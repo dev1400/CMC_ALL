@@ -154,31 +154,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
 
     },
-
-    /**
-     * Display pop-up with amendment decription.
-     */
-    handleAmendmentPopoverPress: function(oEvent) {
-        var oButton = oEvent.getSource();
-        //added amendment description and amendmetId in popup
-        this._oPopover = new sap.m.Popover({
-            title: "{i18n>AmendmentDescription}",
-            content: [new sap.m.VBox({
-                justifyContent: sap.m.FlexJustifyContent
-                    .Center,
-                alignItems: sap.m.FlexAlignItems
-                    .Center,
-                items: new sap.m.Text({
-                    text: oEvent.getSource()
-                        .getBindingContext()
-                        .getObject().Description
-                })
-            })]
-
-        });
-        this.getView().addDependent(this._oPopover);
-        this._oPopover.openBy(oButton);
-    },
     /**
      * Navigate to WorkFlow overview page.
      */
