@@ -3,7 +3,7 @@ jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.util.MyRouter");
 sap.ui.core.UIComponent.extend("dia.cmc.contractsinamendment.Component", {
     metadata: {
-        name: "CMC Contract Landscape",
+        name: "CMC Contracts in Amendment",
         version: "1.0",
         includes: [],
         dependencies: {
