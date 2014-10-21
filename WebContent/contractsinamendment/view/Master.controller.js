@@ -196,7 +196,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Download table data to excel file.
      */
-    handleADownloadButtonPress: function(oEvent) {
+    handleExportButtonPress: function(oEvent) {
     	
      console.dir(this.ModelHelper.readDealCollection(null));
     },
