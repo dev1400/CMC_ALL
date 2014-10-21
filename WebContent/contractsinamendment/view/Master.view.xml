@@ -62,8 +62,8 @@
 				<Column hAlign="Center">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
-				<Column hAlign="Center">
-					<Text text="{i18n>CancelAmendment}" />
+				<Column hAlign="Center" width="3.5em">
+					<Text text="{i18n>Select}" />
 				</Column>
 			</columns>
 			<items>
@@ -73,10 +73,10 @@
 
 						<VBox alignItems="Start" fitContainer="true" justifyContesnt="SpaceBetween" >
 							<commons:TextView text="{Description}" design="Standard" textAlign="Begin"/>
-							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
-								<commons:TextView text="{AmendmentType}" design="Standard" />
-								<commons:TextView textAlign="Center"
-									text="{i18n>AmendmentInitiatedby} {TriggeredByUserName} {i18n>On} {
+							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
+								
+								<commons:TextView textAlign="Begin"
+									text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName} {i18n>On} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
