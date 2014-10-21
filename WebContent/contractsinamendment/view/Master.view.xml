@@ -139,7 +139,7 @@
 							<buttons>
 								<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" /> -->
 								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleAdditionalActionsButtonPress"/>
-								<Button text="{i18n>Download}" tooltip="{i18n>Download}" icon="sap-icon://download" press=""/>
+								<Button text="{i18n>Export}" tooltip="{i18n>Export}" icon="sap-icon://excel-attachment" press="handleADownloadButtonPress"/>
 		
 							</buttons>
 						</ActionSheet>

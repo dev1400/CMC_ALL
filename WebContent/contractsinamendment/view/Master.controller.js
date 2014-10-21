@@ -193,4 +193,11 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
 
     },
+    /**
+     * Download table data to excel file.
+     */
+    handleADownloadButtonPress: function(oEvent) {
+    	
+     console.dir(this.ModelHelper.readDealCollection(null));
+    },
 });
