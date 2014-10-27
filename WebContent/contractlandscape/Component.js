@@ -5,7 +5,6 @@ jQuery.sap.require("dia.cmc.common.util.MyRouter");
 
 sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
 
-
 	metadata : {
         name : "CMC Contract Landscape",
         version : "1.0",
@@ -15,7 +14,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
             components : []
         },
         
- 	rootView : "dia.cmc.contractlandscape.view.Root",
+// 	rootView : "dia.cmc.contractlandscape.view.Root",
 
     routing: {
             config : {
@@ -37,6 +36,13 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
                             pattern : "Deal({dealId})",
                             name : "dealDetail",
                             view : "Detail",
+                            transition : "show"
+                        },
+                        
+                        {
+                            pattern : "Deal({dealId})/Timeline",
+                            name : "dealTimeline",
+                            view : "Timeline",
                             transition : "show"
                         },
                         
@@ -70,7 +76,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
     
 
 	init : function() {
-
+		
         sap.ui.core.UIComponent.prototype.init.apply(this, arguments);
         
 		// Get ODataModel instance
@@ -79,6 +85,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
 		// Set OData Model
 		this.setModel(oODataModel ,"ODataModel");
 		
+	
 	    // Get i18n model 
 		var i18nModel =	dia.cmc.common.helper.ModelHelper.getI18nModel("contractlandscape/i18n/messageBundle.properties");
 		
@@ -122,7 +129,22 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
 
         this.getRouter().initialize();
 
-	}
+	},
    
+    
+    createContent : function() {
+    
+		// create root view
+		var oView = sap.ui.view({
+			id : "idRootView",
+			viewName : "dia.cmc.contractlandscape.view.Root",
+			type : "XML",
+			viewData : { component : this }
+		});
+		
+		window.rootView = oView;
+		
+		return oView;
+    }
 
 });

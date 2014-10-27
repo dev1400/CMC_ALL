@@ -6,7 +6,19 @@
     showCancelButton="true"
     placement="Top">
     <buttons>
-      <Button text="{i18n>Recalculation}" tooltip="{i18n>Recalculation}" icon="sap-icon://duplicate" press="handleAmendRecalculationPopup" />    
+      <Button text="{i18n>Recalculation}" tooltip="{i18n>Recalculation}" icon="sap-icon://duplicate" 
+      		  visible="{
+							path: 'DealDetailModel>/DealDetail/DealStatus',
+							formatter: 'dia.cmc.common.util.Formatter.isDealNotInAmend'
+						}"
+      		  press="handleAmendRecalculationPopup" />    
+      		  
+      <Button text="{i18n>CancelRecalculation}" tooltip="{i18n>CancelRecalculation}" icon="sap-icon://sys-cancel" 
+      		  visible="{
+							path: 'DealDetailModel>/DealDetail/DealStatus',
+							formatter: 'dia.cmc.common.util.Formatter.isDealInAmend'
+						}" 
+      		  press="handleCancelRecalculationPost" />
       <!-- <Button id="idAddChangePrice" text="{i18n>AddChangePrice}" tooltip="{i18n>AddChangePrice}" icon="sap-icon://edit" press="handleAmendPricePopup" />
       <Button id="idMaterialSub"	text="{i18n>MaterialSubstitution}" tooltip="{i18n>MaterialSubstitution}" icon="sap-icon://product" press="handleAmendProductSubPopup" />
       <Button id="idAddChangeCommitment" text="{i18n>AddChangeCommitment}" tooltip="{i18n>AddChangeCommitment}" icon="sap-icon://edit" press="handleAmendCommitmentPopup" /> -->

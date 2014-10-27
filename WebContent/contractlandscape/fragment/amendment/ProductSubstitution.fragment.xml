@@ -31,7 +31,7 @@
     <l:content>
     
 	<f:SimpleForm layout="ResponsiveGridLayout"
-		labelSpanL="4" labelSpanM="3" emptySpanL="4" emptySpanM="1" columnsL="1" columnsM="1">
+		labelSpanL="4" labelSpanM="3" emptySpanL="4" emptySpanM="1" columnsL="1" columnsM="1"  editable="true"	>
 	
 		<f:content>
 		    <Label text="{i18n>OldProduct}" />

@@ -1,9 +1,9 @@
 <core:FragmentDefinition
   xmlns="sap.m"
   xmlns:core="sap.ui.core">
-  <ActionSheet>
+  <ActionSheet  placement="Top">
        <buttons>
-      <Button text="{i18n>DefaultParameters}" tooltip="{i18n>DefaultParameters}" icon="sap-icon://action-settings" press="handleDefaultParameterPopup" />    
+      <Button text="{i18n>DefaultParameters}" tooltip="{i18n>DefaultParametersTooltip}" icon="sap-icon://action-settings" press="handleDefaultParameterPopup" />    
       <ToggleButton text="{i18n>CompactTheme}" tooltip="{i18n>CompactThemeTooltip}" icon="sap-icon://palette" press="handleCompactThemeToggle" />
     </buttons>
   </ActionSheet>

@@ -18,7 +18,6 @@
 		</script>
 
 		<link rel="stylesheet" type="text/css" href="common/css/style.css">
-
 		<link rel="shortcut icon" href="common/mime/favicon.png" />
 		<link rel="apple-touch-icon" href="common/mime/favicon.png" />
 
@@ -28,14 +27,15 @@
  						
  		/* jQuery.sap.registerResourcePath("dia.cmc.contractlandscape", "contractlandscape/")  */
 		
-		var shell = new sap.m.Shell({
+		var oShell = new sap.m.Shell({
+				id:"idMainShell",
 				app : new sap.ui.core.ComponentContainer({
 				name : "dia.cmc.contractlandscape"
 				})
 			});
 		
-		shell.setAppWidthLimited(false);
-		shell.placeAt("content");
+		oShell.setAppWidthLimited(false);
+		oShell.placeAt("content");
 
 
 	    

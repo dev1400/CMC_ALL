@@ -2,7 +2,7 @@
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons">
 
 	<Dialog title="{i18n>AddChangePrice}" class="sapUiPopupWithPadding"
-		contentWidth="50%" contentHeight="45%" stretchOnPhone="true">
+		contentWidth="60%" contentHeight="45%" stretchOnPhone="true">
 
 		<customHeader>
 			<Bar>
@@ -20,12 +20,12 @@
 
 			<l:content>
 
-				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="4"
-					labelSpanM="3" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="2"
+					labelSpanM="3" emptySpanL="1" emptySpanM="0" columnsL="2" columnsM="2"  editable="true"	>
 
 					<f:content>
 						<Label text="{Property>/MaterialLabel}" />
-						<Input id="idPAProduct" value="{DealDetailModel>/SelectedPriceItem/Material}"
+						<Input id="idPAProduct" value="{DealDetailModel>/NewPriceItem/Material}"
 							enabled="{Property>/MaterialEnable}"
 							showValueHelp="true" valueHelpRequest="handleValueHelp">
 
@@ -36,18 +36,18 @@
 						</Input>
 
 						<Input id="idPAProductDesc"
-							value="{DealDetailModel>/SelectedPriceItem/MaterialDescription}"
+							value="{DealDetailModel>/NewPriceItem/MaterialDescription}"
 							enabled="false">
 
 							<layoutData>
-								<l:GridData span="L4 M6 S7" />
+								<l:GridData span="L4 M5 S6" />
 							</layoutData>
 
 						</Input>
 
 					<!-- 	<Label text="{i18n>CurrentPrice}" />
 
-						<Input id="idPACurrentPrice" value="{DealDetailModel>/SelectedPriceItem/Rate}"
+						<Input id="idPACurrentPrice" value="{DealDetailModel>/NewPriceItem/Rate}"
 							enabled="false">
 
 							<layoutData>
@@ -56,36 +56,57 @@
 
 						</Input>
 
-						<Input id="idPACurrentPricePerX" value="{DealDetailModel>/SelectedPriceItem/Unit}"
+						<Input id="idPACurrentPricePerX" value="{DealDetailModel>/NewPriceItem/Unit}"
 							placeholder="{i18n>PerX}" enabled="false">
 							<layoutData>
 								<l:GridData span="L2 M2 S3" />
 							</layoutData>
 						</Input>
 
-						<Input id="idPACurrentPriceUOM" value="{DealDetailModel>/SelectedPriceItem/Uom}"
+						<Input id="idPACurrentPriceUOM" value="{DealDetailModel>/NewPriceItem/Uom}"
 							placeholder="{i18n>UOM}" enabled="false">
 							<layoutData>
 								<l:GridData span="L2 M2 S3" />
 							</layoutData>
 						</Input> -->
 						
-						<Label text="{i18n>NewPrice}" />
+						<Label text="{i18n>NewPrice} / {i18n>Currency}" />
 
-						<Input id="idPANewPrice" value="{DealDetailModel>/SelectedPriceItem/Rate}" type="Number">
+						<Input id="idPANewPrice" value="{DealDetailModel>/NewPriceItem/Rate}" type="Number">
 							<layoutData>
-								<l:GridData span="L4 M4 S6" />
+								<l:GridData span="L2 M3 S4" />
 							</layoutData>
 						</Input>
 
-						<Input id="idPANewPricePerX" value="{DealDetailModel>/SelectedPriceItem/Unit}" 
-									 type="Number" placeholder="{i18n>PerX}">
+<!-- 						<Label text="{i18n>Currency}" >
+							<layoutData>
+								<l:GridData span="L2 M2 S3" />
+							</layoutData>
+						</Label> -->
+
+						<Input id="idPANewPriceCurrency" value="{DealDetailModel>/NewPriceItem/CurrencyCode}" enabled="false">
 							<layoutData>
 								<l:GridData span="L2 M2 S3" />
 							</layoutData>
 						</Input>
+						
+						<Label text="{i18n>PerX} / {i18n>UOM}" />
+						
+						<Input id="idPANewPricePerX" value="{DealDetailModel>/NewPriceItem/Unit}" 
+									 type="Number" placeholder="{i18n>PerX}">
+							<layoutData>
+								<l:GridData span="L2 M3 S4" />
+							</layoutData>
+						</Input>
 
-						<Input id="idPANewPriceUOM" value="{DealDetailModel>/SelectedPriceItem/Uom}" placeholder="{i18n>UOM}"
+<!-- 						<Label text="{i18n>UOM}" >
+							<layoutData>
+								<l:GridData span="L2 M2 S3" />
+							</layoutData>
+						</Label> -->
+						
+						
+						<Input id="idPANewPriceUOM" value="{DealDetailModel>/NewPriceItem/Uom}" placeholder="{i18n>UOM}"
 							enabled="false">
 							<layoutData>
 								<l:GridData span="L2 M2 S3" />
@@ -96,6 +117,8 @@
 
 						<DateRangeSelection id="idPAValidity"
 							delimiter="To" displayFormat="{i18n>DateFormat}"
+							dateValue="{DealDetailModel>/NewPriceItem/ValidFrom}"
+							secondDateValue="{DealDetailModel>/NewPriceItem/ValidTo}"
 							enabled="true" >
 							
 							<layoutData>

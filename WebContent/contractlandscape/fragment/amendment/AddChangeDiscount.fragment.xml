@@ -1,0 +1,90 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons">
+
+	<Dialog title="{i18n>AddChangePrice}" class="sapUiPopupWithPadding"
+		contentWidth="60%" contentHeight="45%" stretchOnPhone="true">
+
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<core:Icon src="sap-icon://edit" />
+				</contentLeft>
+				<contentMiddle>
+					<Label text="{Property>/AmendDiscountTitle}" />
+				</contentMiddle>
+			</Bar>
+		</customHeader>
+
+
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+
+			<l:content>
+
+				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="2"
+					labelSpanM="3" emptySpanL="1" emptySpanM="0" columnsL="2" columnsM="2"  editable="true"	>
+
+					<f:content>
+					
+						<Label text="{Property>/DiscountFieldLabel}" />
+					
+						<Input id="idDADiscountField" value="{DealDetailModel>/NewDiscountItem/Material}"
+							enabled="{Property>/DiscountFieldEnable}"
+							showValueHelp="true" valueHelpRequest="handleValueHelp">
+
+							<layoutData>
+								<l:GridData span="L2 M3 S4" />
+							</layoutData>
+						</Input>
+
+
+						<Input id="idDADiscountFieldDesc"
+							value="{DealDetailModel>/NewDiscountItem/MaterialDescription}"
+							enabled="false">
+
+							<layoutData>
+								<l:GridData span="L4 M5 S6" />
+							</layoutData>
+
+						</Input>
+
+						<Label text="{i18n>Discount}(%)" />
+
+						<Input id="idDANewDiscount" value="{DealDetailModel>/NewDiscountItem/Discount}" type="Number">
+							<layoutData>
+								<l:GridData span="L2 M3 S4" />
+							</layoutData>
+						</Input>
+					
+						<Label text="{i18n>NewValidityDate}" />
+
+						<DateRangeSelection id="idDAValidity"
+							delimiter="To" displayFormat="{i18n>DateFormat}"
+							dateValue="{DealDetailModel>/NewDiscountItem/ValidFrom}"
+							secondDateValue="{DealDetailModel>/NewDiscountItem/ValidTo}"
+							enabled="true" >
+							
+							<layoutData>
+								<l:GridData span="L4 M6 S8" />
+							</layoutData>
+							
+						</DateRangeSelection>
+
+					</f:content>
+				</f:SimpleForm>
+
+			</l:content>
+
+		</l:Grid>
+
+
+		<beginButton>
+			<Button icon="sap-icon://save" press="handleAmendDiscountPost" />
+		</beginButton>
+
+		<endButton>
+			<Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+		</endButton>
+
+	</Dialog>
+
+</core:FragmentDefinition>

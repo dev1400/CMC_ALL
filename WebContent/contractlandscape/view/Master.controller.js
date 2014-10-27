@@ -24,8 +24,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		// Common Controller reference
 		this.CommonController = dia.cmc.common.helper.CommonController;
 
-		// Load user parameters and deal collection
-		this._loadInitialData(oEvent);
+//		// Load user parameters and deal collection
+//		this._loadInitialData(oEvent);
 		
 //		this._oUpdateFinishedDeferred = jQuery.Deferred();
 
@@ -34,11 +34,59 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 //		}, this);
 //		
 //		sap.ui.core.UIComponent.getRouterFor(this).attachRouteMatched(this.handleRouteMatched, this);
+//		this.getView().attachAfterMasterNavigate(this.handleAfterInit,this);
+		
+		
+//		sap.ui.core.UIComponent.getRouterFor(this).attachViewCreated(this.handleAfterInit, this);
+//		
+//		var oSplitApp = window.rootView.byId("idAppControl");
+//		
+//		oSplitApp.attachAfterMasterOpen(this.handleAfterInit,this);
 	},
 	
 	
+	/**
+	 * Similar to onAfterRendering, but this hook is invoked before the
+	 * controller's View is re-rendered (NOT before the first rendering!
+	 * onInit() is used for that one!).
+	 * 
+	 * @memberOf view.detail.Partner
+	 */
+	 onBeforeRendering: function() {
+		 
+	 },
+	/**
+	 * Called when the View has been rendered (so its HTML is part of the
+	 * document). Post-rendering manipulations of the HTML could be done here.
+	 * This hook is the same one that SAPUI5 controls get after being rendered.
+	 * 
+	 * @memberOf view.detail.Partner
+	 */
+	 onAfterRendering: function(oEvent) {
+		 
+		// Load user parameters and deal collection
+		this._loadInitialData(oEvent);
+	 },
+	 
+	/**
+	 * Called when the Controller is destroyed. Use this one to free resources
+	 * and finalize activities.
+	 * 
+	 * @memberOf view.detail.Partner
+	 */
+	// onExit: function() {
+	// }
+	
 	handleRouteMatched : function(oEvent) {
 
+//		var sName = oEvent.getParameter("name");
+//		
+//		if (sName === "main") {
+//			
+//			// Load user parameters and deal collection
+//			this._loadInitialData(oEvent);
+//		}
+		
 //		var oList = this.getView().byId("idDealList");
 //		var sName = oEvent.getParameter("name");
 //		var oArguments = oEvent.getParameter("arguments");
@@ -83,6 +131,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 			this.handleDefaultParameterPopup(oEvent);
 		}
 		else{
+			// Create model and bind it to view
+			var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
+			this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
+			
 			//Read Deal Collection and bind it to View
 			this._bindDealCollectionModel(null);
 		}
@@ -173,11 +225,18 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	 * @param oEvent
 	 */
 	handleCompactThemeToggle: function (oEvent){
-
-		if ( window.globalapp.hasStyleClass("sapUiSizeCompact") )
-			window.globalapp.removeStyleClass("sapUiSizeCompact");
-		else
-			window.globalapp.addStyleClass("sapUiSizeCompact");
+		
+		if ( window.rootView.hasStyleClass("sapUiSizeCompact") ){
+			window.rootView.removeStyleClass("sapUiSizeCompact");
+		}
+		else{
+		
+			window.rootView.addStyleClass("sapUiSizeCompact");
+			
+//			$("input[id*='idHeaderTable-tblHeader']").remove();
+//            $("#__xmlview2--idHeaderTable-tblHeader").remove();
+		}
+			
 	},
 
 	/** Event handler for Default Parameter button
@@ -185,11 +244,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	 * @param oEvent
 	 */
 	handleDefaultParameterPopup : function (oEvent){
-		
-		// Get user default parameters
-		var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( this.ModelHelper.readDefaultParameters() );
-		this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
-		
+				
 		if (!this._defaultParameters) {
 			this._defaultParameters = new sap.ui.xmlfragment(
 					"dia.cmc.contractlandscape.fragment.DefaultParameters",
@@ -351,55 +406,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 			//this._filterPricingData(oFilters);
 		}
-		else if (sSelectedKey == "3" ){			// Valid On
-
-			bValidOnDateVisi = true;
-		}
-		else if(sSelectedKey == "4") {			// Flagged
+		else if(sSelectedKey == "3") {			// Flagged
 			oFilters = new sap.ui.model.Filter("IsFlagged", sap.ui.model.FilterOperator.EQ, "X");
 		}
-
-
-		if (sSelectedKey != "3" ){
-			// Update list binding
-			var oDealList = this.getView().byId("idDealList");
-			var oBinding = oDealList.getBinding("items");
-			oBinding.filter(oFilters);  
-		}
-
-
-		var oValidOnDate = this.getView().byId("idDealValidOnDate");
-
-//		var oDate = new sap.ui.model.type.Date({ value: new Date(), pattern: "yy-MM-dd"});
-
-//		oValidOnDate.setValue(oDate);
-
-		//oValidOnDate.setYyyymmdd("20140716");
-		oValidOnDate.setVisible(bValidOnDateVisi);
-
-	},
-
-	// Event handler for Valid On Date change event
-	handleFilterValidOnDateChange : function(oEvent){
-
-		// Get the Valid on Date value
-		var oValidOnDate = this.getView().byId(oEvent.getSource().getId());
-		var oDate = new Date(oValidOnDate.getValue());
-
-		// Create filter array
-		var oFilters = new sap.ui.model.Filter(
-				[
-				 new sap.ui.model.Filter("ValidFrom", sap.ui.model.FilterOperator.LE, oDate),
-				 new sap.ui.model.Filter("ValidTo", sap.ui.model.FilterOperator.GE, oDate),
-				 ],
-				 true);
 
 		// Update list binding
 		var oDealList = this.getView().byId("idDealList");
 		var oBinding = oDealList.getBinding("items");
 		oBinding.filter(oFilters);  
-
 	},
+
 
 	/***************************************************************************
 	 * End - Filter related code
@@ -518,30 +534,30 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	 * Start - Backend Search related code
 	 **************************************************************************/
 
-	// Displays the default Deal list and default detail page
-	handleDefaultSearch : function(oEvent){
-
-		//Read Deal Collection and bind it to View
-//		var oDealCollectionModel = this.ModelHelper.readDealCollection(null);
-//		this.getView().setModel(oDealCollectionModel);
-
-		this._bindDealCollectionModel(null);
-		
-		// Make sure no item is selected
-		var oDealList = this.getView().byId("idDealList");
-		var oSelectedItem = oDealList.getSelectedItem();
-
-		if(oSelectedItem != undefined && oSelectedItem != null)
-			oDealList.setSelectedItem(oSelectedItem, false);
-
-
-		// Display empty detail page
-		if (!sap.ui.Device.system.phone)
-			this.nav.to("Empty");
-	},
+//	// Displays the default Deal list and default detail page
+//	handleDefaultSearch : function(oEvent){
+//
+//		//Read Deal Collection and bind it to View
+////		var oDealCollectionModel = this.ModelHelper.readDealCollection(null);
+////		this.getView().setModel(oDealCollectionModel);
+//
+//		this._bindDealCollectionModel(null);
+//		
+//		// Make sure no item is selected
+//		var oDealList = this.getView().byId("idDealList");
+//		var oSelectedItem = oDealList.getSelectedItem();
+//
+//		if(oSelectedItem != undefined && oSelectedItem != null)
+//			oDealList.setSelectedItem(oSelectedItem, false);
+//
+//
+//		// Display empty detail page
+//		if (!sap.ui.Device.system.phone)
+//			this.nav.to("Empty");
+//	},
 
 	// Event Handler for Favorite Search button. It will list all the Favorite Deal Contracts
-	handleFavoriteSearch : function (oEvent){
+	handleGetFavoriteSearch : function (oEvent){
 
 		// Create filter string with IsFavorite flag
 
@@ -552,6 +568,47 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 	},
 
+	
+//	// Event Handler for Get Flagged Search button. It will list all the Flagged Deal Contracts
+//	handleGetFlagSearch : function (oEvent){
+//
+//		// Create filter string with IsFavorite flag
+//
+//		var sFilter = "IsFlagged eq 'X'";
+//
+//		// call backend search method to search Deal records and bind the model
+//		this._backendSearch(sFilter);
+//
+//	},
+//	
+//	// Event Handler for Get Valid Search button. It will list all the Valid Deal Contracts
+//	handleGetValidSearch : function (oEvent){
+//
+//		// Prepare the Array with required values
+//		var oControlList = [
+//		                    {id:"idValidDeals", uiType:"CB",	dataType:"B", 	value:true, 	field:"ValidDeals", 		filterString: "" },
+//		                    ];
+//
+//		// Build Filter string 
+//		var sFilter = this._buildFilterString(oControlList);
+//
+//		// call backend search method to search Deal records and bind the model
+//		this._backendSearch(sFilter);
+//
+//	},
+//	
+//	// Event Handler for Favorite Search button. It will list all the Favorite Deal Contracts
+//	handleGetExpiredSearch : function (oEvent){
+//
+//		// Create filter string with IsFavorite flag
+//
+//		var sFilter = "IsFavorite eq 'X'";
+//
+//		// call backend search method to search Deal records and bind the model
+//		this._backendSearch(sFilter);
+//
+//	},
+	
 	// Event Handler for Search by Customer button. It will list all the Deal Contracts by Customer search critera
 	handleSearchByCustomer : function (oEvent){
 
@@ -569,6 +626,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		// Build Filter string 
 		var sFilter = this._buildFilterString(oControlList);
 
+		if(sFilter === null){	// No search criteria is selected
+			return;
+		}
+		
 		// call backend search method to search Deal records and bind the model
 		this._backendSearch(sFilter);
 
@@ -593,6 +654,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		// Build Filter string 
 		var sFilter = this._buildFilterString(oControlList);
 
+		if(sFilter === null){	// No search criteria is selected
+			return;
+		}
+		
 		// call backend search method to search Deal records and bind the model
 		this._backendSearch(sFilter);
 
@@ -619,9 +684,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		                    {id:"idRefValidDeals", 			uiType:"CB",	dataType:"B", 	value:"", 	field:"ValidDeals", 			filterString: "" },
 		                    ];
 
+	
 		// Build Filter string 
-		var sFilter = this._buildFilterString(oControlList);
+		var sFilter = this._buildFilterString(oControlList,"R");
 
+		if(sFilter === null){	// No search criteria is selected
+			return;
+		}
+		
 		// call backend search method to search Deal records and bind the model
 		this._backendSearch(sFilter);
 
@@ -639,51 +709,25 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		var oControlList = [{id:"idAdvanceCustomerNumber", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"CustomerNumber", 		filterString: "" },
 		                    {id:"idAdvanceCustomerName", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"CustomerName", 			filterString: "" },
 		                    {id:"idAdvanceCustomerCity", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"CustomerCity", 			filterString: "" },
-		                    {id:"idAdvanceCustomerRegion", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"CustomerRegion", 		filterString: "" },
+		                    {id:"idAdvanceCustomerRegion", 			uiType:"DDB",	dataType:"SK", 	value:"", 	field:"CustomerRegion", 		filterString: "" },
+		                    {id:"idAdvanceCustomerCountry", 		uiType:"DDB",	dataType:"SK", 	value:"", 	field:"CustomerCountry", 		filterString: "" },
 		                    {id:"idAdvanceSystemModule", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"SystemModule", 			filterString: "" },
 		                    {id:"idAdvanceSystemModuleName", 		uiType:"TB",	dataType:"S", 	value:"", 	field:"SystemModuleName", 		filterString: "" },
 		                    {id:"idAdvanceSystemModuleSerialNumber",uiType:"TB",	dataType:"S", 	value:"", 	field:"SystemModuleSerialNumber",filterString: "" },
 		                    {id:"idAdvanceDealMasterPO", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"DealMasterPO", 			filterString: "" },
+		                    {id:"idAdvanceDealMasterDescr",			uiType:"TB",	dataType:"S", 	value:"", 	field:"DealMasterDescr",		filterString: "" },
 		                    {id:"idActionAtEnd", 					uiType:"CB",	dataType:"B", 	value:"", 	field:"ActionAtEnd", 			filterString: "" },
 		                    {id:"idAdvanceValidDeals", 				uiType:"CB",	dataType:"B", 	value:"", 	field:"ValidDeals", 			filterString: "" },
+		                    {id:"idAdvanceValidFrom", 				uiType:"DR",	dataType:"DR", 	value:"", 	field:"ValidFrom", 				filterString: "" },
+		                    {id:"idAdvanceValidTo", 				uiType:"DR",	dataType:"DR", 	value:"", 	field:"ValidTo", 				filterString: "" },
 		                    ];
 
 
 		// Build Filter string 
 		var sFilter = this._buildFilterString(oControlList);
 
-
-		// Create filter string for Validity Start Duration
-		var oValidFrom = sap.ui.getCore().byId("idAdvanceValidFrom");
-		var dFromDate = oValidFrom.getDateValue();
-		var dToDate = oValidFrom.getSecondDateValue();
-
-		if( dFromDate != undefined && dToDate != undefined)
-		{
-			if(sFilter.length > 0)
-				sFilter += " and ";
-
-			var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(dFromDate);
-			var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(dToDate);
-
-			sFilter += "ValidFrom ge datetime'" +  sFromDate + "' and ValidFrom le datetime'" + sToDate + "'"; 			
-		}
-
-
-		// Create filter string for Expiry Duration
-		var oValidTo = sap.ui.getCore().byId("idAdvanceValidTo");
-		dFromDate = oValidTo.getDateValue();
-		dToDate = oValidTo.getSecondDateValue();
-
-		if( dFromDate != undefined && dToDate != undefined)
-		{
-			if(sFilter.length > 0)
-				sFilter += " and ";
-
-			sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(dFromDate);
-			sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(dToDate);
-
-			sFilter += "ValidTo ge datetime'" +  sFromDate + "' and ValidTo le datetime'" + sToDate + "'"; 			
+		if(sFilter === null){	// No search criteria is selected
+			return;
 		}
 
 		// call backend search method to search Deal records and bind the model
@@ -705,10 +749,13 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 
 	// Build filter string base on passed arrays
-	_buildFilterString : function(oControlList){
+	_buildFilterString : function(oControlList,sSearchType){
 
 		var sFilter = "";
-
+		var bAtLeastOneField = false;
+		var bOneField = false;
+		var bMultipleField = false;
+		
 		$.each(oControlList, function(i, el){
 
 			if(el.filterString != undefined && el.filterString.length > 0){	// Filter string already supplied
@@ -724,14 +771,18 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 					var oControl = sap.ui.getCore().byId(el.id);
 
-					if (oControl != undefined){
+					if (oControl != undefined && oControl.getEnabled()){
 
 						if(el.uiType === "CB"){			// Check box UI Control
 							el.value = oControl.getSelected();
 						}
 						else if(el.uiType === "DDB"){			// Dropdown / Combo Box UI Control
 							el.value = oControl.getSelectedKey();
-						}else{
+						}else if(el.uiType === "DR"){	// Date Range
+							el.value = oControl.getDateValue();
+							el.value2 = oControl.getSecondDateValue();
+						}	
+						else{
 							el.value = oControl.getValue();	
 						}
 					}
@@ -742,10 +793,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 					if(sFilter.length > 0)
 						sFilter += " and ";
 
-					if(el.dataType === "S"){			// String
-						sFilter += "substringof('" + el.value + "'," + el.field + ")";
-
-					}else if(el.dataType === "D"){		// Date
+//					if(el.dataType === "S"){			// String
+//						sFilter += "substringof('" + el.value + "'," + el.field + ")";
+//
+//					}else
+					if(el.dataType === "D"){		// Date
 
 						var sDate = dia.cmc.common.util.Formatter.convertToEDMDate(el.value);
 
@@ -760,22 +812,57 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 							sFilter += "( ValidFrom ge datetime'1900-01-01T00:00:00' and ValidFrom le datetime'" + sFromDate + "' ) and "; 		
 							
 							sFilter += "( ValidTo ge datetime'" +  sFromDate + "' and ValidTo le datetime'9999-12-31T00:00:00' )"; 	
-							
-//							sFilter += "ValidFrom eq datetime'" +  sFromDate + "' and "; 
-//
-//							sFilter += "ValidTo eq datetime'9999-12-31T00:00:00'";
 						}
 						else{
 							sFilter += el.field + " eq '" +  el.value + "'"; 	
 						}
-					}else{
+					}
+					else if(el.dataType === "DR"){		// Date Range
+						
+						var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(el.value);
+						var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(el.value2);
+
+						sFilter += "( " + el.field + " ge datetime'" +  sFromDate + "' and " + el.field + " le datetime'" + sToDate + "') "; 
+						
+					}
+					else{
 						sFilter += el.field + " eq '" +  el.value + "'"; 	
 					}
 
+					if(el.field != "CustomerCountry" && el.field != "ValidDeals" ){
+						bAtLeastOneField = true;
+						
+						if(bOneField == true){
+							bMultipleField = true;
+						}else{
+							bOneField = true;
+						}
+					}
 				}
 			}
 		});
 
+		
+		// At-least one search criteria should be specified
+		if(bAtLeastOneField === false){
+		 
+			sap.m.MessageBox.alert(this.ModelHelper.getText("AtleastOneField"), {
+				title : this.ModelHelper.getText("SearchCriteriaTitle")
+			});
+			
+			return null;
+		}
+		
+		// Multiple field are selected in Search by Reference
+		if(sSearchType == "R" && bMultipleField === true){
+		 
+			sap.m.MessageBox.alert(this.ModelHelper.getText("SelectOnlyOneField"), {
+				title : this.ModelHelper.getText("SearchCriteriaTitle")
+			});
+			
+			return null;
+		}
+		
 		return sFilter;
 	},
 
@@ -878,10 +965,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 		var oSorter = new sap.ui.model.Sorter("CountryName",false,false);
 
-		var oFilters = new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, navigator.language.substr(0,1).toUpperCase());
+		var sLang = this.CommonController.getBrowserLanguage();
+		
+		var oFilters = new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang.substr(0,1).toUpperCase());
 
 		oCustomerCountry.bindItems("ODataModel>/CountryCollection", oItems, oSorter, oFilters);
-
+		
 //		var binding = oCustomerCountry.getBinding("items");
 //		binding.sort(oSorter);
 
@@ -904,8 +993,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 		var oSorter = new sap.ui.model.Sorter("RegionDescription",false,false);
 
+		var sLang = this.CommonController.getBrowserLanguage();
+		
 		var oFilters =  new sap.ui.model.Filter( [
-		                                          new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, navigator.language.substr(0,1).toUpperCase()),
+		                                          new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang.substr(0,1).toUpperCase()),
 		                                          new sap.ui.model.Filter("CountryKey", sap.ui.model.FilterOperator.EQ, sCountryKey),
 		                                          ], 
 		                                          true );

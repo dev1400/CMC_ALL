@@ -4,6 +4,7 @@
  */
 
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
+jQuery.sap.require("sap.ui.commons.RichTooltip");
 
 jQuery.sap.declare("dia.cmc.common.helper.CommonController");
 
@@ -28,9 +29,11 @@ dia.cmc.common.helper.CommonController = {
 	 */
 	validateInput : function(oEvent, oControlList, sAmendType) {
 
-		var canContinue = true;
-		var atLeastOneSelected = false;
-
+		var bCanContinue = true;
+		var bAtLeastOneSelected = false;
+		var sErrorMsg = null;
+		var that = this;
+		
 		// check that inputs are not empty
 		// this does not happen during data binding as this is only triggered by
 		// changes
@@ -43,17 +46,14 @@ dia.cmc.common.helper.CommonController = {
 			} else if (el.uiType === "DT" || el.uiType === "DRF") { // Date Field or Date Range From 
 				
 				el.value = dia.cmc.common.util.Formatter.convertToEDMDate(oControl.getDateValue());
-				
-//				el.value = oControl.getValue();
-//
-//				if (el.value)
-//					el.value = el.value + "T00:00:00"; // Add time portion
 			}
 			else if (el.uiType === "DRT") { // Date Range To Date
 				
 				el.value = dia.cmc.common.util.Formatter.convertToEDMDate(oControl.getSecondDateValue());
 			}
-			
+			else if(el.uiType === "DDB"){			// Dropdown / Combo Box UI Control
+				el.value = oControl.getSelectedKey();
+			}
 			else {
 
 				if (oControl.getSelected() === false) { // If Radio and Check
@@ -67,7 +67,7 @@ dia.cmc.common.helper.CommonController = {
 																									// for
 																									// Validity
 																									// Amendment
-						atLeastOneSelected = true;
+						bAtLeastOneSelected = true;
 					}
 				}
 			}
@@ -76,26 +76,43 @@ dia.cmc.common.helper.CommonController = {
 
 				if (!el.value) {
 					oControl.setValueState("Error");
-					canContinue = false;
+					bCanContinue = false;
+					
+					sErrorMsg = that.ModelHelper.getText("MandatoryFields");
+					
 				} else {
 					oControl.setValueState("None");
 				}
 			}
+			
+			if (bCanContinue && el.minLength > 0) {
+
+				if (el.value.length < el.minLength ) {
+					oControl.setValueState("Error");
+					bCanContinue = false;
+					
+					sErrorMsg = that.ModelHelper.getText("MinLengthError", el.minLength);
+					
+				} else {
+					oControl.setValueState("None");
+				}
+			}
+			
 
 		});
 
 		// Exception case for Validity Amendment. Check at least one service
 		// item is selected
-		if (sAmendType === "V" && atLeastOneSelected === false) {
+		if (sAmendType === "V" && bAtLeastOneSelected === false) {
 			
-			canContinue = false;
+			bCanContinue = false;
 			sap.m.MessageToast.show(this.ModelHelper.getText("MandatoryServiceItem"));
 			
-		} else if (!canContinue) {
-			sap.m.MessageToast.show(this.ModelHelper.getText("MandatoryFields"));
+		} else if (!bCanContinue) {
+			sap.m.MessageToast.show(sErrorMsg);
 		}
 
-		return canContinue;
+		return bCanContinue;
 
 	},
 
@@ -117,5 +134,45 @@ dia.cmc.common.helper.CommonController = {
 	 */
 	getRouter: function (oView){
 		return sap.ui.core.UIComponent.getRouterFor(oView);
+	},
+	
+	getBrowserLanguage : function(){
+		var sLang = null;
+		
+		if (navigator.userLanguage){ 			// Explorer
+			sLang = navigator.userLanguage;
+			
+		}else{ // FF & Chrome
+			sLang = navigator.language;
+		} 
+		
+		return sLang;
+	},
+	
+	
+	/**
+	 * Helper function that decorates a given control with a RichTooltip showing a quick help text 
+	 */
+	setQuickHelp: function (oControl, sTextId, bCustomize) {
+		
+		var sText = this.ModelHelper.getText(sTextId);
+		
+		// create the RichTooltip control 
+		var oRichTooltip = new sap.ui.commons.RichTooltip({
+			text : sText,
+			title: this.ModelHelper.getText("QuickHelp"),
+			imageSrc : "common/mime/Tip.png"
+		});
+		//Change position and durations if required 
+		if (bCustomize) {
+			oRichTooltip.setMyPosition("begin top");
+			oRichTooltip.setAtPosition("end top");
+			oRichTooltip.setOpenDuration(300);
+			oRichTooltip.setCloseDuration(300);
+		}
+		// add it to the control
+		oControl.setTooltip(oRichTooltip);
+		// return the control itself (makes this function a decorator function)
+		return oControl;
 	}
 };

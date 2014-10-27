@@ -21,33 +21,43 @@
 			<l:content>
 
 				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="4"
-					labelSpanM="3" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1">
+					labelSpanM="3" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1"  editable="true"	>
 
 					<f:content>
 
 						<Label text="{i18n>Customer}" />
-						<Input id="idCAPartner"
-							value="{DealDetailModel>/SelectedCommitmentItem/CallOffPartner}"
+						
+						
+<!-- 						<Input id="idCAPartner"
+							value="{DealDetailModel>/NewCommitmentItem/CallOffPartner}"
 							enabled="{Property>/MaterialEnable}"
 							showValueHelp="true" valueHelpRequest="handleCustomerValueHelp">
 							<layoutData>
 								<l:GridData span="L2 M3 S4" />
 							</layoutData>
-						</Input>
+						</Input> -->
 
-						<Input id="idCAPartnerName"
-							value="{DealDetailModel>/SelectedCommitmentItem/PartnerName}"
+<!-- 						<Input id="idCAPartnerName"
+							value="{DealDetailModel>/NewCommitmentItem/PartnerName}"
 							enabled="false">
 
 							<layoutData>
 								<l:GridData span="L4 M6 S9" />
 							</layoutData>
 
-						</Input>
+						</Input> -->
 
+						<ComboBox id="idCAPartner" items="{DealDetailModel>/PartnerNameCollection}" selectedKey="{DealDetailModel>/NewCommitmentItem/CallOffPartner}" enabled="{Property>/MaterialEnable}">
+							<core:ListItem key="{DealDetailModel>PartnerNumber}" text="{DealDetailModel>PartnerNumber} - {DealDetailModel>PartnerName}" />
+							
+							<layoutData>
+								<l:GridData span="L4 M6 S9" />
+							</layoutData>
+						</ComboBox>
+				
 						<Label text="{i18n>Product}" />
 						<Input id="idCAProduct"
-							value="{DealDetailModel>/SelectedCommitmentItem/Material}"
+							value="{DealDetailModel>/NewCommitmentItem/Material}"
 							enabled="{Property>/MaterialEnable}" 
 							showValueHelp="true" valueHelpRequest="handleMaterialValueHelp">
 
@@ -58,7 +68,7 @@
 						</Input>
 
 						<Input id="idCAProductDesc"
-							value="{DealDetailModel>/SelectedCommitmentItem/MaterialDescription}"
+							value="{DealDetailModel>/NewCommitmentItem/MaterialDescription}"
 							enabled="false">
 
 							<layoutData>
@@ -70,7 +80,7 @@
 						<Label text="{i18n>Qty}" />
 
 						<Input id="idCAQty" type="Number"
-							value="{DealDetailModel>/SelectedCommitmentItem/Quantity}">
+							value="{DealDetailModel>/NewCommitmentItem/Quantity}">
 
 							<layoutData>
 								<l:GridData span="L4 M4 S6" />
@@ -78,7 +88,7 @@
 
 						</Input>
 
-						<Input id="idCAUOM" value="{DealDetailModel>/SelectedCommitmentItem/Uom}"
+						<Input id="idCAUOM" value="{DealDetailModel>/NewCommitmentItem/Uom}"
 							enabled="false">
 							<layoutData>
 								<l:GridData span="L2 M2 S3" />
@@ -93,14 +103,14 @@
 						<Label text="{i18n>ValidityDate}" />
 
 						<DatePicker id="idCAValidFrom" displayFormat="{i18n>DateFormat}"
-							enabled="{Property>/MaterialEnable}" dateValue="{DealDetailModel>/SelectedCommitmentItem/ValidFrom}">
+							enabled="{Property>/MaterialEnable}" dateValue="{DealDetailModel>/NewCommitmentItem/ValidFrom}">
 							<layoutData>
 								<l:GridData span="L4 M3 S7" />
 							</layoutData>
 						</DatePicker>
 
 						<DatePicker id="idCAValidTo" displayFormat="{i18n>DateFormat}"
-							dateValue="{DealDetailModel>/SelectedCommitmentItem/ValidTo}">
+							dateValue="{DealDetailModel>/NewCommitmentItem/ValidTo}">
 							<layoutData>
 								<l:GridData span="L4 M3 S7" />
 							</layoutData>

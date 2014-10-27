@@ -7,7 +7,10 @@
     placement="Top">
     <buttons>
       <!-- <Button text="{i18n>Default}" tooltip="{i18n>Default}" icon="sap-icon://undo" press="handleDefaultSearch" /> -->  
-      <Button text="{i18n>GetFavorites}" tooltip="{i18n>GetFavorites}" icon="sap-icon://favorite-list" press="handleFavoriteSearch" />    
+      <Button text="{i18n>GetFavorites}" tooltip="{i18n>GetFavorites}" icon="sap-icon://favorite-list" press="handleGetFavoriteSearch" />
+<!--       <Button text="{i18n>GetFlagged}" tooltip="{i18n>GetFlagged}" icon="sap-icon://flag" press="handleGetFlagSearch" />
+      <Button text="{i18n>GetValid}" tooltip="{i18n>GetValid}" icon="sap-icon://status-in-process" press="handleGetValidSearch" />
+      <Button text="{i18n>GetExpired}" tooltip="{i18n>GetExpired}" icon="sap-icon://status-error" press="handleGetExpiredSearch" /> -->
       <Button text="{i18n>SearchByCustomer}" tooltip="{i18n>SearchByCustomer}" icon="sap-icon://customer" press="handleSearchByCustomerPopup" />
       <Button text="{i18n>SearchByInstrument}" tooltip="{i18n>SearchByInstrument}" icon="sap-icon://inventory" press="handleSearchByInstrumentPopup" />
       <Button text="{i18n>SearchByReferences}" tooltip="{i18n>SearchByReferences}" icon="sap-icon://notes" press="handleSearchByReferencesPopup" />

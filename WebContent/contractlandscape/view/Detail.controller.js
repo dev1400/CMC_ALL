@@ -4,6 +4,7 @@ jQuery.sap.require("sap.m.MessageBox");
 jQuery.sap.require("sap.m.MessageToast");
 jQuery.sap.require("dia.cmc.common.helper.CommonController");
 jQuery.sap.require("openui5.googlemaps.MapUtils");
+jQuery.sap.require("sap.ca.ui.dialog.factory");
 // jQuery.sap.require("sap.m.URLHelper");
 
 sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
@@ -25,8 +26,31 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 		// Attached event handler for route match event
 		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
+        
 	},
 	
+	/**
+	 * Called when the View has been rendered (so its HTML is part of the
+	 * document). Post-rendering manipulations of the HTML could be done here.
+	 * This hook is the same one that SAPUI5 controls get after being rendered.
+	 * 
+	 * @memberOf view.detail.Partner
+	 */
+	 onAfterRendering: function(oEvent) {
+		 
+//		 window.rootView.addStyleClass("sapUiSizeCompact");
+//		 
+//	        $(document).ready(function() {
+//	            $("#__xmlview2--idHeaderTable-tblHeader").css("height","0");
+//	            $("#__xmlview1--idHeaderTable-tblHeader").css("background-color","yellow");
+//	        	
+////	            $("#__xmlview2--idHeaderTable-tblHeader").hide();
+////	            $("#__xmlview1--idHeaderTable-tblHeader").hide();
+//	            
+//	        });
+
+	 },
+	 
 	/** Event handler for Route Matched event 
 	 * It will check for deal id and if available, reads the deal details
 	 * @param oEvent
@@ -42,6 +66,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			var oDealDetailModel = this.ModelHelper.readDealDetail(sDealId);
 
 			oView.setModel(oDealDetailModel,"DealDetailModel");
+			
 		}
 	},
 	
@@ -76,7 +101,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	/** Event handler for Contract Term link. It will display contract term detail in popup window
 	 * @param oEvent
 	 */
-	handleContractTerm : function(oEvent) {
+	handleContractTermPress : function(oEvent) {
 		
 		// create Contract Term popup only once
 		if (!this._contractTerm) {
@@ -95,7 +120,33 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 	},
 
+	/** Event handler for Deal Status link. It will display Amendment details in popup window
+	 * @param oEvent
+	 */
+	handleDealStatusPress : function(oEvent) {
 
+		// Read amendment details
+		var oAmendmentDetailModel = this.ModelHelper.readAmendmentDetail();
+
+		// Bind amendment detail model
+		this.getView().setModel(oAmendmentDetailModel,"AmendmentDetail");
+
+		if (!this._amendmentStatusDetail) {
+			this._amendmentStatusDetail = new sap.ui.xmlfragment(
+					"idAmendmentStatusFragment", "dia.cmc.contractlandscape.fragment.amendment.AmendmentStatusDetail",
+					this);
+
+			this.getView().addDependent(this._amendmentStatusDetail);
+		}
+
+		// Get reference of Contract Term Link
+		var oStatusLink = oEvent.getSource();
+		
+		// Open Contract Term fragment
+		this._amendmentStatusDetail.openBy(oStatusLink);
+
+	},
+	
 	/***************************************************************************
 	 * End - Header Section related Code
 	 **************************************************************************/
@@ -142,22 +193,22 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	    
 	  },
 
-		/** Event handler for Facet Filter List Reset event. 
-		 * It is common for both Landscape and Partner Facet Filter
-		 */
-	  handleFacetFilterReset: function(oEvent) {
-		  
-		// Get reference of Facet Filter and List. 
-	    var oFacetFilter = sap.ui.getCore().byId(oEvent.getParameter("id"));
-	    var aFacetFilterLists = oFacetFilter.getLists();
-	    
-	    // Clear all selected filter values
-	    for(var i=0; i < aFacetFilterLists.length; i++) {
-	      aFacetFilterLists[i].setSelectedKeys();
-	    }
-	    
-	    this._applyFacetFilter(oEvent.getParameter("id"),[]);
-	  },
+//		/** Event handler for Facet Filter List Reset event. 
+//		 * It is common for both Landscape and Partner Facet Filter
+//		 */
+//	  handleFacetFilterReset: function(oEvent) {
+//		  
+//		// Get reference of Facet Filter and List. 
+//	    var oFacetFilter = sap.ui.getCore().byId(oEvent.getParameter("id"));
+//	    var aFacetFilterLists = oFacetFilter.getLists();
+//	    
+//	    // Clear all selected filter values
+//	    for(var i=0; i < aFacetFilterLists.length; i++) {
+//	      aFacetFilterLists[i].setSelectedKeys();
+//	    }
+//	    
+//	    this._applyFacetFilter(oEvent.getParameter("id"),[]);
+//	  },
 
 	  
 	/**Method for applying the Facet Filter on data source. It is common for both Landscape and Partner Facet Filter
@@ -599,11 +650,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 		var sSelectedKey = oEvent.getParameter("key"); // Get selected tab key
 
-		// Set visibility of Price Amendment buttons
-		if (sSelectedKey === "MatPrice" || sSelectedKey === "TestPrice")
+		// Set visibility of Price and Discount Amendment buttons
+		if (sSelectedKey === "MatPrice" || sSelectedKey === "TestPrice"){
 			this.ModelHelper.setProperty("PricingActionButtonVisi", true);
-		else
+			this.ModelHelper.setProperty("DiscountActionButtonVisi", false);
+		}
+		else{
+			this.ModelHelper.setProperty("DiscountActionButtonVisi", true);
 			this.ModelHelper.setProperty("PricingActionButtonVisi", false);
+		}
+			
 	},
 
 
@@ -637,7 +693,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	 **************************************************************************/
 
 	/**
-	 * Event Handler for Amend Recalculation button. It will open Recalculation
+	 * Event Handler for Price Amendment button. It will open Price
 	 * Amendment popup window
 	 * 
 	 */
@@ -679,10 +735,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		} else if (sButtonId.indexOf("Add") > 0) { // Add Price button clicked
 			bEnable = true;
 			sTitle = this.ModelHelper.getText("AddPrice");
-			
-//	  		// Clear selected item details, if any
-	  		var oSelectedItem = this.ModelHelper.initalizeSelectedPriceItem();
-	  		this.ModelHelper.setSelectedItem("/SelectedPriceItem",null,oSelectedItem);
+
+			// Initialize the new material price object
+	  		var oSelectedItem = this.ModelHelper.initalizeNewPriceItem("/MaterialPriceCollection/0", true);
+	  		
+	  		// Set new price object to DealDetailModel
+	  		this.ModelHelper.setSelectedItem("/NewPriceItem", oSelectedItem);
 			
 		} else { // Change Price button clicked
 			bEnable = false;
@@ -691,7 +749,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			// Set selected item details in Model so that it can be passed to
 			// Popup window. ( tried to set context binding for popup window but
 			// its not working so using this work around)
-			this.ModelHelper.setSelectedItem("/SelectedPriceItem", oSelectedContext.getPath());
+			
+			// Initialize the new material price object
+	  		var oSelectedItem = this.ModelHelper.initalizeNewPriceItem(oSelectedContext.getPath(), false);
+	  		
+	  		// Set new price object to DealDetailModel
+	  		this.ModelHelper.setSelectedItem("/NewPriceItem", oSelectedItem);
+	  		
+//			this.ModelHelper.setSelectedItem("/NewPriceItem", oSelectedContext.getPath());
 			// this._amendAddChangePrice.setBindingContext(oSelectedContext[0]);
 
 		}
@@ -708,6 +773,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 					"dia.cmc.contractlandscape.fragment.amendment.AddChangePrice", this);
 
 			this.getView().addDependent(this._amendAddChangePrice);
+			
 		}
 
 		this._amendAddChangePrice.open();
@@ -737,24 +803,23 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			mandatory : true,
 			field : "Rate"
 		}, {
+			id : "idPANewPriceCurrency",
+			uiType : "TB",
+			value : "",
+			mandatory : true,
+			field : "CurrencyCode"
+		}, {
 			id : "idPANewPricePerX",
 			uiType : "TB",
 			value : "",
 			mandatory : true,
 			field : "Unit"
-/*		}, {
-			id : "idPAValidFrom",
-			uiType : "DT",
-			value : "",
-			mandatory : true,
-			field : "ValidFrom"
 		}, {
-			id : "idPAValidTo",
-			uiType : "DT",
+			id : "idPANewPriceUOM",
+			uiType : "TB",
 			value : "",
 			mandatory : true,
-			field : "ValidTo"*/
-				
+			field : "Uom"
 		}, {
 			id : "idPAValidity",
 			uiType : "DRF",
@@ -792,7 +857,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 //			oValidFromUI.setValueState("None");
 //		}
 		
-		
+	
 		var oValidityUI = this.CommonController.getUIElement("idPAValidity");
 		var dValidFrom = new Date(oValidityUI.getDateValue());
 		var dToday = new Date((new Date().toJSON().slice(0,10) + " 00:00:00"));
@@ -811,10 +876,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		if (canContinue == false) // Validation failed, return
 			return;
 		
+
 		// Get reference of selected material price item
 		var oPriceAmendDetail = this.ModelHelper
-				.getSelectedItem("/SelectedPriceItem");
-
+				.oDealDetailModel.getProperty("/NewPriceItem");
+		
 		// Set the value in model
 		jQuery.each(oControlList, function(i, el) {
 
@@ -848,6 +914,187 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 /*******************************************************************************
  * End - Price Amendment related code
+ ******************************************************************************/
+	
+	
+	/***************************************************************************
+	 * Start - Discount Amendment related code
+	 **************************************************************************/
+
+	/**
+	 * Event Handler for Discount Add/Change button. 
+	 * It will open Discount Add/Change popup window
+	 */
+	handleAmendDiscountPopup : function(oEvent) {
+
+		var oPricingTabBar = this.getView().byId("idPricingTabBar");
+		var sSelectedTab = oPricingTabBar.getSelectedKey();
+
+		var sDiscountFieldTextId = null;
+
+		// Get Material Price table reference
+		if (sSelectedTab === "MatDisc") {
+			sDiscountFieldTextId = "Product";
+		} else if (sSelectedTab === "HierDisc") {
+			sDiscountFieldTextId = "Hierarchy";
+		}else if (sSelectedTab === "GrpDisc") {
+			sDiscountFieldTextId = "Group";
+		}
+
+		// Get text
+		var sDiscountFieldLabel = this.ModelHelper.getText(sDiscountFieldTextId);
+
+		// Set property in Model for Discount Field Label
+		this.ModelHelper.setProperty("DiscountFieldLabel", sDiscountFieldLabel);
+
+		// Get Selected item context reference
+		var oSelectedContext = oEvent.getSource().getBindingContext("DealDetailModel");
+
+		var bEnable = false;
+		var sTitle = "";
+
+		var sButtonId = oEvent.getSource().getId();
+
+		if (sButtonId.indexOf("Add") > 0) { // Add Discount button clicked
+			bEnable = true;
+			sTitle = this.ModelHelper.getText("AddDiscount");
+
+			// Initialize the new discount object
+	  		var oSelectedItem = this.ModelHelper.initalizeNewDiscountItem("/MaterialDiscountCollection/0", true);
+	  		
+	  		// Set new discount object to DealDetailModel
+	  		this.ModelHelper.setSelectedItem("/NewDiscountItem", oSelectedItem);
+			
+		} else { // Change Discount button clicked
+			bEnable = false;
+			sTitle = this.ModelHelper.getText("ChangeDiscount");
+
+			// Set selected item details in Model so that it can be passed to
+			// Popup window. ( tried to set context binding for popup window but
+			// its not working so using this work around)
+			
+			// Initialize the new discount object
+	  		var oSelectedItem = this.ModelHelper.initalizeNewDiscountItem(oSelectedContext.getPath(), false);
+	  		
+	  		// Set new discount object to DealDetailModel
+	  		this.ModelHelper.setSelectedItem("/NewDiscountItem", oSelectedItem);
+
+		}
+
+		// Set enable property for Discount field in popup
+		this.ModelHelper.setProperty("DiscountFieldEnable", bEnable);
+
+		// Set title property for disount amendment popup
+		this.ModelHelper.setProperty("AmendDiscountTitle", sTitle);
+
+		// create Amend Add/Change discount popup only once
+		if (!this._amendAddChangeDiscount) {
+			this._amendAddChangeDiscount = new sap.ui.xmlfragment(
+					"dia.cmc.contractlandscape.fragment.amendment.AddChangeDiscount", this);
+
+			this.getView().addDependent(this._amendAddChangeDiscount);
+		}
+
+		this._amendAddChangeDiscount.open();
+
+	},
+
+	/**
+	 * Event handler for Discount Amendment - Validate the Discount Amendment input
+	 * and Post it to SAP
+	 * @param oEvent
+	 */
+	handleAmendDiscountPost : function(oEvent) {
+
+		// Array of controls on Discount Amendment popup with OData service field names
+		var oControlList = [ {
+			id : "idDADiscountField",
+			uiType : "TB",
+			value : "",
+			mandatory : true,
+			field : "Material"
+		}, {
+			id : "idDANewDiscount",
+			uiType : "TB",
+			value : "",
+			mandatory : true,
+			field : "Discount"
+		}, {
+			id : "idPAValidity",
+			uiType : "DRF",
+			value : "",
+			mandatory : true,
+			field : "ValidFrom"
+		}, {
+			id : "idPAValidity",
+			uiType : "DRT",
+			value : "",
+			mandatory : true,
+			field : "ValidTo"
+		} ];
+
+		// Validate the price amendment input
+		var canContinue = this.CommonController.validateInput(oEvent,
+				oControlList, "D");
+
+		if (canContinue == false) // Validation failed, return
+			return;
+
+		
+		var oValidityUI = this.CommonController.getUIElement("idDAValidity");
+		var dValidFrom = new Date(oValidityUI.getDateValue());
+		var dToday = new Date((new Date().toJSON().slice(0,10) + " 00:00:00"));
+		
+		if( dValidFrom < dToday){
+			var sMsg = this.ModelHelper.getText("InvalidFromDate");
+			sap.m.MessageToast.show(sMsg);
+			oValidityUI.setValueState("Error");
+			canContinue = false;
+		}
+		else {
+			oValidityUI.setValueState("None");
+		}
+		
+		if (canContinue == false) // Validation failed, return
+			return;
+
+		
+		// Get reference of selected discount item
+		var oDiscountAmendDetail = this.ModelHelper
+			.oDealDetailModel.getProperty("/NewDiscountItem");
+
+		// Set the value in model
+		jQuery.each(oControlList, function(i, el) {
+			if (el.value) {
+				oDiscountAmendDetail[el.field] = el.value;
+			}
+		});
+
+		// Call Helper class method to update Deal Details to SAP
+		oDiscountAmendDetail = this.ModelHelper
+				.postDiscountAmendment(oDiscountAmendDetail);
+
+		// Display Success or Error message. It will be passed from SAP
+		sap.m.MessageBox.alert(oDiscountAmendDetail.Message, {
+			title : "Amendment Result"
+		});
+
+		// Refresh details and Close popup window if Amendment was successful
+		if (oDiscountAmendDetail.MessageType != "E") { // Message will not be "E"
+													// if Amendment is created
+													// successfully
+
+			
+			// Refresh the details 
+			this._refreshDealDetailModel();
+			
+			this.CommonController.closePopupWindow(oEvent);
+
+		}
+	},
+
+/*******************************************************************************
+ * End - Discount Amendment related code
  ******************************************************************************/
 	
 	
@@ -1005,8 +1252,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	  		sTitle = this.ModelHelper.getText("AddCommitment");
 	  		
 //	  		// Clear selected item details, if any
-	  		var oSelectedItem = this.ModelHelper.initalizeSelectedCommitmentItem();
-	  		this.ModelHelper.setSelectedItem("/SelectedCommitmentItem",null,oSelectedItem);
+	  		var oSelectedItem = this.ModelHelper.initalizeNewCommitmentItem("/CommitmentCollection/0", true);
+	  		this.ModelHelper.setSelectedItem("/NewCommitmentItem",oSelectedItem);
 	  	}
 	  	else{											// Change Commitment
 	  		bEnable = false;
@@ -1014,8 +1261,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	  		
 			var oSelectedContext = oEvent.getSource().getBindingContext("DealDetailModel");
 			
-		  	// Set selected item details in Model so that it can be passed to Popup window.  ( tried to set context binding for popup window but its not working so using this work around)
-		  	this.ModelHelper.setSelectedItem("/SelectedCommitmentItem", oSelectedContext.getPath());
+			var oSelectedItem = this.ModelHelper.initalizeNewCommitmentItem(oSelectedContext.getPath(), false);
+			
+	  		this.ModelHelper.setSelectedItem("/NewCommitmentItem",oSelectedItem);
+	  		
+//		  	this.ModelHelper.setSelectedItem("/NewCommitmentItem", oSelectedContext.getPath());
 //		  	this._amendComitment.setBindingContext(oSelectedContext);
 		  	
 	  	}
@@ -1035,6 +1285,15 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	      );
 	      
 	      this.getView().addDependent(this._amendComitment);
+	      
+	      var oItem = new sap.ui.core.Item();
+	      oItem.setKey("");
+	      oItem.setText("All Customer");
+	      
+	      var oPartnerUI = this.CommonController.getUIElement("idCAPartner");
+	      
+	      oPartnerUI.addItem(oItem);
+	      
 	    }
 
 	    this._amendComitment.open();
@@ -1052,7 +1311,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	handleAmendCommitmentPost : function(oEvent) {
 
 		// Array of controls on Commitment Amendment popup with OData service field names
-		var oControlList = [{id:"idCAPartner", 		uiType:"TB",	value:"", 	mandatory:true, 	field:"CallOffPartner" },
+		var oControlList = [{id:"idCAPartner", 		uiType:"DDB",	value:"", 	mandatory:false, 	field:"CallOffPartner" },
 		                    {id:"idCAProduct", 		uiType:"TB",	value:"", 	mandatory:true, 	field:"Material" },
 		                    {id:"idCAQty",		 	uiType:"TB",	value:"", 	mandatory:true, 	field:"Quantity" },
 		                    {id:"idCAUOM",	 		uiType:"TB",	value:"", 	mandatory:false, 	field:"Uom" },
@@ -1096,10 +1355,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		
 		if (canContinue == false) // Validation failed, return
 			return;
+
 		
-		// Get reference of selected material price item
+		// Get reference of selected commitment item
 		var oCommitmentAmendDetail = this.ModelHelper
-				.getSelectedItem("/SelectedCommitmentItem");
+				.oDealDetailModel.getProperty("/NewCommitmentItem");
 
 		// Set the value in model
 		jQuery.each(oControlList, function(i, el) {
@@ -1118,6 +1378,69 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		oCommitmentAmendDetail.Uom = "PC";
 		/////////////////////////////////////
 		
+		
+		// Check for overlapping
+		
+		var oCommitmentCollection = this.ModelHelper.oDealDetailModel.getProperty("/CommitmentCollection");
+		
+		var that = this;
+		var bIsOverlapping = false;
+		
+		$.each(oCommitmentCollection, function(i, el){
+			
+		    if(oCommitmentAmendDetail.CallOffPartner === el.CallOffPartner  &&
+		       oCommitmentAmendDetail.Material === el.Material &&
+		       dValidFrom.getTime() != el.ValidFrom.getTime()){
+		    	
+		    	if( ( dValidFrom >= el.ValidFrom && dValidFrom <= el.ValidTo ) ||
+		    		( dValidTo >= el.ValidFrom && dValidTo <= el.ValidTo )){
+		    		
+//		    		that._NewCommitmentDetail = oCommitmentAmendDetail;
+		    		
+		    		if( oValidFromUI.getEnabled() ){
+		    			
+		    			bIsOverlapping = true;
+		    					            
+			            sap.m.MessageBox.confirm(that.ModelHelper.getText("OverlappingConfirmation"), {
+			            	title: that.ModelHelper.getText("Confirmation"),
+			            	actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+		            	    onClose: function(oAction){
+		            	    	if(oAction === sap.m.MessageBox.Action.YES){
+		            				that.postCommitment(oCommitmentAmendDetail);	
+		            			}
+		            	    },
+		            	    styleClass: ""                         // default
+			            });
+		    		}
+		    		else{
+		    			
+		    			bIsOverlapping = true;
+		    			
+		    			// Display Success or Error message. It will be passed from SAP
+		    			sap.m.MessageBox.alert(that.ModelHelper.getText("OverlappingError"), {
+		    				title : "Overlapping"
+		    			});
+		    		}
+		    		
+		    		return false;
+		    	}
+		    }
+		         
+		});
+		
+		if( bIsOverlapping === false ){
+			this.postCommitment(oCommitmentAmendDetail);	
+		}
+		
+	},
+
+
+	/***
+	 * Post commitment to backend
+	 * @param oCommitmentAmendDetail - Commitment details
+	 */
+	postCommitment : function (oCommitmentAmendDetail){
+		
 		// Call Helper class method to update Deal Details to SAP
 		oCommitmentAmendDetail = this.ModelHelper
 				.postCommitmentAmendment(oCommitmentAmendDetail);
@@ -1132,12 +1455,13 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 			this._refreshDealDetailModel();
 			
-			this.CommonController.closePopupWindow(oEvent);
+			this._amendComitment.close();
+			
+//			this.CommonController.closePopupWindow(oEvent);
 
 		}
 	},
-
-
+	
 /*******************************************************************************
  * End - Commitment Amendment related code
  ******************************************************************************/
@@ -1176,6 +1500,13 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 					"dia.cmc.contractlandscape.fragment.amendment.Recalculation", this);
 
 			this.getView().addDependent(this._amendRecalculation);
+			
+			// Set quick help for radio buttons
+			var oAmendRB = this.CommonController.getUIElement("idAmendContract");
+			this.CommonController.setQuickHelp(oAmendRB,"AmendContractDesc",false);
+			
+			var oRenewRB = this.CommonController.getUIElement("idRenewContract");
+			this.CommonController.setQuickHelp(oRenewRB,"RenewContractDesc",false);
 		}
 
 		this._amendRecalculation.open();
@@ -1294,14 +1625,56 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			uiType : "TB",
 			value : "",
 			mandatory : true,
-			field : "RequestDesc"
+			field : "RequestDesc",
+			minLength : 50
 		} ];
 
 		// Validate and post amendment to SAP
-		this._validateAndPostAmendment("R", oControlList, oEvent);
+		this._validateAndPostAmendment("URC", oControlList, oEvent);
 
 	},
 
+	
+	/** Event handler for Cancel Recalculation Amendment
+	 * @param oEvent
+	 */
+	handleCancelRecalculationPost : function(oEvent) {
+		
+		that = this;
+		
+		var oAmendDetail = {};
+		oAmendDetail.DealId = this.ModelHelper.sSelectedDealId;
+		oAmendDetail.Action = "UCA";
+		
+		sap.m.MessageBox.confirm(that.ModelHelper.getText("CancelRecalculationConfirmation"), {
+        	title: that.ModelHelper.getText("Confirmation"),
+        	actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+    	    onClose: function(oAction){
+    	    	if(oAction === sap.m.MessageBox.Action.YES){
+    	    		
+//    	    		var shell = sap.ui.getCore().byId("idMainShell");
+//    	    		shell.setBusy(true);
+    	    		
+    	    		// Cancel recalculation amendment request
+    				that.ModelHelper.updateAmendment(oAmendDetail);	
+    				
+//    				 jQuery.sap.delayedCall(5000, this, function () {
+//    					 shell.setBusy(false);
+//    				    });
+//    				 
+    				
+    				// Display Success or Error message.
+    				if(oAmendDetail.Message){
+    					sap.m.MessageBox.alert(oAmendDetail.Message, {
+        					title : "Amendment Result"
+        				});    					
+    				}
+    			}
+    	    }});
+	
+	},
+	
+	
 	/** Event handler for Validity Amendment
 	 * @param oEvent
 	 */
@@ -1348,7 +1721,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		}, ];
 
 		// Validate and post amendment to SAP
-		this._validateAndPostAmendment("V", oControlList, oEvent);
+		this._validateAndPostAmendment("UVC", oControlList, oEvent);
 
 	},
 
@@ -1374,7 +1747,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		} ];
 
 		// Validate and post amendment to SAP
-		this._validateAndPostAmendment("T", oControlList, oEvent);
+		this._validateAndPostAmendment("UCT", oControlList, oEvent);
 
 	},
 
@@ -1447,6 +1820,19 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 	},
 
+	/** Event handler for Timeline button. It will navigate to timeline view
+	 * @param oEvent
+	 */
+	handleGetTimeline : function(oEvent){
+		
+		
+		this.CommonController.getRouter(this).navTo("dealTimeline", {
+			from: "Detail",
+			dealId: this.ModelHelper.sSelectedDealId,
+		}, false);
+		
+	},
+	
 	/** Event handler for DownloadToExcel button
 	 * @param oEvent
 	 */
@@ -1476,14 +1862,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		}
 
 		// Set the update action
-		oDealDetail.UpdateAction = "Favorite";
+		oDealDetail.Action = "UFV";			// Update Favorite
 
 		// Call Helper class method to update Deal Details to SAP
 		oDealDetail = this.ModelHelper.updateDeal(oDealDetail);
 
 		if (oDealDetail.MessageType != "E") { // Update is successful
 
-			// Change Favorite button icon and tooltip in Detail view
+			// Change Favorite icon color and tooltip in Detail view
 			this.ModelHelper.setDealDetailElementsProperties(oDealDetail, true);
 			
 			oDealDetail.Message = sSuccessMsg;
@@ -1514,14 +1900,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		}
 
 		// Set the update action
-		oDealDetail.UpdateAction = "Flag";
+		oDealDetail.Action = "UFL"; 	// Update Flag
 
 		// Call Helper class method to update Deal Details to SAP
 		oDealDetail = this.ModelHelper.updateDeal(oDealDetail);
 
 		if (oDealDetail.MessageType != "E") { // Update is successful
 
-			// Change Favorite button icon and tooltip in Detail view
+			// Change Favorite icon color and tooltip in Detail view
 			this.ModelHelper.setDealDetailElementsProperties(oDealDetail, true);
 
 			oDealDetail.Message = sSuccessMsg;
@@ -1590,13 +1976,15 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		// If pricing tab is select, make visibility = true
 		else if (sSelectedTabKey === "Pricing") { // Pricing tab is selected
 
+			// Set first tab ( Product Prices ) as selected by default
+			var oPricingTabBarUI = this.CommonController.getUIElement("idPricingTabBar", this.getView());
+//			var oPricingTabBarUI = this.getView().byId("idPricingTabBar");
+			oPricingTabBarUI.setSelectedKey("MatPrice");
+			
+			// Set flag to show Add Price button
 			bPricingActionButtonVisi = true;
 
 			// Filter pricing data
-//			var oPricingViewController = this
-//					._getChildViewController("idPricingView");
-//			oPricingViewController.handlePricingFilterChange(oEvent);
-			
 			this.handlePricingFilterChange(oEvent);
 			
 		} else if (sSelectedTabKey === "Commitments") { // Commitment tab is
@@ -1605,16 +1993,22 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			bCommitmentActionButtonVisi = true;
 
 			this.handleCommitmentFilterChange(oEvent);
+		} else if (sSelectedTabKey === "Documents"){
+			
+			this.ModelHelper.readDocumentList();
 		}
 
 		// Set property value in model
 		this.ModelHelper.setProperty("PricingActionButtonVisi",
 				bPricingActionButtonVisi);
-
+		
 		// Set property value in model
 		this.ModelHelper.setProperty("CommitmentActionButtonVisi",
 				bCommitmentActionButtonVisi);
 
+		// Hide Add Discount button, if its visable
+		this.ModelHelper.setProperty("DiscountActionButtonVisi", false);
+		
 	},
 	
 	// Event handler for Document selected items. It will open selected document.

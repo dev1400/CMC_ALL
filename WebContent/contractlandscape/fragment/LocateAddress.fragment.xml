@@ -31,13 +31,13 @@
 			 		
 			        <Input id="idCurrentPrice" value="{MapModel>/Locations/0/name}" showSuggestion="true" suggest="handleSearchAddressSuggest" change="handleSearchAddressChange" >
 		         		<layoutData>
-			              <l:GridData span="L1 M7 S9" />
+			              <l:GridData span="L5 M6 S8" />
 			            </layoutData>
 			        </Input>
 			        
-			        <Button id="idSearchAddressBtn" icon="sap-icon://sys-find" press="handleSearchAddress" width="2em" height="1.4em">
+			        <Button id="idSearchAddressBtn" icon="sap-icon://sys-find" press="handleSearchAddress" width="3em" height="1.4em">
 				        <layoutData>
-			              <l:GridData span="L1 M1 S3" />
+			              <l:GridData span="L1 M2 S3" />
 			            </layoutData>
 			        </Button>
 		

@@ -120,8 +120,9 @@
 		</Table>
 		<footer>
 			<Bar>
+			<!-- 
 				<contentLeft>
-					<!-- <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
+					<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
 						<Button icon="sap-icon://sys-find" press="handleBackendSearch">
 						</Button>
 						<SearchField placeholder="{i18n>SearchbySerialNumber}" tooltip="{i18n>SearchbySerialNumber}">
@@ -130,18 +131,18 @@
 							autoAdjustWidth="true" change="">
 							
 						</Select>
-					</HBox> -->
-				</contentLeft>
+					</HBox>
+				</contentLeft> -->
 
 				<contentRight>
-					<HBox width="auto" justifyContent="SpaceBetween"  alignItems="Center">
+					<!-- <HBox width="auto" justifyContent="SpaceBetween"  alignItems="Center"> -->
 						<ActionSheet >
 							<buttons>
 								<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" /> -->
 								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleAdditionalActionsButtonPress"/>
 							</buttons>
 						</ActionSheet>
-					</HBox>
+					<!-- </HBox> -->
 				</contentRight>
 			</Bar>
 

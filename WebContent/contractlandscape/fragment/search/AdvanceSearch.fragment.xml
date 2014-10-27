@@ -22,7 +22,7 @@
 
 				<f:SimpleForm layout="ResponsiveGridLayout" title="Customer"
 					minWidth="1024" labelSpanL="10" labelSpanM="4" emptySpanL="0"
-					emptySpanM="0" columnsL="2" columnsM="2">
+					emptySpanM="0" columnsL="2" columnsM="2"  editable="true">
 
 					<f:content>
 						<Label text="{i18n>CustomerNumber}" />
@@ -88,6 +88,9 @@
 								<Label text="{i18n>DealMasterPO}" />
 								<Input id="idAdvanceDealMasterPO" />
 
+								<Label text="{i18n>DealMasterDescr}" />
+								<Input id="idAdvanceDealMasterDescr" placeholder="{i18n>CommonPlaceHolder}"/>
+								
 								<CheckBox id="idActionAtEnd" text="{i18n>ExpiryAtEnd}" />
 
 								<CheckBox id="idAdvanceValidDeals" text="{i18n>ValidDeals}"

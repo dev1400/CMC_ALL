@@ -52,3 +52,16 @@
 	background-color: rgb(51,51,51);
 	color: rgb(51,51,51);	
 }
+
+.titleText{
+	font-size:1.5rem
+}
+
+.subText{
+	font-size:0.8rem
+}
+
+.verticalText {
+	transform: rotate(90deg);
+	transform-origin: left top 0;
+}
