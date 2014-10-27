@@ -2,7 +2,7 @@
 	xmlns="sap.m" xmlns:suite="sap.suite.ui.commons" controllerName="dia.cmc.contractsinamendment.view.AmendmentFlow"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:z="sap.ca.ui">
-	<Page enableScrolling="true" title="{i18n>ContractsinAmendment}" showNavButton="true" navButtonPress="handleNavButtonPress">
+	<Page enableScrolling="true" title="{i18n>DealsinAmendment}" showNavButton="true" navButtonPress="handleNavButtonPress">
 
 		<content>
 

@@ -188,16 +188,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Get context of selected check box.
      */
     handleCancelAmendmentRadioButtonSelect: function(oEvent) {
-
+    	
         this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
         this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
 
-    },
-    /**
-     * Download table data to excel file.
-     */
-    handleExportButtonPress: function(oEvent) {
-    	
-     console.dir(this.ModelHelper.readDealCollection(null));
-    },
+    }
 });

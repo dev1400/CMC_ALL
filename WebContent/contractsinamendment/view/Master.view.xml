@@ -1,12 +1,12 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core"
 	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout">
-	<Page enableScrolling="true" title="{i18n>ContractsinAmendment}">
+	<Page enableScrolling="true" title="{i18n>DealsinAmendment}">
 		<IconTabBar enableScrolling="true" expanded="false"
 			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
 				<IconTabFilter icon="sap-icon://accept" iconColor="Neutral"
-					design="Horizontal" count="" text="{i18n>AllDealsinAmendment}" key="{AllDealsinAmendment}">
+					design="Horizontal" count="" text="{i18n>AllDeals}" key="{i18n>AllDeals}">
 				</IconTabFilter>
 				<IconTabSeparator icon="sap-icon://open-command-field" />
 				<IconTabFilter icon="sap-icon://value-help" iconColor="Neutral"
@@ -139,8 +139,6 @@
 							<buttons>
 								<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" /> -->
 								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleAdditionalActionsButtonPress"/>
-								<!-- <Button text="{i18n>Export}" tooltip="{i18n>Export}" icon="sap-icon://excel-attachment" press="handleExportButtonPress"/> -->
-		
 							</buttons>
 						</ActionSheet>
 					</HBox>
