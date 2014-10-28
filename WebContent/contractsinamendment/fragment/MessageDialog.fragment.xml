@@ -7,7 +7,7 @@
     type="Message" >
     <Text text="{Description}" />
     <beginButton>
-      <Button text="{i18n>Close}" app:dialogType="Msg" press="onDialogCloseButton" />
+      <Button text="{i18n>Close}" app:dialogType="Msg" press="handleDialogCloseButtonPress" />
     </beginButton>
   </Dialog>
 </core:FragmentDefinition>

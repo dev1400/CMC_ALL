@@ -171,7 +171,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         if (!this._messageDialogFragment) {
             this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.MessageDialog", this);
             this.getView().addDependent(this._messageDialogFragment);
-            jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);            
+            jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);    
+            
+            var oODataModel = dia.cmc.common.helper.ModelHelper.getODataModel();
+        	this.getView().setModel(oODataModel,"oODataModel");
             
         }
         this._messageDialogFragment.open();
@@ -180,7 +183,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Close message dialog when close button is pressed.
      */
-    onDialogCloseButton: function(oEvent) {
+    handleDialogCloseButtonPress: function(oEvent) {
         this._messageDialogFragment.close();
     }
 
