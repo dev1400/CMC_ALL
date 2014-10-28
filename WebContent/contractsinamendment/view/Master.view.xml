@@ -77,7 +77,7 @@
 
 						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
-							  <commons:TextView text="{Description}" design="Bold" textAlign="Begin" />							
+							  <commons:TextView text="{Description}" design="Bold" wrapping="true" textAlign="Begin" />							
                               <c:Icon id="idPopupWindowIcon" src="sap-icon://popup-window" press="handlePopupWindowIconPress" />							
 							</HBox>			
 
