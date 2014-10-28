@@ -109,7 +109,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Navigate to Deal Detail.
      */
-    handleAmendmentItemPress: function(oEvent) {
+    handleDealIdLinkPress: function(oEvent) {
         var oContext = oEvent.getSource().getBindingContext();
         // set selected Deal path to helper class
         this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
