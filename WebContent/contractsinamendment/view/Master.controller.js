@@ -18,8 +18,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             RequestDesc: "",
             Action: "UCA"
         };
-        this._oAmendmentIdforCancellation = null;
-        this._oDealIdforCancellation = null;
+       
 
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -126,52 +125,30 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Handle amendment cancellation.
      */
     handleAmendmentCancelPress: function(oEvent) {
-
-        if (this._oAmendmentIdforCancellation !== null & this._oDealIdforCancellation !== null) {
-
-            this._oAmend.DealId = this._oDealIdforCancellation;
-            this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
-            var oParentContext = this;
-
+        
+    	this._oAmend.DealId =  oEvent.getSource().getBindingContext().getObject().DealId;
+    	this._oAmend.AmendmentId = oEvent.getSource().getBindingContext().getObject().AmendmentId;
+    	var oParentContext = this;
             /**
-             * Opens the confirmation message box.
+             * Opens the confirmation dialog
              */
-            sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
-                icon: sap.m.MessageBox.Icon.QUESTION,
-                title: this.ModelHelper.getText("CancelAmendment"),
-                actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-                onClose: function(oAction) {
-                    if (oAction === oParentContext.ModelHelper.getText("OK")) {
-                        oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
-                    }
+        sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
+            icon: sap.m.MessageBox.Icon.QUESTION,
+            title: this.ModelHelper.getText("CancelAmendment"),
+            actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+            onClose: function(oAction) {            	
+                if (oAction === oParentContext.ModelHelper.getText("OK")) {
+                	
+                    oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
                 }
-            });
-
-        } else {
-            sap.m.MessageToast.show(this.ModelHelper.getText("SelectAnAmendmentForCancellation"));
-        }
-
-
-    },
-    /**
-     * Navigate to WorkFlow overview page.
-     */
-    handleWorkflowOverviewLinkPress: function(oEvent) {
-        var oContext = oEvent.getSource().getBindingContext();
-        this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
-        // If we're on a phone, include nav in history; if not, don't.
-        var bReplace = jQuery.device.is.phone ? false : true;
-        var oDealDetail = this.getView().getModel().getProperty(
-            oContext.getPath());
-        this.CommonController.getRouter(this).navTo("AmendmentFlow", {
-            from: "master",
-            dealId: oDealDetail.DealId,
-        }, bReplace);
-    },
+            }
+        });       
+    }, 
+    
     /**
      * Show options when Additional Actions button is pressed.
      */
-    handleAdditionalActionsButtonPress: function(oEvent) {
+   /* handleAdditionalActionsButtonPress: function(oEvent) {
         // Get reference of Further Actions Button
         var oAdditionalActionsButton = oEvent.getSource();
 
@@ -183,14 +160,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         }
 
         this._actionSheet.openBy(oAdditionalActionsButton);
-    },
-    /**
-     * Get context of selected check box.
-     */
-    handleCancelAmendmentRadioButtonSelect: function(oEvent) {
-    	
-        this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
-        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
-
-    }
+    },*/
+   
 });

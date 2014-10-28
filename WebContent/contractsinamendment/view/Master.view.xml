@@ -64,7 +64,7 @@
 					<Text text="{i18n>DealDetails}" />
 				</Column>
 				<Column hAlign="Center" width="3.5em">
-					<Text text="{i18n>Select}" />
+					<Text text="{i18n>Cancel}" />
 				</Column>
 			</columns>
 			<items>
@@ -75,12 +75,12 @@
 					    <VBox width="auto">
 							<ObjectIdentifier title="{CustomerName}" text="{CustomerCity}, {CustomerCountry} {CustomerZip}"
 								class="sapMTableContentMargin" />
-							<commons:TextView text="{i18n>Accountno} {CustomerId}"
+							<commons:TextView text="{i18n>SAPAccountno} {CustomerId}"
 								design="Italic" />
 						</VBox>
 
 						<VBox alignItems="Start" fitContainer="true" justifyContesnt="SpaceBetween" >
-							<commons:TextView text="{Description}" design="Standard" textAlign="Begin"/>
+							<commons:TextView text="{Description}" design="Bold" textAlign="Begin"/>
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
 								
 								<commons:TextView textAlign="Begin"
@@ -109,15 +109,11 @@
 							<Link text="{DealId}" press="handleDealIdLinkPress" />
 						</VBox>
 						
-						<!-- <ObjectIdentifier title="{DealDescription}" text="{DealId}"
-							class="sapMTableContentMargin" /> -->
+						
 						
 						<c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
 						
-						<!-- <RadioButton groupName="{i18n>AmendmentCancellationGroup}" select="handleCancelAmendmentRadioButtonSelect"> 
-						        
-						</RadioButton> -->
-					
+						
 
 					</cells>
 				</ColumnListItem>
