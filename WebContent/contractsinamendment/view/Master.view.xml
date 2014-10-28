@@ -40,14 +40,10 @@
 			</layout:MatrixLayoutRow>
 		</layout:MatrixLayout>
 
-
-
-
 		<Table id="idTable" fixedLayout="true" headerText=""
 			items="{/DealInAmendmentCollection}">
 
-			<columns>
-			
+			<columns>			
 			    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
