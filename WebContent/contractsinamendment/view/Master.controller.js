@@ -20,8 +20,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             RequestDesc: "",
             Action: "UCA"
         };
-       
-
+        
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
         // Common Controller reference
@@ -127,62 +126,55 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Handle amendment cancellation.
      */
     handleAmendmentCancelPress: function(oEvent) {
-        
-    	this._oAmend.DealId =  oEvent.getSource().getBindingContext().getObject().DealId;
-    	this._oAmend.AmendmentId = oEvent.getSource().getBindingContext().getObject().AmendmentId;
-    	var oParentContext = this;
-            /**
-             * Opens the confirmation dialog
-             */
+
+        this._oAmend.DealId = oEvent.getSource().getBindingContext().getObject().DealId;
+        this._oAmend.AmendmentId = oEvent.getSource().getBindingContext().getObject().AmendmentId;
+        var oParentContext = this;
+        /**
+         * Opens the confirmation dialog
+         */
         sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
             icon: sap.m.MessageBox.Icon.QUESTION,
             title: this.ModelHelper.getText("CancelAmendment"),
             actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-            onClose: function(oAction) {            	
+            onClose: function(oAction) {
                 if (oAction === oParentContext.ModelHelper.getText("OK")) {
-                	
+
                     oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
                 }
             }
-        });       
-    }, 
-    
+        });
+    },
+
     /**
      * Show options when Additional Actions button is pressed.
      */
-   /* handleAdditionalActionsButtonPress: function(oEvent) {
-        // Get reference of Further Actions Button
-        var oAdditionalActionsButton = oEvent.getSource();
+    /* handleAdditionalActionsButtonPress: function(oEvent) {
+         // Get reference of Further Actions Button
+         var oAdditionalActionsButton = oEvent.getSource();
 
-        // create action sheet only once
-        if (!this._actionSheet) {
-            this._actionSheet = sap.ui.xmlfragment(
-                "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
-            this.getView().addDependent(this._actionSheet);
-        }
+         // create action sheet only once
+         if (!this._actionSheet) {
+             this._actionSheet = sap.ui.xmlfragment(
+                 "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
+             this.getView().addDependent(this._actionSheet);
+         }
 
-        this._actionSheet.openBy(oAdditionalActionsButton);
-    },*/
+         this._actionSheet.openBy(oAdditionalActionsButton);
+     },*/
     /**
      * Show pop up window with amendment description.
      */
-    handlePopupWindowIconPress : function(oEvent){
-    	/*if (!this[sType]) {
-            this[sType] = sap.ui.xmlfragment(
-              "dia.cmc.contractsinamendment.fragment.MessageDialog",
-              this // associate controller with the fragment
-            );
-            this.getView().addDependent(this[sType]);
-          }*/
-    	this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.MessageDialog", this );
-    	this.getView().addDependent(this._messageDialogFragment);
-          
-          jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);
-          this._messageDialogFragment.open();
-    },    
-    onDialogCloseButton: function (oEvent) {
-    	    var sType = oEvent.getSource().data("dialogType");
-    	    this._messageDialogFragment.close();
+    handlePopupWindowIconPress: function(oEvent) {
+
+        this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.MessageDialog", this);
+        this.getView().addDependent(this._messageDialogFragment);
+
+        jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);
+        this._messageDialogFragment.open();
+    },
+    onDialogCloseButton: function(oEvent) {
+        this._messageDialogFragment.close();
     }
-   
+
 });
