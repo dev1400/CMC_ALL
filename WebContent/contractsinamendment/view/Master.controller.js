@@ -12,6 +12,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable = this.getView().byId("idTable");
         this._oLayout = this.getView().byId("idMatrixLayout");
         this._oLayout.setVisible(false);
+        this._oPopupWindowIcon = this.getView().byId("idPopupWindowIcon");
+        this._oPopupWindowIcon.setVisible(true);
         this._oAmend = {
             DealId: "",
             AmendmentId: "",
@@ -161,5 +163,26 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
         this._actionSheet.openBy(oAdditionalActionsButton);
     },*/
+    /**
+     * Show pop up window with amendment description.
+     */
+    handlePopupWindowIconPress : function(oEvent){
+    	/*if (!this[sType]) {
+            this[sType] = sap.ui.xmlfragment(
+              "dia.cmc.contractsinamendment.fragment.MessageDialog",
+              this // associate controller with the fragment
+            );
+            this.getView().addDependent(this[sType]);
+          }*/
+    	this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.MessageDialog", this );
+    	this.getView().addDependent(this._messageDialogFragment);
+          
+          jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);
+          this._messageDialogFragment.open();
+    },    
+    onDialogCloseButton: function (oEvent) {
+    	    var sType = oEvent.getSource().data("dialogType");
+    	    this._messageDialogFragment.close();
+    }
    
 });
