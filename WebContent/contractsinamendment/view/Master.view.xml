@@ -43,19 +43,19 @@
 		<Table id="idTable" fixedLayout="true" headerText=""
 			items="{/DealInAmendmentCollection}">
 
-			<columns>			
-			    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+			<columns>
+				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
 				<Column width="12em" hAlign="Center">
 					<Text text="{i18n>AmendmentDetails}" />
-				</Column>				
+				</Column>
 				<Column hAlign="Center">
 					<Text text="{i18n>OverallProgress}" />
 				</Column>
 				<Column hAlign="Center">
 					<Text text="{i18n>CurrrentActivity}" />
-				</Column>				
+				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>DealDetails}" />
 				</Column>
@@ -67,21 +67,21 @@
 				<ColumnListItem>
 
 					<cells>
-					    
-					    <VBox width="auto">
-							<ObjectIdentifier title="{CustomerName}" text="{CustomerCity}, {CustomerCountry} {CustomerZip}"
-								class="sapMTableContentMargin" />
+
+						<VBox width="auto">
+							<ObjectIdentifier title="{CustomerName}"
+								text="{CustomerCity}, {CustomerCountry} {CustomerZip}" class="sapMTableContentMargin" />
 							<commons:TextView text="{i18n>SAPAccountno} {CustomerId}"
 								design="Italic" />
 						</VBox>
 
-						<VBox alignItems="Start" fitContainer="true" justifyContesnt="SpaceBetween" >
+						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
-								<commons:TextView text="{Description}" design="Bold" textAlign="Begin"/>								
-								<c:Icon id="idPopupWindowIcon" src="sap-icon://popup-window" press="handlePopupWindowIconPress" />							
-							</HBox>
-							
-							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">								
+							  <commons:TextView text="{Description}" design="Bold" textAlign="Begin" />							
+                              <c:Icon id="idPopupWindowIcon" src="sap-icon://popup-window" press="handlePopupWindowIconPress" />							
+							</HBox>			
+
+							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">
 								<commons:TextView textAlign="Begin"
 									text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName} {i18n>On} {
 														path: 'StartDate',
@@ -90,11 +90,11 @@
 									design="Standard" />
 							</HBox>
 						</VBox>
-						
+
 						<VBox width="auto">
 							<ProgressIndicator width="100%" percentValue="{ValidPercentage}"
-								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}" showValue="true"
-								height="1.0rem" />							
+								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
+								showValue="true" height="1.0rem" />
 						</VBox>
 
 						<VBox width="auto" alignItems="Center">
@@ -102,46 +102,35 @@
 							<commons:TextView text="{i18n>Pendingat}"
 								design="Italic" />
 						</VBox>
-						
+
 						<VBox width="auto" alignItems="Center">
-							<commons:TextView text="{DealDescription}" design="Bold"/>							
+							<commons:TextView text="{DealDescription}"
+								design="Bold" />
 							<Link text="{DealId}" press="handleDealIdLinkPress" />
 						</VBox>
-						
-						
-						
 						<c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
-						
-						
-
 					</cells>
 				</ColumnListItem>
 			</items>
 		</Table>
 		<footer>
 			<Bar>
-			<!-- 
-				<contentLeft>
-					<HBox width="auto" justifyContent="SpaceBetween" alignItems="Center">
-						<Button icon="sap-icon://sys-find" press="handleBackendSearch">
-						</Button>
-						<SearchField placeholder="{i18n>SearchbySerialNumber}" tooltip="{i18n>SearchbySerialNumber}">
-						</SearchField>
-						<Select id="" type="IconOnly" icon="sap-icon://filter"
-							autoAdjustWidth="true" change="">
-							
-						</Select>
-					</HBox>
-				</contentLeft> -->
+				<!-- <contentLeft> <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center"> 
+					<Button icon="sap-icon://sys-find" press="handleBackendSearch"> </Button> 
+					<SearchField placeholder="{i18n>SearchbySerialNumber}" tooltip="{i18n>SearchbySerialNumber}"> 
+					</SearchField> <Select id="" type="IconOnly" icon="sap-icon://filter" autoAdjustWidth="true" 
+					change=""> </Select> </HBox> </contentLeft> -->
 
 				<contentRight>
-					<!-- <HBox width="auto" justifyContent="SpaceBetween"  alignItems="Center"> -->
-						<ActionSheet >
-							<buttons>
-								<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" /> -->
-								<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}" icon="sap-icon://action" press="handleAdditionalActionsButtonPress"/>
-							</buttons>
-						</ActionSheet>
+					<!-- <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center"> -->
+					<ActionSheet>
+						<buttons>
+							<!-- <Button text="{i18n>Remind}" tooltip="{i18n>Remind}" icon="sap-icon://notification" 
+								/> -->
+							<Button text="{i18n>AdditionalActions}" tooltip="{i18n>AdditionalActions}"
+								icon="sap-icon://action" press="handleAdditionalActionsButtonPress" />
+						</buttons>
+					</ActionSheet>
 					<!-- </HBox> -->
 				</contentRight>
 			</Bar>
