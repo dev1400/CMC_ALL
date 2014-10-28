@@ -168,7 +168,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     handlePopupWindowIconPress: function(oEvent) {    	
     	
         if (!this._messageDialogFragment) {
-            this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.MessageDialog", this);
+            this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this);
             this.getView().addDependent(this._messageDialogFragment);
             jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);    
             
@@ -182,7 +182,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Close message dialog when close button is pressed.
      */
-    handleDialogCloseButtonPress: function(oEvent) {
+    handlePopupCloseButtonPress: function(oEvent) {
         this._messageDialogFragment.close();
     }
 
