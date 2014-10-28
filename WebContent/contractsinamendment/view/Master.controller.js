@@ -165,8 +165,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Show pop up window with amendment description.
      */
-    handlePopupWindowIconPress: function(oEvent) {
-    	
+    handlePopupWindowIconPress: function(oEvent) {    	
     	
         if (!this._messageDialogFragment) {
             this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.MessageDialog", this);
