@@ -40,7 +40,7 @@
 			</layout:MatrixLayoutRow>
 		</layout:MatrixLayout>
 
-		<Table id="idTable" fixedLayout="true" selectionMode="Single" rowSelectionChange="handleTableSelectionChange"
+		<Table id="idTable" fixedLayout="true" 
 			items="{/DealInAmendmentCollection}">
 
 			<columns>
@@ -62,7 +62,7 @@
 				
 			</columns>
 			<items>
-				<ColumnListItem>
+				<ColumnListItem type="DetailAndActive" press="handleTableRowPress">
 
 					<cells>
 

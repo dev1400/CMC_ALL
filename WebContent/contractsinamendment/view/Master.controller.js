@@ -21,6 +21,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             RequestDesc: "",
             Action: "UCA"
         };
+        this._oAmendmentIdforCancellation = null;
+        this._oDealIdforCancellation = null;
         
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -130,13 +132,39 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Handle amendment cancellation.
      */
     handleAmendmentCancelPress: function(oEvent) {
+    	
+    	if (this._oAmendmentIdforCancellation !== null & this._oDealIdforCancellation !== null) {
 
-        this._oAmend.DealId = oEvent.getSource().getBindingContext().getObject().DealId;
+            this._oAmend.DealId = this._oDealIdforCancellation;
+            this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
+            var oParentContext = this;
+
+            /**
+             * Opens the confirmation message box.
+             */
+            sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
+                icon: sap.m.MessageBox.Icon.QUESTION,
+                title: this.ModelHelper.getText("CancelAmendment"),
+                actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                onClose: function(oAction) {
+                    if (oAction === oParentContext.ModelHelper.getText("OK")) {
+                        oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
+                    }
+                }
+            });
+
+        } else {
+            sap.m.MessageToast.show(this.ModelHelper.getText("SelectAnAmendmentForCancellation"));
+        }
+
+    	
+
+      /*  this._oAmend.DealId = oEvent.getSource().getBindingContext().getObject().DealId;
         this._oAmend.AmendmentId = oEvent.getSource().getBindingContext().getObject().AmendmentId;
         var oParentContext = this;
-        /**
+        *//**
          * Opens the confirmation dialog
-         */
+         *//*
         sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
             icon: sap.m.MessageBox.Icon.QUESTION,
             title: this.ModelHelper.getText("CancelAmendment"),
@@ -147,7 +175,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                     oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
                 }
             }
-        });
+        });*/
     },
     /**
      * Navigate to WorkFlow overview page.
@@ -192,8 +220,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     		      }
     		    );
     },
-    handleTableSelectionChange : function(oEvent){
-    	console.log("Clicked");
+    /**
+     * Get context of selected table row.
+     */
+    handleTableRowPress: function(oEvent) {
+    	
+        this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
+        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
+
     }
     
 });
