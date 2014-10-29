@@ -14,6 +14,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oLayout.setVisible(false);
         this._oPopupWindowIcon = this.getView().byId("idPopupWindowIcon");
         this._oPopupWindowIcon.setVisible(true);
+        
         this._oAmend = {
             DealId: "",
             AmendmentId: "",
@@ -170,8 +171,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         if (!this._messageDialogFragment) {
             this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this);
             this.getView().addDependent(this._messageDialogFragment);
-            jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._messageDialogFragment);             
-            
         }
         this._messageDialogFragment.open();
         
