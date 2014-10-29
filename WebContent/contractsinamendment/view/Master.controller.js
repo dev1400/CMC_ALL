@@ -149,6 +149,21 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             }
         });
     },
+    /**
+     * Navigate to WorkFlow overview page.
+     */
+    handleProgressIndicatorPress: function(oEvent) {
+        var oContext = oEvent.getSource().getBindingContext();
+        this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
+        // If we're on a phone, include nav in history; if not, don't.
+        var bReplace = jQuery.device.is.phone ? false : true;
+        var oDealDetail = this.getView().getModel().getProperty(
+            oContext.getPath());
+        this.CommonController.getRouter(this).navTo("AmendmentFlow", {
+            from: "master",
+            dealId: oDealDetail.DealId,
+        }, bReplace);
+    },
 
     /**
      * Show options when Additional Actions button is pressed.
@@ -176,6 +191,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     		        actions: [sap.m.MessageBox.Action.OK]
     		      }
     		    );
+    },
+    handleTableSelectionChange : function(oEvent){
+    	console.log("Clicked");
     }
     
 });
