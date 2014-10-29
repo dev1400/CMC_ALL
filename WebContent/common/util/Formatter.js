@@ -206,6 +206,16 @@ dia.cmc.common.util.Formatter = {
 //		}
 //	},
 //
-
+    /**
+     * Disable pop over icon when amendment description is less than 50 characters.
+     */
+    changePopOverVisibility : function(oAmendmentDescription){
+    	console.log(oAmendmentDescription);
+    	if(oAmendmentDescription.length > 50){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
 	
 };
