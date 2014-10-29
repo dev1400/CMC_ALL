@@ -50,7 +50,7 @@
 				<Column hAlign="Center" width="18em">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
-				<Column hAlign="Center" width="20em">
+				<Column hAlign="Center" width="18em">
 					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
 				<Column hAlign="Center" width="15em">
