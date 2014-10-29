@@ -47,13 +47,13 @@
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
-				<Column width="12em" hAlign="Center">
+				<Column hAlign="Center" width="24em">
 					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
-				<Column hAlign="Center">
+				<Column hAlign="Center" width="12em">
 					<Text text="{i18n>OverallProgress}" />
 				</Column>
-				<Column hAlign="Center">
+				<Column hAlign="Center" width="12em">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
@@ -92,7 +92,7 @@
 						</VBox>
 
 						<VBox width="auto">
-							<ProgressIndicator width="100%" percentValue="{ValidPercentage}"
+							<ProgressIndicator  percentValue="{ValidPercentage}"
 								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
 								showValue="true" height="1.0rem" />
 						</VBox>
