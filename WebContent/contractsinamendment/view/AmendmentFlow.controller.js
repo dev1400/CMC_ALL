@@ -41,8 +41,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	        nodes:
 	        [
               {id: "0", lane: "0" , title: "Deal Configuration", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              {id: "1", lane: "1" , title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
- 	         
+              /*{id: "1", lane: "1" , title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+ 	         */
 
 	         /* {id: "1",  lane: "0",  title: "Deal Configuration", children: [2], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
 	          {id: "2",  lane: "1",  title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
