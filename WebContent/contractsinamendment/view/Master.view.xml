@@ -21,15 +21,15 @@
 			</items>
 		</IconTabBar>
 
-		<layout:MatrixLayout id="idMatrixLayout">
+		<layout:MatrixLayout id="idMatrixLayout" >
 			<layout:MatrixLayoutRow>
 				<layout:MatrixLayoutCell vAlign="Middle"
 					hAlign="Right" rowSpan="1" colSpan="1">
 					<Label text="{i18n>SelectDateRange}" />
 				</layout:MatrixLayoutCell>
 				<layout:MatrixLayoutCell vAlign="Middle"
-					hAlign="Center" rowSpan="1" colSpan="1">
-					<DateRangeSelection id="idExecutedAmendments"
+					hAlign="Center" rowSpan="1" colSpan="1" >
+					<DateRangeSelection id="idExecutedAmendments" width="24em"
 						displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
 					</DateRangeSelection>
 				</layout:MatrixLayoutCell>

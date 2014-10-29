@@ -171,8 +171,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      */
     handlePopupWindowIconPress: function(oEvent) {
     	
-    	sap.m.MessageBox.show(
-    			oEvent.getSource().getBindingContext().getObject().Description, {
+    	sap.m.MessageBox.show(oEvent.getSource().getBindingContext().getObject().Description, {
     		        title: this.ModelHelper.getText("AmendmentDescription"),
     		        actions: [sap.m.MessageBox.Action.OK]
     		      }
