@@ -1,5 +1,5 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.m" controllerName="dia.cmc.processworkflow.view.ProcessFlow"
+	xmlns="sap.m" controllerName="dia.cmc.processflow.view.ProcessFlow"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:z="sap.ca.ui">
 	<Page title="Title" xmlns:suite="sap.suite.ui.commons">
 		<content>

@@ -1,13 +1,14 @@
 jQuery.sap.require("dia.cmc.common.helper.CommonController");
-sap.ui.controller("dia.cmc.processworkflow.view.ProcessFlow", {
+sap.ui.controller("dia.cmc.processflow.view.ProcessFlow", {
 	onInit: function () {		
 		// Common Controller reference
 		this.CommonController = dia.cmc.common.helper.CommonController;
+		this.ModelHelper = dia.cmc.common.helper.ModelHelper;
 		
 	    var oDataProcessFlowLanesOnly = {
 	        lanes:
 	          [
-	            {id: "0", icon: "sap-icon://order-status", label: "In Order", position: 0},
+	            {id: "0", icon: "sap-icon://order-status", label: this.ModelHelper.getText("Proposal"), position: 0},
 	            {id: "1", icon: "sap-icon://monitor-payments", label: "In Delivery", position: 1},
 	            {id: "2", icon: "sap-icon://payment-approval", label: "In Invoice", position: 2},
 	            {id: "3", icon: "sap-icon://money-bills", label: "In Accounting", position: 3},

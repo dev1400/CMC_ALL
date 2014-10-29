@@ -1,7 +1,7 @@
-jQuery.sap.declare("dia.cmc.processworkflow.Component");
+jQuery.sap.declare("dia.cmc.processflow.Component");
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.util.MyRouter");
-sap.ui.core.UIComponent.extend("dia.cmc.processworkflow.Component", {
+sap.ui.core.UIComponent.extend("dia.cmc.processflow.Component", {
     metadata: {
         name: "CMC Contracts in Amendment Process Flow",
         version: "1.0",
@@ -10,7 +10,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.processworkflow.Component", {
             libs: ["sap.m", "sap.ui.layout"],
             components: []
         },
-        rootView: "dia.cmc.processworkflow.view.Root",
+        rootView: "dia.cmc.processflow.view.Root",
         routing: {
             config: {
                 routerClass: dia.cmc.common.util.MyRouter,
@@ -23,7 +23,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.processworkflow.Component", {
             routes: [{
                 pattern: "",
                 name: "main",
-                view: "processworkflow.view.ProcessFlow",
+                view: "processflow.view.ProcessFlow",
                 targetAggregation: "pages",
             }/*, {
                 pattern: "Deal({dealId})",
