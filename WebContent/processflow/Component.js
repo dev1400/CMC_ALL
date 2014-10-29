@@ -46,9 +46,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.processflow.Component", {
         // Set OData Model
         this.setModel(oODataModel);
         // Get i18n model 
-        var i18nModel = dia.cmc.common.helper.ModelHelper.getI18nModel(
-            "processworkflow/i18n/messageBundle.properties"
-        );
+        var i18nModel = dia.cmc.common.helper.ModelHelper.getI18nModel("processflow/i18n/messageBundle.properties");
         // set i18n model
         this.setModel(i18nModel, "i18n");
         // set device model

@@ -9,11 +9,11 @@ sap.ui.controller("dia.cmc.processflow.view.ProcessFlow", {
 	        lanes:
 	          [
 	            {id: "0", icon: "sap-icon://order-status", label: this.ModelHelper.getText("Proposal"), position: 0},
-	            {id: "1", icon: "sap-icon://monitor-payments", label: "In Delivery", position: 1},
-	            {id: "2", icon: "sap-icon://payment-approval", label: "In Invoice", position: 2},
-	            {id: "3", icon: "sap-icon://money-bills", label: "In Accounting", position: 3},
-	            {id: "4", icon: "sap-icon://payment-approval", label: "In Payment", position: 4},
-	            {id: "5", icon: "sap-icon://nurse", label: "Delivered", position: 5},
+	            {id: "1", icon: "sap-icon://monitor-payments", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
+	            {id: "2", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
+	            {id: "3", icon: "sap-icon://money-bills", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
+	            {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("DocumentationAndCleanUp"), position: 4},
+	            /*{id: "5", icon: "sap-icon://nurse", label: "Delivered", position: 5},*/
 	            /*{id: "6", icon: "sap-icon://retail-store", label: "In Return Process", position: 6},
 	            {id: "7", icon: "sap-icon://monitor-payments", label: "In Credit Return", position: 7}*/
 	          ]
