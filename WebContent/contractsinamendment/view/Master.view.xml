@@ -44,10 +44,10 @@
 			items="{/DealInAmendmentCollection}">
 
 			<columns>
-				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column hAlign="Center" width="18em">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
-				<Column hAlign="Center" width="18em">
+				<Column hAlign="Center" width="24em">
 					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
 				<Column hAlign="Center" width="15em">
@@ -56,12 +56,10 @@
 				<Column hAlign="Center" width="15em">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
-				<Column hAlign="Center"  width="15em">
+				<Column hAlign="Center"  width="18em">
 					<Text text="{i18n>DealDetails}" />
 				</Column>
-				<Column hAlign="Center" width="3.5em">
-					<Text text="{i18n>Cancel}" />
-				</Column>
+				
 			</columns>
 			<items>
 				<ColumnListItem>
@@ -111,7 +109,7 @@
 								design="Bold" />
 							<Link text="{DealId}" press="handleDealIdLinkPress" />
 						</VBox>
-						<c:Icon src="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
+						
 					</cells>
 				</ColumnListItem>
 			</items>

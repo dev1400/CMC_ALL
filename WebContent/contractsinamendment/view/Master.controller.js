@@ -168,7 +168,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Show options when Additional Actions button is pressed.
      */
-    /* handleAdditionalActionsButtonPress: function(oEvent) {
+     handleAdditionalActionsButtonPress: function(oEvent) {
          // Get reference of Further Actions Button
          var oAdditionalActionsButton = oEvent.getSource();
 
@@ -180,7 +180,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
          }
 
          this._actionSheet.openBy(oAdditionalActionsButton);
-     },*/
+     },
     /**
      * Show pop up window with amendment description.
      */
