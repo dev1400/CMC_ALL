@@ -34,7 +34,7 @@ sap.ui.controller("dia.cmc.processflow.view.ProcessFlow", {
 
 	  onHeaderPress: function( event ) {
 		 
-	   /* var oDataProcessFlowNodes = {
+	    var oDataProcessFlowNodes = {
 	        nodes:
 	        [
 	          {id: "1",  lane: "0",  title: "Sales Order 2", children: [10, 11, 12], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
@@ -65,8 +65,8 @@ sap.ui.controller("dia.cmc.processflow.view.ProcessFlow", {
 	        var oModel = new sap.ui.model.json.JSONModel();
 	        var view = this.getView();
 	        oModel.setData(oDataProcessFlowNodes);
-	        view.setModel(oModel, "pf3");
-	        view.byId("idProcessFlow").updateModel();*/
+	        view.setModel(oModel, "processFlowLaneModel");
+	        view.byId("idProcessFlow").updateModel();
 	  },
 
 	  onNodePress: function(event) {
