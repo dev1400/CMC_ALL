@@ -156,26 +156,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         } else {
             sap.m.MessageToast.show(this.ModelHelper.getText("SelectAnAmendmentForCancellation"));
         }
-
-    	
-
-      /*  this._oAmend.DealId = oEvent.getSource().getBindingContext().getObject().DealId;
-        this._oAmend.AmendmentId = oEvent.getSource().getBindingContext().getObject().AmendmentId;
-        var oParentContext = this;
-        *//**
-         * Opens the confirmation dialog
-         *//*
-        sap.m.MessageBox.confirm(this.ModelHelper.getText("AmendmentCancellationMessage"), {
-            icon: sap.m.MessageBox.Icon.QUESTION,
-            title: this.ModelHelper.getText("CancelAmendment"),
-            actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-            onClose: function(oAction) {
-                if (oAction === oParentContext.ModelHelper.getText("OK")) {
-
-                    oParentContext.ModelHelper.updateAmendment(oParentContext._oAmend);
-                }
-            }
-        });*/
     },
     /**
      * Navigate to WorkFlow overview page.
