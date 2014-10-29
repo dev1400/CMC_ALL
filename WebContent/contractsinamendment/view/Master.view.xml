@@ -47,16 +47,16 @@
 				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
-				<Column hAlign="Center" width="24em">
+				<Column hAlign="Center" width="18em">
 					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
-				<Column hAlign="Center" width="12em">
+				<Column hAlign="Center" width="15em">
 					<Text text="{i18n>OverallProgress}" />
 				</Column>
-				<Column hAlign="Center" width="12em">
+				<Column hAlign="Center" width="15em">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
-				<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+				<Column hAlign="Center"  width="15em">
 					<Text text="{i18n>DealDetails}" />
 				</Column>
 				<Column hAlign="Center" width="3.5em">
@@ -83,10 +83,7 @@
 
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">
 								<commons:TextView textAlign="Begin"
-									text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName} {i18n>On} {
-														path: 'StartDate',
-														formatter: 'dia.cmc.common.util.Formatter.date'
-														}"
+									text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName}"
 									design="Standard" />
 							</HBox>
 						</VBox>
@@ -95,6 +92,12 @@
 							<ProgressIndicator  percentValue="{ValidPercentage}"
 								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
 								showValue="true" height="1.0rem" />
+							<commons:TextView textAlign="Begin"
+									text="{i18n>Initiatedon} {
+														path: 'StartDate',
+														formatter: 'dia.cmc.common.util.Formatter.date'
+														}"
+									design="Standard" />
 						</VBox>
 
 						<VBox width="auto" alignItems="Center">
