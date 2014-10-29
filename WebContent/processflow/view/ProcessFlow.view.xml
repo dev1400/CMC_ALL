@@ -7,18 +7,18 @@
 			<Panel>
 
 				<z:ZoomableScrollContainer zoomable="true">
-					<suite:ProcessFlow id="processflow3" zoomLevel="Two"
-						scrollable="false" nodes="{pf3>/nodes}" lanes="{pf3>/lanes}"
+					<suite:ProcessFlow id="idProcessFlow" zoomLevel="Two"
+						scrollable="false" nodes="{processFlowLaneModel>/nodes}" lanes="{processFlowLaneModel>/lanes}"
 						headerPress="onHeaderPress">
 						<suite:nodes>
-							<suite:ProcessFlowNode laneId="{pf3>lane}"
-								nodeId="{pf3>id}" title="{pf3>title}" children="{pf3>children}"
-								state="{pf3>state}" stateText="{pf3>stateText}" texts="{pf3>texts}"
-								highlighted="{pf3>highlighted}" focused="{pf3>focused}" />
+							<suite:ProcessFlowNode laneId="{processFlowLaneModel>lane}"
+								nodeId="{processFlowLaneModel>id}" title="{pf3>title}" children="{processFlowLaneModel>children}"
+								state="{processFlowLaneModel>state}" stateText="{processFlowLaneModel>stateText}" texts="{processFlowLaneModel>texts}"
+								highlighted="{processFlowLaneModel>highlighted}" focused="{processFlowLaneModel>focused}" />
 						</suite:nodes>
 						<suite:lanes>
-							<suite:ProcessFlowLaneHeader laneId="{pf3>id}"
-								iconSrc="{pf3>icon}" text="{pf3>label}" position="{pf3>position}" />
+							<suite:ProcessFlowLaneHeader laneId="{processFlowLaneModel>id}"
+								iconSrc="{processFlowLaneModel>icon}" text="{processFlowLaneModel>label}" position="{processFlowLaneModel>position}" />
 						</suite:lanes>
 					</suite:ProcessFlow>
 					<html:br />

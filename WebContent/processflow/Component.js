@@ -25,17 +25,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.processflow.Component", {
                 name: "main",
                 view: "processflow.view.ProcessFlow",
                 targetAggregation: "pages",
-            }/*, {
-                pattern: "Deal({dealId})",
-                name: "dealDetail",
-                view: "contractlandscape.view.Detail",
-                transition: "show",
-            }, {
-                pattern: "Workflow",
-                name: "AmendmentFlow",
-                view: "contractsinamendment.view.AmendmentFlow",
-                transition: "show",
-            }*/]
+            }]
         }
     },
     init: function() {
