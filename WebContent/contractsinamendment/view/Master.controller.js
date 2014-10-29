@@ -160,7 +160,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Navigate to WorkFlow overview page.
      */
-    handleProgressIndicatorPress: function(oEvent) {
+    handleProcessIconPress: function(oEvent) {
         var oContext = oEvent.getSource().getBindingContext();
         this.ModelHelper.sSelectedDealPathIndex = oContext.getPath();
         // If we're on a phone, include nav in history; if not, don't.

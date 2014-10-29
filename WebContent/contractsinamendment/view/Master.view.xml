@@ -76,7 +76,7 @@
 						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
 							  <commons:TextView text="{Description}" design="Bold" wrapping="true" textAlign="Begin" />							
-                              <c:Icon id="idPopupWindowIcon" src="sap-icon://popup-window" press="handlePopupWindowIconPress" />							
+                              <c:Icon id="idPopupWindowIcon" src="sap-icon://popup-window" press="handlePopupWindowIconPress" tooltip="{i18n>DealDetails}" />							
 							</HBox>			
 
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">
@@ -90,12 +90,16 @@
 							<ProgressIndicator  percentValue="{ValidPercentage}"
 								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
 								showValue="true" height="1.0rem" />
-							<commons:TextView textAlign="Begin"
+							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
+							     <commons:TextView textAlign="Begin"
 									text="{i18n>Initiatedon} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
 									design="Standard" />
+							<c:Icon id="" src="sap-icon://process" press="handleProcessIconPress" tooltip="{i18n>ProcessFlow}" />
+							 </HBox>	
+							
 						</VBox>
 
 						<VBox width="auto" alignItems="Center">
