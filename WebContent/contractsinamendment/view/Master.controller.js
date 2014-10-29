@@ -27,7 +27,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
 
-    },    
+    },
+    onAfterRendering : function() {
+        console.log("onAfterRendering");
+    },
     /**
      * Get From and To date when date range is selected.
      */
@@ -166,20 +169,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Show pop up window with amendment description.
      */
-    handlePopupWindowIconPress: function(oEvent) {    	
+    handlePopupWindowIconPress: function(oEvent) {
     	
-        if (!this._messageDialogFragment) {
-            this._messageDialogFragment = sap.ui.xmlfragment("dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this);
-            this.getView().addDependent(this._messageDialogFragment);
-        }
-        this._messageDialogFragment.open();
-        
-    },
-    /**
-     * Close message dialog when close button is pressed.
-     */
-    handlePopupCloseButtonPress: function(oEvent) {
-        this._messageDialogFragment.close();
+    	sap.m.MessageBox.show(
+    			oEvent.getSource().getBindingContext().getObject().Description, {
+    		        title: this.ModelHelper.getText("AmendmentDescription"),
+    		        actions: [sap.m.MessageBox.Action.OK]
+    		      }
+    		    );
     }
-
+    
 });
