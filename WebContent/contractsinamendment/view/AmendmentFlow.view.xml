@@ -9,19 +9,21 @@
 			<Panel >
 		
 				<z:ZoomableScrollContainer zoomable="true">
-				     <suite:ProcessFlow id="processflow3" zoomLevel="Two"
-					scrollable="false" nodes="{pf3>/nodes}" lanes="{pf3>/lanes}"
+				     <suite:ProcessFlow id="idProcessFlow" zoomLevel="Two"
+					scrollable="false" nodes="{processFlow>/nodes}" lanes="{processFlow>/lanes}"
 					headerPress="onHeaderPress">
+					
 					<suite:nodes>
-						<suite:ProcessFlowNode laneId="{pf3>lane}" nodeId="{pf3>id}"
-							title="{pf3>title}" children="{pf3>children}" state="{pf3>state}"
-							stateText="{pf3>stateText}" texts="{pf3>texts}" highlighted="{pf3>highlighted}"
-							focused="{pf3>focused}" />
+						<suite:ProcessFlowNode laneId="{processFlow>lane}" nodeId="{processFlow>id}"
+							title="{processFlow>title}" children="{processFlow>children}" state="{processFlow>state}"
+							stateText="{processFlow>stateText}" texts="{processFlow>texts}" highlighted="{processFlow>highlighted}"
+							focused="{processFlow>focused}" />
 					</suite:nodes>
 					<suite:lanes>
-						<suite:ProcessFlowLaneHeader laneId="{pf3>id}"
-							iconSrc="{pf3>icon}" text="{pf3>label}" position="{pf3>position}" />
+						<suite:ProcessFlowLaneHeader laneId="{processFlow>id}"
+							iconSrc="{processFlow>icon}" text="{processFlow>label}" position="{processFlow>position}" />
 					</suite:lanes>
+					
 				</suite:ProcessFlow>
 				<html:br /> 
 				
