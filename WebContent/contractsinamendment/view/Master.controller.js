@@ -27,7 +27,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
 
-    },
+    },    
     /**
      * Get From and To date when date range is selected.
      */
