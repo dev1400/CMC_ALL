@@ -39,28 +39,28 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 		  console.log("onHeaderPress");
 	    var oDataProcessFlowNodes = {
 	        nodes:
-	        [
-              {id: "0", lane: "0" , title: "Deal Configuration", 	children: [1,2], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              {id: "1", lane: "0" , title: "Deal Approval", 	 	children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              {id: "2", lane: "0" , title: "Release for Execution", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-
-              {id: "3", lane: "1" , title: "Deal Acceptance", 	children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              {id: "4", lane: "1" , title: "Price Update", 	 	children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              {id: "5", lane: "1" , title: "Key Date determination", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              
-	         /* {id: "1",  lane: "0",  title: "Deal Configuration", children: [2], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
-	          {id: "2",  lane: "1",  title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
-	          */
-	         /* {id: "10", lane: "1" , title: "Outbound Delivery 40", children: [20, 21], state: sap.suite.ui.commons.ProcessFlowNodeState.Negative, stateText: "NOT OK", texts: ["text 1", "text 2"]},
-	          {id: "11", lane: "1" , title: "Outbound Delivery 43", children: [20], texts: ["text 1", "text 2"]},
-	          {id: "12", lane: "1" , title: "Outbound Delivery 45", children: [20]},
-	         */ /*{id: "20",  lane: "2" , title: "Invoice 9",  children: null [31, 51], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-	         */ /* {id: "31",  lane: "3" , title: "Accounting Document 7",  children: [41], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-	          {id: "41",  lane: "4" , title: "Payment Document 75",  children: [51], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-	          {id: "51",  lane: "5" , title: "Acceptance Letter 14",  children: [61], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-	          {id: "61",  lane: "6" , title: "Credit Voucher 67",  children: [71], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-	          {id: "71",  lane: "7" , title: "Credit Return 77",  children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Planned, stateText: "Planned status text"}
-	      */  ],
+	           [           
+                {id: "1",  lane: "0",  title: "Release for Execution", children: [12, 13, 14], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
+                
+	            {id: "12", lane: "1" , title: "Deal Acceptance", children: null},
+	            {id: "13", lane: "1" , title: "Price Update", children: null},
+	            {id: "14", lane: "1" , title: "Key Date determination", children: [15, 16, 17, 18]},
+	            
+	            {id: "15", lane: "2" , title: "Instrument Shipping",  children: null, stateText: "OK status"},
+	            {id: "16", lane: "2" , title: "Installation Scheduled", children: null},
+	            {id: "17", lane: "2" , title: "Installation Done", children: null},
+	            {id: "18", lane: "2" , title: "De-Installation Done", children: [19, 20, 21, 22, 23]},
+	            
+	            {id: "19", lane: "3" , title: "Deal structure closure", children: null},
+	            {id: "20", lane: "3" , title: "Service Amendments", children: null},
+	            {id: "21", lane: "3" , title: "Rental Amendments", children: null},
+	            {id: "22", lane: "3" , title: "Capitalization Done", children: null},
+	            {id: "23", lane: "3" , title: "Revenue Recognition Done", children: [24, 25, 26]},
+	            
+	            {id: "24", lane: "4" , title: "Agreement Update in Agiloft", children: null},
+	            {id: "25", lane: "4" , title: "Legal closure", children: null},
+	            {id: "26", lane: "4" , title: "Amendment closure", children: null},
+	           ],
 	        lanes:
 	        	[
 		          {id: "0", icon: "sap-icon://order-status", label: this.ModelHelper.getText("Proposal"), position: 0},
