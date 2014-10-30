@@ -13,7 +13,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	          {id: "0", icon: "sap-icon://activity-items", label: this.ModelHelper.getText("Proposal"), position: 0},
 	          {id: "1", icon: "sap-icon://simulate", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
 	          {id: "2", icon: "sap-icon://decision", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
-	          {id: "3", icon: "sap-icon://cart", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
+	          {id: "3", icon: "sap-icon://sys-last-page", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
 	          {id: "4", icon: "sap-icon://documents", label: this.ModelHelper.getText("Documentation"), position: 4},
               ]
 	    };
@@ -38,7 +38,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	    var oDataProcessFlowNodes = {
 	        nodes:
 	           [           
-                {id: "1",  lane: "0",  title: "Release for Execution", children: [12, 13, 14], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
+                {id: "1",  lane: "0",  title: "Deal Configuration", children:[2, 3, 12, 13, 14] , state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
+                {id: "2",  lane: "0",  title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
+                {id: "3",  lane: "0",  title: "Release for Execution", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
                 
 	            {id: "12", lane: "1" , title: "Deal Acceptance", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
 	            {id: "13", lane: "1" , title: "Price Update", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
@@ -64,7 +66,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	        	{id: "0", icon: "sap-icon://activity-items", label: this.ModelHelper.getText("Proposal"), position: 0},
 	        	{id: "1", icon: "sap-icon://simulate", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
 	        	{id: "2", icon: "sap-icon://decision", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
-	        	{id: "3", icon: "sap-icon://cart", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
+	        	{id: "3", icon: "sap-icon://sys-last-page", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
 	        	{id: "4", icon: "sap-icon://documents", label: this.ModelHelper.getText("Documentation"), position: 4},
 
 		        ]

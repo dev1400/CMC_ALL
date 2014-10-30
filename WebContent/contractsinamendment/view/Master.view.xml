@@ -47,19 +47,19 @@
 			items="{/DealInAmendmentCollection}">
 
 			<columns>
-				<Column hAlign="Center" width="18em">
+				<Column hAlign="Center" width="15em">
 					<Text text="{i18n>CustomerDetails}" />
 				</Column>
-				<Column hAlign="Center" width="18em">
+				<Column hAlign="Center" width="20em">
 					<Text text="{i18n>AmendmentDetails}" />
 				</Column>
-				<Column hAlign="Center" width="15em">
+				<Column hAlign="Center" width="12em">
 					<Text text="{i18n>OverallProgress}" />
 				</Column>
-				<Column hAlign="Center" width="15em">
+				<Column hAlign="Center" width="13em">
 					<Text text="{i18n>CurrrentActivity}" />
 				</Column>
-				<Column hAlign="Center"  width="18em">
+				<Column hAlign="Center"  width="13em">
 					<Text text="{i18n>DealDetails}" />
 				</Column>
 				
@@ -77,9 +77,24 @@
 						</VBox>
 
 						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
-							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
-							  <commons:TextView text="{Description}" design="Bold" wrapping="true" textAlign="Begin" />							
-                              <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" tooltip="{i18n>DealDetails}" />							
+							<HBox width="auto" justifyContent="Start" alignItems="Start">
+							  <commons:TextView text="{
+											path: 'Description',
+											formatter: 'dia.cmc.common.util.Formatter.shortAmendDescription'
+										}"							
+										design="Bold" wrapping="true" textAlign="Begin" />	
+							  
+							  <Link
+								text="..more"
+								tooltip="Click to see complete description"
+								visible="{
+										path: 'Description',
+										formatter: 'dia.cmc.common.util.Formatter.isMoreAmendDescription'
+									}"
+								press="handlePopupWindowIconPress" />
+								
+														
+                              <!-- <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" tooltip="{i18n>DealDetails}" /> -->							
 							</HBox>			
 
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">
@@ -92,7 +107,7 @@
 						<VBox width="auto">
 							<ProgressIndicator  percentValue="{ValidPercentage}"
 								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
-								showValue="true" height="1.0rem" />
+								showValue="true" height="1.0rem"/>
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
 							     <commons:TextView textAlign="Begin"
 									text="{i18n>Initiatedon} {

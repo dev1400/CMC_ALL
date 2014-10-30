@@ -116,6 +116,7 @@ dia.cmc.common.util.Formatter = {
 		}
 	},
 	
+	
     /** Format System Install Date and add the prefix
      * @param oValue : System Installation Date
      */
@@ -191,6 +192,31 @@ dia.cmc.common.util.Formatter = {
 
 
     
+    /** Returns True if Amendment description is more than 30 characters 
+     * @param oValue : Amendment description
+     */
+	isMoreAmendDescription : function(oValue) {
+		
+		if(oValue.length > 40) {
+			return true;
+		}else{
+			return false;
+		}
+	},
+	
+    /** if description is long, return only 30 characters 
+     * @param oValue : Amendment description
+     */
+	shortAmendDescription : function(oValue) {
+
+		if(oValue.length > 40) {
+			return oValue.substring(0, 40);	
+		}
+		else{
+			return oValue;
+		}
+	},
+	
 //	fileSize : function(oValue){
 //		
 //		var sSize = oValue + "KB";

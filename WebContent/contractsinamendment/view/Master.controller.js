@@ -12,8 +12,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable = this.getView().byId("idTable");
         this._oLayout = this.getView().byId("idMatrixLayout");
         this._oLayout.setVisible(false);
-        this._oPopupWindowIcon = this.getView().byId("idPopupWindowIcon");
-        this._oPopupWindowIcon.setVisible(true);
+//        this._oPopupWindowIcon = this.getView().byId("idPopupWindowIcon");
+//        this._oPopupWindowIcon.setVisible(true);
         
         this._oAmend = {
             DealId: "",

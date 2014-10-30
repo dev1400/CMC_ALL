@@ -315,7 +315,10 @@ dia.cmc.common.helper.ModelHelper = {
 					that.oDealDetailModel.setProperty("/DocumentCollection",oData.results);
 			   },
 			   function(oResponse){
-				  sap.m.MessageToast.show(that.getText("DocumentListReadError"));
+					oErrorResponse = jQuery.parseJSON(oErrorResponse.response.body);
+
+					   sap.m.MessageToast.show(oErrorResponse.error.message.value);   
+//				  sap.m.MessageToast.show(that.getText("DocumentListReadError"));
 			   });
 
 	},
