@@ -5,7 +5,7 @@
    <Popover title="{i18n>AmendmentDescription}" placement="Bottom">
     
     <content>
-        <Text text="{AmendmentDetail>/Description}"/>
+        <Text text="{Description}"/>
     </content>
         
   </Popover>

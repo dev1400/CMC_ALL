@@ -213,13 +213,16 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     		      }
     		    );
     },
+    /**
+     * Show pop up window with amendment description.
+     */
     handleAmendmentDescriptionMoreLinkPress: function(oEvent) {
     	
-    	// Read amendment details
+    	/*// Read amendment details
 		var oAmendmentDetailModel = dia.cmc.common.helper.ModelHelper.getODataModel();
 
 		// Bind amendment detail model
-		this.getView().setModel(oAmendmentDetailModel,"AmendmentDetail");
+		this.getView().setModel(oAmendmentDetailModel,"AmendmentDetail");*/
 		
         // Get reference of Further Actions Button
         var oMoreLink = oEvent.getSource();
