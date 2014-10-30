@@ -28,6 +28,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
+        
+        this._setDefaultDateRange();
 
     },
     onAfterRendering : function() {
@@ -237,6 +239,20 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         var oMoreLink = oEvent.getSource();
         this._popOverFragment.openBy(oMoreLink);
     },
+    /**
+     * Set default date range for executed amendments.
+     */
+    _setDefaultDateRange : function(){
+		
+		var oPeriodUI = this.CommonController.getUIElement("idExecutedAmendmentsDateRange",this.getView());
+
+		dFromDate = new Date();
+		dFromDate.setMonth(dFromDate.getMonth() - 3);
+		
+	    oPeriodUI.setDateValue(dFromDate);
+	    oPeriodUI.setSecondDateValue(new Date());
+	    
+	},
     
     
 });
