@@ -10,7 +10,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 		var oDataProcessFlowNodes = {
 		        nodes:
 		           [           
-	                {id: "1",  lane: "0",  title: "Deal Configuration", children:[2, 3, 12, 13, 14] , state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
+	                {id: "1",  lane: "0",  title: "Deal Configuration", children:[2, 3, 12, 13, 14] , state: sap.suite.ui.commons.ProcessFlowNodeState.Planned, stateText: "OK status", focused: true},
 	                {id: "2",  lane: "0",  title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
 	                {id: "3",  lane: "0",  title: "Release for Execution", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
 	                
