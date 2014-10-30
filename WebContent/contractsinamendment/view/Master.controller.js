@@ -225,7 +225,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		this.getView().setModel(oAmendmentDetailModel,"AmendmentDetail");*/
 		
         // Get reference of Further Actions Button
-        var oMoreLink = oEvent.getSource();
+        
 
         // create action sheet only once
         if (!this._popOverFragment) {
@@ -234,7 +234,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             this.getView().addDependent(this._popOverFragment);
         }
         
-      
+        var oMoreLink = oEvent.getSource();
         this._popOverFragment.openBy(oMoreLink);
     },
     
