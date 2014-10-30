@@ -10,11 +10,11 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	    var oProcessFlowLanes = {
 	        lanes:
 	          [
-	          {id: "0", icon: "sap-icon://order-status", label: this.ModelHelper.getText("Proposal"), position: 0},
-	          {id: "1", icon: "sap-icon://monitor-payments", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
-	          {id: "2", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
-	          {id: "3", icon: "sap-icon://money-bills", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
-	          {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("Documentation"), position: 4},
+	          {id: "0", icon: "sap-icon://activity-items", label: this.ModelHelper.getText("Proposal"), position: 0},
+	          {id: "1", icon: "sap-icon://simulate", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
+	          {id: "2", icon: "sap-icon://decision", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
+	          {id: "3", icon: "sap-icon://cart", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
+	          {id: "4", icon: "sap-icon://documents", label: this.ModelHelper.getText("Documentation"), position: 4},
               ]
 	    };
 
@@ -38,7 +38,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	    var oDataProcessFlowNodes = {
 	        nodes:
 	           [           
-                {id: "1",  lane: "0",  title: "Release for Execution", children: [12, 13, 14], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
+                {id: "1",  lane: "0",  title: "Release for Execution", children: [12, 13, 14], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
                 
 	            {id: "12", lane: "1" , title: "Deal Acceptance", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
 	            {id: "13", lane: "1" , title: "Price Update", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
@@ -61,11 +61,12 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	           ],
 	        lanes:
 	        	[
-		          {id: "0", icon: "sap-icon://order-status", label: this.ModelHelper.getText("Proposal"), position: 0},
-		          {id: "1", icon: "sap-icon://monitor-payments", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
-		          {id: "2", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
-		          {id: "3", icon: "sap-icon://money-bills", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
-		          {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("Documentation"), position: 4},
+	        	{id: "0", icon: "sap-icon://activity-items", label: this.ModelHelper.getText("Proposal"), position: 0},
+	        	{id: "1", icon: "sap-icon://simulate", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
+	        	{id: "2", icon: "sap-icon://decision", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
+	        	{id: "3", icon: "sap-icon://cart", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
+	        	{id: "4", icon: "sap-icon://documents", label: this.ModelHelper.getText("Documentation"), position: 4},
+
 		        ]
 	      };
 
