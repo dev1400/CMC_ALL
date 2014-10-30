@@ -91,7 +91,7 @@
 										path: 'Description',
 										formatter: 'dia.cmc.common.util.Formatter.isMoreAmendDescription'
 									}"
-								press="handlePopupWindowIconPress" />
+								press="handleAmendmentDescriptionMoreLinkPress" />
 								
 														
                               <!-- <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" tooltip="{i18n>DealDetails}" /> -->							

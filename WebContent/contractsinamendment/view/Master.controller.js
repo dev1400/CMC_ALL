@@ -213,22 +213,27 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     		      }
     		    );
     },
-//    /**
-//     * Get context of selected table row.
-//     */
-//    handleTableRowPress: function(oEvent) {
-//    	
-//        this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
-//        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
-//
-//    },
-//    
-//    handleTableRowSelect: function(oEvent) {
-//    	
-////        this._oAmendmentIdforCancellation = oEvent.getParameter("listItem").getBindingContext().getObject().AmendmentId;
-////        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
-//
-//    }
+    handleAmendmentDescriptionMoreLinkPress: function(oEvent) {
+    	
+    	// Read amendment details
+		var oAmendmentDetailModel = dia.cmc.common.helper.ModelHelper.getODataModel();
+
+		// Bind amendment detail model
+		this.getView().setModel(oAmendmentDetailModel,"AmendmentDetail");
+		
+        // Get reference of Further Actions Button
+        var oMoreLink = oEvent.getSource();
+
+        // create action sheet only once
+        if (!this._popOverFragment) {
+            this._popOverFragment = sap.ui.xmlfragment(
+                "dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this);
+            this.getView().addDependent(this._popOverFragment);
+        }
+        
+      
+        this._popOverFragment.openBy(oMoreLink);
+    },
     
     
 });

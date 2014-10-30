@@ -2,12 +2,11 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core"
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-  <Dialog
-    title="{i18n>AmendmentDescription}"
-    type="Message" >
-    <Text text="{Description}" />
-    <beginButton>
-      <Button text="{i18n>Close}" app:dialogType="Msg" press="handlePopupCloseButtonPress" />
-    </beginButton>
-  </Dialog>
+   <Popover title="{i18n>AmendmentDescription}" placement="Bottom">
+    
+    <content>
+        <Text text="{AmendmentDetail>/Description}"/>
+    </content>
+        
+  </Popover>
 </core:FragmentDefinition>
