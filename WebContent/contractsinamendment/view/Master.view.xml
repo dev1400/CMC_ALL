@@ -43,7 +43,7 @@
 	   </VBox>
 
 		
-		<Table id="idTable" fixedLayout="true" 
+		<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster" select="handleTableRowSelect"
 			items="{/DealInAmendmentCollection}">
 
 			<columns>
@@ -65,7 +65,7 @@
 				
 			</columns>
 			<items>
-				<ColumnListItem type="Active" press="handleTableRowPress">
+				<ColumnListItem type="Active"> 
 
 					<cells>
 
@@ -79,7 +79,7 @@
 						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
 							  <commons:TextView text="{Description}" design="Bold" wrapping="true" textAlign="Begin" />							
-                              <c:Icon id="idPopupWindowIcon" src="sap-icon://popup-window" press="handlePopupWindowIconPress" tooltip="{i18n>DealDetails}" />							
+                              <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" tooltip="{i18n>DealDetails}" visible="{path: 'Description', formatter: 'dia.cmc.common.util.Formatter.changePopOverVisibility'}"/>							
 							</HBox>			
 
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">

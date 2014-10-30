@@ -40,10 +40,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	    var oDataProcessFlowNodes = {
 	        nodes:
 	        [
-              {id: "0", lane: "0" , title: "Deal Configuration", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
-              /*{id: "1", lane: "1" , title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
- 	         */
+              {id: "0", lane: "0" , title: "Deal Configuration", 	children: [1,2], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+              {id: "1", lane: "0" , title: "Deal Approval", 	 	children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+              {id: "2", lane: "0" , title: "Release for Execution", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
 
+              {id: "3", lane: "1" , title: "Deal Acceptance", 	children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+              {id: "4", lane: "1" , title: "Price Update", 	 	children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+              {id: "5", lane: "1" , title: "Key Date determination", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status"},
+              
 	         /* {id: "1",  lane: "0",  title: "Deal Configuration", children: [2], state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
 	          {id: "2",  lane: "1",  title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true, texts: ["Sales Order Document Overdue long text for the wrap up all the aspects", "Not cleared"]},
 	          */

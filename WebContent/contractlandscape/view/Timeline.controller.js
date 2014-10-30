@@ -22,6 +22,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 		// Common Controller reference
 		this.CommonController = dia.cmc.common.helper.CommonController;
 
+		this._setTimelinePeriodDefaultValue();
+		
 		// Attached event handler for route match event
 		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
 		
@@ -82,6 +84,18 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 			this.getView().setModel(this.ModelHelper.oDealDetailModel, "DealDetailModel");
 			
 		}
+	},
+	
+	_setTimelinePeriodDefaultValue:function(){
+		
+		var oPeriodUI = this.CommonController.getUIElement("idTimelinePeriod",this.getView());
+
+		dFromDate = new Date();
+		dFromDate.setMonth(dFromDate.getMonth() - 3);
+		
+	    oPeriodUI.setDateValue(dFromDate);
+	    oPeriodUI.setSecondDateValue(new Date());
+	    
 	},
 	
 	handleTimelineNavButtonPress : function(oEvent){

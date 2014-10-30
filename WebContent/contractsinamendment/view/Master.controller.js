@@ -128,17 +128,30 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             dealId: oDealDetail.DealId,
         }, false);
     },
+    
     /**
      * Handle amendment cancellation.
      */
     handleAmendmentCancelPress: function(oEvent) {
+
+    	var oAmendTableUI = this.CommonController.getUIElement("idTable",this.getView());
     	
-    	if (this._oAmendmentIdforCancellation !== null & this._oDealIdforCancellation !== null) {
+    	var oSelectedContexts = oAmendTableUI.getSelectedContexts();
+    	
+//    	if (this._oAmendmentIdforCancellation !== null & this._oDealIdforCancellation !== null) {
 
-            this._oAmend.DealId = this._oDealIdforCancellation;
-            this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
+    	if (oSelectedContexts.length > 0) {
+    		
+    		var oDealDetail = this.getView().getModel().getProperty(oSelectedContexts[0].getPath());
+    		
+            this._oAmend.DealId = oDealDetail.DealId;
+            this._oAmend.AmendmentId = oDealDetail.AmendmentId;
+            
+//            this._oAmend.DealId = this._oDealIdforCancellation;
+//            this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
+            
             var oParentContext = this;
-
+            
             /**
              * Opens the confirmation message box.
              */
@@ -200,14 +213,22 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     		      }
     		    );
     },
-    /**
-     * Get context of selected table row.
-     */
-    handleTableRowPress: function(oEvent) {
-    	
-        this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
-        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
-
-    }
+//    /**
+//     * Get context of selected table row.
+//     */
+//    handleTableRowPress: function(oEvent) {
+//    	
+//        this._oAmendmentIdforCancellation = oEvent.getSource().getBindingContext().getObject().AmendmentId;
+//        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
+//
+//    },
+//    
+//    handleTableRowSelect: function(oEvent) {
+//    	
+////        this._oAmendmentIdforCancellation = oEvent.getParameter("listItem").getBindingContext().getObject().AmendmentId;
+////        this._oDealIdforCancellation = oEvent.getSource().getBindingContext().getObject().DealId;
+//
+//    }
+    
     
 });
