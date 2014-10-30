@@ -14,7 +14,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 	          {id: "1", icon: "sap-icon://monitor-payments", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
 	          {id: "2", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
 	          {id: "3", icon: "sap-icon://money-bills", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
-	          {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("DocumentationAndCleanUp"), position: 4},
+	          {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("Documentation"), position: 4},
               ]
 	    };
 
@@ -65,7 +65,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 		          {id: "1", icon: "sap-icon://monitor-payments", label: this.ModelHelper.getText("ExecutionPreparation"), position: 1},
 		          {id: "2", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("ExecutionHandling"), position: 2},
 		          {id: "3", icon: "sap-icon://money-bills", label: this.ModelHelper.getText("ExecutionClosure"), position: 3},
-		          {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("DocumentationAndCleanUp"), position: 4},
+		          {id: "4", icon: "sap-icon://payment-approval", label: this.ModelHelper.getText("Documentation"), position: 4},
 		        ]
 	      };
 
