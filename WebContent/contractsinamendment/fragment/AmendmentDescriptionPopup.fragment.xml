@@ -1,12 +1,12 @@
-<core:FragmentDefinition
-  xmlns="sap.m"
-  xmlns:core="sap.ui.core"
-  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-   <Popover title="{i18n>AmendmentDescription}" placement="Bottom">
-    
-    <content>
-        <Text text="{Description}"/>
-    </content>
-        
-  </Popover>
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:commons="sap.ui.commons">
+	<Popover title="{i18n>AmendmentDescription}" placement="Bottom">
+
+		<content>
+			<commons:TextView textAlign="Begin" text="{Description}" design="Standard" />
+		</content>
+
+	</Popover>
 </core:FragmentDefinition>
