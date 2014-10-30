@@ -228,15 +228,18 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		
         // Get reference of Further Actions Button
         
+    	var oMoreLink = oEvent.getSource();
 
         // create action sheet only once
         if (!this._popOverFragment) {
             this._popOverFragment = sap.ui.xmlfragment(
-                "dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this);
+                "dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this.getView().getController());
             this.getView().addDependent(this._popOverFragment);
         }
         
-        var oMoreLink = oEvent.getSource();
+        var fragmentTextView = sap.ui.getCore().byId("idFragmentTextView");        
+        fragmentTextView.setText(oEvent.getSource().getBindingContext().getObject().Description);
+        
         this._popOverFragment.openBy(oMoreLink);
     },
     /**

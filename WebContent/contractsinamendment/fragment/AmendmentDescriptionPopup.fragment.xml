@@ -5,7 +5,7 @@
 	<Popover title="{i18n>AmendmentDescription}" placement="Bottom">
 
 		<content>
-			<commons:TextView textAlign="Begin" text="{Description}" design="Standard" />
+			<commons:TextView id="idFragmentTextView" text="" />
 		</content>
 
 	</Popover>
