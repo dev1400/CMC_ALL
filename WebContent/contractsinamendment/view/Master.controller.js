@@ -12,9 +12,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this._oTable = this.getView().byId("idTable");
         this._oLayout = this.getView().byId("idMatrixLayout");
         this._oLayout.setVisible(false);
-//        this._oPopupWindowIcon = this.getView().byId("idPopupWindowIcon");
-//        this._oPopupWindowIcon.setVisible(true);
-        
         this._oAmend = {
             DealId: "",
             AmendmentId: "",
@@ -23,18 +20,16 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         };
         this._oAmendmentIdforCancellation = null;
         this._oDealIdforCancellation = null;
-        
+
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
-        
-        /*this._setDefaultDateRange();*/
+
+        this._setDefaultDateRange();
 
     },
-    onAfterRendering : function() {
-        
-    },
+
     /**
      * Get From and To date when date range is selected.
      */
@@ -101,7 +96,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             this._oLayout.setVisible(true);
             this._oTable.setVisible(false);
 
-
         } else {
 
             this._oLayout.setVisible(false);
@@ -130,30 +124,23 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             dealId: oDealDetail.DealId,
         }, false);
     },
-    
+
     /**
      * Handle amendment cancellation.
      */
     handleAmendmentCancelPress: function(oEvent) {
 
-    	var oAmendTableUI = this.CommonController.getUIElement("idTable",this.getView());
-    	
-    	var oSelectedContexts = oAmendTableUI.getSelectedContexts();
-    	
-//    	if (this._oAmendmentIdforCancellation !== null & this._oDealIdforCancellation !== null) {
+        var oAmendTableUI = this.CommonController.getUIElement("idTable", this.getView());
 
-    	if (oSelectedContexts.length > 0) {
-    		
-    		var oDealDetail = this.getView().getModel().getProperty(oSelectedContexts[0].getPath());
-    		
+        var oSelectedContexts = oAmendTableUI.getSelectedContexts();
+        if (oSelectedContexts.length > 0) {
+
+            var oDealDetail = this.getView().getModel().getProperty(oSelectedContexts[0].getPath());
+
             this._oAmend.DealId = oDealDetail.DealId;
             this._oAmend.AmendmentId = oDealDetail.AmendmentId;
-            
-//            this._oAmend.DealId = this._oDealIdforCancellation;
-//            this._oAmend.AmendmentId = this._oAmendmentIdforCancellation;
-            
             var oParentContext = this;
-            
+
             /**
              * Opens the confirmation message box.
              */
@@ -191,71 +178,63 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Show options when Additional Actions button is pressed.
      */
-     handleAdditionalActionsButtonPress: function(oEvent) {
-         // Get reference of Further Actions Button
-         var oAdditionalActionsButton = oEvent.getSource();
+    handleAdditionalActionsButtonPress: function(oEvent) {
+        // Get reference of Further Actions Button
+        var oAdditionalActionsButton = oEvent.getSource();
 
-         // create action sheet only once
-         if (!this._actionSheet) {
-             this._actionSheet = sap.ui.xmlfragment(
-                 "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
-             this.getView().addDependent(this._actionSheet);
-         }
+        // create action sheet only once
+        if (!this._actionSheet) {
+            this._actionSheet = sap.ui.xmlfragment(
+                "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
+            this.getView().addDependent(this._actionSheet);
+        }
 
-         this._actionSheet.openBy(oAdditionalActionsButton);
-     },
+        this._actionSheet.openBy(oAdditionalActionsButton);
+    },
     /**
      * Show pop up window with amendment description.
      */
     handlePopupWindowIconPress: function(oEvent) {
-    	
-    	sap.m.MessageBox.show(oEvent.getSource().getBindingContext().getObject().Description, {
-    		        title: this.ModelHelper.getText("AmendmentDescription"),
-    		        actions: [sap.m.MessageBox.Action.OK]
-    		      }
-    		    );
+
+        sap.m.MessageBox.show(oEvent.getSource().getBindingContext().getObject().Description, {
+            title: this.ModelHelper.getText("AmendmentDescription"),
+            actions: [sap.m.MessageBox.Action.OK]
+        });
     },
     /**
      * Show pop up window with amendment description.
      */
     handleAmendmentDescriptionMoreLinkPress: function(oEvent) {
-    	
-    	/*// Read amendment details
-		var oAmendmentDetailModel = dia.cmc.common.helper.ModelHelper.getODataModel();
 
-		// Bind amendment detail model
-		this.getView().setModel(oAmendmentDetailModel,"AmendmentDetail");*/
-		
-        // Get reference of Further Actions Button
-        
-    	var oMoreLink = oEvent.getSource();
+        var oMoreLink = oEvent.getSource();
 
-        // create action sheet only once
+        // create pop over fragment only once
         if (!this._popOverFragment) {
             this._popOverFragment = sap.ui.xmlfragment(
                 "dia.cmc.contractsinamendment.fragment.AmendmentDescriptionPopup", this.getView().getController());
             this.getView().addDependent(this._popOverFragment);
         }
-        
-        var fragmentTextView = sap.ui.getCore().byId("idFragmentTextView");        
+
+        var fragmentTextView = sap.ui.getCore().byId("idFragmentTextView");
         fragmentTextView.setText(oEvent.getSource().getBindingContext().getObject().Description);
-        
+
         this._popOverFragment.openBy(oMoreLink);
     },
     /**
      * Set default date range for executed amendments.
      */
-    _setDefaultDateRange : function(){
-		
-		var oPeriodUI = this.CommonController.getUIElement("idExecutedAmendmentsDateRange",this.getView());
+    _setDefaultDateRange: function() {
 
-		dFromDate = new Date();
-		dFromDate.setMonth(dFromDate.getMonth() - 3);
-		
-	    oPeriodUI.setDateValue(dFromDate);
-	    oPeriodUI.setSecondDateValue(new Date());
-	    
-	},
-    
-    
+        var oPeriodUI = this.CommonController.getUIElement("idExecutedAmendmentsDateRange", this.getView());
+
+        this._sDateFrom = new Date();
+        this._sDateTo = new Date();
+
+        this._sDateFrom.setMonth(this._sDateFrom.getMonth() - 3);
+
+        oPeriodUI.setDateValue(this._sDateFrom);
+        oPeriodUI.setSecondDateValue(this._sDateTo);
+
+    },
+
 });
