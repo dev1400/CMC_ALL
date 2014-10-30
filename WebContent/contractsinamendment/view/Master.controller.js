@@ -42,7 +42,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Show amendments based on selected date range.
      */
-    handleAmendmentDateRangePress: function(oEvent) {
+    handleAmendmentDateRangePress: function() {
 
         if (this._sDateFrom !== undefined | this._sDateTo !== undefined) {
 
@@ -95,6 +95,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             this._oLayout.setVisible(true);
             this._oTable.setVisible(false);
+            this.handleAmendmentDateRangePress();
 
         } else {
 
