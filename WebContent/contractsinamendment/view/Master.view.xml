@@ -30,7 +30,7 @@
 				</layout:MatrixLayoutCell>
 				<layout:MatrixLayoutCell vAlign="Middle"
 					hAlign="Center" rowSpan="1" colSpan="1" >
-					<DateRangeSelection id="idExecutedAmendmentsDateRange" width="22em"
+					<DateRangeSelection id="idExecutedAmendmentsDateRange" width="20em"
 						displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
 					</DateRangeSelection>
 				</layout:MatrixLayoutCell>
