@@ -2,7 +2,7 @@
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core"
 	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout">
 	<Page enableScrolling="true" title="{i18n>DealsinAmendment}">
-		<IconTabBar enableScrolling="true" expanded="false"
+		<IconTabBar enableScrolling="true" expanded="true"
 			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
 				<IconTabFilter icon="sap-icon://accept" iconColor="Neutral"
