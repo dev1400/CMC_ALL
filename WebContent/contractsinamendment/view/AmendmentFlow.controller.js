@@ -10,28 +10,28 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.AmendmentFlow", {
 		var oDataProcessFlowNodes = {
 		        nodes:
 		           [           
-	                {id: "1",  lane: "0",  title: "Deal Configuration", children:[2, 3, 12, 13, 14] , state: sap.suite.ui.commons.ProcessFlowNodeState.Planned, stateText: "OK status", focused: true},
+	                {id: "1",  lane: "0",  title: "Deal Configuration", children:[2, 3, 4, 5, 6] , state: sap.suite.ui.commons.ProcessFlowNodeState.Planned, stateText: "OK status", focused: true},
 	                {id: "2",  lane: "0",  title: "Deal Approval", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
 	                {id: "3",  lane: "0",  title: "Release for Execution", children: null, state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, stateText: "OK status", focused: true},
 	                
-		            {id: "12", lane: "1" , title: "Deal Acceptance", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "13", lane: "1" , title: "Price Update", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "14", lane: "1" , title: "Key Date determination", children: [15, 16, 17, 18]},
+		            {id: "4", lane: "1" , title: "Deal Acceptance", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "5", lane: "1" , title: "Price Update", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "6", lane: "1" , title: "Key Date determination", children: [7, 8, 9, 10]},
 		            
-		            {id: "15", lane: "2" , title: "Instrument Shipping", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null, stateText: "OK status"},
-		            {id: "16", lane: "2" , title: "Installation Scheduled", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "17", lane: "2" , title: "Installation Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "18", lane: "2" , title: "De-Installation Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: [19, 20, 21, 22, 23]},
+		            {id: "7", lane: "2" , title: "Instrument Shipping", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null, stateText: "OK status"},
+		            {id: "8", lane: "2" , title: "Installation Scheduled", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "9", lane: "2" , title: "Installation Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "10", lane: "2" , title: "De-Installation Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: [11, 12, 13, 14, 15]},
 		            
-		            {id: "19", lane: "3" , title: "Deal structure closure", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "20", lane: "3" , title: "Service Amendments", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "21", lane: "3" , title: "Rental Amendments", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "22", lane: "3" , title: "Capitalization Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "23", lane: "3" , title: "Revenue Recognition Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: [24, 25, 26]},
+		            {id: "11", lane: "3" , title: "Deal structure closure", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "12", lane: "3" , title: "Service Amendments", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "13", lane: "3" , title: "Rental Amendments", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "14", lane: "3" , title: "Capitalization Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "15", lane: "3" , title: "Revenue Recognition Done", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: [16, 17, 18]},
 		            
-		            {id: "24", lane: "4" , title: "Agreement Update in Agiloft", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "25", lane: "4" , title: "Legal closure", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
-		            {id: "26", lane: "4" , title: "Amendment closure", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "16", lane: "4" , title: "Agreement Update in Agiloft", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "17", lane: "4" , title: "Legal closure", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
+		            {id: "18", lane: "4" , title: "Amendment closure", state: sap.suite.ui.commons.ProcessFlowNodeState.Positive, children: null},
 		           ],
 		        lanes:
 		        	[
