@@ -5,7 +5,7 @@
 
 		<!-- <HBox alignItems="Center"> <HBox alignItems="Center"> -->
 		<IconTabBar enableScrolling="true" expanded="true"
-			expandable="true" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
+			expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
 
 				<IconTabFilter icon="sap-icon://accept" iconColor="Neutral"

@@ -73,7 +73,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         if (sKey === "Created") {
 
             this._oTable.setVisible(true);
-            this._oLayout.setVisible(false);
+            this._oLayout.setVisible(false);            
+            sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
 
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "CRTD");
@@ -84,6 +85,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             this._oLayout.setVisible(false);
             this._oTable.setVisible(true);
+            sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(false);
 
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "RELE");
@@ -94,12 +96,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             this._oLayout.setVisible(true);
             this._oTable.setVisible(false);
+            sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(false);
             this.handleAmendmentDateRangePress();
 
         } else {
 
             this._oLayout.setVisible(false);
             this._oTable.setVisible(true);
+            sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
 
             oBinding.filter([new sap.ui.model.Filter("Status", sap.ui
                     .model.FilterOperator.EQ, "CRTD"), new sap
