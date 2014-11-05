@@ -3,155 +3,177 @@
 	xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout">
 	<Page enableScrolling="true" title="{i18n>DealsinAmendment}">
 
-		<HBox alignItems="Center">
-			<HBox width="50em" alignItems="Center">
-				<IconTabBar enableScrolling="true" expanded="true"
-					expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
-					<items>
-						<IconTabFilter icon="sap-icon://accept" iconColor="Neutral"
-							design="Horizontal" count="" text="{i18n>AllDeals}" key="{i18n>AllDeals}">
-						</IconTabFilter>
-						<IconTabSeparator icon="sap-icon://open-command-field" />
-						<IconTabFilter icon="sap-icon://value-help"
-							iconColor="Neutral" design="Horizontal" count="" text="{i18n>Created}"
-							key="{i18n>Created}" />
-						<IconTabSeparator icon="sap-icon://open-command-field" />
-						<IconTabFilter icon="sap-icon://unlocked" iconColor="Neutral"
-							design="Horizontal" count="" text="{i18n>Released}" key="{i18n>Released}" />
-						<IconTabSeparator icon="sap-icon://open-command-field" />
-						<IconTabSeparator icon="" />
-						<IconTabFilter icon="sap-icon://complete" iconColor="Neutral"
-							design="Horizontal" count="" text="{i18n>Executed}" key="{i18n>Executed}" />
-
-					</items>
-
-				</IconTabBar>
-			</HBox>
-			<HBox  alignItems="Center">
-				<SearchField width="20em" search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
-						placeholder="{i18n>SearchContractsInAmendment}"  />
-			</HBox>
-
-
-		</HBox>
-
-		<VBox width="auto" alignItems="Center">
-			<layout:MatrixLayout id="idMatrixLayout"
-				layoutFixed="false">
-				<layout:MatrixLayoutRow>
-					<layout:MatrixLayoutCell padding="None"
-						vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
-						<Label text="{i18n>SelectDateRange}" />
-					</layout:MatrixLayoutCell>
-					<layout:MatrixLayoutCell vAlign="Middle"
-						hAlign="Center" rowSpan="1" colSpan="1">
-						<DateRangeSelection id="idExecutedAmendmentsDateRange"
-							width="20em" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
-						</DateRangeSelection>
-					</layout:MatrixLayoutCell>
-					<layout:MatrixLayoutCell vAlign="Middle"
-						hAlign="Left" rowSpan="1" colSpan="1">
-						<Button type="Accept" text="{i18n>Go}" press="handleAmendmentDateRangePress" />
-					</layout:MatrixLayoutCell>
-				</layout:MatrixLayoutRow>
-			</layout:MatrixLayout>
-		</VBox>
-
-
-		<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster"
-			select="handleTableRowSelect" items="{/DealInAmendmentCollection}">
-
-			<columns>
-				<Column hAlign="Center" width="15em">
-					<Text text="{i18n>CustomerDetails}" />
-				</Column>
-				<Column hAlign="Center" width="20em">
-					<Text text="{i18n>AmendmentDetails}" />
-				</Column>
-				<Column hAlign="Center" width="12em">
-					<Text text="{i18n>OverallProgress}" />
-				</Column>
-				<Column hAlign="Center" width="13em">
-					<Text text="{i18n>CurrrentActivity}" />
-				</Column>
-				<Column hAlign="Center" width="13em">
-					<Text text="{i18n>DealDetails}" />
-				</Column>
-
-			</columns>
+		<!-- <HBox alignItems="Center"> <HBox alignItems="Center"> -->
+		<IconTabBar enableScrolling="true" expanded="true"
+			expandable="true" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 			<items>
-				<ColumnListItem type="Active">
 
-					<cells>
+				<IconTabFilter icon="sap-icon://accept" iconColor="Neutral"
+					design="Horizontal" count="" text="{i18n>AllDeals}" key="{i18n>AllDeals}">
 
-						<VBox width="auto">
-							<ObjectIdentifier title="{CustomerName}"
-								text="{CustomerCity}, {CustomerCountry} {CustomerZip}" class="sapMTableContentMargin" />
-							<commons:TextView text="{i18n>SAPAccountno} {CustomerId}"
-								design="Italic" />
-						</VBox>
+				</IconTabFilter>
+				<IconTabSeparator icon="sap-icon://open-command-field" />
+				<IconTabFilter icon="sap-icon://value-help" iconColor="Neutral"
+					design="Horizontal" count="" text="{i18n>Created}" key="{i18n>Created}" />
+				<IconTabSeparator icon="sap-icon://open-command-field" />
+				<IconTabFilter icon="sap-icon://unlocked" iconColor="Neutral"
+					design="Horizontal" count="" text="{i18n>Released}" key="{i18n>Released}" />
+				<IconTabSeparator icon="sap-icon://open-command-field" />
+				<IconTabSeparator icon="" />
+				<IconTabFilter icon="sap-icon://complete" iconColor="Neutral"
+					design="Horizontal" count="" text="{i18n>Executed}" key="{i18n>Executed}">
 
-						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
-							<HBox width="auto" justifyContent="Start" alignItems="Start">
-								<commons:TextView
-									text="{
+				</IconTabFilter>
+
+
+			</items>
+
+			<content>
+				<SearchField search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
+					placeholder="{i18n>SearchContractsInAmendment}" />
+
+
+				<VBox width="auto" alignItems="Center">
+					<layout:MatrixLayout id="idMatrixLayout"
+						layoutFixed="false">
+						<layout:MatrixLayoutRow>
+							<layout:MatrixLayoutCell padding="None"
+								vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
+								<Label text="{i18n>SelectDateRange}" />
+							</layout:MatrixLayoutCell>
+							<layout:MatrixLayoutCell vAlign="Middle"
+								hAlign="Center" rowSpan="1" colSpan="1">
+								<DateRangeSelection id="idExecutedAmendmentsDateRange"
+									width="20em" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
+								</DateRangeSelection>
+							</layout:MatrixLayoutCell>
+							<layout:MatrixLayoutCell vAlign="Middle"
+								hAlign="Left" rowSpan="1" colSpan="1">
+								<Button type="Accept" text="{i18n>Go}"
+									press="handleAmendmentDateRangePress" />
+							</layout:MatrixLayoutCell>
+						</layout:MatrixLayoutRow>
+					</layout:MatrixLayout>
+				</VBox>
+
+
+
+				<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster"
+					select="handleTableRowSelect" items="{/DealInAmendmentCollection}">
+
+					<columns>
+						<Column hAlign="Center" width="15em">
+							<Text text="{i18n>CustomerDetails}" />
+						</Column>
+						<Column hAlign="Center" width="20em">
+							<Text text="{i18n>AmendmentDetails}" />
+						</Column>
+						<Column hAlign="Center" width="12em">
+							<Text text="{i18n>OverallProgress}" />
+						</Column>
+						<Column hAlign="Center" width="13em">
+							<Text text="{i18n>CurrrentActivity}" />
+						</Column>
+						<Column hAlign="Center" width="13em">
+							<Text text="{i18n>DealDetails}" />
+						</Column>
+
+					</columns>
+					<items>
+						<ColumnListItem type="Active">
+
+							<cells>
+
+								<VBox width="auto">
+									<ObjectIdentifier title="{CustomerName}"
+										text="{CustomerCity}, {CustomerCountry} {CustomerZip}" class="sapMTableContentMargin" />
+									<commons:TextView text="{i18n>SAPAccountno} {CustomerId}"
+										design="Italic" />
+								</VBox>
+
+								<VBox fitContainer="true" justifyContesnt="SpaceBetween">
+									<HBox width="auto" justifyContent="Start" alignItems="Start">
+										<commons:TextView
+											text="{
 											path: 'Description',
 											formatter: 'dia.cmc.common.util.Formatter.shortAmendDescription'
 										}"
-									design="Bold" wrapping="true" textAlign="Begin" />
+											design="Bold" wrapping="true" textAlign="Begin" />
 
-								<Link text="..more" tooltip="Click to see complete description"
-									visible="{
+										<Link text="..more" tooltip="Click to see complete description"
+											visible="{
 										path: 'Description',
 										formatter: 'dia.cmc.common.util.Formatter.isMoreAmendDescription'
 									}"
-									press="handleAmendmentDescriptionMoreLinkPress" />
+											press="handleAmendmentDescriptionMoreLinkPress" />
 
 
-								<!-- <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" 
-									tooltip="{i18n>DealDetails}" /> -->
-							</HBox>
+										<!-- <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" 
+											tooltip="{i18n>DealDetails}" /> -->
+									</HBox>
 
-							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">
-								<commons:TextView textAlign="Begin"
-									text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName}"
-									design="Standard" />
-							</HBox>
-						</VBox>
+									<HBox width="auto" justifyContent="SpaceBetween"
+										alignItems="End">
+										<commons:TextView textAlign="Begin"
+											text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName}"
+											design="Standard" />
+									</HBox>
+								</VBox>
 
-						<VBox width="auto">
-							<ProgressIndicator percentValue="{ValidPercentage}"
-								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
-								showValue="true" height="1.0rem" />
-							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
-								<commons:TextView textAlign="Begin"
-									text="{i18n>Initiatedon} {
+								<VBox width="auto">
+									<ProgressIndicator percentValue="{ValidPercentage}"
+										displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
+										showValue="true" height="1.0rem" />
+									<HBox width="auto" justifyContent="SpaceBetween"
+										alignItems="Start">
+										<commons:TextView textAlign="Begin"
+											text="{i18n>Initiatedon} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
-									design="Standard" />
-								<c:Icon id="" src="sap-icon://process" press="handleProcessIconPress"
-									tooltip="{i18n>ProcessFlow}" />
-							</HBox>
+											design="Standard" />
+										<c:Icon id="" src="sap-icon://process" press="handleProcessIconPress"
+											tooltip="{i18n>ProcessFlow}" />
+									</HBox>
 
-						</VBox>
+								</VBox>
 
-						<VBox width="auto" alignItems="Center">
-							<Text text="{i18n>ApproveRequest}" />
-							<commons:TextView text="{i18n>Pendingat}"
-								design="Italic" />
-						</VBox>
+								<VBox width="auto" alignItems="Center">
+									<Text text="{i18n>ApproveRequest}" />
+									<commons:TextView text="{i18n>Pendingat}"
+										design="Italic" />
+								</VBox>
 
-						<VBox width="auto" alignItems="Center">
-							<commons:TextView text="{DealDescription}"
-								design="Bold" />
-							<Link text="{DealId}" press="handleDealIdLinkPress" />
-						</VBox>
+								<VBox width="auto" alignItems="Center">
+									<commons:TextView text="{DealDescription}"
+										design="Bold" />
+									<Link text="{DealId}" press="handleDealIdLinkPress" />
+								</VBox>
 
-					</cells>
-				</ColumnListItem>
-			</items>
-		</Table>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+
+
+
+
+			</content>
+
+
+		</IconTabBar>
+
+		<!-- </HBox> -->
+		<!-- <HBox alignItems="Center"> <SearchField width="20em" search="handleSearchFieldPress" 
+			tooltip="{i18n>SearchContractsInAmendment}" placeholder="{i18n>SearchContractsInAmendment}" 
+			/> </HBox> -->
+
+
+		<!-- </HBox> -->
+
+
+
+
 		<footer>
 			<Bar>
 				<!-- <contentLeft> <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center"> 

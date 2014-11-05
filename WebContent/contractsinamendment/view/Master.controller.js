@@ -26,12 +26,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
 
-        this._setDefaultDateRange();
-        
-        $(document).ready(function() {
-            $("#__xmlview1--idIconTabBar-content").remove();
-        });
-
+        this._setDefaultDateRange();     
     },
 
     /**
