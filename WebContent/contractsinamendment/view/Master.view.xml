@@ -4,7 +4,7 @@
 	<Page enableScrolling="true" title="{i18n>DealsinAmendment}">
 
 		<HBox alignItems="Center">
-			<HBox width="80em" alignItems="Center">
+			<HBox width="50em" alignItems="Center">
 				<IconTabBar enableScrolling="true" expanded="true"
 					expandable="false" id="idIconTabBar" select="handleAmendmentIconTabBarSelect">
 					<items>
@@ -27,8 +27,9 @@
 
 				</IconTabBar>
 			</HBox>
-			<HBox width="30em" alignItems="Center">
-				<SearchField class="marginAll" />
+			<HBox  alignItems="Center">
+				<SearchField width="20em" liveChange="handleSearch" search="handleSearch" tooltip="{i18n>SearchContractsInAmendment}"
+						placeholder="{i18n>SearchContractsInAmendment}"  />
 			</HBox>
 
 
