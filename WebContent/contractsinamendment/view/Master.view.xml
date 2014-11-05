@@ -28,7 +28,7 @@
 				</IconTabBar>
 			</HBox>
 			<HBox  alignItems="Center">
-				<SearchField width="20em" liveChange="handleSearch" search="handleSearch" tooltip="{i18n>SearchContractsInAmendment}"
+				<SearchField width="20em" search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
 						placeholder="{i18n>SearchContractsInAmendment}"  />
 			</HBox>
 

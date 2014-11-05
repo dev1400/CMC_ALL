@@ -241,5 +241,40 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         oPeriodUI.setSecondDateValue(this._sDateTo);
 
     },
+    /**
+     * Event handler for Search control's search and liveSearch event
+     */ 
+	handleSearchFieldPress : function (oEvent) {
+
+		// create model filter
+		var filters = [];
+		
+		var query = oEvent.getSource().getValue();
+		
+		if (query && query.length > 0) {
+
+			filters = new sap.ui.model.Filter(
+					[
+					 new sap.ui.model.Filter("CustomerName", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("CustomerCity", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("CustomerCountry", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("CustomerZip", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("CustomerId", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("Description", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("AmendmentType", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("TriggeredByUserName", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("DealDescription", sap.ui.model.FilterOperator.Contains, query),
+					 new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query)
+					 //new sap.ui.model.Filter("ValidFrom", sap.ui.model.FilterOperator.EQ, query),
+					 //new sap.ui.model.Filter("ValidTo", sap.ui.model.FilterOperator.EQ, query),
+					 ],
+					 false);
+		}
+
+		// update list binding
+		var oAmendmentList = this.getView().byId("idTable");
+		var binding = oAmendmentList.getBinding("items");
+		binding.filter(filters);
+	},
 
 });
