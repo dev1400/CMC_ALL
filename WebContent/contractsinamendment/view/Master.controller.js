@@ -26,7 +26,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         // Common Controller reference
         this.CommonController = dia.cmc.common.helper.CommonController;
 
-        this._setDefaultDateRange();     
+        this._setDefaultDateRange();
+
+        // create action sheet only once
+        if (!this._actionSheet) {
+            this._actionSheet = sap.ui.xmlfragment(
+                "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
+            this.getView().addDependent(this._actionSheet);
+        }
     },
 
     /**
@@ -73,7 +80,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         if (sKey === "Created") {
 
             this._oTable.setVisible(true);
-            this._oLayout.setVisible(false);            
+            this._oLayout.setVisible(false);
             sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
 
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
@@ -100,7 +107,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             this.handleAmendmentDateRangePress();
 
         } else {
-
             this._oLayout.setVisible(false);
             this._oTable.setVisible(true);
             sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
@@ -135,10 +141,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     handleAmendmentCancelPress: function(oEvent) {
 
         var oAmendTableUI = this.CommonController.getUIElement("idTable", this.getView());
-
         var oSelectedContexts = oAmendTableUI.getSelectedContexts();
         if (oSelectedContexts.length > 0) {
-
             var oDealDetail = this.getView().getModel().getProperty(oSelectedContexts[0].getPath());
 
             this._oAmend.DealId = oDealDetail.DealId;
@@ -185,14 +189,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     handleAdditionalActionsButtonPress: function(oEvent) {
         // Get reference of Further Actions Button
         var oAdditionalActionsButton = oEvent.getSource();
-
-        // create action sheet only once
-        if (!this._actionSheet) {
-            this._actionSheet = sap.ui.xmlfragment(
-                "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
-            this.getView().addDependent(this._actionSheet);
-        }
-
         this._actionSheet.openBy(oAdditionalActionsButton);
     },
     /**
@@ -242,36 +238,31 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     },
     /**
      * Event handler for Search control's search and liveSearch event
-     */ 
-	handleSearchFieldPress : function (oEvent) {
-
-		// create model filter
-		var filters = [];
-		
-		var query = oEvent.getSource().getValue();
-		
-		if (query && query.length > 0) {
-
-			filters = new sap.ui.model.Filter(
-					[
-					 new sap.ui.model.Filter("CustomerName", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("CustomerCity", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("CustomerCountry", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("CustomerZip", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("CustomerId", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("Description", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("AmendmentType", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("TriggeredByUserName", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("DealDescription", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query)					
-					 ],
-					 false);
-		}
-
-		// update list binding
-		var oAmendmentList = this.getView().byId("idTable");
-		var binding = oAmendmentList.getBinding("items");
-		binding.filter(filters);
-	},
+     */
+    handleSearchFieldPress: function(oEvent) {
+        // create model filter
+        var filters = [];
+        var query = oEvent.getSource().getValue();
+        if (query && query.length > 0) {
+            filters = new sap.ui.model.Filter(
+                [
+                    new sap.ui.model.Filter("CustomerName", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("CustomerCity", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("CustomerCountry", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("CustomerZip", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("CustomerId", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("Description", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("AmendmentType", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("TriggeredByUserName", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("DealDescription", sap.ui.model.FilterOperator.Contains, query),
+                    new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query)
+                ],
+                false);
+        }
+        // update list binding
+        var oAmendmentList = this.getView().byId("idTable");
+        var binding = oAmendmentList.getBinding("items");
+        binding.filter(filters);
+    },
 
 });
