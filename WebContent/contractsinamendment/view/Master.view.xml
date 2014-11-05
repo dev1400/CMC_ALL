@@ -33,7 +33,13 @@
 					placeholder="{i18n>SearchContractsInAmendment}" />
 
 
-				<VBox width="auto" alignItems="Center">
+				
+			</content>
+
+
+		</IconTabBar>
+
+		<VBox width="auto" alignItems="Center">
 					<layout:MatrixLayout id="idMatrixLayout"
 						layoutFixed="false">
 						<layout:MatrixLayoutRow>
@@ -154,26 +160,6 @@
 						</ColumnListItem>
 					</items>
 				</Table>
-
-
-
-
-			</content>
-
-
-		</IconTabBar>
-
-		<!-- </HBox> -->
-		<!-- <HBox alignItems="Center"> <SearchField width="20em" search="handleSearchFieldPress" 
-			tooltip="{i18n>SearchContractsInAmendment}" placeholder="{i18n>SearchContractsInAmendment}" 
-			/> </HBox> -->
-
-
-		<!-- </HBox> -->
-
-
-
-
 		<footer>
 			<Bar>
 				<!-- <contentLeft> <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center"> 
