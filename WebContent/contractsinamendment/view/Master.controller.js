@@ -264,9 +264,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 					 new sap.ui.model.Filter("AmendmentType", sap.ui.model.FilterOperator.Contains, query),
 					 new sap.ui.model.Filter("TriggeredByUserName", sap.ui.model.FilterOperator.Contains, query),
 					 new sap.ui.model.Filter("DealDescription", sap.ui.model.FilterOperator.Contains, query),
-					 new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query)
-					 //new sap.ui.model.Filter("ValidFrom", sap.ui.model.FilterOperator.EQ, query),
-					 //new sap.ui.model.Filter("ValidTo", sap.ui.model.FilterOperator.EQ, query),
+					 new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query)					
 					 ],
 					 false);
 		}
