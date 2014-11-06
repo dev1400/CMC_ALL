@@ -27,14 +27,17 @@
 
 
 			</items>
-
-			<content>
-				<SearchField search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
+			
+			<content>	
+			<VBox width="auto" alignItems="Center">
+					  
+			    <SearchField width="40em" search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
 					placeholder="{i18n>SearchContractsInAmendment}" />
-
-
-				
+			
+			</VBox>
 			</content>
+
+			
 
 
 		</IconTabBar>
