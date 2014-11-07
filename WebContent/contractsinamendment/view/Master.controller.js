@@ -34,6 +34,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                 "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
             this.getView().addDependent(this._actionSheet);
         }
+        
+        this._bindDealsInAmendmentCollectionModel();
     },
 
     /**
@@ -264,5 +266,14 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         var binding = oAmendmentList.getBinding("items");
         binding.filter(filters);
     },
+    
+    /** Read deals in amendment collection and bind model to view
+	 */
+    _bindDealsInAmendmentCollectionModel : function (){
+		
+		var oDealsInAmendmentCollectionModel = this.ModelHelper.readDealsInAmendmentCollection();
+				
+		this._oTable.setModel(oDealsInAmendmentCollectionModel); 
+	}
 
 });

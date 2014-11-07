@@ -6,6 +6,7 @@ dia.cmc.common.helper.ModelHelper = {
 
 	oODataModel : null,
 	oDealCollectionModel : new sap.ui.model.json.JSONModel(),
+	oDealsInAmendmentCollectionModel : new sap.ui.model.json.JSONModel(),
 	oDealDetailModel: new sap.ui.model.json.JSONModel(),
 	sSelectedDealPathIndex:null,
 	sSelectedDealPathKey:null,
@@ -124,6 +125,31 @@ dia.cmc.common.helper.ModelHelper = {
 		
             
 		return this.oDealCollectionModel;
+	},
+	/**
+	 * Read Deal Collection and convert it to JSON Model
+	 */
+
+	readDealsInAmendmentCollection : function (){
+
+		var that = this;		
+		
+		this.oODataModel.read("DealInAmendmentCollection", null, null , false, 
+			
+			function(oData, oResponse){
+				that.oDealsInAmendmentCollectionModel.setData({DealsInAmendmentCollection:oData.results});
+			},
+			
+			function(oResponse){
+			   oResponse = jQuery.parseJSON(oResponse.response.body);
+
+			   sap.m.MessageBox.alert(oResponse.error.message.value, {
+					title : "Result"
+				});
+			});
+		
+            
+		return this.oDealsInAmendmentCollectionModel;
 	},
 
 	

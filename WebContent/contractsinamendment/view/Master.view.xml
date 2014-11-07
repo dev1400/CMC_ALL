@@ -27,142 +27,137 @@
 
 
 			</items>
-			
-			<content>	
-			<VBox width="auto" alignItems="Center">
-					  
-			    <SearchField width="40em" search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
-					placeholder="{i18n>SearchContractsInAmendment}" />
-			
-			</VBox>
+
+			<content>
+				<VBox width="auto" alignItems="Center">
+
+					<SearchField width="40em" liveChange="handleSearchFieldPress"
+						search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
+						placeholder="{i18n>SearchContractsInAmendment}" />
+
+				</VBox>
 			</content>
-
 			
-
-
 		</IconTabBar>
 
 		<VBox width="auto" alignItems="Center">
-					<layout:MatrixLayout id="idMatrixLayout"
-						layoutFixed="false">
-						<layout:MatrixLayoutRow>
-							<layout:MatrixLayoutCell padding="None"
-								vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
-								<Label text="{i18n>SelectDateRange}" />
-							</layout:MatrixLayoutCell>
-							<layout:MatrixLayoutCell vAlign="Middle"
-								hAlign="Center" rowSpan="1" colSpan="1">
-								<DateRangeSelection id="idExecutedAmendmentsDateRange"
-									width="20em" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
-								</DateRangeSelection>
-							</layout:MatrixLayoutCell>
-							<layout:MatrixLayoutCell vAlign="Middle"
-								hAlign="Left" rowSpan="1" colSpan="1">
-								<Button type="Accept" text="{i18n>Go}"
-									press="handleAmendmentDateRangePress" />
-							</layout:MatrixLayoutCell>
-						</layout:MatrixLayoutRow>
-					</layout:MatrixLayout>
-				</VBox>
+			<layout:MatrixLayout id="idMatrixLayout"
+				layoutFixed="false">
+				<layout:MatrixLayoutRow>
+					<layout:MatrixLayoutCell padding="None"
+						vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
+						<Label text="{i18n>SelectDateRange}" />
+					</layout:MatrixLayoutCell>
+					<layout:MatrixLayoutCell vAlign="Middle"
+						hAlign="Center" rowSpan="1" colSpan="1">
+						<DateRangeSelection id="idExecutedAmendmentsDateRange"
+							width="20em" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
+						</DateRangeSelection>
+					</layout:MatrixLayoutCell>
+					<layout:MatrixLayoutCell vAlign="Middle"
+						hAlign="Left" rowSpan="1" colSpan="1">
+						<Button type="Accept" text="{i18n>Go}" press="handleAmendmentDateRangePress" />
+					</layout:MatrixLayoutCell>
+				</layout:MatrixLayoutRow>
+			</layout:MatrixLayout>
+		</VBox>
 
 
 
-				<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster"
-					select="handleTableRowSelect" items="{/DealInAmendmentCollection}">
+		<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster"
+			select="handleTableRowSelect" items="{/DealsInAmendmentCollection}">
 
-					<columns>
-						<Column hAlign="Center" width="15em">
-							<Text text="{i18n>CustomerDetails}" />
-						</Column>
-						<Column hAlign="Center" width="20em">
-							<Text text="{i18n>AmendmentDetails}" />
-						</Column>
-						<Column hAlign="Center" width="12em">
-							<Text text="{i18n>OverallProgress}" />
-						</Column>
-						<Column hAlign="Center" width="13em">
-							<Text text="{i18n>CurrrentActivity}" />
-						</Column>
-						<Column hAlign="Center" width="13em">
-							<Text text="{i18n>DealDetails}" />
-						</Column>
+			<columns>
+				<Column hAlign="Center" width="15em">
+					<Text text="{i18n>CustomerDetails}" />
+				</Column>
+				<Column hAlign="Center" width="20em">
+					<Text text="{i18n>AmendmentDetails}" />
+				</Column>
+				<Column hAlign="Center" width="12em">
+					<Text text="{i18n>OverallProgress}" />
+				</Column>
+				<Column hAlign="Center" width="13em">
+					<Text text="{i18n>CurrrentActivity}" />
+				</Column>
+				<Column hAlign="Center" width="13em">
+					<Text text="{i18n>DealDetails}" />
+				</Column>
 
-					</columns>
-					<items>
-						<ColumnListItem type="Active">
+			</columns>
+			<items>
+				<ColumnListItem type="Active">
 
-							<cells>
+					<cells>
 
-								<VBox width="auto">
-									<ObjectIdentifier title="{CustomerName}"
-										text="{CustomerCity}, {CustomerCountry} {CustomerZip}" class="sapMTableContentMargin" />
-									<commons:TextView text="{i18n>SAPAccountno} {CustomerId}"
-										design="Italic" />
-								</VBox>
+						<VBox width="auto">
+							<ObjectIdentifier title="{CustomerName}"
+								text="{CustomerCity}, {CustomerCountry} {CustomerZip}" class="sapMTableContentMargin" />
+							<commons:TextView text="{i18n>SAPAccountno} {CustomerId}"
+								design="Italic" />
+						</VBox>
 
-								<VBox fitContainer="true" justifyContesnt="SpaceBetween">
-									<HBox width="auto" justifyContent="Start" alignItems="Start">
-										<commons:TextView
-											text="{
+						<VBox fitContainer="true" justifyContesnt="SpaceBetween">
+							<HBox width="auto" justifyContent="Start" alignItems="Start">
+								<commons:TextView
+									text="{
 											path: 'Description',
 											formatter: 'dia.cmc.common.util.Formatter.shortAmendDescription'
 										}"
-											design="Bold" wrapping="true" textAlign="Begin" />
+									design="Bold" wrapping="true" textAlign="Begin" />
 
-										<Link text="..more" tooltip="Click to see complete description"
-											visible="{
+								<Link text="..more" tooltip="Click to see complete description"
+									visible="{
 										path: 'Description',
 										formatter: 'dia.cmc.common.util.Formatter.isMoreAmendDescription'
 									}"
-											press="handleAmendmentDescriptionMoreLinkPress" />
+									press="handleAmendmentDescriptionMoreLinkPress" />
 
 
-										<!-- <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" 
-											tooltip="{i18n>DealDetails}" /> -->
-									</HBox>
+								<!-- <c:Icon id="idPopupWindowIcon" src="sap-icon://notes" press="handlePopupWindowIconPress" 
+									tooltip="{i18n>DealDetails}" /> -->
+							</HBox>
 
-									<HBox width="auto" justifyContent="SpaceBetween"
-										alignItems="End">
-										<commons:TextView textAlign="Begin"
-											text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName}"
-											design="Standard" />
-									</HBox>
-								</VBox>
+							<HBox width="auto" justifyContent="SpaceBetween" alignItems="End">
+								<commons:TextView textAlign="Begin"
+									text="{AmendmentType} {i18n>AmendmentInitiatedby} {TriggeredByUserName}"
+									design="Standard" />
+							</HBox>
+						</VBox>
 
-								<VBox width="auto">
-									<ProgressIndicator percentValue="{ValidPercentage}"
-										displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
-										showValue="true" height="1.0rem" />
-									<HBox width="auto" justifyContent="SpaceBetween"
-										alignItems="Start">
-										<commons:TextView textAlign="Begin"
-											text="{i18n>Initiatedon} {
+						<VBox width="auto">
+							<ProgressIndicator percentValue="{ValidPercentage}"
+								displayValue="{ValidPercentage}{i18n>Percentage} {i18n>Completed}"
+								showValue="true" height="1.0rem" />
+							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
+								<commons:TextView textAlign="Begin"
+									text="{i18n>Initiatedon} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
-											design="Standard" />
-										<c:Icon id="" src="sap-icon://process" press="handleProcessIconPress"
-											tooltip="{i18n>ProcessFlow}" />
-									</HBox>
+									design="Standard" />
+								<c:Icon id="" src="sap-icon://process" press="handleProcessIconPress"
+									tooltip="{i18n>ProcessFlow}" />
+							</HBox>
 
-								</VBox>
+						</VBox>
 
-								<VBox width="auto" alignItems="Center">
-									<Text text="{i18n>ApproveRequest}" />
-									<commons:TextView text="{i18n>Pendingat}"
-										design="Italic" />
-								</VBox>
+						<VBox width="auto" alignItems="Center">
+							<Text text="{i18n>ApproveRequest}" />
+							<commons:TextView text="{i18n>Pendingat}"
+								design="Italic" />
+						</VBox>
 
-								<VBox width="auto" alignItems="Center">
-									<commons:TextView text="{DealDescription}"
-										design="Bold" />
-									<Link text="{DealId}" press="handleDealIdLinkPress" />
-								</VBox>
+						<VBox width="auto" alignItems="Center">
+							<commons:TextView text="{DealDescription}"
+								design="Bold" />
+							<Link text="{DealId}" press="handleDealIdLinkPress" />
+						</VBox>
 
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
 		<footer>
 			<Bar>
 				<!-- <contentLeft> <HBox width="auto" justifyContent="SpaceBetween" alignItems="Center"> 
