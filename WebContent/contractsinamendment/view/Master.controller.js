@@ -280,7 +280,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      */
     handleDownLoadToExcelButtonPress: function(){
     	
-    	/*this.JSONToCSVConvertor(this.ModelHelper.readDealsInAmendmentCollection(), "Report", true);*/
+    	console.log(this.ModelHelper.readDealsInAmendmentCollection().getJSON());
+    	
+    	/*this.JSONToCSVConvertor(this.ModelHelper.readDealsInAmendmentCollection().getJSON(), "Report", true);*/
     	
     },
     JSONToCSVConvertor: function(JSONData, ReportTitle, ShowLabel) {
