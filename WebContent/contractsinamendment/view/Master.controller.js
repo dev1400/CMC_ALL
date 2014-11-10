@@ -36,6 +36,16 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         }
         
         this._bindDealsInAmendmentCollectionModel();
+        
+        $(document).ready(function() {
+            $("#__xmlview1--idIconTabBar-content").remove();
+        });
+    },
+   /**
+    * Called when the View has been rendered.
+    */
+    onAfterRendering: function(){
+    	 $("#__xmlview1--idIconTabBar-content").remove();
     },
 
     /**
