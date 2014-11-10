@@ -285,6 +285,19 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 				
 		this._oTable.setModel(oDealsInAmendmentCollectionModel); 
 	},
+	/**
+	 * Table row selected. 
+	 */
+	handleTableRowSelect: function(oEvent){		
+        
+        if(oEvent.getSource().getSelectedItem().getBindingContext().getObject().Status === 'CRTD'){
+        	sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
+        }else{
+        	sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(false);
+        }
+        
+	},
+	
     /**
      * Generate Excel report
      */
