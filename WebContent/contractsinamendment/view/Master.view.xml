@@ -1,6 +1,7 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns="sap.m"
-	xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout" xmlns:hl="sap.ui.layout">
+	xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout"
+	xmlns:hl="sap.ui.layout">
 	<Page enableScrolling="true" title="{i18n>DealsinAmendment}">
 
 		<!-- <HBox alignItems="Center"> <HBox alignItems="Center"> -->
@@ -28,44 +29,37 @@
 
 			</items>
 
-			<content>
-
-			</content>
-
 		</IconTabBar>
-		
-		<hl:HorizontalLayout>
 
-	<!-- 	<VBox width="auto" alignItems="Center"> -->
-			<layout:MatrixLayout id="idMatrixLayout"
-				layoutFixed="false">
-				<layout:MatrixLayoutRow>
-					<layout:MatrixLayoutCell padding="None"
-						vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
-						<Label text="{i18n>SelectDateRange}" />
-					</layout:MatrixLayoutCell>
-					<layout:MatrixLayoutCell vAlign="Middle"
-						hAlign="Center" rowSpan="1" colSpan="1">
-						<DateRangeSelection id="idExecutedAmendmentsDateRange"
-							width="20em" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
-						</DateRangeSelection>
-					</layout:MatrixLayoutCell>
-					<layout:MatrixLayoutCell vAlign="Middle"
-						hAlign="Left" rowSpan="1" colSpan="1">
-						<Button type="Accept" text="{i18n>Go}" press="handleAmendmentDateRangePress" />
-					</layout:MatrixLayoutCell>
-				</layout:MatrixLayoutRow>
-			</layout:MatrixLayout>
-		<!-- </VBox> -->
 
-		
+		<VBox width="auto" alignItems="Center">
 
-			<SearchField width="20em" liveChange="handleSearchFieldPress"
-				search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
-				placeholder="{i18n>SearchContractsInAmendment}" />
+			<hl:HorizontalLayout>
+				<layout:MatrixLayout id="idMatrixLayout"
+					layoutFixed="false">
+					<layout:MatrixLayoutRow>
+						<layout:MatrixLayoutCell padding="None"
+							vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
+							<Label text="{i18n>SelectDateRange}" />
+						</layout:MatrixLayoutCell>
+						<layout:MatrixLayoutCell vAlign="Middle"
+							hAlign="Center" rowSpan="1" colSpan="1">
+							<DateRangeSelection id="idExecutedAmendmentsDateRange"
+								width="20em" displayFormat="{i18n>DateFormat}" change="handleAmendmentDateRangeChange">
+							</DateRangeSelection>
+						</layout:MatrixLayoutCell>
+						<layout:MatrixLayoutCell vAlign="Middle"
+							hAlign="Left" rowSpan="1" colSpan="1">
+							<Button type="Accept" text="{i18n>Go}" press="handleAmendmentDateRangePress" />
+						</layout:MatrixLayoutCell>
+					</layout:MatrixLayoutRow>
+				</layout:MatrixLayout>
+				<SearchField width="20em" liveChange="handleSearchFieldPress"
+					search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
+					placeholder="{i18n>SearchContractsInAmendment}" />
+			</hl:HorizontalLayout>
 
-		</hl:HorizontalLayout>
-
+		</VBox>
 
 
 		<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster"
