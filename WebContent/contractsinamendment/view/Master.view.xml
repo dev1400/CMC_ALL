@@ -48,16 +48,16 @@
 						</layout:MatrixLayoutCell>
 						<layout:MatrixLayoutCell vAlign="Middle"
 							hAlign="Left" rowSpan="1" colSpan="1">
-							<Button type="Accept" text="{i18n>Go}" press="handleAmendmentDateRangePress" />
+							<Button icon="sap-icon://sys-find" tooltip="{i18n>SubmitToFilterBasedOnSelectedDateRange}" press="handleAmendmentDateRangePress" />
 						</layout:MatrixLayoutCell>
 					</layout:MatrixLayoutRow>
 				</layout:MatrixLayout>
 			</contentMiddle>
 
 			<contentRight>
-				<SearchField width="19em" liveChange="handleSearchFieldPress"
-					search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
-					placeholder="{i18n>SearchContractsInAmendment}" />
+				<SearchField width="13em" liveChange="handleSearchFieldPress"
+					search="handleSearchFieldPress" tooltip="{i18n>FilterOnResultList}"
+					placeholder="{i18n>FilterOnResultList}" />
 			</contentRight>
 		</Bar>
 
