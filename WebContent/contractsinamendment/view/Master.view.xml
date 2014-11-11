@@ -54,7 +54,7 @@
 						</layout:MatrixLayoutCell>
 					</layout:MatrixLayoutRow>
 				</layout:MatrixLayout>
-				<SearchField width="20em" liveChange="handleSearchFieldPress"
+				<SearchField width="19em" liveChange="handleSearchFieldPress"
 					search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
 					placeholder="{i18n>SearchContractsInAmendment}" />
 			</l:HorizontalLayout>
