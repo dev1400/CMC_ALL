@@ -31,7 +31,7 @@
 
 		</IconTabBar>
 
-		<Bar>			
+		<Bar design="Header">			
 			<contentMiddle>
 				<layout:MatrixLayout id="idMatrixLayout"
 					layoutFixed="false">
