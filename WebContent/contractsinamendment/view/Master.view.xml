@@ -31,10 +31,8 @@
 
 		</IconTabBar>
 
-
-		<VBox width="auto" alignItems="Center">
-
-			<l:HorizontalLayout>
+		<Bar>			
+			<contentMiddle>
 				<layout:MatrixLayout id="idMatrixLayout"
 					layoutFixed="false">
 					<layout:MatrixLayoutRow>
@@ -54,12 +52,14 @@
 						</layout:MatrixLayoutCell>
 					</layout:MatrixLayoutRow>
 				</layout:MatrixLayout>
+			</contentMiddle>
+
+			<contentRight>
 				<SearchField width="19em" liveChange="handleSearchFieldPress"
 					search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
 					placeholder="{i18n>SearchContractsInAmendment}" />
-			</l:HorizontalLayout>
-
-		</VBox>
+			</contentRight>
+		</Bar>
 
 
 		<Table id="idTable" fixedLayout="true" mode="SingleSelectMaster"
