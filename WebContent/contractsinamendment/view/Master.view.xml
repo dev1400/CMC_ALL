@@ -1,7 +1,7 @@
 <mvc:View controllerName="dia.cmc.contractsinamendment.view.Master"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:c="sap.ui.core" xmlns="sap.m"
 	xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout"
-	xmlns:hl="sap.ui.layout">
+	xmlns:l="sap.ui.layout">
 	<Page enableScrolling="true" title="{i18n>DealsinAmendment}">
 
 		<!-- <HBox alignItems="Center"> <HBox alignItems="Center"> -->
@@ -34,7 +34,7 @@
 
 		<VBox width="auto" alignItems="Center">
 
-			<hl:HorizontalLayout>
+			<l:HorizontalLayout>
 				<layout:MatrixLayout id="idMatrixLayout"
 					layoutFixed="false">
 					<layout:MatrixLayoutRow>
@@ -57,7 +57,7 @@
 				<SearchField width="20em" liveChange="handleSearchFieldPress"
 					search="handleSearchFieldPress" tooltip="{i18n>SearchContractsInAmendment}"
 					placeholder="{i18n>SearchContractsInAmendment}" />
-			</hl:HorizontalLayout>
+			</l:HorizontalLayout>
 
 		</VBox>
 
