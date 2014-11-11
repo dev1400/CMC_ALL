@@ -307,7 +307,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     	
     },
     /**
-     * Convert JSON data to Excel file. 
+     * Generate Excel file using JSON data. 
      */
 
     JSONToCSVConvertor: function(JSONData, ReportTitle, ShowLabel) {
