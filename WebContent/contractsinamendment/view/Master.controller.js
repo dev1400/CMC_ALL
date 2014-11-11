@@ -190,8 +190,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         var oDealDetail = this.getView().getModel().getProperty(
             oContext.getPath());
         this.CommonController.getRouter(this).navTo("AmendmentFlow", {
-            from: "master",
-            dealId: oDealDetail.DealId,
+            from: "master"         
         }, bReplace);
     },
 
@@ -303,7 +302,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      */
     handleDownLoadToExcelButtonPress: function(){
     	
-      /*console.log(this.ModelHelper.readDealsInAmendmentCollection().getProperty("/DealsInAmendmentCollection"));*/    
       this.JSONToCSVConvertor(this.ModelHelper.readDealsInAmendmentCollection().getProperty("/DealsInAmendmentCollection"), 
     		  this.ModelHelper.getText("ContractsInAmendmentReport"), true);
     	
