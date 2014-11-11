@@ -5,7 +5,7 @@
     showCancelButton="true"
     placement="Top">
     <buttons>
-      <Button id="idButtonCancelAmendment" text="{i18n>CancelAmendment}" tooltip="{i18n>CancelAmendment}" icon="sap-icon://sys-cancel" press="handleAmendmentCancelPress" />
+      <Button id="idButtonCancelAmendment" text="{i18n>CancelAmendment}" tooltip="{i18n>CancelAmendment}" icon="sap-icon://sys-cancel" press="handleAmendmentCancelPress" enabled="false"/>
       <Button text="{i18n>DownloadtoExcel}" tooltip="{i18n>DownloadtoExcel}" icon="sap-icon://download" press="handleDownLoadToExcelButtonPress" />
     </buttons>
   </ActionSheet>

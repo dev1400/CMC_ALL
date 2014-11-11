@@ -94,6 +94,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             this._oTable.setVisible(true);
             this._oLayout.setVisible(false);
             sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
+            sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(true);
 
             oFilter = new sap.ui.model.Filter("Status", sap.ui.model
                 .FilterOperator.EQ, "CRTD");
@@ -121,7 +122,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         } else {
             this._oLayout.setVisible(false);
             this._oTable.setVisible(true);
+            
             sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
+            sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(false);
+           
 
             oBinding.filter([new sap.ui.model.Filter("Status", sap.ui
                     .model.FilterOperator.EQ, "CRTD"), new sap
@@ -289,10 +293,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	 */
 	handleTableRowSelect: function(oEvent){		
         
-        if(oEvent.getSource().getSelectedItem().getBindingContext().getObject().Status === 'CRTD'){
-        	sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
-        }else{
-        	sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(false);
+        if(oEvent.getSource().getSelectedItem().getBindingContext().getObject().Status === 'CRTD'){              	
+        	sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(true);        	
+        }else{        	
+        	sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(false);    
         }
         
 	},
