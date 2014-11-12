@@ -4,6 +4,7 @@ jQuery.sap.require("dia.cmc.common.util.Formatter");
 jQuery.sap.require("sap.m.Button");
 jQuery.sap.require("sap.m.DateRangeSelection");
 jQuery.sap.require("sap.ui.commons.Label");
+jQuery.sap.require("sap.ui.commons.SearchField");
 jQuery.sap.require("sap.ui.table.Table");
 jQuery.sap.require("sap.m.MessageBox");
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
@@ -11,6 +12,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
         this._oTable = this.getView().byId("idTable");
         this._oLayout = this.getView().byId("idMatrixLayout");
+        this._oSearchField = this.getView().byId("idSearchField");
         this._oLayout.setVisible(false);
         this._oAmend = {
             DealId: "",
@@ -84,7 +86,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Show amendment details based on icon tab bar selection.
      */
     handleAmendmentIconTabBarSelect: function(oEvent) {
-
+    	
+    	this._oSearchField.clear();
+    	
         var oBinding = this._oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
