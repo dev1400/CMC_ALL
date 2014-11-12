@@ -55,7 +55,7 @@
 			</contentMiddle>
 
 			<contentRight>
-				<SearchField width="18em" liveChange="handleSearchFieldPress"
+				<SearchField id="idSearchField" width="18em" liveChange="handleSearchFieldPress"
 					search="handleSearchFieldPress" tooltip="{i18n>FilterOnResultList}"
 					placeholder="{i18n>FilterOnResultList}" />
 			</contentRight>

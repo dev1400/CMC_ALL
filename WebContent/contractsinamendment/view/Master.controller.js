@@ -255,11 +255,16 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Event handler for Search control's search and liveSearch event
      */
     handleSearchFieldPress: function(oEvent) {
+        var oIconTabBar = this.getView().byId("idIconTabBar");
+        var sSelectedTab = oIconTabBar.getSelectedKey();
+      
         // create model filter
+
         var filters = [];
         var query = oEvent.getSource().getValue();
         if (query && query.length > 0) {
-            filters = new sap.ui.model.Filter(
+
+            var oOptionalFilters = new sap.ui.model.Filter(
                 [
                     new sap.ui.model.Filter("CustomerName", sap.ui.model.FilterOperator.Contains, query),
                     new sap.ui.model.Filter("CustomerCity", sap.ui.model.FilterOperator.Contains, query),
@@ -270,116 +275,138 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                     new sap.ui.model.Filter("AmendmentType", sap.ui.model.FilterOperator.Contains, query),
                     new sap.ui.model.Filter("TriggeredByUserName", sap.ui.model.FilterOperator.Contains, query),
                     new sap.ui.model.Filter("DealDescription", sap.ui.model.FilterOperator.Contains, query),
-                    new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query)
+                    new sap.ui.model.Filter("DealId", sap.ui.model.FilterOperator.Contains, query),
+
                 ],
                 false);
+            var oAmendmentList = this.getView().byId("idTable");
+            var binding = oAmendmentList.getBinding("items");
+
+            if (sSelectedTab === "All deals") {
+
+                filters = new sap.ui.model.Filter([oOptionalFilters], false);
+
+                binding.filter(filters);
+            } else if (sSelectedTab === "Created") {
+
+                filters = new sap.ui.model.Filter([oOptionalFilters, new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "CRTD")], true);
+
+                binding.filter(filters);
+            } else if (sSelectedTab === "Released") {
+
+                filters = new sap.ui.model.Filter([oOptionalFilters, new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RELE")], true);
+
+                binding.filter(filters);
+            } else if (sSelectedTab === "Executed") {
+
+                filters = new sap.ui.model.Filter([oOptionalFilters, new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "EXEC")], true);
+
+                binding.filter(filters);
+            }
         }
-        // update list binding
-        var oAmendmentList = this.getView().byId("idTable");
-        var binding = oAmendmentList.getBinding("items");
-        binding.filter(filters);
+
     },
-    
+
     /** Read deals in amendment collection and bind model to view
-	 */
-    _bindDealsInAmendmentCollectionModel : function (){
-		
-		var oDealsInAmendmentCollectionModel = this.ModelHelper.readDealsInAmendmentCollection();
-				
-		this._oTable.setModel(oDealsInAmendmentCollectionModel); 
-	},
-	/**
-	 * Table row selected. 
-	 */
-	handleTableRowSelect: function(oEvent){		
-        
-        if(oEvent.getSource().getSelectedItem().getBindingContext().getObject().Status === 'CRTD'){              	
-        	sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(true);        	
-        }else{        	
-        	sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(false);    
+     */
+    _bindDealsInAmendmentCollectionModel: function() {
+
+        var oDealsInAmendmentCollectionModel = this.ModelHelper.readDealsInAmendmentCollection();
+
+        this._oTable.setModel(oDealsInAmendmentCollectionModel);
+    },
+    /**
+     * Table row selected.
+     */
+    handleTableRowSelect: function(oEvent) {
+
+        if (oEvent.getSource().getSelectedItem().getBindingContext().getObject().Status === 'CRTD') {
+            sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(true);
+        } else {
+            sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(false);
         }
-        
-	},
-	
+
+    },
+
     /**
      * Generate Excel report
      */
-    handleDownLoadToExcelButtonPress: function(){
-    	
-      this.JSONToCSVConvertor(this.ModelHelper.readDealsInAmendmentCollection().getProperty("/DealsInAmendmentCollection"), 
-    		  this.ModelHelper.getText("ContractsInAmendmentReport"), true);
-    	
+    handleDownLoadToExcelButtonPress: function() {
+
+        this.JSONToCSVConvertor(this.ModelHelper.readDealsInAmendmentCollection().getProperty("/DealsInAmendmentCollection"),
+            this.ModelHelper.getText("ContractsInAmendmentReport"), true);
+
     },
     /**
-     * Generate Excel file using JSON data. 
+     * Generate Excel file using JSON data.
      */
 
     JSONToCSVConvertor: function(JSONData, ReportTitle, ShowLabel) {
-	    //If JSONData is not an object then JSON.parser will parse the JSON string in an Object
-	    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
-	    
-	    var CSV = '';    
-	    //Set Report title in first row or line
-	    
-	    CSV += ReportTitle + '\r\n\n';
+        //If JSONData is not an object then JSON.parser will parse the JSON string in an Object
+        var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
 
-	    //This condition will generate the Label/Header
-	    if (ShowLabel) {
-	        var row = "";
-	        
-	        //This loop will extract the label from 1st index of on array
-	        for (var index in arrData[0]) {
-	            
-	            //Now convert each value to string and comma-seprated
-	            row += index + ',';
-	        }
+        var CSV = '';
+        //Set Report title in first row or line
 
-	        row = row.slice(0, -1);
-	        
-	        //append Label row with line break
-	        CSV += row + '\r\n';
-	    }
-	    
-	    //1st loop is to extract each row
-	    for (var i = 0; i < arrData.length; i++) {
-	        var row = "";
-	        
-	        //2nd loop will extract each column and convert it in string comma-seprated
-	        for (var index in arrData[i]) {
-	            row += '"' + arrData[i][index] + '",';
-	        }
+        CSV += ReportTitle + '\r\n\n';
 
-	        row.slice(0, row.length - 1);
-	        
-	        //add a line break after each row
-	        CSV += row + '\r\n';
-	    }
+        //This condition will generate the Label/Header
+        if (ShowLabel) {
+            var row = "";
 
-	    if (CSV == '') {        
-	        alert("Invalid data");
-	        return;
-	    }   
-	    
-	    //Generate a file name
-	    var fileName = "_";
-	    //this will remove the blank-spaces from the title and replace it with an underscore
-	    fileName += ReportTitle.replace(/ /g,"_");   
-	    
-	    //Initialize file format we want csv or xls
-	    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
-	    
-	    
-	    var link = document.createElement("a");    
-	    link.href = uri;
-	    
-	    //set the visibility hidden so it will not effect on  web-layout
-	    link.style = "visibility:hidden";
-	    link.download = fileName + ".csv";
-	    
-	    //this part will append the anchor tag and remove it after automatic click
-	    document.body.appendChild(link);
-	    link.click();
-	    document.body.removeChild(link);
-	}
+            //This loop will extract the label from 1st index of on array
+            for (var index in arrData[0]) {
+
+                //Now convert each value to string and comma-seprated
+                row += index + ',';
+            }
+
+            row = row.slice(0, -1);
+
+            //append Label row with line break
+            CSV += row + '\r\n';
+        }
+
+        //1st loop is to extract each row
+        for (var i = 0; i < arrData.length; i++) {
+            var row = "";
+
+            //2nd loop will extract each column and convert it in string comma-seprated
+            for (var index in arrData[i]) {
+                row += '"' + arrData[i][index] + '",';
+            }
+
+            row.slice(0, row.length - 1);
+
+            //add a line break after each row
+            CSV += row + '\r\n';
+        }
+
+        if (CSV == '') {
+            alert("Invalid data");
+            return;
+        }
+
+        //Generate a file name
+        var fileName = "_";
+        //this will remove the blank-spaces from the title and replace it with an underscore
+        fileName += ReportTitle.replace(/ /g, "_");
+
+        //Initialize file format we want csv or xls
+        var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+
+        var link = document.createElement("a");
+        link.href = uri;
+
+        //set the visibility hidden so it will not effect on  web-layout
+        link.style = "visibility:hidden";
+        link.download = fileName + ".csv";
+
+        //this part will append the anchor tag and remove it after automatic click
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 
 });
