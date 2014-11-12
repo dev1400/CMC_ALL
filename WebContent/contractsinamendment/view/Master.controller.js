@@ -36,18 +36,18 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                 "dia.cmc.contractsinamendment.fragment.AdditionalActionsActionSheet", this);
             this.getView().addDependent(this._actionSheet);
         }
-        
+
         this._bindDealsInAmendmentCollectionModel();
-        
+
         $(document).ready(function() {
             $("#__xmlview1--idIconTabBar-content").remove();
         });
     },
-   /**
-    * Called when the View has been rendered.
-    */
-    onAfterRendering: function(){
-    	 $("#__xmlview1--idIconTabBar-content").remove();
+    /**
+     * Called when the View has been rendered.
+     */
+    onAfterRendering: function() {
+        $("#__xmlview1--idIconTabBar-content").remove();
     },
 
     /**
@@ -86,9 +86,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Show amendment details based on icon tab bar selection.
      */
     handleAmendmentIconTabBarSelect: function(oEvent) {
-    	
-    	this._oSearchField.clear();
-    	
+
+        this._oSearchField.clear();
+
         var oBinding = this._oTable.getBinding("items"),
             sKey = oEvent.getParameter("selectedKey"),
             oFilter;
@@ -126,10 +126,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         } else {
             this._oLayout.setVisible(false);
             this._oTable.setVisible(true);
-            
+
             sap.ui.getCore().byId("idButtonCancelAmendment").setVisible(true);
             sap.ui.getCore().byId("idButtonCancelAmendment").setEnabled(false);
-           
+
 
             oBinding.filter([new sap.ui.model.Filter("Status", sap.ui
                     .model.FilterOperator.EQ, "CRTD"), new sap
@@ -198,7 +198,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         var oDealDetail = this.getView().getModel().getProperty(
             oContext.getPath());
         this.CommonController.getRouter(this).navTo("AmendmentFlow", {
-            from: "master"         
+            from: "master"
         }, bReplace);
     },
 
@@ -261,7 +261,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     handleSearchFieldPress: function(oEvent) {
         var oIconTabBar = this.getView().byId("idIconTabBar");
         var sSelectedTab = oIconTabBar.getSelectedKey();
-      
+
         // create model filter
 
         var filters = [];
@@ -336,10 +336,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Generate Excel report
      */
     handleDownLoadToExcelButtonPress: function() {
-    	
-    	this.CommonController.JSONToCSVConvertor(this._oTable.getBinding("items").oModel.oData.DealsInAmendmentCollection,
+
+        this.CommonController.JSONToCSVConvertor(this._oTable.getBinding("items").oModel.oData.DealsInAmendmentCollection,
             this.ModelHelper.getText("ContractsInAmendmentReport"), true);
 
-    }    
+    }
 
 });
