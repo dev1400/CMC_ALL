@@ -336,8 +336,8 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Generate Excel report
      */
     handleDownLoadToExcelButtonPress: function() {
-
-        this.JSONToCSVConvertor(this.ModelHelper.readDealsInAmendmentCollection().getProperty("/DealsInAmendmentCollection"),
+    	
+    	this.JSONToCSVConvertor(this._oTable.getBinding("items").oModel.oData.DealsInAmendmentCollection,
             this.ModelHelper.getText("ContractsInAmendmentReport"), true);
 
     },
