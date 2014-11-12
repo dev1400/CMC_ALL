@@ -360,9 +360,11 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             //This loop will extract the label from 1st index of on array
             for (var index in arrData[0]) {
-
+            	
+            	if(index !== "__metadata"){
                 //Now convert each value to string and comma-seprated
                 row += index + ',';
+            	}
             }
 
             row = row.slice(0, -1);
@@ -377,7 +379,10 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             //2nd loop will extract each column and convert it in string comma-seprated
             for (var index in arrData[i]) {
+            	
+            	if(index !== "__metadata"){
                 row += '"' + arrData[i][index] + '",';
+            	}
             }
 
             row.slice(0, row.length - 1);
