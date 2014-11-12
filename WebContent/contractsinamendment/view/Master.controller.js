@@ -360,9 +360,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             //This loop will extract the label from 1st index of on array
             for (var index in arrData[0]) {
-            	
-            	if(index !== "__metadata"){
-                //Now convert each value to string and comma-seprated
+            	//temporarily removing mentioned columns as they are empty
+               if (!([ '__metadata', 'Message', 'MessageType', 'EndDate', 'SalesOrg' , 'DistChannel' , 'Division' ].indexOf( index ) > -1) ){
+                //Now convert each value to string and comma-separated
                 row += index + ',';
             	}
             }
@@ -380,8 +380,17 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
             //2nd loop will extract each column and convert it in string comma-seprated
             for (var index in arrData[i]) {
             	
-            	if(index !== "__metadata"){
-                row += '"' + arrData[i][index] + '",';
+            	if(!([ '__metadata', 'Message', 'MessageType', 'EndDate', 'SalesOrg' , 'DistChannel' , 'Division' ].indexOf( index ) > -1) ){
+            		if(arrData[i][index] === "CRTD"){
+            			 row += '"Created",';
+            		}else if(arrData[i][index] === "RELE"){
+            			row += '"Released",';
+            		}else if(arrData[i][index] === "EXEC"){
+            			row += '"Executed",';
+            		}else{
+            			 row += '"' + arrData[i][index] + '",';
+            		}  
+               
             	}
             }
 
