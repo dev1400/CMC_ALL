@@ -129,7 +129,7 @@
 								showValue="true" height="1.0rem" />
 							<HBox width="auto" justifyContent="SpaceBetween" alignItems="Start">
 								<commons:TextView textAlign="Begin"
-									text="{i18n>Initiatedon} {
+									text="{i18n>InitiatedOn} {
 														path: 'StartDate',
 														formatter: 'dia.cmc.common.util.Formatter.date'
 														}"
