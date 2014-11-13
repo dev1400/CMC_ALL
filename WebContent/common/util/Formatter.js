@@ -232,6 +232,18 @@ dia.cmc.common.util.Formatter = {
 //		}
 //	},
 //
+	/**
+	 * Return status with meaning full name
+	 */
+	formatAmendmentStatus : function(sStatus){
+		if(sStatus === "CRTD"){
+			return "Created";
+		}else if(sStatus === "RELE"){
+			return "Released";
+		}else if(sStatus === "EXEC"){
+			return "Executed";
+		}
+	}
 
 	
 };

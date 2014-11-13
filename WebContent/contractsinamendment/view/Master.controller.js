@@ -357,70 +357,75 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 
             // column definitions with column name and binding info for the content
             columns : [{
-              name : "CustomerName",
+              name : this.ModelHelper.getText("CustomerName"),
               template : {
                 content : "{CustomerName}"
               }
             }, {
-                name : "CustomerCity",
+                name : this.ModelHelper.getText("CustomerCity"),
                 template : {
                   content : "{CustomerCity}"
                 }
             }, {
-                name : "CustomerCountry",
+                name : this.ModelHelper.getText("CustomerCountry"),
                 template : {
                   content : "{CustomerCountry}"
                 }
             }, {
-                name : "CustomerZip",
+                name : this.ModelHelper.getText("CustomerZip"),
                 template : {
                   content : "{CustomerZip}"
                 }
             }, {
-                name : "SapAccountNo",
+                name : this.ModelHelper.getText("SapAccountNo"),
                 template : {
                   content : "{CustomerId}"
                 }
             }, {
-                name : "AmendmentDescription",
+                name : this.ModelHelper.getText("AmendmentDescription"),
                 template : {
                   content : "{Description}"
                 }
             }, {
-                name : "AmendmentType",
+                name : this.ModelHelper.getText("AmendmentType"),
                 template : {
                   content : "{AmendmentType}"
                 }
             }, {
-                name : "AmendmentInitiatedby",
+                name : this.ModelHelper.getText("AmendmentInitiatedby"),
                 template : {
                   content : "{TriggeredByUserName}"
                 }
             }, {
-                name : "OverallProgress",
+                name : this.ModelHelper.getText("OverallProgress"),
                 template : {
-                  content : "{ValidPercentage}"
+                  content : "{ValidPercentage}"+"%"
                 }
             }, {
-                name : "InitiatedOn",
+                name : this.ModelHelper.getText("InitiatedOn"),
                 template : {
-                  content : "{StartDate}"
+                  content : "{path: 'StartDate', formatter: 'dia.cmc.common.util.Formatter.date'}"
                 }
             }, {
-                name : "DealId",
+                name : this.ModelHelper.getText("DealId"),
                 template : {
                   content : "{DealId}"
                 }
             }, {
-                name : "DealDescription",
+                name : this.ModelHelper.getText("DealDescription"),
                 template : {
                   content : "{DealDescription}"
+                }
+            }, {
+                name : this.ModelHelper.getText("AmendmentStatus"),
+                template : {
+                  content : "{path: 'Status', formatter: 'dia.cmc.common.util.Formatter.formatAmendmentStatus'}"
                 }
             }]
           });
 
           // download exported file
-          oExport.saveFile().always(function() {
+          oExport.saveFile(this.ModelHelper.getText("ContractsInAmendmentReport")).always(function() {
             this.destroy();
           });
 
