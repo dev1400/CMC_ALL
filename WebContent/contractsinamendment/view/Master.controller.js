@@ -7,6 +7,9 @@ jQuery.sap.require("sap.ui.commons.Label");
 jQuery.sap.require("sap.ui.commons.SearchField");
 jQuery.sap.require("sap.ui.table.Table");
 jQuery.sap.require("sap.m.MessageBox");
+jQuery.sap.require("sap.ui.core.util.Export");
+jQuery.sap.require("sap.ui.core.util.ExportTypeCSV");
+
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
 
@@ -335,10 +338,91 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Generate Excel report
      */
-    handleDownLoadToExcelButtonPress: function() {
+    handleDownLoadToExcelButtonPress: sap.m.Table.prototype.exportData || function() {
+    
+    	var oExport = new sap.ui.core.util.Export({
 
-        this.CommonController.JSONToCSVConvertor(this._oTable.getBinding("items").oModel.oData.DealsInAmendmentCollection,
-            this.ModelHelper.getText("ContractsInAmendmentReport"), true);
+            // Type that will be used to generate the content.
+            exportType : new sap.ui.core.util.ExportTypeCSV({
+              separatorChar : ","
+            }),
+
+            // Pass in the model 
+            models : this.getView().getModel(),
+
+            // binding information for the rows aggregation
+            rows : {
+              path : "/DealInAmendmentCollection"
+            },
+
+            // column definitions with column name and binding info for the content
+            columns : [{
+              name : "CustomerName",
+              template : {
+                content : "{CustomerName}"
+              }
+            }, {
+                name : "CustomerCity",
+                template : {
+                  content : "{CustomerCity}"
+                }
+            }, {
+                name : "CustomerCountry",
+                template : {
+                  content : "{CustomerCountry}"
+                }
+            }, {
+                name : "CustomerZip",
+                template : {
+                  content : "{CustomerZip}"
+                }
+            }, {
+                name : "SapAccountNo",
+                template : {
+                  content : "{CustomerId}"
+                }
+            }, {
+                name : "AmendmentDescription",
+                template : {
+                  content : "{Description}"
+                }
+            }, {
+                name : "AmendmentType",
+                template : {
+                  content : "{AmendmentType}"
+                }
+            }, {
+                name : "AmendmentInitiatedby",
+                template : {
+                  content : "{TriggeredByUserName}"
+                }
+            }, {
+                name : "OverallProgress",
+                template : {
+                  content : "{ValidPercentage}"
+                }
+            }, {
+                name : "InitiatedOn",
+                template : {
+                  content : "{StartDate}"
+                }
+            }, {
+                name : "DealId",
+                template : {
+                  content : "{DealId}"
+                }
+            }, {
+                name : "DealDescription",
+                template : {
+                  content : "{DealDescription}"
+                }
+            }]
+          });
+
+          // download exported file
+          oExport.saveFile().always(function() {
+            this.destroy();
+          });
 
     }
 
