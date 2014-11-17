@@ -25,6 +25,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         };
         this._oAmendmentIdforCancellation = null;
         this._oDealIdforCancellation = null;
+        this._oBinding = null;
 
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -140,6 +141,9 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                     .EQ, "RELE")
             ]);
         }
+        
+        this._oBinding = oBinding;
+        
     },
     /**
      * Navigate to Deal Detail.
@@ -339,96 +343,18 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
      * Generate Excel report
      */
     handleDownLoadToExcelButtonPress: sap.m.Table.prototype.exportData || function() {
-
-        var oExport = new sap.ui.core.util.Export({
-
-            // Type that will be used to generate the content.
-            exportType: new sap.ui.core.util.ExportTypeCSV({
-                separatorChar: ","
-            }),
-
-            // Pass in the model 
-            models: this.getView().getModel(),
-
-            // binding information for the rows aggregation
-            rows: {
-                path: "/DealInAmendmentCollection"
-            },
-
-            // column definitions with column name and binding info for the content
-            columns: [{
-                name: this.ModelHelper.getText("CustomerName"),
-                template: {
-                    content: "{CustomerName}"
-                }
-            }, {
-                name: this.ModelHelper.getText("CustomerCity"),
-                template: {
-                    content: "{CustomerCity}"
-                }
-            }, {
-                name: this.ModelHelper.getText("CustomerCountry"),
-                template: {
-                    content: "{CustomerCountry}"
-                }
-            }, {
-                name: this.ModelHelper.getText("CustomerZip"),
-                template: {
-                    content: "{CustomerZip}"
-                }
-            }, {
-                name: this.ModelHelper.getText("SapAccountNo"),
-                template: {
-                    content: "{CustomerId}"
-                }
-            }, {
-                name: this.ModelHelper.getText("AmendmentDescription"),
-                template: {
-                    content: "{Description}"
-                }
-            }, {
-                name: this.ModelHelper.getText("AmendmentType"),
-                template: {
-                    content: "{AmendmentType}"
-                }
-            }, {
-                name: this.ModelHelper.getText("AmendmentInitiatedby"),
-                template: {
-                    content: "{TriggeredByUserName}"
-                }
-            }, {
-                name: this.ModelHelper.getText("OverallProgress"),
-                template: {
-                    content: "{ValidPercentage}" + "%"
-                }
-            }, {
-                name: this.ModelHelper.getText("InitiatedOn"),
-                template: {
-                    content: "{path: 'StartDate', formatter: 'dia.cmc.common.util.Formatter.date'}"
-                }
-            }, {
-                name: this.ModelHelper.getText("DealId"),
-                template: {
-                    content: "{DealId}"
-                }
-            }, {
-                name: this.ModelHelper.getText("DealDescription"),
-                template: {
-                    content: "{DealDescription}"
-                }
-            }, {
-                name: this.ModelHelper.getText("AmendmentStatus"),
-                template: {
-                    content: "{path: 'Status', formatter: 'dia.cmc.common.util.Formatter.formatAmendmentStatus'}"
-                }
-            }]
-        });
-
-        // download exported file
-        oExport.saveFile(this.ModelHelper.getText("ContractsInAmendmentReport")).always(function() {
-            this.destroy();
-        });
-
+    
+    	var oFilteredAmendments = [];
+    	oFilteredAmendments = this._oTable.getBinding("items").getContexts();    		
+    	var oAmendmentsAsObjects = [];
+    		
+    	for (var i = 0; i < oFilteredAmendments.length; i++) {
+    		oAmendmentsAsObjects[i] = this._oTable.getBinding("items").getContexts()[i].getObject();    	  
+    	}
+    	
+    	this.CommonController.JSONToCSVConvertor(JSON.stringify(oAmendmentsAsObjects),
+    	            this.ModelHelper.getText("ContractsInAmendmentReport"), true);
     }
+   
 
 });
