@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:m="sap.m" xmlns:l="sap.ui.layout">
+
+	<l:HorizontalLayout>
+		<m:Label text="Company" />
+		<m:MultiInput id="multiInput" valueHelpRequest="onValueHelpRequest"
+			width="300px">
+		</m:MultiInput>
+	</l:HorizontalLayout>
+	
+</core:FragmentDefinition>

@@ -27,7 +27,7 @@
 						<Label text="{Property>/MaterialLabel}" />
 						<Input id="idPAProduct" value="{DealDetailModel>/NewPriceItem/Material}"
 							enabled="{Property>/MaterialEnable}"
-							showValueHelp="true" valueHelpRequest="handleValueHelp">
+							showValueHelp="true" valueHelpRequest="handleMaterialSearchValueHelpRequest">
 
 							<layoutData>
 								<l:GridData span="L2 M3 S4" />

@@ -2020,5 +2020,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 /*******************************************************************************
  * End - Other Code
  ******************************************************************************/
-
+	/**
+	 * Material search using value help dialog
+	 */
+	handleMaterialSearchValueHelpRequest : function(oEvent){
+		
+	}
 });
