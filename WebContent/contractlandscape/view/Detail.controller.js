@@ -5,6 +5,8 @@ jQuery.sap.require("sap.m.MessageToast");
 jQuery.sap.require("dia.cmc.common.helper.CommonController");
 jQuery.sap.require("openui5.googlemaps.MapUtils");
 jQuery.sap.require("sap.ca.ui.dialog.factory");
+jQuery.sap.require("sap.ui.comp.valuehelpdialog.ValueHelpDialog");
+
 // jQuery.sap.require("sap.m.URLHelper");
 
 sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
@@ -26,6 +28,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 		// Attached event handler for route match event
 		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
+		
+	
+		
+		
+		
+
         
 	},
 	
@@ -470,7 +478,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 								sap.ui.model.FilterOperator.Contains, sQuery),
 						new sap.ui.model.Filter("Unit",
 								sap.ui.model.FilterOperator.EQ, sQuery),
-						new sap.ui.model.Filter("CurrencyCode",
+						new sap.ui.model.Filter("NumberOfTests",
 								sap.ui.model.FilterOperator.EQ, sQuery) ],
 						false);
 
@@ -488,7 +496,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 								sap.ui.model.FilterOperator.Contains, sQuery),
 						new sap.ui.model.Filter("Unit",
 								sap.ui.model.FilterOperator.EQ, sQuery),
-						new sap.ui.model.Filter("CurrencyCode",
+						new sap.ui.model.Filter("NumberOfTests",
 								sap.ui.model.FilterOperator.EQ, sQuery) ],
 						false);
 
@@ -807,7 +815,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			uiType : "TB",
 			value : "",
 			mandatory : true,
-			field : "CurrencyCode"
+			field : "NumberOfTests"
 		}, {
 			id : "idPANewPricePerX",
 			uiType : "TB",
@@ -2024,6 +2032,118 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	 * Material search using value help dialog
 	 */
 	handleMaterialSearchValueHelpRequest : function(oEvent){
+		
+		
+        
+        this.theTokenInput= sap.ui.getCore().byId("multiInput");
+
+	    this.aKeys= ["MaterialNo", "MaterialDescription"];
+
+	    var token1= new sap.m.Token({key: "0001", text:"SAP A.G. (0001)"});
+	    var token2= new sap.m.Token({key: "0002", text: "SAP Labs India (0002)"});
+	    var rangeToken1= new sap.m.Token({key: "i1", text: "ID: a..z"}).data("range", { "exclude": false, "operation": "BT", "keyField": "MaterialNo", "value1": "a", "value2": "z"});
+	    var rangeToken2= new sap.m.Token({key: "i2", text: "ID: =foo"}).data("range", { "exclude": false, "operation": "EQ", "keyField": "MaterialNo", "value1": "foo", "value2": ""});
+	    var rangeToken3= new sap.m.Token({key: "e1", text: "ID: !(=foo)"}).data("range", { "exclude": true, "operation": "EQ", "keyField": "MaterialNo", "value1": "foo", "value2": ""});
+	    this.aTokens= [token1, token2, rangeToken1, rangeToken2, rangeToken3];
+	    
+	    this.theTokenInput.setTokens(this.aTokens);
+
+	    this.aItems= [{MaterialNo: "0001", MaterialDescription: "SAP A.G.", UOM: "Walldorf", NumberOfTests:"1"},
+	                   {MaterialNo: "0002", MaterialDescription: "SAP Laps India", UOM: "Bangalore", NumberOfTests:"2"},
+	                   {MaterialNo: "0003", MaterialDescription: "SAP China LAB", UOM: "Beijing", NumberOfTests:"3"},
+	                   {MaterialNo: "0100", MaterialDescription: "SAP1", UOM: "Berlin", NumberOfTests:"4"},
+	                   {MaterialNo: "0101", MaterialDescription: "SAP2", UOM: "Berlin", NumberOfTests:"5"},
+	                   {MaterialNo: "0102", MaterialDescription: "SAP3", UOM: "Berlin", NumberOfTests:"6"},
+	                   {MaterialNo: "0103", MaterialDescription: "SAP4", UOM: "Berlin", NumberOfTests:"7"},
+	                   {MaterialNo: "0104", MaterialDescription: "SAP5", UOM: "Berlin", NumberOfTests:"8"},
+	                   {MaterialNo: "0105", MaterialDescription: "SAP6", UOM: "Berlin", NumberOfTests:"9"},
+	                   {MaterialNo: "0106", MaterialDescription: "SAP7", UOM: "Berlin", NumberOfTests:"10"},
+	                   /*{MaterialNo: "0107", MaterialDescription: "SAP8", UOM: "Berlin", NumberOfTests:"11"},
+	                   {MaterialNo: "0108", MaterialDescription: "SAP9", UOM: "Berlin", NumberOfTests:"12"},
+	                   {MaterialNo: "0109", MaterialDescription: "SAP10", UOM: "Berlin", NumberOfTests:"13"},
+	                   {MaterialNo: "0110", MaterialDescription: "SAP11", UOM: "Berlin", NumberOfTests:"14"},
+	                   {MaterialNo: "0111", MaterialDescription: "SAP12", UOM: "Berlin", NumberOfTests:"15"},
+	                   {MaterialNo: "0112", MaterialDescription: "SAP13", UOM: "Berlin", NumberOfTests:"16"},
+	                   {MaterialNo: "0113", MaterialDescription: "SAP14", UOM: "Berlin", NumberOfTests:"17"},
+	                   {MaterialNo: "0114", MaterialDescription: "SAP15", UOM: "Berlin", NumberOfTests:"18"},
+	                   {MaterialNo: "0115", MaterialDescription: "SAP16", UOM: "Berlin", NumberOfTests:"19"}*/
+	                   ];
+	        
+	    
+        
+		
+		var that= this;
+	    
+		 var oValueHelpDialog = new sap.ui.comp.valuehelpdialog.ValueHelpDialog({
+		      basicSearchText: this.theTokenInput.getValue(),
+		      modal: true,
+		      supportMultiselect: true,
+		      supportRanges: false,
+		      supportRangesOnly: false,
+		      key: this.aKeys[0],        
+		      descriptionKey: this.aKeys[1],
+
+		      ok: function(oControlEvent) {
+		        that.aTokens = oControlEvent.getParameter("tokens");
+		        that.theTokenInput.setTokens(that.aTokens);
+
+		        oValueHelpDialog.close();
+		      },
+
+		      cancel: function(oControlEvent) {
+		        sap.m.MessageToast.show("Cancel pressed!");
+		        oValueHelpDialog.close();
+		      },
+
+		      afterClose: function() {
+		        oValueHelpDialog.destroy();
+		      }
+		    });
+
+	      var oColModel = new sap.ui.model.json.JSONModel();
+	      oColModel.setData({
+	        cols: [
+	                {label: "Material No", template: "MaterialNo"},
+	                {label: "Material Description", template: "MaterialDescription"},
+	                {label: "UOM", template: "UOM"},
+	                {label: "No. of Tests", template: "NumberOfTests"}
+	              ]
+	      });
+	      oValueHelpDialog.setModel(oColModel, "columns");
+
+	      
+	      var oRowsModel = new sap.ui.model.json.JSONModel();
+	      oRowsModel.setData(this.aItems);
+	      oValueHelpDialog.setModel(oRowsModel);
+	      oValueHelpDialog.theTable.bindRows("/"); 
+	    
+	     /* oValueHelpDialog.setKey(this.aKeys[0]);
+	      oValueHelpDialog.setKeys(this.aKeys);
+
+	      oValueHelpDialog.setRangeKeyFields([{label: "Material No", key: "MaterialNo"}, {label : "Material Description", key:"MaterialDescription"}]); 
+
+*/	      //oValueHelpDialog.setUpdateSingleRowCallback( function(sKey, fncCallback) {} );
+	        
+	     /* oValueHelpDialog.setTokens(this.aTokens);      */
+	      
+	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
+	        advancedMode:  true,
+	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField()})],
+	        /*filterGroupItems: [new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n1", label: "Material No", control: new sap.m.Input()}),
+	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n2", label: "Material Description", control: new sap.m.Input()}),
+	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n3", label: "No. of Tests", control: new sap.m.Input()})],*/
+	        search: function() {
+	          sap.m.MessageToast.show("Search pressed");
+	        }
+	      }));      
+	          
+	      if (this.theTokenInput.$().closest(".sapUiSizeCompact").length > 0) { // check if the Token field runs in Compact mode
+	        oValueHelpDialog.addStyleClass("sapUiSizeCompact");
+	      }
+	      
+	      oValueHelpDialog.open();
+
+
 		
 	}
 });
