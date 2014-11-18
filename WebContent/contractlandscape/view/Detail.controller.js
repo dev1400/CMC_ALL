@@ -2046,7 +2046,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	    var rangeToken3= new sap.m.Token({key: "e1", text: "ID: !(=foo)"}).data("range", { "exclude": true, "operation": "EQ", "keyField": "MaterialNo", "value1": "foo", "value2": ""});
 	    this.aTokens= [token1, token2, rangeToken1, rangeToken2, rangeToken3];
 	    
-	    this.theTokenInput.setTokens(this.aTokens);
+	    /*this.theTokenInput.setTokens(this.aTokens);*/
 
 	    this.aItems= [{MaterialNo: "0001", MaterialDescription: "SAP A.G.", UOM: "Walldorf", NumberOfTests:"1"},
 	                   {MaterialNo: "0002", MaterialDescription: "SAP Laps India", UOM: "Bangalore", NumberOfTests:"2"},
@@ -2058,15 +2058,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	                   {MaterialNo: "0104", MaterialDescription: "SAP5", UOM: "Berlin", NumberOfTests:"8"},
 	                   {MaterialNo: "0105", MaterialDescription: "SAP6", UOM: "Berlin", NumberOfTests:"9"},
 	                   {MaterialNo: "0106", MaterialDescription: "SAP7", UOM: "Berlin", NumberOfTests:"10"},
-	                   /*{MaterialNo: "0107", MaterialDescription: "SAP8", UOM: "Berlin", NumberOfTests:"11"},
-	                   {MaterialNo: "0108", MaterialDescription: "SAP9", UOM: "Berlin", NumberOfTests:"12"},
-	                   {MaterialNo: "0109", MaterialDescription: "SAP10", UOM: "Berlin", NumberOfTests:"13"},
-	                   {MaterialNo: "0110", MaterialDescription: "SAP11", UOM: "Berlin", NumberOfTests:"14"},
-	                   {MaterialNo: "0111", MaterialDescription: "SAP12", UOM: "Berlin", NumberOfTests:"15"},
-	                   {MaterialNo: "0112", MaterialDescription: "SAP13", UOM: "Berlin", NumberOfTests:"16"},
-	                   {MaterialNo: "0113", MaterialDescription: "SAP14", UOM: "Berlin", NumberOfTests:"17"},
-	                   {MaterialNo: "0114", MaterialDescription: "SAP15", UOM: "Berlin", NumberOfTests:"18"},
-	                   {MaterialNo: "0115", MaterialDescription: "SAP16", UOM: "Berlin", NumberOfTests:"19"}*/
+	                  
 	                   ];
 	        
 	    
@@ -2077,7 +2069,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		 var oValueHelpDialog = new sap.ui.comp.valuehelpdialog.ValueHelpDialog({
 		      basicSearchText: this.theTokenInput.getValue(),
 		      modal: true,
-		      supportMultiselect: true,
+		      supportMultiselect: false,
 		      supportRanges: false,
 		      supportRangesOnly: false,
 		      key: this.aKeys[0],        
