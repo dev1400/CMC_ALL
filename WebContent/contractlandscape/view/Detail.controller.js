@@ -2121,10 +2121,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	      
 	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
 	        advancedMode:  false,
-	        searchEnabled:  false,
-	        expandAdvancedArea:  false,
-	        simplifiedMode: false,
-	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name : "s1",control: new sap.m.Button({icon : "sap-icon://sys-find"})})],
+	        
+	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField({enableClear : "true"})})],
 	        /*filterGroupItems: [new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n1", label: "Material No", control: new sap.m.Input()}),
 	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n2", label: "Material Description", control: new sap.m.Input()}),
 	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n3", label: "No. of Tests", control: new sap.m.Input()})],*/
