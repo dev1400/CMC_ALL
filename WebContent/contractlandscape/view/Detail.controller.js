@@ -2068,6 +2068,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	    
 		 var oValueHelpDialog = new sap.ui.comp.valuehelpdialog.ValueHelpDialog({
 		      basicSearchText: this.theTokenInput.getValue(),
+		      title : "Product",
 		      modal: true,
 		      supportMultiselect: false,
 		      supportRanges: false,
@@ -2119,7 +2120,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	     /* oValueHelpDialog.setTokens(this.aTokens);      */
 	      
 	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
-	        advancedMode:  true,
+	        advancedMode:  false,
 	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField()})],
 	        /*filterGroupItems: [new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n1", label: "Material No", control: new sap.m.Input()}),
 	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n2", label: "Material Description", control: new sap.m.Input()}),
