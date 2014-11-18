@@ -2118,9 +2118,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 */	      //oValueHelpDialog.setUpdateSingleRowCallback( function(sKey, fncCallback) {} );
 	        
 	     /* oValueHelpDialog.setTokens(this.aTokens);      */
+	   
 	      
 	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
-	        advancedMode:  false,
+	        advancedMode:  false, 
 	        
 	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField({enableClear : "true"})})],
 	        /*filterGroupItems: [new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n1", label: "Material No", control: new sap.m.Input()}),
