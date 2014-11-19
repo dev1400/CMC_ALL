@@ -2031,7 +2031,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	/**
 	 * Material search using value help dialog
 	 */
-	handleMaterialSearchValueHelpRequest : function(oEvent){
+	/*handleMaterialSearchValueHelpRequest : function(oEvent){
 		
 		
         
@@ -2098,15 +2098,25 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	      oValueHelpDialog.theTable.bindRows("/"); 
 	      
 	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
-	        advancedMode:  false, 
-	        
-	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField({enableClear : "true"})})],
-	          search: function() {
-	          sap.m.MessageToast.show("Search pressed");
-	        }
+	        advancedMode:  false, 	        
+	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField({enableClear : "true"})}), new sap.ui.comp.filterbar.FilterItem({ name: "s2", control: new sap.m.Button ({icon : "sap-icon://sys-find"})})],
 	      }));      
 	      
 	      oValueHelpDialog.open();
 		
-	}
+	}*/
+	handleMaterialSearchValueHelpRequest : function (oController) {
+		 
+		    // create value help dialog
+		    if (!this._valueHelpDialog) {
+		      this._valueHelpDialog = sap.ui.xmlfragment(
+		        "dia.cmc.contractlandscape.fragment.amendment.AddPriceHelper",
+		        this
+		      );
+		      this.getView().addDependent(this._valueHelpDialog);
+		    }		    
+		    
+		    // open value help dialog
+		    this._valueHelpDialog.open();
+		  },
 });
