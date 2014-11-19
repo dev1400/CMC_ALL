@@ -2038,16 +2038,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
         this.theTokenInput= sap.ui.getCore().byId("multiInput");
 
 	    this.aKeys= ["MaterialNo", "MaterialDescription"];
-
-	    var token1= new sap.m.Token({key: "0001", text:"SAP A.G. (0001)"});
-	    var token2= new sap.m.Token({key: "0002", text: "SAP Labs India (0002)"});
-	    var rangeToken1= new sap.m.Token({key: "i1", text: "ID: a..z"}).data("range", { "exclude": false, "operation": "BT", "keyField": "MaterialNo", "value1": "a", "value2": "z"});
-	    var rangeToken2= new sap.m.Token({key: "i2", text: "ID: =foo"}).data("range", { "exclude": false, "operation": "EQ", "keyField": "MaterialNo", "value1": "foo", "value2": ""});
-	    var rangeToken3= new sap.m.Token({key: "e1", text: "ID: !(=foo)"}).data("range", { "exclude": true, "operation": "EQ", "keyField": "MaterialNo", "value1": "foo", "value2": ""});
-	    this.aTokens= [token1, token2, rangeToken1, rangeToken2, rangeToken3];
 	    
-	    /*this.theTokenInput.setTokens(this.aTokens);*/
-
 	    this.aItems= [{MaterialNo: "0001", MaterialDescription: "SAP A.G.", UOM: "Walldorf", NumberOfTests:"1"},
 	                   {MaterialNo: "0002", MaterialDescription: "SAP Laps India", UOM: "Bangalore", NumberOfTests:"2"},
 	                   {MaterialNo: "0003", MaterialDescription: "SAP China LAB", UOM: "Beijing", NumberOfTests:"3"},
@@ -2060,10 +2051,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	                   {MaterialNo: "0106", MaterialDescription: "SAP7", UOM: "Berlin", NumberOfTests:"10"},
 	                  
 	                   ];
-	        
-	    
-        
-		
 		var that= this;
 	    
 		 var oValueHelpDialog = new sap.ui.comp.valuehelpdialog.ValueHelpDialog({
@@ -2109,36 +2096,17 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	      oRowsModel.setData(this.aItems);
 	      oValueHelpDialog.setModel(oRowsModel);
 	      oValueHelpDialog.theTable.bindRows("/"); 
-	    
-	     /* oValueHelpDialog.setKey(this.aKeys[0]);
-	      oValueHelpDialog.setKeys(this.aKeys);
-
-	      oValueHelpDialog.setRangeKeyFields([{label: "Material No", key: "MaterialNo"}, {label : "Material Description", key:"MaterialDescription"}]); 
-
-*/	      //oValueHelpDialog.setUpdateSingleRowCallback( function(sKey, fncCallback) {} );
-	        
-	     /* oValueHelpDialog.setTokens(this.aTokens);      */
-	   
 	      
 	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
 	        advancedMode:  false, 
 	        
 	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField({enableClear : "true"})})],
-	        /*filterGroupItems: [new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n1", label: "Material No", control: new sap.m.Input()}),
-	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n2", label: "Material Description", control: new sap.m.Input()}),
-	                           new sap.ui.comp.filterbar.FilterGroupItem({ groupTitle: "foo", groupName: "gn1", name: "n3", label: "No. of Tests", control: new sap.m.Input()})],*/
-	        search: function() {
+	          search: function() {
 	          sap.m.MessageToast.show("Search pressed");
 	        }
 	      }));      
-	          
-	     /* if (this.theTokenInput.$().closest(".sapUiSizeCompact").length > 0) { // check if the Token field runs in Compact mode
-	        oValueHelpDialog.addStyleClass("sapUiSizeCompact");
-	      }*/
 	      
 	      oValueHelpDialog.open();
-
-
 		
 	}
 });
