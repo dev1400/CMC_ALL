@@ -69,7 +69,7 @@
 		</content>
 
 		<beginButton>
-			<Button icon="sap-icon://sys-cancel" press="handleProductSelectDialogClosePress" />
+			<Button icon="sap-icon://decline" press="handleProductSelectDialogClosePress" />
 		</beginButton>
 	</Dialog>	
 </core:FragmentDefinition>
