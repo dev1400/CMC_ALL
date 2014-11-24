@@ -16,7 +16,7 @@
 							</layout:MatrixLayoutCell>
 							<layout:MatrixLayoutCell vAlign="Middle"
 								hAlign="Center" rowSpan="1" colSpan="1">
-								<Input type="Text" placeholder="" />
+								<Input id="idMaterialNumber" type="Text" placeholder="" />
 							</layout:MatrixLayoutCell>
 							<layout:MatrixLayoutCell vAlign="Middle"
 								hAlign="Left" rowSpan="1" colSpan="1">
@@ -24,23 +24,24 @@
 							</layout:MatrixLayoutCell>
 							<layout:MatrixLayoutCell vAlign="Middle"
 								hAlign="Left" rowSpan="1" colSpan="1">
-								<Input type="Text" placeholder="" />
+								<Input id="idMaterialDescription" type="Text" placeholder="" />
 							</layout:MatrixLayoutCell>
 							<layout:MatrixLayoutCell vAlign="Middle"
 								hAlign="Left" rowSpan="1" colSpan="1">
-								<Button icon="sap-icon://sys-find" />
+								<Button icon="sap-icon://sys-find" tooltip="{i18n>MaterialSearch}" press="handleMaterialSearchButtonPress"/>
 							</layout:MatrixLayoutCell>
 						</layout:MatrixLayoutRow>
 					</layout:MatrixLayout>
 				</contentMiddle>
 			</Bar>
-			<Table>
+			<Table id="idProductSearchTable" fixedLayout="true" mode="SingleSelectMaster"
+			select="handleTableRowSelect" items="{ODataModel>/MaterialCollection}">
 				<ColumnListItem>
 					<cells>
-						<Text text="" />
-						<Text text="" />
-						<Text text="" />
-						<Text text="" />
+						<Text text="{MaterialNo}" />
+						<Text text="{MaterialDesc}" />
+						<Text text="{Uom}" />
+						<Text text="{NoOfTests}" />
 					</cells>
 				</ColumnListItem>
 				<columns>
@@ -69,7 +70,7 @@
 		</content>
 
 		<beginButton>
-			<Button icon="sap-icon://decline" press="handleProductSelectDialogClosePress" />
+			<Button icon="sap-icon://decline" tooltip="{i18n>Cancel}" press="handleProductSelectDialogClosePress" />
 		</beginButton>
 	</Dialog>	
 </core:FragmentDefinition>

@@ -2058,83 +2058,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
     /*******************************************************************************
      * End - Other Code
      ******************************************************************************/
+    
     /**
      * Material search using value help dialog
-     */
-    /*handleMaterialSearchValueHelpRequest : function(oEvent){
-		
-		
-        
-        this.theTokenInput= sap.ui.getCore().byId("multiInput");
-
-	    this.aKeys= ["MaterialNo", "MaterialDescription"];
-	    
-	    this.aItems= [{MaterialNo: "0001", MaterialDescription: "SAP A.G.", UOM: "Walldorf", NumberOfTests:"1"},
-	                   {MaterialNo: "0002", MaterialDescription: "SAP Laps India", UOM: "Bangalore", NumberOfTests:"2"},
-	                   {MaterialNo: "0003", MaterialDescription: "SAP China LAB", UOM: "Beijing", NumberOfTests:"3"},
-	                   {MaterialNo: "0100", MaterialDescription: "SAP1", UOM: "Berlin", NumberOfTests:"4"},
-	                   {MaterialNo: "0101", MaterialDescription: "SAP2", UOM: "Berlin", NumberOfTests:"5"},
-	                   {MaterialNo: "0102", MaterialDescription: "SAP3", UOM: "Berlin", NumberOfTests:"6"},
-	                   {MaterialNo: "0103", MaterialDescription: "SAP4", UOM: "Berlin", NumberOfTests:"7"},
-	                   {MaterialNo: "0104", MaterialDescription: "SAP5", UOM: "Berlin", NumberOfTests:"8"},
-	                   {MaterialNo: "0105", MaterialDescription: "SAP6", UOM: "Berlin", NumberOfTests:"9"},
-	                   {MaterialNo: "0106", MaterialDescription: "SAP7", UOM: "Berlin", NumberOfTests:"10"},
-	                  
-	                   ];
-		var that= this;
-	    
-		 var oValueHelpDialog = new sap.ui.comp.valuehelpdialog.ValueHelpDialog({
-		      basicSearchText: this.theTokenInput.getValue(),		     
-		      title : "Product",
-		      modal: true,
-		      supportMultiselect: false,
-		      supportRanges: false,
-		      supportRangesOnly: false,
-		      key: this.aKeys[0],        
-		      descriptionKey: this.aKeys[1],
-
-		      ok: function(oControlEvent) {
-		        that.aTokens = oControlEvent.getParameter("tokens");
-		        that.theTokenInput.setTokens(that.aTokens);
-
-		        oValueHelpDialog.close();
-		      },
-
-		      cancel: function(oControlEvent) {
-		        sap.m.MessageToast.show("Cancel pressed!");
-		        oValueHelpDialog.close();
-		      },
-
-		      afterClose: function() {
-		        oValueHelpDialog.destroy();
-		      }
-		    });
-
-	      var oColModel = new sap.ui.model.json.JSONModel();
-	      oColModel.setData({
-	        cols: [
-	                {label: "Material No", template: "MaterialNo"},
-	                {label: "Material Description", template: "MaterialDescription"},
-	                {label: "UOM", template: "UOM"},
-	                {label: "No. of Tests", template: "NumberOfTests"}
-	              ]
-	      });
-	      oValueHelpDialog.setModel(oColModel, "columns");
-
-	      
-	      var oRowsModel = new sap.ui.model.json.JSONModel();
-	      oRowsModel.setData(this.aItems);
-	      oValueHelpDialog.setModel(oRowsModel);
-	      oValueHelpDialog.theTable.bindRows("/"); 
-	      
-	      oValueHelpDialog.setFilterBar(new sap.ui.comp.filterbar.FilterBar({
-	        advancedMode:  false, 	        
-	        filterItems: [new sap.ui.comp.filterbar.FilterItem({ name: "s1", control: new sap.m.SearchField({enableClear : "true"})}), new sap.ui.comp.filterbar.FilterItem({ name: "s2", control: new sap.m.Button ({icon : "sap-icon://sys-find"})})],
-	      }));      
-	      
-	      oValueHelpDialog.open();
-		
-	}*/
+     */   
     handleMaterialSearchValueHelpRequest: function(oController) {
 
         // create value help dialog
@@ -2154,5 +2081,25 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
      */
     handleProductSelectDialogClosePress: function(oEvent) {
         this._productSelectDialog.close();
+    },
+    /**
+     * Search materials with in Table.
+     */
+    handleMaterialSearchButtonPress: function(oEvent){
+    	var oMaterialNumberInput = sap.ui.getCore().byId("idMaterialNumber");
+    	var oMaterialDescriptionInput = sap.ui.getCore().byId("idMaterialDescription");
+    		
+    	var oTable = sap.ui.getCore().byId("idProductSearchTable");
+    	var oBinding = oTable.getBinding("items");
+    		
+    	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
+    			 new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()) ]);
+    	
+    },
+    /**
+     * Select material with in Table.
+     */
+    handleTableRowSelect: function(oEvent){
+    	
     }
 });
