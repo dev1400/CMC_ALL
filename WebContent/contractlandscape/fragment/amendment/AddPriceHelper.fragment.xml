@@ -38,10 +38,10 @@
 			select="handleTableRowSelect" items="{ODataModel>/MaterialCollection}">
 				<ColumnListItem>
 					<cells>
-						<Text text="{MaterialNo}" />
-						<Text text="{MaterialDesc}" />
-						<Text text="{Uom}" />
-						<Text text="{NoOfTests}" />
+						<Text text="{ODataModel>MaterialNo}" />
+						<Text text="{ODataModel>MaterialDesc}" />
+						<Text text="{ODataModel>Uom}" />
+						<Text text="{ODataModel>NoOfTests}" />
 					</cells>
 				</ColumnListItem>
 				<columns>
