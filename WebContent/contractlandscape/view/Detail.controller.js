@@ -2099,7 +2099,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
     /**
      * Select material with in Table.
      */
-    handleTableRowSelect: function(oEvent){
+    handleTableRowSelect: function(oEvent) {
     	
+    	console.dir(oEvent.getSource().getParent().getBindingContext());
+
     }
 });

@@ -36,7 +36,7 @@
 			</Bar>
 			<Table id="idProductSearchTable" fixedLayout="true" mode="SingleSelectMaster"
 			select="handleTableRowSelect" items="{ODataModel>/MaterialCollection}">
-				<ColumnListItem>
+				<ColumnListItem type="Active">
 					<cells>
 						<Text text="{ODataModel>MaterialNo}" />
 						<Text text="{ODataModel>MaterialDesc}" />
