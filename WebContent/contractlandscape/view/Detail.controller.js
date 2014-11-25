@@ -2096,8 +2096,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
             if (oMaterialNumberInput.getValue() !== "" && oMaterialDescriptionInput.getValue() !== "") {
                 if (isANumber.test(oMaterialNumberInput.getValue())) {
-                    oBinding.filter([new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()),
-                        new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),
+                    oBinding.filter([/*new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()),
+                        new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),*/
                         new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
                     ]);
 
@@ -2113,7 +2113,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
                     sap.m.MessageToast.show(this.ModelHelper.getText("MaterialNumberValidationInProductSearch"));
                 }
             } else {
-                oBinding.filter([new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),
+                oBinding.filter([/*new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),*/
                     new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
                 ]);
             }
