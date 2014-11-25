@@ -2,7 +2,7 @@
 	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.commons.layout">
 
 	<Dialog title="{i18n>SelectProduct}" class="sapUiPopupWithPadding"
-		stretchOnPhone="true">
+		stretchOnPhone="true" contentWidth="60%" contentHeight="45%">
 		
 		<content>
 			<Bar design="Header">
