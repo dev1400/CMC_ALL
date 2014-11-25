@@ -2058,10 +2058,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
     /*******************************************************************************
      * End - Other Code
      ******************************************************************************/
-    
+
     /**
      * Material search using value help dialog
-     */   
+     */
     handleMaterialSearchValueHelpRequest: function(oController) {
 
         // create value help dialog
@@ -2085,25 +2085,54 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
     /**
      * Search materials with in Table.
      */
-    handleMaterialSearchButtonPress: function(oEvent){
-    	var oMaterialNumberInput = sap.ui.getCore().byId("idMaterialNumber");
-    	var oMaterialDescriptionInput = sap.ui.getCore().byId("idMaterialDescription");
-    		
-    	var oTable = sap.ui.getCore().byId("idProductSearchTable");
-    	var oBinding = oTable.getBinding("items");
-    		
-    	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
-    			 new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()) ]);
-    	
+    handleMaterialSearchButtonPress: function(oEvent) {
+        var oMaterialNumberInput = sap.ui.getCore().byId("idMaterialNumber");
+        var oMaterialDescriptionInput = sap.ui.getCore().byId("idMaterialDescription");
+        var isANumber = new RegExp('^[0-9]+$');
+        var oTable = sap.ui.getCore().byId("idProductSearchTable");
+        var oBinding = oTable.getBinding("items");
+
+        if (oMaterialNumberInput.getValue() !== "" || oMaterialDescriptionInput.getValue() !== "") {
+
+            if (oMaterialNumberInput.getValue() !== "" && oMaterialDescriptionInput.getValue() !== "") {
+                if (isANumber.test(oMaterialNumberInput.getValue())) {
+                    oBinding.filter([new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()),
+                        new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),
+                        new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
+                    ]);
+
+                } else {
+                    sap.m.MessageToast.show(this.ModelHelper.getText("MaterialNumberValidationInProductSearch"));
+                }
+            } else if (oMaterialNumberInput.getValue() !== "" && oMaterialDescriptionInput.getValue() === "") {
+                if (isANumber.test(oMaterialNumberInput.getValue())) {
+                    oBinding.filter([ /*new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()),*/
+                        new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
+                    ]);
+                } else {
+                    sap.m.MessageToast.show(this.ModelHelper.getText("MaterialNumberValidationInProductSearch"));
+                }
+            } else {
+                oBinding.filter([new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),
+                    new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
+                ]);
+            }
+        } else {
+            sap.m.MessageToast.show(this.ModelHelper.getText("ProductSearchValidation"));
+        }
     },
     /**
      * Select material with in Table.
      */
     handleTableRowSelect: function(oEvent) {
-    	
-    	console.dir(oEvent.getParameter("listItem").getBindingContext());
-    	
-//    	console.dir(oEvent.getSource().getBindingContext());
+
+        var oContext = oEvent.getParameter("listItem").getBindingContext("ODataModel");
+        var oODataModel = this.getView().getModel("ODataModel");
+        var oSelectedProduct = oODataModel.getProperty(oContext.getPath());
+        var oInput = sap.ui.getCore().byId("idProductSearch");
+        oInput.setValue(oSelectedProduct.MaterialNo);
+
+        this.handleAmendPopupClose(oEvent);
 
     }
 });
