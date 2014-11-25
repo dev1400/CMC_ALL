@@ -2093,7 +2093,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
     	var oBinding = oTable.getBinding("items");
     		
     	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
-    			 new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()) ]);
+    			 new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()) ]);
     	
     },
     /**
@@ -2101,7 +2101,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
      */
     handleTableRowSelect: function(oEvent) {
     	
-    	console.dir(oEvent.getSource().getParent().getBindingContext());
+    	console.dir(oEvent.getParameter("listItem").getBindingContext());
+    	
+//    	console.dir(oEvent.getSource().getBindingContext());
 
     }
 });
