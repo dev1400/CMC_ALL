@@ -7,9 +7,6 @@ jQuery.sap.require("sap.ui.commons.Label");
 jQuery.sap.require("sap.ui.commons.SearchField");
 jQuery.sap.require("sap.ui.table.Table");
 jQuery.sap.require("sap.m.MessageBox");
-jQuery.sap.require("sap.ui.core.util.Export");
-jQuery.sap.require("sap.ui.core.util.ExportTypeCSV");
-
 sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     onInit: function() {
 
@@ -25,7 +22,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         };
         this._oAmendmentIdforCancellation = null;
         this._oDealIdforCancellation = null;
-        this._oBinding = null;
 
         // Model Helper reference
         this.ModelHelper = dia.cmc.common.helper.ModelHelper;
@@ -141,9 +137,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
                     .EQ, "RELE")
             ]);
         }
-        
-        this._oBinding = oBinding;
-        
     },
     /**
      * Navigate to Deal Detail.
@@ -342,19 +335,11 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Generate Excel report
      */
-    handleDownLoadToExcelButtonPress: sap.m.Table.prototype.exportData || function() {
-    
-    	var oFilteredAmendments = [];
-    	oFilteredAmendments = this._oTable.getBinding("items").getContexts();    		
-    	var oAmendmentsAsObjects = [];
-    		
-    	for (var i = 0; i < oFilteredAmendments.length; i++) {
-    		oAmendmentsAsObjects[i] = this._oTable.getBinding("items").getContexts()[i].getObject();    	  
-    	}
-    	
-    	this.CommonController.JSONToCSVConvertor(JSON.stringify(oAmendmentsAsObjects),
-    	            this.ModelHelper.getText("ContractsInAmendmentReport"), true);
+    handleDownLoadToExcelButtonPress: function() {
+
+        this.CommonController.JSONToCSVConvertor(this._oTable.getBinding("items").oModel.oData.DealsInAmendmentCollection,
+            this.ModelHelper.getText("ContractsInAmendmentReport"), true);
+
     }
-   
 
 });

@@ -77,7 +77,7 @@
 
 						</Input>
 
-						<Label text="{i18n>Qty}" />
+						<Label text="{i18n>MonthlyQty}" />
 
 						<Input id="idCAQty" type="Number"
 							value="{DealDetailModel>/NewCommitmentItem/Quantity}">

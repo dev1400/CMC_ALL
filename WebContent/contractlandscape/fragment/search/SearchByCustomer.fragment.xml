@@ -31,7 +31,6 @@
 				<HBox justifyContent="SpaceBetween" alignItems="Center">
 				
 					<ComboBox id="idCustomerCountry" placeholder="{i18n>CountryPlaceHolder}"
-						selectedKey="{DefaultParameters>/CountryKey}"
 						selectionChange="handleCustomerCountryChange">
 						<core:ListItem key="{ODataModel>CountryKey}" text="{ODataModel>CountryName}" />
 					</ComboBox>

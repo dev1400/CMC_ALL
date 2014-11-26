@@ -36,6 +36,7 @@
 						<HBox justifyContent="SpaceBetween" alignItems="Center">
 
 							<ComboBox id="idAdvanceCustomerCountry" placeholder="{i18n>CountryPlaceHolder}"
+								selectedKey="{DefaultParameters>/CountryKey}"
 								selectionChange="handleAdvanceCustomerCountryChange">
 								<core:ListItem key="{ODataModel>CountryKey}" text="{ODataModel>CountryName}" />
 							</ComboBox>
@@ -91,7 +92,7 @@
 								<Label text="{i18n>DealMasterDescr}" />
 								<Input id="idAdvanceDealMasterDescr" placeholder="{i18n>CommonPlaceHolder}"/>
 								
-								<CheckBox id="idActionAtEnd" text="{i18n>ExpiryAtEnd}" />
+<!-- 								<CheckBox id="idActionAtEnd" text="{i18n>ExpiryAtEnd}" /> -->
 
 								<CheckBox id="idAdvanceValidDeals" text="{i18n>ValidDeals}"
 									selected="true" select="handleAdvanceValidDetailSelect" />

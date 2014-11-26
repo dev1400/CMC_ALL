@@ -8,6 +8,13 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Empty", {
 
 	onInit : function () {
 		this._animate(1, true);
+		
+//		// Common Controller reference
+//		this.CommonController = dia.cmc.common.helper.CommonController;
+//
+//		// Attached event handler for route match event
+//		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
+//		
 	},
 
 	onBeforeRendering: function() {
@@ -15,6 +22,18 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Empty", {
 //		this._animate(1, true);
 	},
 
+	
+//	/** Event handler for Route Matched event 
+//	 * It will check for deal id and if available, reads the deal details
+//	 * @param oEvent
+//	 */
+//	handleRouteMatched : function(oEvent) {
+//		
+//		if (oEvent.getParameter("name") === "catchallDetail") {		// check route name
+//
+//			this.CommonController.IsDefaultDetailVisi = true;
+//		}
+//	},
 	
 	_animate : function (level, forward) {
 

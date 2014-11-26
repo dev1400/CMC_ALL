@@ -12,14 +12,17 @@ dia.cmc.common.helper.CommonController = {
 
 	// Model Helper reference
 	ModelHelper : dia.cmc.common.helper.ModelHelper,
-		
+	
+
+	
 	/** Close the popup window
 	 * @param oEvent
 	 */
 	closePopupWindow : function(oEvent) {
+		
 		oEvent.getSource().getParent().close();
+		
 	},
-
 
 	
 	/** Validate the Amendment inputs
@@ -74,7 +77,7 @@ dia.cmc.common.helper.CommonController = {
 
 			if (el.mandatory === true) {
 
-				if (!el.value) {
+				if (!el.value || el.value <= 0) {
 					oControl.setValueState("Error");
 					bCanContinue = false;
 					
@@ -136,6 +139,7 @@ dia.cmc.common.helper.CommonController = {
 		return sap.ui.core.UIComponent.getRouterFor(oView);
 	},
 	
+	
 	getBrowserLanguage : function(){
 		var sLang = null;
 		
@@ -175,6 +179,30 @@ dia.cmc.common.helper.CommonController = {
 		// return the control itself (makes this function a decorator function)
 		return oControl;
 	},
+	
+//	/**
+//	 * Open busy dialog
+//	 */
+//	openBusyDialog: function (){
+//		
+//		if (!this._busyDialog) {
+//			this._busyDialog = new sap.ui.xmlfragment(
+//					"idBusydialog", "dia.cmc.common.fragment.BusyDialog",
+//					this);
+//
+//			this.getView().addDependent(this._busyDialog);
+//		}
+//
+//		this._busyDialog.open();
+//	},
+//	
+//	/**
+//	 * Close busy dialog
+//	 */
+//	closeBusyDialog: function(){
+//		this._busyDialog.close();
+//	},
+	
 	/**
      * Generate Excel file using JSON data.
      */
@@ -183,7 +211,10 @@ dia.cmc.common.helper.CommonController = {
         //If JSONData is not an object then JSON.parser will parse the JSON string in an Object
         var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
 
-        var CSV = '';      
+        var CSV = '';
+        //Set Report title in first row or line
+
+        CSV += ReportTitle + '\r\n\n';
 
         //This condition will generate the Label/Header
         if (ShowLabel) {

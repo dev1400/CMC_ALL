@@ -10,7 +10,11 @@ jQuery.sap.require("sap.m.MessageBox");
 
 sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
-	_bLoadingDealListPending : false,
+//	// flag to indicate deal list loading is pending
+//	_bLoadingDealListPending : false,
+
+	// Flag to indicate whether default detail screen is visible or not
+	_isDefaultDetailVisi: false,
 	
 	/***************************************************************************
 	 * Start - Initialization and Loading Data related code
@@ -18,6 +22,27 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	
 	onInit : function(oEvent) {
 
+//		$(window).bind( 'pageshow', function( event ){
+////			   if( event.persisted ) {
+////				   alert('Reloading');
+////			      window.location.reload();
+////			   }
+//			
+//			alert("pageshow");
+//			console.log("pageshow");
+//			
+//			});
+//		
+//		$(window).bind('load', function() {
+//			alert("Load");
+//			console.log("Load Event");
+//		});
+//		
+//		$(document).ready(function() {
+//			alert("Ready");
+//			console.log("Ready Event");
+//		});
+		
 		// Model Helper reference
 		this.ModelHelper = dia.cmc.common.helper.ModelHelper;		
 
@@ -118,40 +143,110 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	/** Load check user default values, if available load Deal collection or ask user to select the default values
 	 */
 	_loadInitialData : function (oEvent){
-		// Read user default parameters
-		var oDefaultParameters = this.ModelHelper.readDefaultParameters();
 		
-		// if not available, ask user to select it
-		if ( oDefaultParameters.MessageType === "E"){	
+		// Read user default parameters
+		var oRequestFinishedDeferred = this.ModelHelper.readDefaultParameters();
+
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDefaultParameters) {
 			
-			// Set the flag to indicate loading deal list is still pending
-			this._bLoadingDealListPending = true;
-			
-			// Open user default parameter popup
-			this.handleDefaultParameterPopup(oEvent);
-		}
-		else{
-			// Create model and bind it to view
-			var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
-			this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
-			
-			//Read Deal Collection and bind it to View
-			this._bindDealCollectionModel(null);
-		}
+			// if not available, ask user to select it
+			if ( oDefaultParameters.MessageType === "E"){	
+				
+//				// Set the flag to indicate loading deal list is still pending
+//				this._bLoadingDealListPending = true;
+				
+				// Open user default parameter popup
+				this.handleDefaultParameterPopup(oEvent);
+			}
+			else{
+				// Create model and bind it to view
+				var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
+				this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
+				
+				//Read Deal Collection and bind it to View
+				this._readAndBindDealCollection(null);
+			}
+		
+		}, this));
+
 	},
 	
 	/** Read deal collection and bind model to view
 	 */
-	_bindDealCollectionModel : function (sFilter){
+	_readAndBindDealCollection : function (sFilter,oEvent,bClosePopup){
 		//Read Deal Collection and bind it to View
 		
 //		var oDealCollectionModel = this.getView().getModel();
-			
-		var oDealCollectionModel = this.ModelHelper.readDealCollection(sFilter);
-		this.getView().setModel(oDealCollectionModel);
+		var oSearchButtonEvent = jQuery.extend({}, oEvent);
 		
-		var oDealList = this.getView().byId("idDealList");
-		oDealList.setModel(oDealCollectionModel);
+		var oRequestFinishedDeferred = this.ModelHelper.readDealCollection(sFilter);
+		
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDealCollectionModel) {
+		
+			var sMsg = "";
+			
+			if(oDealCollectionModel.getData().DealCollection.length > 0){	// Some Deals found 
+				
+				// Set model to view
+				this.getView().setModel(oDealCollectionModel);
+				
+				// Set model to List control
+				var oDealList = this.getView().byId("idDealList");
+				oDealList.setModel(oDealCollectionModel);
+				  
+				// If Search popup is open, close it
+				if(bClosePopup){
+					
+					this.handleSearchPopupClose(oSearchButtonEvent);
+					
+					// Show default screen and remove selection
+					this._showDefaultDetailView();
+					
+//					// Get List UI element reference and remove the selected deals
+//					var oDealList = this.getView().byId("idDealList");
+//					oDealList.removeSelections(true);
+//					
+//					// Display default empty page
+//					if(!sap.ui.Device.system.phone){
+//						this.CommonController.getRouter(this).navTo("empty", {
+//							from: "master",
+//						}, false);
+//					}
+				
+					sMsg = 'Deal Contracts are filtered';
+				}
+			}else{
+				sMsg = 'No Deal Contract found';
+			}
+			
+			// Show message
+			if(sMsg != ""){
+				sap.m.MessageToast.show(sMsg);	
+			}
+			
+		}, this));
+	},
+	
+	/**
+	 * Show default screen in Detail area and remove item selection from Master Deal List control
+	 */
+	_showDefaultDetailView: function(){
+
+		if(!this._isDefaultDetailVisi){ // Check if default detail screen is already displayed
+			// Get List UI element reference and remove the selected deals
+			var oDealList = this.getView().byId("idDealList");
+			oDealList.removeSelections(true);
+			
+			// Display default empty page
+			if(!sap.ui.Device.system.phone){
+				this.CommonController.getRouter(this).navTo("empty", {
+					from: "master",
+				}, false);
+			}
+			
+			this._isDefaultDetailVisi = true;
+			
+		}
 	},
 	
 	/***************************************************************************
@@ -186,6 +281,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		var binding = oDealList.getBinding("items");
 		binding.filter(filters);
 
+		// Show default screen and remove selection
+		this._showDefaultDetailView();
+		
 	},
 
 //	hideMaster : function (oEvent) {
@@ -280,33 +378,42 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		if (canContinue == false) // Validation failed, return
 			return;
 		
+		var oButtonEvent = jQuery.extend({}, oEvent);
+		
 		// Get user default parameters
 		var oDefaultParameters = this.getView().getModel("DefaultParameters");
 
 		// Update default parameters to SAP
-		oDefaultParameters = this.ModelHelper.updateDefaultParameters(oDefaultParameters.getData());
+		var oRequestFinishedDeferred = this.ModelHelper.updateDefaultParameters(oDefaultParameters.getData());
 
-		// Display message and close popup window if update is successful
-		if (oDefaultParameters.MessageType != "E") { 
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDefaultParameters) {
 			
-			sap.m.MessageToast.show(oDefaultParameters.Message);	
-			this.CommonController.closePopupWindow(oEvent);
-			
-			// Load deal collection if it is still pending
-			if(this._bLoadingDealListPending === true){
-
-				//Read Deal Collection and bind it to View
-				this._bindDealCollectionModel(null);
+			// Display message and close popup window if update is successful
+			if (oDefaultParameters.MessageType != "E") { 
 				
-				this._bLoadingDealListPending = false;
+				sap.m.MessageToast.show(oDefaultParameters.Message);	
+				this.CommonController.closePopupWindow(oButtonEvent);
+				
+//				// Load deal collection if it is still pending
+//				if(this._bLoadingDealListPending === true){
+	
+				//Read Deal Collection and bind it to View
+				this._readAndBindDealCollection(null);
+					
+				// Show default screen and remove selection if no search result found
+				this._showDefaultDetailView();
+				
+//					this._bLoadingDealListPending = false;
+//				}
 			}
-		}
-		else{
-			// Display Error message 
-			sap.m.MessageBox.alert(oDefaultParameters.Message, {
-				title : this.ModelHelper.getText("UpdateResult")
-			});
-		}
+			else{
+				// Display Error message 
+				sap.m.MessageBox.alert(oDefaultParameters.Message, {
+					title : this.ModelHelper.getText("UpdateResult")
+				});
+			}
+
+		}, this));
 	},
 	
 	/***************************************************************************
@@ -361,6 +468,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 			dealId: oDealDetail.DealId,
 		}, bReplace);
 		
+		// Now default detail screen is hidden so set the flag to false
+		this._isDefaultDetailVisi = false;
 		
 	},
 
@@ -414,6 +523,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		var oDealList = this.getView().byId("idDealList");
 		var oBinding = oDealList.getBinding("items");
 		oBinding.filter(oFilters);  
+		
+		// Show default detail screen and remove item selection from master deal list
+		this._showDefaultDetailView();
 	},
 
 
@@ -446,8 +558,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	// Event Handler for Search by Customer button. It will open Search by Customer popup window
 	handleSearchByCustomerPopup : function (oEvent){
 
-		// create Search By Customer popup only once
-		if (!this._searchByCustomer) {
+		// Destroy popup if its already there
+		if (this._searchByCustomer) {
+			this._searchByCustomer.destroy(true);
+		}
+		
+//		if (!this._searchByCustomer) {
 			this._searchByCustomer = new sap.ui.xmlfragment(
 					"dia.cmc.contractlandscape.fragment.search.SearchByCustomer",
 					this
@@ -457,7 +573,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 			// Bind CountryCollection path to ComboBox
 			this._bindCountryList("idCustomerCountry");
-		}
+			
+			// Fire country change event because default value is set for country
+			this.handleCustomerCountryChange(oEvent);
+//		}
 
 		this._searchByCustomer.open();
 
@@ -466,15 +585,19 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	//Event Handler for Search by Instrument button. It will open Search by Instrument popup window
 	handleSearchByInstrumentPopup : function (oEvent){
 
-		// create Search by Instrument popup only once
-		if (!this._searchByInstrument) {
+		// Destroy popup if its already there
+		if (this._searchByInstrument) {
+			this._searchByInstrument.destroy(true);
+		}
+		
+//		if (!this._searchByInstrument) {
 			this._searchByInstrument = new sap.ui.xmlfragment(
 					"dia.cmc.contractlandscape.fragment.search.SearchByInstrument",
 					this
 			);
 
 			this.getView().addDependent(this._searchByInstrument);
-		}
+//		}
 
 		this._searchByInstrument.open();
 
@@ -483,15 +606,19 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	// Event Handler for Search by References button. It will open Search by Reference popup window
 	handleSearchByReferencesPopup : function (oEvent){
 
-		// create Search by Instrument popup only once
-		if (!this._searchByReferences) {
+		// Destroy popup if its already there
+		if (this._searchByReferences) {
+			this._searchByReferences.destroy(true);
+		}
+		
+//		if (!this._searchByReferences) {
 			this._searchByReferences = new sap.ui.xmlfragment(
 					"dia.cmc.contractlandscape.fragment.search.SearchByReferences",
 					this
 			);
 
 			this.getView().addDependent(this._searchByReferences);
-		}
+//		}
 
 		this._searchByReferences.open();
 
@@ -500,8 +627,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	// Event Handler for Advance Search button. It will open Advance Search popup window
 	handleAdvanceSearchPopup : function (oEvent){
 
-		// create Advance Search popup only once
-		if (!this._advanceSearch) {
+		// Destroy popup if its already there
+		if (this._advanceSearch) {
+			this._advanceSearch.destroy(true);
+		}
+		
+//		if (!this._advanceSearch) {
 			this._advanceSearch = new sap.ui.xmlfragment(
 					"dia.cmc.contractlandscape.fragment.search.AdvanceSearch",
 					this
@@ -511,8 +642,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 			// Bind CountryCollection path to ComboBox
 			this._bindCountryList("idAdvanceCustomerCountry");
+			
+			// Fire country change event because default value is set for country
+			this.handleAdvanceCustomerCountryChange(oEvent);
 
-		}
+//		}
 
 		this._advanceSearch.open();
 
@@ -541,7 +675,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 ////		var oDealCollectionModel = this.ModelHelper.readDealCollection(null);
 ////		this.getView().setModel(oDealCollectionModel);
 //
-//		this._bindDealCollectionModel(null);
+//		this._readAndBindDealCollection(null);
 //		
 //		// Make sure no item is selected
 //		var oDealList = this.getView().byId("idDealList");
@@ -564,8 +698,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		var sFilter = "IsFavorite eq 'X'";
 
 		// call backend search method to search Deal records and bind the model
-		this._backendSearch(sFilter);
+		this._backendSearch(oEvent, sFilter);
 
+		// Show default screen and remove selection even if no search result found
+		this._showDefaultDetailView();
+		
 	},
 
 	
@@ -577,7 +714,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 //		var sFilter = "IsFlagged eq 'X'";
 //
 //		// call backend search method to search Deal records and bind the model
-//		this._backendSearch(sFilter);
+//		this._backendSearch(oEvent, sFilter);
 //
 //	},
 //	
@@ -593,7 +730,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 //		var sFilter = this._buildFilterString(oControlList);
 //
 //		// call backend search method to search Deal records and bind the model
-//		this._backendSearch(sFilter);
+//		this._backendSearch(oEvent, sFilter);
 //
 //	},
 //	
@@ -605,14 +742,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 //		var sFilter = "IsFavorite eq 'X'";
 //
 //		// call backend search method to search Deal records and bind the model
-//		this._backendSearch(sFilter);
+//		this._backendSearch(oEvent, sFilter);
 //
 //	},
 	
 	// Event Handler for Search by Customer button. It will list all the Deal Contracts by Customer search critera
 	handleSearchByCustomer : function (oEvent){
-
-		// Standard OData Filter object array is not working, so created Filter string manually.
 
 		// Prepare the Array with required values
 		var oControlList = [{id:"idCustomerNumber", 	uiType:"TB",	dataType:"S", 	value:"", 	field:"CustomerNumber", 	filterString: "" },
@@ -622,7 +757,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		                    {id:"idCustomerCountry", 	uiType:"DDB",	dataType:"SK", 	value:"", 	field:"CustomerCountry", 	filterString: "" },
 		                    {id:"idCustomerValidDeals", uiType:"CB",	dataType:"B", 	value:"", 	field:"ValidDeals", 		filterString: "" },
 		                    ];
-
+		
 		// Build Filter string 
 		var sFilter = this._buildFilterString(oControlList);
 
@@ -631,18 +766,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		}
 		
 		// call backend search method to search Deal records and bind the model
-		this._backendSearch(sFilter);
+		this._backendSearch(oEvent, sFilter);
 
-		// Close Search Popup
-		this.handleSearchPopupClose(oEvent);
+//		// Close Search Popup
+//		this.handleSearchPopupClose(oEvent);
 
 	},
 
 
 	// Event Handler for Search by Instrument button. It will list all the Deal Contracts by Instrument search critera
 	handleSearchByInstrument : function (oEvent){
-
-		// Standard OData Filter object array is not working, so created Filter string manually.
 
 		// Prepare the Array with required values
 		var oControlList = [{id:"idSystemModule", 				uiType:"TB",	dataType:"S", 	value:"", 	field:"SystemModule", 				filterString: "" },
@@ -659,10 +792,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		}
 		
 		// call backend search method to search Deal records and bind the model
-		this._backendSearch(sFilter);
+		this._backendSearch(oEvent, sFilter);
 
-		// Close Search Popup
-		this.handleSearchPopupClose(oEvent);
+//		// Close Search Popup
+//		this.handleSearchPopupClose(oEvent);
 
 	},
 
@@ -670,9 +803,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 	// Event Handler for Search by References button. It will list all the Deal Contracts by Reference search critera
 	handleSearchByReferences : function (oEvent){
-
-		// Standard OData Filter object array is not working, so created Filter string manually.
-
+	
 		// Prepare the Array with required values
 		var oControlList = [{id:"idSalesforceOpportunity", 	uiType:"TB",	dataType:"S", 	value:"", 	field:"SalesforceOpportunity", 	filterString: "" },
 		                    {id:"idDealMasterPO", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"DealMasterPO", 			filterString: "" },
@@ -681,10 +812,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		                    {id:"idBillingContract", 		uiType:"TB",	dataType:"S", 	value:"", 	field:"BillingContract", 		filterString: "" },
 		                    {id:"idAgiloftAgreement", 		uiType:"TB",	dataType:"S", 	value:"", 	field:"AgiloftAgreement", 		filterString: "" },
 		                    {id:"idExternalReference", 		uiType:"TB",	dataType:"S", 	value:"", 	field:"ExternalReference", 		filterString: "" },
-		                    {id:"idRefValidDeals", 			uiType:"CB",	dataType:"B", 	value:"", 	field:"ValidDeals", 			filterString: "" },
+//		                    {id:"idRefValidDeals", 			uiType:"CB",	dataType:"B", 	value:"", 	field:"ValidDeals", 			filterString: "" },
 		                    ];
-
-	
+		
 		// Build Filter string 
 		var sFilter = this._buildFilterString(oControlList,"R");
 
@@ -693,17 +823,15 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		}
 		
 		// call backend search method to search Deal records and bind the model
-		this._backendSearch(sFilter);
+		this._backendSearch(oEvent, sFilter);
 
-		// Close Search Popup
-		this.handleSearchPopupClose(oEvent);
+//		// Close Search Popup
+//		this.handleSearchPopupClose(oEvent);
 	},
 
 
 	// Event Handler for Advance Search button. It will list all the Deal Contracts by Advance search critera
 	handleAdvanceSearch : function (oEvent){
-
-		// Standard OData Filter object array is not working, so created Filter string manually.
 
 		// Prepare the Array with required values
 		var oControlList = [{id:"idAdvanceCustomerNumber", 			uiType:"TB",	dataType:"S", 	value:"", 	field:"CustomerNumber", 		filterString: "" },
@@ -721,8 +849,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		                    {id:"idAdvanceValidFrom", 				uiType:"DR",	dataType:"DR", 	value:"", 	field:"ValidFrom", 				filterString: "" },
 		                    {id:"idAdvanceValidTo", 				uiType:"DR",	dataType:"DR", 	value:"", 	field:"ValidTo", 				filterString: "" },
 		                    ];
-
-
+		
 		// Build Filter string 
 		var sFilter = this._buildFilterString(oControlList);
 
@@ -731,10 +858,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		}
 
 		// call backend search method to search Deal records and bind the model
-		this._backendSearch(sFilter);
+		this._backendSearch(oEvent, sFilter);
 
-		// Close Search Popup
-		this.handleSearchPopupClose(oEvent);
+//		// Close Search Popup
+//		this.handleSearchPopupClose(oEvent);
 
 	},
 
@@ -868,37 +995,132 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 
 	// Methods for searching Deal records by calling OData Model Read method with filter parameter 
-	_backendSearch : function(sFilter)
+	_backendSearch : function(oEvent, sFilter)
 	{
 		//Read Deal Collection and bind it to View
-		this._bindDealCollectionModel(sFilter);
+		this._readAndBindDealCollection(sFilter,oEvent,true);
 		
-		// Display message
-		this._displaySearchMessage();
-	},
-
-
-	// Method for displalying search success message base of search result
-	_displaySearchMessage : function(){
-
-		// Get List UI element reference
-		var oDealList = this.getView().byId("idDealList");
-
-		// Get List item binding reference
-		var oBinding = oDealList.getBinding("items");
-
-		var sMsg = "";
-
-		if(oBinding.getLength() <= 0) {
-			sMsg = 'No Deal Contract found';
-		}else{
-			sMsg = 'Deal Contracts are filtered';  
-		}
-
-		sap.m.MessageToast.show(sMsg);	
+//		// Display message and close popup
+//		this._displayMessageAndClosePopup(oEvent);
+		
+//		// This is only relevant when running on phone devices
+//		this.CommonController.getRouter(this).myNavBack("main");
 
 	},
 
+
+//	// Method for displalying search success message base of search result
+//	_displayMessageAndClosePopup : function(oEvent,iDealCollectionCount){
+//	
+////		// Get List item binding reference
+////		var oBinding = oDealList.getBinding("items");
+//
+//		var sMsg = "";
+//
+////		if(oBinding.getLength() <= 0) {
+//		if(iDealCollectionCount <= 0) {
+//			sMsg = 'No Deal Contract found';
+//		}else{
+//			sMsg = 'Deal Contracts are filtered';  
+//			
+//			this.handleSearchPopupClose(oEvent);
+//			
+//			// Get List UI element reference
+//			var oDealList = this.getView().byId("idDealList");
+//			oDealList.removeSelections(true);
+//			
+//			// Display default empty page
+//			if(!sap.ui.Device.system.phone){
+//				this.CommonController.getRouter(this).navTo("empty", {
+//					from: "master",
+//				}, false);
+//			}
+//		}
+//
+//		sap.m.MessageToast.show(sMsg);	
+//
+//	},
+	
+
+//	_clearSearchFields: function(oControlList){
+//		
+//		var sFilter = "";
+//		var bAtLeastOneField = false;
+//		var bOneField = false;
+//		var bMultipleField = false;
+//		
+//		$.each(oControlList, function(i, el){
+//
+//		var oControl = this.CommonController.getUIElement(el.id);
+//
+//		if (oControl != undefined && oControl.getEnabled()){
+//
+//		if(el.uiType === "CB"){			// Check box UI Control
+//			el.value = oControl.getSelected();
+//		}
+//		else if(el.uiType === "DDB"){			// Dropdown / Combo Box UI Control
+//			el.value = oControl.getSelectedKey();
+//		}else if(el.uiType === "DR"){	// Date Range
+//			el.value = oControl.getDateValue();
+//			el.value2 = oControl.getSecondDateValue();
+//		}	
+//		else{
+//			el.value = oControl.getValue();	
+//		}
+//
+//				if(el.value)
+//				{
+//					if(sFilter.length > 0)
+//						sFilter += " and ";
+//
+////					if(el.dataType === "S"){			// String
+////						sFilter += "substringof('" + el.value + "'," + el.field + ")";
+////
+////					}else
+//					if(el.dataType === "D"){		// Date
+//
+//						var sDate = dia.cmc.common.util.Formatter.convertToEDMDate(el.value);
+//
+//						sFilter += el.field + " eq datetime'" +  sDate + "'"; 
+//
+//					}else if(el.dataType === "B"){		// Boolean
+//
+//						if(el.field === "ValidDeals"){				// Exception for ValidDeal field
+//
+//							var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(new Date());
+//
+//							sFilter += "( ValidFrom ge datetime'1900-01-01T00:00:00' and ValidFrom le datetime'" + sFromDate + "' ) and "; 		
+//							
+//							sFilter += "( ValidTo ge datetime'" +  sFromDate + "' and ValidTo le datetime'9999-12-31T00:00:00' )"; 	
+//						}
+//						else{
+//							sFilter += el.field + " eq '" +  el.value + "'"; 	
+//						}
+//					}
+//					else if(el.dataType === "DR"){		// Date Range
+//						
+//						var sFromDate = dia.cmc.common.util.Formatter.convertToEDMDate(el.value);
+//						var sToDate = dia.cmc.common.util.Formatter.convertToEDMDate(el.value2);
+//
+//						sFilter += "( " + el.field + " ge datetime'" +  sFromDate + "' and " + el.field + " le datetime'" + sToDate + "') "; 
+//						
+//					}
+//					else{
+//						sFilter += el.field + " eq '" +  el.value + "'"; 	
+//					}
+//
+//					if(el.field != "CustomerCountry" && el.field != "ValidDeals" ){
+//						bAtLeastOneField = true;
+//						
+//						if(bOneField == true){
+//							bMultipleField = true;
+//						}else{
+//							bOneField = true;
+//						}
+//					}
+//				}
+//			}
+//		});
 	/***************************************************************************
 	 * End - Backend Search related code
 	 **************************************************************************/
@@ -914,7 +1136,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	handleCustomerCountryChange : function(oEvent){
 
 		// Get selected country key
-		var sSelectedCountryKey = oEvent.getParameter("selectedItem").getKey();
+//		var sSelectedCountryKey = oEvent.getParameter("selectedItem").getKey();
+
+		var oCustomerCountry = this.CommonController.getUIElement("idCustomerCountry");
+		var sSelectedCountryKey = oCustomerCountry.getSelectedKey();
 
 		// Set country flag url
 		this._bindCountryFlagUrl(sSelectedCountryKey,"CustomerCountryFlag");
@@ -930,7 +1155,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	handleAdvanceCustomerCountryChange : function(oEvent){
 
 		// Get selected country key
-		var sSelectedCountryKey = oEvent.getParameter("selectedItem").getKey();
+//		var sSelectedCountryKey = oEvent.getParameter("selectedItem").getKey();
+		var oCustomerCountry = this.CommonController.getUIElement("idAdvanceCustomerCountry");
+		var sSelectedCountryKey = oCustomerCountry.getSelectedKey();
 
 		// Set country flag url
 		this._bindCountryFlagUrl(sSelectedCountryKey,"AdvanceCustomerCountryFlag");
@@ -970,7 +1197,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		var oFilters = new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang.substr(0,1).toUpperCase());
 
 		oCustomerCountry.bindItems("ODataModel>/CountryCollection", oItems, oSorter, oFilters);
-		
+
+		// Set default country
+		var oModel = this.getView().getModel("DefaultParameters");
+		oCustomerCountry.setSelectedKey(oModel.getProperty("/CountryKey"));
+			
 //		var binding = oCustomerCountry.getBinding("items");
 //		binding.sort(oSorter);
 

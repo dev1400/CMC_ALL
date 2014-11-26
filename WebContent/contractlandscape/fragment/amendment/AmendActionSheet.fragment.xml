@@ -13,10 +13,14 @@
 						}"
       		  press="handleAmendRecalculationPopup" />    
       		  
-      <Button text="{i18n>CancelRecalculation}" tooltip="{i18n>CancelRecalculation}" icon="sap-icon://sys-cancel" 
+      <Button id="idCancelAmendment" text="{i18n>CancelAmendment}" tooltip="{i18n>CancelAmendment}" icon="sap-icon://sys-cancel" 
       		  visible="{
 							path: 'DealDetailModel>/DealDetail/DealStatus',
 							formatter: 'dia.cmc.common.util.Formatter.isDealInAmend'
+						}" 
+			  enabled="{
+							path: 'AmendmentDetailModel>/Status',
+							formatter: 'dia.cmc.common.util.Formatter.isCancelAmendBtnEnable'
 						}" 
       		  press="handleCancelRecalculationPost" />
       <!-- <Button id="idAddChangePrice" text="{i18n>AddChangePrice}" tooltip="{i18n>AddChangePrice}" icon="sap-icon://edit" press="handleAmendPricePopup" />

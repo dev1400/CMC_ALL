@@ -1,5 +1,7 @@
 <core:FragmentDefinition
   xmlns="sap.m"
   xmlns:core="sap.ui.core">
-  <BusyDialog id="BusyDialog" />
-</core:FragmentDefinition>
+
+  <BusyDialog id="idBusyDialogUI" /> 
+
+ </core:FragmentDefinition>

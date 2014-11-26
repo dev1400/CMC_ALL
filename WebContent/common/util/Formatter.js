@@ -90,7 +90,17 @@ dia.cmc.common.util.Formatter = {
 		return dia.cmc.common.helper.ModelHelper.getText(sStatusTxt);
 	},
 	
-	
+	/** Enable Cancel Amendment button, if amendment status is "Created".
+	 * @param oValue : Amendment Status
+	 */
+	isCancelAmendBtnEnable: function(oValue){
+		
+		if(oValue === "CRTD"){
+			return true;
+		}else{
+			return false;
+		}
+	},
 	
 	/** Returns True if Deal Status is "In Amendment", else false 
      * @param oValue : Deal Status Id
@@ -115,6 +125,20 @@ dia.cmc.common.util.Formatter = {
 			return false;
 		}
 	},
+	
+	
+	/** Returns True if Price Amendment Type, else false 
+     * @param oValue : Amendment Type
+     */
+	isPriceAmend : function(oValue) {
+		
+		if(oValue === "PR") {
+			return true;
+		}else{
+			return false;
+		}
+	},
+	
 	
 	
     /** Format System Install Date and add the prefix
@@ -232,18 +256,6 @@ dia.cmc.common.util.Formatter = {
 //		}
 //	},
 //
-	/**
-	 * Return status with meaning full name
-	 */
-	formatAmendmentStatus : function(sStatus){
-		if(sStatus === "CRTD"){
-			return "Created";
-		}else if(sStatus === "RELE"){
-			return "Released";
-		}else if(sStatus === "EXEC"){
-			return "Executed";
-		}
-	}
 
 	
 };

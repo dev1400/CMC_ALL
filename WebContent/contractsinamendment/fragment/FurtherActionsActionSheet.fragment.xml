@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <ActionSheet    
+    showCancelButton="true"
+    placement="Top">
+    <buttons>
+      <Button text="{i18n>CancelAmendment}" tooltip="{i18n>CancelAmendment}" icon="sap-icon://sys-cancel" press="" />
+    </buttons>
+  </ActionSheet>
+</core:FragmentDefinition>

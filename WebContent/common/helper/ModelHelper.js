@@ -1,3 +1,5 @@
+//jQuery.sap.require("sap.ca.ui.utils.busydialog");
+
 jQuery.sap.declare("dia.cmc.common.helper.ModelHelper");
 
 dia.cmc.common.helper.ModelHelper = {
@@ -6,14 +8,14 @@ dia.cmc.common.helper.ModelHelper = {
 
 	oODataModel : null,
 	oDealCollectionModel : new sap.ui.model.json.JSONModel(),
-	oDealsInAmendmentCollectionModel : new sap.ui.model.json.JSONModel(),
 	oDealDetailModel: new sap.ui.model.json.JSONModel(),
 	sSelectedDealPathIndex:null,
 	sSelectedDealPathKey:null,
 	sSelectedDealId:null,
 	oPropertyModel : new sap.ui.model.json.JSONModel(),
 	oDefaultParameterModel: null,
-	
+	oRequestFinishedDeferred:null,
+
 	/**
 	 * Supply here the service url of the service to fetch data from
 	 */
@@ -94,9 +96,18 @@ dia.cmc.common.helper.ModelHelper = {
 	
 	// Read Deal Collection and convert it to JSON Model
 	readDealCollection : function (sFilters){
-
-		var that = this;
 		
+		var that = this;
+
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
+		var oModel = new sap.ui.model.json.JSONModel();
+	
+		// Update filter string with default values
 		if (sFilters == null && sFilters == undefined){
 			sFilters = "IsFavorite eq 'X'";
 		}
@@ -108,71 +119,65 @@ dia.cmc.common.helper.ModelHelper = {
 					"' and Division eq '" + oDefaultParameters.Division +
 					"'";
 		
+		// Call OData read method and get Deal Collection
 		this.oODataModel.read("DealCollection", null, {"$select":"DealId,CustomerName,IsFavorite,IsFlagged,CustomerCity,DealMasterPO,DealMasterDescr,ValidFrom,ValidTo", 
-													   "$filter": sFilters } , false, 
+													   "$filter": sFilters } , true, 
 			
-			function(oData, oResponse){
-				that.oDealCollectionModel.setData({DealCollection:oData.results});
+			function(oData, oResponse){		// Call is successful
+				oModel.setData({DealCollection:oData.results});
+				
+				if(oModel.getData().DealCollection.length > 0){
+					that.oDealCollectionModel = oModel;
+				}
+				
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oModel);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+				
 			},
 			
-			function(oResponse){
+			function(oResponse){			// Error occured
+				
+				// Read error message and display
 			   oResponse = jQuery.parseJSON(oResponse.response.body);
 
 			   sap.m.MessageBox.alert(oResponse.error.message.value, {
 					title : "Result"
 				});
-			});
-		
-            
-		return this.oDealCollectionModel;
-	},
-	/**
-	 * Read Deal Collection and convert it to JSON Model
-	 */
-
-	readDealsInAmendmentCollection : function (){
-
-		var that = this;		
-		
-		this.oODataModel.read("DealInAmendmentCollection", null, null , false, 
+			   
+			   // Reject deferred object
+			   oRequestFinishedDeferred.resolve();
+			   
+			   // Close busy dialog
+			   that.closeBusyDialog();
+			   
+		});
 			
-			function(oData, oResponse){
-				that.oDealsInAmendmentCollectionModel.setData({DealsInAmendmentCollection:oData.results});
-			},
-			
-			function(oResponse){
-			   oResponse = jQuery.parseJSON(oResponse.response.body);
-
-			   sap.m.MessageBox.alert(oResponse.error.message.value, {
-					title : "Result"
-				});
-			});
-		
-            
-		return this.oDealsInAmendmentCollectionModel;
+		return oRequestFinishedDeferred;
 	},
-
 	
 	
 	// Displays selected Deal's details
 	readDealDetail: function(sDealId){
 
-		var that = this;
-		var oErrorResponse = null;
+		// Open busy dialog
+		this.openBusyDialog();
 		
-//		// set selected Deal path to helper class
-//		this.sSelectedDealPathIndex = sPath;
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
+		var that = this;
+		
+		this.sSelectedDealId = sDealId;	
 
 		this.sSelectedDealPathKey = "/DealCollection('" + sDealId + "')";
 
-		this.sSelectedDealId = sDealId;
-
-//		var oNewPriceItem = this.initalizeNewPriceItem();
-//		var oNewCommitmentItem = this.initalizeNewCommitmentItem();
-		
 		// read Deal details by calling ODataModel read method with $expand parameter to read all the entityset in one single server call
-//		this.oODataModel.read(this.sSelectedDealPathKey, null, {"$expand":"SystemCollection,PartnerCollection,MaterialPriceCollection,TestPriceCollection,MaterialDiscountCollection,HierarchyDiscountCollection,GroupDiscountCollection,CommitmentCollection,DocumentCollection,ReferenceCollection"}, false, 
-		this.oODataModel.read(this.sSelectedDealPathKey, null, {"$expand":"SystemCollection,PartnerCollection,MaterialPriceCollection,TestPriceCollection,MaterialDiscountCollection,HierarchyDiscountCollection,GroupDiscountCollection,CommitmentCollection,ReferenceCollection"}, false,
+//		
+		this.oODataModel.read(this.sSelectedDealPathKey, null, {"$expand":"SystemCollection,PartnerCollection,MaterialPriceCollection,TestPriceCollection,MaterialDiscountCollection,HierarchyDiscountCollection,GroupDiscountCollection,CommitmentCollection,ReferenceCollection"}, 
+							  true,
 				
 				function(oData, oResponse){  
 			
@@ -182,17 +187,17 @@ dia.cmc.common.helper.ModelHelper = {
 					
 					var oSystemName = [];
 					var oSystemNameCollection = [];
-
+					
 					$.each(oData.SystemCollection.results, function(i, el){
 						
-					    if($.inArray(el.SystemGroupName, oSystemGroupName) === -1)
+					    if(el.SystemGroupName != "" && ($.inArray(el.SystemGroupName, oSystemGroupName) === -1) )
 					    {
 					    	oSystemGroupName.push(el.SystemGroupName);
 					    	oSystemGroupNameCollection.push({'SystemGroupName':el.SystemGroupName});
 					    }
 
 					    
-					    if($.inArray(el.SystemName, oSystemName) === -1)
+					    if(el.SystemName != "" && ($.inArray(el.SystemName, oSystemName) === -1) )
 					    {
 					    	oSystemName.push(el.SystemName);
 					    	oSystemNameCollection.push({'SystemName':el.SystemName});
@@ -210,14 +215,14 @@ dia.cmc.common.helper.ModelHelper = {
 
 					$.each(oData.PartnerCollection.results, function(i, el){
 						
-					    if($.inArray(el.PartnerFunctionDesc, oPartnerFunctionDesc) === -1)
+					    if(el.PartnerFunctionDesc != "" && ($.inArray(el.PartnerFunctionDesc, oPartnerFunctionDesc) === -1) )
 					    {
 					    	oPartnerFunctionDesc.push(el.PartnerFunctionDesc);
 					    	oPartnerFunctionDescCollection.push({'PartnerFunctionDesc':el.PartnerFunctionDesc});
 					    }
 
 					    
-					    if($.inArray(el.PartnerName, oPartnerName) === -1)
+					    if(el.PartnerName != "" && ($.inArray(el.PartnerName, oPartnerName) === -1) )
 					    {
 					    	oPartnerName.push(el.PartnerName);
 					    	oPartnerNameCollection.push({'PartnerName':el.PartnerName,
@@ -253,41 +258,47 @@ dia.cmc.common.helper.ModelHelper = {
 													SystemNameCollection:oSystemNameCollection,
 													PartnerFunctionDescCollection:oPartnerFunctionDescCollection,
 													PartnerNameCollection:oPartnerNameCollection});
+
+					// Resolve Deferred object and return the model
+					oRequestFinishedDeferred.resolve(that.oDealDetailModel);
 					
-					
+					// close busy dialog 
+					that.closeBusyDialog();
 					
 			   },
 			   function(oResponse){
 				   
-				   oErrorResponse = oResponse;
+				   oResponse = jQuery.parseJSON(oResponse.response.body);
+
+				   sap.m.MessageBox.alert(oResponse.error.message.value, {
+						title : "Deal Detail Read Result"
+				   });
+				   
+
+				   // Reject deferred object
+				   oRequestFinishedDeferred.resolve();
+				   
+				   // Close busy dialog
+				   that.closeBusyDialog();
+				   
 			   });
 
-		
-
-		if(oErrorResponse != null){
-			
-			oErrorResponse = jQuery.parseJSON(oErrorResponse.response.body);
-
-		   sap.m.MessageBox.alert(oErrorResponse.error.message.value, {
-				title : "Deal Detail Read Result"
-		   });
-		}
-			
-	
-		return this.oDealDetailModel;
+		return oRequestFinishedDeferred;
 
 	},
 
-	
 
 	// Read selected Deal's header details
 	readDealHeader: function(){
 
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
 		var that = this;
 		var oErrorResponse = null;
 		
 		// read Deal details by calling ODataModel read method
-		this.oODataModel.read(this.sSelectedDealPathKey, null, null, false,
+		this.oODataModel.read(this.sSelectedDealPathKey, null, null, true,
 				
 				function(oData, oResponse){  
 					
@@ -302,50 +313,25 @@ dia.cmc.common.helper.ModelHelper = {
 					
 					that.oDealDetailModel.setProperty("/Properties",oPropertyObject);
 					
+					// Resolve Deferred object and return the model
+					oRequestFinishedDeferred.resolve(that.oDealDetailModel);
 					
 			   },
 			   function(oResponse){
 				   
-				   oErrorResponse = oResponse;
+				   oResponse = jQuery.parseJSON(oResponse.response.body);
+
+				   sap.m.MessageBox.alert(oErrorResponse.error.message.value, {
+						title : "Deal Detail Read Result"
+				   });
+				   
+				   // Reject deferred object
+				   oRequestFinishedDeferred.resolve();
+
 			   });
 
-
-		if(oErrorResponse != null){
-			
-			oErrorResponse = jQuery.parseJSON(oErrorResponse.response.body);
-
-		   sap.m.MessageBox.alert(oErrorResponse.error.message.value, {
-				title : "Deal Detail Read Result"
-		   });
-		}
-			
 	
-		return this.oDealDetailModel;
-
-	},
-	
-	/** Read Document List for selected Deal
-	 * @Param: sDealId 
-	 */
-	readDocumentList: function(){
-
-		var that = this;
-		
-		var sPath = "/DealCollection('" + this.sSelectedDealId + "')/DocumentCollection";
-		
-		// read amendment details by calling ODataModel read method 
-		this.oODataModel.read(sPath, null, null, false, 
-				function(oData, oResponse){  
-			
-					// Update document collection in model
-					that.oDealDetailModel.setProperty("/DocumentCollection",oData.results);
-			   },
-			   function(oResponse){
-					oErrorResponse = jQuery.parseJSON(oErrorResponse.response.body);
-
-					   sap.m.MessageToast.show(oErrorResponse.error.message.value);   
-//				  sap.m.MessageToast.show(that.getText("DocumentListReadError"));
-			   });
+		return oRequestFinishedDeferred;
 
 	},
 	
@@ -372,7 +358,7 @@ dia.cmc.common.helper.ModelHelper = {
 
 	/** Initialize the object for NewPriceItem
 	 */
-	initalizeNewPriceItem : function (sPath, bInitialize){
+	initalizeNewPriceItem : function (sPath, bInitialize, sCondType){
 		
 		var oSelectedItem = jQuery.extend({}, this.oDealDetailModel.getProperty(sPath));
 	    
@@ -381,11 +367,23 @@ dia.cmc.common.helper.ModelHelper = {
 	    	oSelectedItem.Material = "";
 	    	oSelectedItem.MaterialDescription = "";
 	    	oSelectedItem.Rate = "";
-	    	oSelectedItem.Unit = "1";
+	    	oSelectedItem.Unit = 1;
 	    	oSelectedItem.Uom = "PC";			// Temporary hard coded
-	    	oSelectedItem.CurrencyCode = "EUR";
+	    	
+	    	if(!oSelectedItem.CurrencyCode){ // If currency is not available, read from deal header
+	    		oSelectedItem.CurrencyCode = this.oDealDetailModel.getData().DealDetail.CurrencyCode;	
+	    	}
+	    	
+//	    	if(!oSelectedItem.AgreementType){
+//	    		oSelectedItem.AgreementType = sCondType;
+//	    	}
+	    	
+	    	oSelectedItem.DealMasterContract = "";
+	    	oSelectedItem.DealMasterContractItem = 0;
 	    }
 
+		oSelectedItem.AgreementType = sCondType;
+		
 	    // Both in case of Add and Change show default dates
     	oSelectedItem.ValidFrom = new Date();
     	oSelectedItem.ValidTo = new Date("9999-12-31");
@@ -457,6 +455,8 @@ dia.cmc.common.helper.ModelHelper = {
 								CommitmentActionButtonVisi:false,
 								MaterialEnable:false,
 								DiscountFieldEnable:false,
+								CancelAmendBtnEnable:true,
+								SimpleAmendEnable:true,		// Disable Simple Amendment, when contract is expired or contract is in Amendment
 								MaterialLabel:"",
 								DiscountFieldLabel:"",
 								CustomerCountryFlag:"",
@@ -592,67 +592,126 @@ dia.cmc.common.helper.ModelHelper = {
 	// Post/Create Deal Amendment to SAP
 	postAmendment : function(oAmendDetail){
 
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
 		var that = this;
 		
 		oAmendDetail.DealId = this.sSelectedDealId;
 			
 		// Call ODataModel create method to post amendment data to SAP backend
-		this.oODataModel.create(this.sSelectedDealPathKey + "/AmendmentCollection", oAmendDetail, null, function(oData){
+		this.oODataModel.create(this.sSelectedDealPathKey + "/AmendmentCollection", oAmendDetail, {success: function(oData){
 			
 			// This is create success event handler. Will be called when create operation is successful.
 				
-			that.readDealHeader();
+			var oRequestFinishedDeferredHeader = that.readDealHeader();
 			
-			oAmendDetail.AmendmentId = oData.AmendmentId;
-			oAmendDetail.Message = oData.Message;
-			oAmendDetail.MessageType = oData.MessageType;
+			jQuery.when(oRequestFinishedDeferredHeader).then(jQuery.proxy(function() {
+
+				oAmendDetail.AmendmentId = oData.AmendmentId;
+				oAmendDetail.Message = oData.Message;
+				oAmendDetail.MessageType = oData.MessageType;
+	
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oAmendDetail);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+				
+			}, this));
 			
-		},function(oResponse){
+		}, error: function(oResponse){
 			// This is create error event handler. Will be called when create operation is failed.
 			
 			oResponse = jQuery.parseJSON(oResponse.response.body);
 			oAmendDetail.Message = oResponse.error.message.value;
 			oAmendDetail.MessageType = "E";
-		});
+			
+
+		   // Reject deferred object
+		   oRequestFinishedDeferred.resolve(oAmendDetail);
+		   
+		   // Close busy dialog
+		   that.closeBusyDialog();
+			   
+		}, async : true});
 				
-		return oAmendDetail;
+		return oRequestFinishedDeferred;
 	},
 	
 	// Post/Create Material Price Amendment to SAP
 	postPriceAmendment : function(oPriceDetail){
 
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
+		var that = this;
+		
 		oPriceDetail.DealId = this.sSelectedDealId;
-			
+
+		var sPath = "";
+		
+		if (oPriceDetail.AgreementType === "YIMP"){
+			sPath = "/MaterialPriceCollection";
+		}
+		else{
+			sPath = "/TestPriceCollection";
+		}
+		
 		// Call ODataModel create method to post amendment data to SAP backend
-		this.oODataModel.create(this.sSelectedDealPathKey + "/MaterialPriceCollection", oPriceDetail, null, function(oData){
-			
+		this.oODataModel.create(this.sSelectedDealPathKey + sPath, oPriceDetail, {success: function(oData){
+				
 			// This is create success event handler. Will be called when create operation is successful.
 				
-			oPriceDetail.AmendmentId = oData.AmendmentId;
+//			oPriceDetail.AmendmentId = oData.AmendmentId;
 			oPriceDetail.Message = oData.Message;
 			oPriceDetail.MessageType = oData.MessageType;
 
+			// Resolve Deferred object and return the model
+			oRequestFinishedDeferred.resolve(oPriceDetail);
 			
-		},function(oResponse){
+			// close busy dialog 
+			that.closeBusyDialog();
+			
+		}, error: function(oResponse){
 			// This is create error event handler. Will be called when create operation is failed.
 			
 			oResponse = jQuery.parseJSON(oResponse.response.body);
 			oPriceDetail.Message = oResponse.error.message.value;
 			oPriceDetail.MessageType = "E";
-		});
+
+			// Reject deferred object
+			oRequestFinishedDeferred.resolve(oPriceDetail);
+			   
+			// Close busy dialog
+			that.closeBusyDialog();
+			   
+		}, async: true});
 				
-		return oPriceDetail;
+		return oRequestFinishedDeferred;
 	},
 	
 	// Post/Create Commitment Amendment to SAP
 	postCommitmentAmendment : function(oCommitmentDetail){
 
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
 		oCommitmentDetail.DealId = this.sSelectedDealId;
 			
 		var that = this;
 		
 		// Call ODataModel create method to post amendment data to SAP backend
-		this.oODataModel.create(this.sSelectedDealPathKey + "/CommitmentCollection", oCommitmentDetail, null, function(oData){
+		this.oODataModel.create(this.sSelectedDealPathKey + "/CommitmentCollection", oCommitmentDetail, {success: function(oData){
 			
 			// This is create success event handler. Will be called when create operation is successful.
 				
@@ -660,7 +719,13 @@ dia.cmc.common.helper.ModelHelper = {
 			oCommitmentDetail.Message = oData.Message;
 			oCommitmentDetail.MessageType = oData.MessageType;
 
-		},function(oResponse){
+			// Resolve Deferred object and return the model
+			oRequestFinishedDeferred.resolve(oCommitmentDetail);
+			
+			// close busy dialog 
+			that.closeBusyDialog();
+			
+		}, error: function(oResponse){
 			// This is create error event handler. Will be called when create operation is failed.
 			
 			oResponse = jQuery.parseJSON(oResponse.response.body);
@@ -668,9 +733,15 @@ dia.cmc.common.helper.ModelHelper = {
 			oCommitmentDetail.MessageType = "E";
 			
 //			oCommitmentDetail.Message = "Error while posting Amendment.";
-		});
+
+		   // Reject deferred object
+		   oRequestFinishedDeferred.resolve(oCommitmentDetail);
+		   
+		   // Close busy dialog
+		   that.closeBusyDialog();
+		}, async: true});
 				
-		return oCommitmentDetail;
+		return oRequestFinishedDeferred;
 	},
 	
 	
@@ -693,6 +764,12 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 	readDefaultParameters : function (){
 		
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
 		var that = this;
 		
 		// if default parameters are already read, don't do it again
@@ -700,18 +777,35 @@ dia.cmc.common.helper.ModelHelper = {
 
 			this.initializeDefaultParameterModel();
 			
-			this.oODataModel.read("/UserPreferenceCollection('Dummy')", null, null , false, function(oData, oResponse){
+			this.oODataModel.read("/UserPreferenceCollection('Dummy')", null, null , true, 
+			function(oData, oResponse){
 				oData.MessageType = "S";
 				that.oDefaultParameterModel.setData(oData);
+				
+
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(jQuery.extend({}, that.oDefaultParameterModel.getData()));
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+				
 		   },
 		   function(oResponse){
 //			   alert(oResponse);
+			   
+
+			   // Reject deferred object
+			   oRequestFinishedDeferred.resolve();
+			   
+			   // Close busy dialog
+			   that.closeBusyDialog();
+			   
 		   });
 		}
 			
-		var oDefaultParameters = jQuery.extend({}, this.oDefaultParameterModel.getData());
+//		var oDefaultParameters = jQuery.extend({}, this.oDefaultParameterModel.getData());
 		
-		return oDefaultParameters;
+		return oRequestFinishedDeferred;
 	},
 	
 	
@@ -720,31 +814,48 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 	updateDefaultParameters : function(oDefaultParameter){
 		
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
 		var that = this;
 		
 		// Call ODataModel Update method to post data to SAP
-		this.oODataModel.update("/UserPreferenceCollection('Dummy')", oDefaultParameter, null, function(){
+		this.oODataModel.update("/UserPreferenceCollection('Dummy')", oDefaultParameter, {success: function(){
 			// This is update success event handler. Will be called when update operation is successful.
 				
 			oDefaultParameter.Message = that.getText("UpdateDefaultParamSuccess")
 			oDefaultParameter.MessageType = "S";
 			
-		},function(oResponse){
+			//Update the UserPa and DealDetailModel to reflect the latest values
+			that.oDefaultParameterModel.setData(oDefaultParameter);
+			
+			// Resolve Deferred object and return the model
+			oRequestFinishedDeferred.resolve(oDefaultParameter);
+			
+			// close busy dialog 
+			that.closeBusyDialog();
+			
+			
+		}, error: function(oResponse){
 			// This is update error event handler. Will be called when update operation is failed.
 			
 			oResponse = jQuery.parseJSON(oResponse.response.body);
 			
 			oDefaultParameter.Message = oResponse.error.message.value;
 			oDefaultParameter.MessageType = "E";
-		});
+			
+		   // Reject deferred object
+		   oRequestFinishedDeferred.resolve(oDefaultParameter);
+			   
+		   // Close busy dialog
+		   that.closeBusyDialog();
+			   
+		},async : true});
 		
-		
-		//Update the UserPa and DealDetailModel to reflect the latest values
-		if(oDefaultParameter.MessageType != "E"){
-			this.oDefaultParameterModel.setData(oDefaultParameter);
-		}
-		
-		return oDefaultParameter;
+		return oRequestFinishedDeferred;
 	},
 	
 
@@ -784,6 +895,12 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 	readDealTimeline: function(sDealId, sFilters){
 
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
+		
 		var that = this;
 		
 		var oTimelineModel = new sap.ui.model.json.JSONModel();
@@ -793,17 +910,56 @@ dia.cmc.common.helper.ModelHelper = {
 //		var sFilters = "Action eq 'RTL'";			// Read Timeline
 		
 		// read timeline details by calling ODataModel read method 
-		this.oODataModel.read(sPath, null, {"$filter": sFilters }, false, 
+		this.oODataModel.read(sPath, null, {"$filter": sFilters }, true, 
 			function(oData, oResponse){  
 		
+//				// Build JSON model base on OData response
+//					oTimelineModel.setData({AmendmentCollection:oData.results});
+					
+				var oTimelineData = [];
+				var oItem = new Object();
+				
+				$.each(oData.results, function(i, el){
+
+					if(el.SubItem === "X"){
+						
+						if(el.DetailDesc == ""){
+							el.DetailDesc = 'NA';
+						}
+						oItem.PriceDetailCollection.push(el);
+						
+					}else{
+						oItem = new Object();
+						
+						oItem = el;
+						oItem.PriceDetailCollection = [];
+						
+						oTimelineData.push(oItem);
+					}
+				});
+					
 				// Build JSON model base on OData response
-					oTimelineModel.setData({AmendmentCollection:oData.results});
+				oTimelineModel.setData({AmendmentCollection:oTimelineData});
+				
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oTimelineModel);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+				
 		   },
 		   function(oResponse){
 			  sap.m.MessageToast.show(that.getText("TimelineReadError"));
+			  
+			   // Reject deferred object
+			   oRequestFinishedDeferred.resolve(oTimelineModel);
+				   
+			   // Close busy dialog
+			   that.closeBusyDialog();
+			   
 		   });
-
-		return oTimelineModel;
+		
+		return oRequestFinishedDeferred;
 	},
 	
 	
@@ -812,6 +968,11 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 	updateAmendment : function(oAmendmentDetails){
 		
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
 		
 		var that = this;
 		
@@ -826,31 +987,105 @@ dia.cmc.common.helper.ModelHelper = {
 			}
 		}
 		
-		this.oODataModel.update("/AmendmentCollection('"+oAmendmentDetails.AmendmentId+"')", oAmendmentDetails, null, function(){
+		this.oODataModel.update("/AmendmentCollection('"+oAmendmentDetails.AmendmentId+"')", oAmendmentDetails, {success: function(){
 			// This is update success event handler. Will be called when update operation is successful.
 				
-			that.readDealHeader();
 			
-			oAmendmentDetails.Message = that.getText("RecalculationCancelSuccess");
-			oAmendmentDetails.MessageType = "S";
+			var oRequestFinishedDeferredHeader = that.readDealHeader();
 			
-		},function(oResponse){
+			jQuery.when(oRequestFinishedDeferredHeader).then(jQuery.proxy(function() {
+			
+				oAmendmentDetails.Message = that.getText("RecalculationCancelSuccess");
+				oAmendmentDetails.MessageType = "S";
+	
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oAmendmentDetails);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+
+			}, this));
+			
+		}, error: function(oResponse){
 			// This is update error event handler. Will be called when update operation is failed.
 			
 			oResponse = jQuery.parseJSON(oResponse.response.body);
 			
 			oAmendmentDetails.Message = oResponse.error.message.value;
 			oAmendmentDetails.MessageType = "E";
-		});
-		
-		
-//		//Update the UserPa and DealDetailModel to reflect the latest values
-//		if(oAmendmentDetails.MessageType != "E"){
-//			this.oDefaultParameterModel.setData(oAmendmentDetails);
-//		}
-//		
-		
-		return oAmendmentDetails;
+			
+
+		   // Reject deferred object
+		   oRequestFinishedDeferred.resolve(oAmendmentDetails);
+		   
+		   // Close busy dialog
+		   that.closeBusyDialog();
+			   
+		}, async: true});
+				
+		return oRequestFinishedDeferred;
 	},
+	
+	
+	
+	/**
+	 * Open busy dialog
+	 */
+	openBusyDialog: function (){
+		
+		if (!this._busyDialog) {
+			this._busyDialog = new sap.ui.xmlfragment(
+					"idBusydialog", "dia.cmc.common.fragment.BusyDialog",
+					this);
+
+		}
+
+		this._busyDialog.open();
+		
+		
+		
+	},
+	
+	/**
+	 * Close busy dialog
+	 */
+	closeBusyDialog: function(){
+		this._busyDialog.close();
+		
+	},
+	
+	
+	
+	////////////////////////// Code specific to Deal in Amendment //////////////////////
+	
+	oDealsInAmendmentCollectionModel : new sap.ui.model.json.JSONModel(),
+	
+	/**
+	 * Read Deal Collection and convert it to JSON Model
+	 */
+
+	readDealsInAmendmentCollection : function (){
+
+		var that = this;		
+		
+		this.oODataModel.read("DealInAmendmentCollection", null, null , false, 
+			
+			function(oData, oResponse){
+				that.oDealsInAmendmentCollectionModel.setData({DealsInAmendmentCollection:oData.results});
+			},
+			
+			function(oResponse){
+			   oResponse = jQuery.parseJSON(oResponse.response.body);
+
+			   sap.m.MessageBox.alert(oResponse.error.message.value, {
+					title : "Result"
+				});
+			});
+		
+            
+		return this.oDealsInAmendmentCollectionModel;
+	},
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
 	
 };

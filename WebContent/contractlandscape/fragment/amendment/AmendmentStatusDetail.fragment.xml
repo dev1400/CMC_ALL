@@ -4,25 +4,25 @@
   xmlns:l="sap.ui.layout"
   xmlns:core="sap.ui.core">
   <Popover
-    title="{AmendmentDetail>/RequestTypeDesc}"
+    title="{AmendmentDetailModel>/RequestTypeDesc}"
 		placement="Bottom">
     
     <content>
 
-<!-- 	<ObjectHeader title="{AmendmentDetail>/RequestTypeDesc}">
+<!-- 	<ObjectHeader title="{AmendmentDetailModel>/RequestTypeDesc}">
 		<attributes>
 			<ObjectAttribute
-				text="{i18n>RequestedBy} : {AmendmentDetail>/ChangedByName}" />
+				text="{i18n>RequestedBy} : {AmendmentDetailModel>/ChangedByName}" />
 			<ObjectAttribute
-				text="{i18n>RequestedFrom} : {AmendmentDetail>/TriggerSystem}" />
+				text="{i18n>RequestedFrom} : {AmendmentDetailModel>/TriggerSystem}" />
 
 			<ObjectAttribute
 				text="{i18n>RequestedOn} : {
-									path: 'AmendmentDetail>/ChangedOn',
+									path: 'AmendmentDetailModel>/ChangedOn',
 									formatter: 'dia.cmc.common.util.Formatter.date'
 								}" />
 
-			<ObjectAttribute text="{i18n>Description}: {AmendmentDetail>/RequestDesc}" />
+			<ObjectAttribute text="{i18n>Description}: {AmendmentDetailModel>/RequestDesc}" />
 		</attributes>
 	</ObjectHeader> -->
 
@@ -48,25 +48,25 @@
 		        <f:content>
 		        
 		          <Label text="{i18n>Status}" />
-		          <Text text="{	path: 'AmendmentDetail>/Status',
+		          <Text text="{	path: 'AmendmentDetailModel>/Status',
 									formatter: 'dia.cmc.common.util.Formatter.amendmentStatus'
 								}"/>
 		        
 		          <Label text="{i18n>RequestedBy}" />
-		          <Text text="{AmendmentDetail>/ChangedByName}" width="10rem"/>
+		          <Text text="{AmendmentDetailModel>/ChangedByName}" width="10rem"/>
 
 		          
 		          <Label text="{i18n>RequestedFrom}" />
-		          <Text text="{AmendmentDetail>/TriggerSystem}" />
+		          <Text text="{AmendmentDetailModel>/TriggerSystem}" />
 
 		          
 		          <Label text="{i18n>RequestedOn}" />
-		          <Text text="{	path: 'AmendmentDetail>/ChangedOn',
+		          <Text text="{	path: 'AmendmentDetailModel>/ChangedOn',
 									formatter: 'dia.cmc.common.util.Formatter.date'
 								}" />
 			
 		          <Label text="{i18n>Description}" />
-		          <Text text="{AmendmentDetail>/RequestDesc}" />
+		          <Text text="{AmendmentDetailModel>/RequestDesc}" />
 
 				  
 		        </f:content>

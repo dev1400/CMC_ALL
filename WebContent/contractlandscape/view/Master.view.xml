@@ -11,6 +11,7 @@
 				<contentMiddle>
 					<Image src="common/mime/Roche.jpg" alt="{i18n>/RocheCMC}"></Image>
 					<Label text="{i18>;MasterTitle}"></Label>
+					<!-- <Label text="V - 2"></Label> -->
 				</contentMiddle>
 
 			</Bar>

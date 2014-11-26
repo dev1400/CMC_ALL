@@ -1,0 +1,81 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+
+	<Dialog title="{i18n>TimelineSelection}" class="sapUiPopupWithPadding"
+		contentWidth="50%" contentHeight="35%" stretchOnPhone="true">
+
+<!-- 		<customHeader>
+			<Bar>
+				<contentLeft>
+					<core:Icon src="sap-icon://customer" />
+				</contentLeft>
+				<contentMiddle>
+					<Label text="{i18n>SearchByCustomer}" />
+				</contentMiddle>
+			</Bar>
+		</customHeader>
+ -->
+
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+	
+			<l:content>
+	
+				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="10"
+					labelSpanM="4" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2"  editable="true"	>
+		
+					<f:content>
+						<Label text="{i18n>TimelinePeriod}" />
+						<DateRangeSelection id="idTimelinePeriod"
+							delimiter="{i18n>To}" from="" to="" displayFormat="{i18n>DateFormat}"
+							width="17em">
+						
+							<layoutData>
+								<l:GridData span="L2 M6 S6" />
+							</layoutData>
+								
+						</DateRangeSelection>
+								
+						<Label text="{i18n>Amendments}" />
+						<MultiComboBox id="idAmendCat" width="15em" style="height:2.375rem" placeholder="{i18n>AmendmentPlaceholder}"
+							selectionChange="handleAmendCatChange">
+							<!-- <core:Item key="AL" text="{i18n>All}" tooltip="{i18n>AllTooltip}" /> -->
+							<core:Item key="RC" text="{i18n>ComplexAmend}" tooltip="{i18n>ComplexAmend}" />
+							<core:Item key="VL" text="{i18n>ValidityAmend}" tooltip="{i18n>ValidityAmend}" />
+							<core:Item key="PR" text="{i18n>PriceAmend}" tooltip="{i18n>PriceAmend}" />
+							<core:Item key="PT" text="{i18n>PartnerAmend}" tooltip="{i18n>PartnerAmend}" />
+						</MultiComboBox>
+		
+<!-- 						<Label text="{i18n>Material}" />
+
+						<Input id="idTLMaterial">
+							<layoutData>
+								<l:GridData span="L2 M3 S4" />
+							</layoutData>
+						</Input>
+						
+						<Label text="{i18n>Partner}" />
+												
+						<Input id="idTLPartner">
+							<layoutData>
+								<l:GridData span="L2 M3 S4" />
+							</layoutData>
+						</Input> -->
+						
+					</f:content>
+				</f:SimpleForm>
+
+			</l:content>
+		</l:Grid>
+		
+		<beginButton>
+			<Button icon="sap-icon://sys-find" tooltip="{i18n>SearchTimelineTooltip}"
+					press="handleTimelineSearchPress" />
+		</beginButton>
+
+		<endButton>
+			<Button icon="sap-icon://decline" press="handlePopupClose" />
+		</endButton>
+				
+	</Dialog>
+
+</core:FragmentDefinition>

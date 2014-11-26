@@ -1,0 +1,8 @@
+CACHE MANIFEST
+# 2014-11-17 V1.5
+
+# Explicitly cached entries
+
+./resources/sap-ui-core.js
+common
+contractlandscape

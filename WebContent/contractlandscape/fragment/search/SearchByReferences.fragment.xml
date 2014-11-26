@@ -8,7 +8,7 @@
   <Dialog
     title="{i18n>SearchByReferences}"
     class="sapUiPopupWithPadding" 
-    contentWidth="50%" contentHeight="70%" stretchOnPhone="true"  >
+    contentWidth="50%" contentHeight="60%" stretchOnPhone="true"  >
     
 	<customHeader>
 		<Bar>
@@ -30,7 +30,7 @@
           <Input id="idSalesforceOpportunity"  />
 
           <Label text="{i18n>GDCDeal}" />
-          <Input id="idGDCDeal" value="{GDCDeal}" />
+          <Input id="idGDCDeal" />
 
 		  <Label text="{i18n>DealMasterContract}" />
           <Input id="idDealMasterContract" />
@@ -47,9 +47,9 @@
           <Label text="{i18n>ExternalReference}" />
           <Input id="idExternalReference" />
           
-          <Label />
+<!--           <Label />
 	      <CheckBox id="idRefValidDeals" text="{i18n>ValidDeals}" selected="true"/>
-
+ -->
 		 </f:content>
 	</f:SimpleForm>
 	

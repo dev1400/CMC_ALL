@@ -166,7 +166,7 @@
 			</Table>
 
 
-			<IconTabBar expanded="true" id="" expandable="false"
+			<IconTabBar id="idMainDetailTab" expanded="true" expandable="false"
 				select="handleMainTabSelect">
 
 				<items>
@@ -488,6 +488,7 @@
 															path: 'DealDetailModel>ValidTo',
 															formatter: 'dia.cmc.common.util.Formatter.amendmentChangeBtnVisi'
 														}"
+													enabled="{Property>/SimpleAmendEnable}"
 													press="handleAmendPricePopup" />
 
 											</cells>
@@ -570,6 +571,7 @@
 															path: 'DealDetailModel>ValidTo',
 															formatter: 'dia.cmc.common.util.Formatter.amendmentChangeBtnVisi'
 														}"
+													enabled="{Property>/SimpleAmendEnable}"
 													press="handleAmendPricePopup" />
 											</cells>
 										</ColumnListItem>
@@ -641,6 +643,7 @@
 															path: 'DealDetailModel>ValidTo',
 															formatter: 'dia.cmc.common.util.Formatter.amendmentChangeBtnVisi'
 														}"
+													enabled="{Property>/SimpleAmendEnable}"
 													press="handleAmendDiscountPopup" /> -->
 											</cells>
 										</ColumnListItem>
@@ -815,7 +818,7 @@
 
 								<Column hAlign="Center">
 									<header>
-										<Label text="Quantity" />
+										<Label text="{i18n>MonthlyQty}" />
 									</header>
 								</Column>
 
@@ -855,6 +858,7 @@
 										} " />
 
 								<Button id="idChangeCommitment" icon="sap-icon://edit"
+									enabled="{Property>/SimpleAmendEnable}"
 									press="handleAmendCommitmentPopup" />
 
 							</ColumnListItem>
@@ -871,12 +875,14 @@
 						<!-- <mvc:XMLView id="idDocumentView" viewName="dia.cmc.contractlandscape.view.detail.Document" 
 							type="XML" /> -->
 
-						<List id="AttachmentList" items="{DealDetailModel>/DocumentCollection}"
-							headerText="Contract Documents">
+						<List id="idDocumentList" itemPress="handleDocumentItemPress"	>
 
 							<items>
-
-								<StandardListItem
+								<!--  Mapping is done dynamically with ODataModel. 
+									  Check "_bindDocumentList" method in controller -->
+								
+								
+			<!-- 					<StandardListItem
 									title="{DealDetailModel>DocumentTitle}, {path: 'DealDetailModel>DocumentSize'}"
 									description="{DealDetailModel>DocumentDescription}" icon="sap-icon://document"
 									type="Active" iconDensityAware="false"
@@ -884,11 +890,10 @@
 										path: 'DealDetailModel>UpdatedOn',
 										formatter: 'dia.cmc.common.util.Formatter.date'
 									}"
-									press="handleDocumentDisplay" />
+									press="handleDocumentDisplay" /> -->
 
 							</items>
 						</List>
-
 
 					</IconTabFilter>
 
@@ -898,8 +903,9 @@
 						<!-- <mvc:XMLView id="idReferenceView" viewName="dia.cmc.contractlandscape.view.detail.Reference" 
 							type="XML" /> -->
 
-						<List items="{DealDetailModel>/ReferenceCollection}"
-							headerText="Document References">
+						<Text text="" height="1rem" />
+						
+						<List items="{DealDetailModel>/ReferenceCollection}" >
 							<items>
 								<CustomListItem type="Inactive" height="auto">
 									<Label text="{DealDetailModel>ReferenceTypeDesc}:"
@@ -929,20 +935,19 @@
 				<contentRight>
 
 					<Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}"
-						icon="sap-icon://add" press="handleAmendPricePopup" visible="{Property>/PricingActionButtonVisi}" />
+						icon="sap-icon://add" press="handleAmendPricePopup" 
+						visible="{Property>/PricingActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}"	/>
 
 <!-- 					<Button id="idAddDiscount" text="{i18n>AddDiscount}"
-						tooltip="{i18n>AddDiscount}" icon="sap-icon://add" press="handleAmendDiscountPopup"
-						visible="{Property>/DiscountActionButtonVisi}" /> -->
+							tooltip="{i18n>AddDiscount}" icon="sap-icon://add" press="handleAmendDiscountPopup"
+							visible="{Property>/DiscountActionButtonVisi}"
+							enabled="{Property>/SimpleAmendEnable}" /> -->
 
 					<Button id="idAddCommitment" text="{i18n>AddCommitment}"
 						tooltip="{i18n>AddCommitment}" icon="sap-icon://add" press="handleAmendCommitmentPopup"
-						visible="{Property>/CommitmentActionButtonVisi}" />
-
-					<!-- <Button id="idChangePrice" text="{i18n>ChangePrice}" tooltip="{i18n>ChangePrice}" 
-						icon="sap-icon://edit" press="handleAmendPricePopup" visible="{Property>/PricingActionButtonVisi}"/> -->
-					<!-- <Button id="idMaterialSub" text="{i18n>MaterialSubstitution}" tooltip="{i18n>MaterialSubstitution}" 
-						icon="sap-icon://product" press="handleAmendProductSubPopup" visible="{Property>/PricingActionButtonVisi}"/> -->
+						visible="{Property>/CommitmentActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}"	/>
 
 					<Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit"
 						tooltip="{i18n>AmendButtonText}" press="handleAmend" />

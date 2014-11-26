@@ -1,7 +1,9 @@
-<core:FragmentDefinition xmlns="sap.m"
-	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.commons.layout">
-
-	<Dialog title="{i18n>SelectProduct}" class="sapUiPopupWithPadding"
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+ 		xmlns:layout="sap.ui.commons.layout"
+		controllerName="dia.cmc.contractlandscape.view.ProductSearchHelp" 
+		xmlns:html="http://www.w3.org/1999/xhtml">
+		
+	<Dialog id="idProductSelectDialog" title="{i18n>SelectProduct}" class="sapUiPopupWithPadding"
 		stretchOnPhone="true">
 		
 		<content>
@@ -84,4 +86,10 @@
 			<Button icon="sap-icon://decline" tooltip="{i18n>Cancel}" press="handleProductSelectDialogClosePress" />
 		</beginButton>
 	</Dialog>	
-</core:FragmentDefinition>
+	
+	<!-- <Page title="Title">
+		<content>
+	
+		</content>
+	</Page> -->
+</core:View>

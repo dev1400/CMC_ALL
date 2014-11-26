@@ -21,12 +21,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 
 		// Common Controller reference
 		this.CommonController = dia.cmc.common.helper.CommonController;
-
-		this._setTimelinePeriodDefaultValue();
-		
+	
 		// Attached event handler for route match event
 		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
-		
+
 	},
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
@@ -44,8 +42,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * 
 	 * @memberOf view.detail.Partner
 	 */
-	// onAfterRendering: function() {
-	// },
+	 onAfterRendering: function() {
+		 
+		 this.handleTimelineSelectionPress();
+	 },
 	/**
 	 * Called when the Controller is destroyed. Use this one to free resources
 	 * and finalize activities.
@@ -60,9 +60,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * End - Standard hook events
 	 **************************************************************************/
 	
+	 onBeforeShow:function(oEvent){
+		 alert("BeforeShow");
+	 },
 
 	/** Event handler for Route Matched event 
-	 * It will check for deal id and if available, reads the deal details
+	 * It will check for deal id and if a;vailable, reads the deal details
 	 * @param oEvent
 	 */
 	handleRouteMatched : function(oEvent) {
@@ -79,13 +82,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 //			var oContext = new sap.ui.model.Context(oView.getModel(), sPath);
 //			oView.setBindingContext(oContext);
 			
-			this._readTimeline();
+	
+			
+//			this._readTimeline();
+//		
+//			this.getView().setModel(this.ModelHelper.oDealDetailModel, "DealDetailModel");
 		
-			this.getView().setModel(this.ModelHelper.oDealDetailModel, "DealDetailModel");
 			
 		}
 	},
-	
+
 	_setTimelinePeriodDefaultValue:function(){
 		
 		var oPeriodUI = this.CommonController.getUIElement("idTimelinePeriod",this.getView());
@@ -99,22 +105,53 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	},
 	
 	handleTimelineNavButtonPress : function(oEvent){
+//		this.getView().destroy(true);
+		
 		this.CommonController.getRouter(this).myNavBack("main");
+		
 	},
 	
+	
+	handleTimelineSelectionPress : function(oEvent){
+		
+		// Destroy popup if its already there
+		if (this._timelineSelection) {
+			this._timelineSelection.destroy(true);
+		}
+		
+		this._timelineSelection = new sap.ui.xmlfragment(
+				"dia.cmc.contractlandscape.fragment.TimelineSelection", this);
+
+		this.getView().addDependent(this._timelineSelection);
+
+		this._timelineSelection.open();
+	},
 	
 	handleTimelineSearchPress : function(oEvent){
 		
-		this._readTimeline();
+		var sFilters = this._buildFilterString();
 		
+		var oRequestFinishedDeferred = this.ModelHelper.readDealTimeline(_sDealId, sFilters);
+
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oTimelineModel) {
+		
+			if(oTimelineModel.getData().AmendmentCollection.length > 0){	// Some Amendments found
+				this.getView().setModel(oTimelineModel);
+				this._timelineSelection.close();	// Close Timeline selection window
+			}else{
+				sap.m.MessageToast.show("No data found");	
+			}
+			
+		}, this));
+
 	},
 	
-	_readTimeline: function(){
+	_buildFilterString: function(){
 
 		var sFilters = " Action eq 'RTL'";
 		
 		// Read and set Timeline period serach criteria
-		var oPeriodUI = this.CommonController.getUIElement("idTimelinePeriod",this.getView());
+		var oPeriodUI = this.CommonController.getUIElement("idTimelinePeriod");
 
 	    var dFrom = oPeriodUI.getDateValue();
 	    var dTo = oPeriodUI.getSecondDateValue();
@@ -127,7 +164,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 			sFilters += " and ( ChangedOn ge datetime'" +  sFromDate + "' and ChangedOn le datetime'" + sToDate + "') "; 
 	    }
 
-	    var oAmendCatUI = this.CommonController.getUIElement("idAmendCat",this.getView());
+	    var oAmendCatUI = this.CommonController.getUIElement("idAmendCat");
 
 	    var oSelectedAmendCatArr = oAmendCatUI.getSelectedKeys();
 	    
@@ -144,10 +181,94 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	    	}
 	    }
 	    
-		var oTimelineModel = this.ModelHelper.readDealTimeline(_sDealId, sFilters);
+	    return sFilters;
+	    
+	},
 
-		this.getView().setModel(oTimelineModel);
+	/**
+	 * Close Timeline selection window
+	 */
+	handlePopupClose: function(oEvent){
+		this.CommonController.closePopupWindow(oEvent);
+	},
+	
+	handleAmendCatChange: function(oEvent){
+//		var oSelectedItem = oEvent.getParameter("selectedItem");
+//		var bSelected = oEvent.getParameter("selected");
+//		
+//		var oAmendCatUI = this.CommonController.getUIElement("idAmendCat",this.getView());
+//
+//		
+//		if(oSelectedItem.getKey() === "AL"){
+//			
+//			if(bSelected === false){
+//				oAmendCatUI.setSelectedKeys(["AL"]);
+//			}
+//			
+//		}
+	},
+	
+	
+	handlePriceDetailsPress: function(oEvent){
 		
-	}
+//		var oPriceDetailListUI1 = this.CommonController.getUIElement("idPriceDetailList1",this.getView());
+//		
+//		oPriceDetailListUI1.setVisible(true);
+		
+		
+		var oButton = oEvent.getSource();
+		
+		if (!this._oPriceTimeline) {
+			this._oPriceTimeline = new sap.ui.xmlfragment(
+					"dia.cmc.contractlandscape.fragment.PriceTimeline",
+					this
+			);
 
+			this.getView().addDependent(this._oPriceTimeline);
+
+		}
+
+		var oSelectedContext = oEvent.getSource().getBindingContext();
+		
+		this._oPriceTimeline.bindElement(oSelectedContext.getPath());
+		
+		
+		var sPath = oSelectedContext.getPath() + "/PriceDetailCollection";
+		
+		var oPriceDetailListUI = this.CommonController.getUIElement("idPriceDetailList");
+
+		
+		// create layout for custom list 
+		var oLayout = new sap.ui.commons.layout.MatrixLayout({
+		         layoutFixed : false
+		        });
+
+		var oIconUI = new sap.ui.core.Icon({src:"sap-icon://accept"});
+
+		var oTitleUI = new sap.m.Text({text:"{RequestDesc}"});
+
+		oLayout.createRow( oIconUI, oTitleUI );  
+
+		var oDescUI = new sap.m.Label({text:"{DetailDesc}"});
+
+		oLayout.createRow( null, oDescUI );  
+		
+	
+		  var oItemTemplate = new sap.m.CustomListItem({  
+			  content: oLayout
+
+          });  
+		  
+//		  var oItemTemplate = new sap.m.StandardListItem({  
+//              title : "{RequestDesc}",  
+//              icon: "sap-icon://accept",  
+//              description: "{SubDesc}",
+//          });  
+		  
+//		oPriceDetailListUI.bindAggregation("items", oPath, oItemTemplate);
+		oPriceDetailListUI.bindItems(sPath, oItemTemplate, null,null);
+
+		this._oPriceTimeline.openBy(oButton);
+
+	}
 });
