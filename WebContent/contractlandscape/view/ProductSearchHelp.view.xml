@@ -58,17 +58,17 @@
 					</cells>
 				</ColumnListItem>
 				<columns>
-					<Column >
+					<Column hAlign="Center" >
 						<header>
 							<Text text="{i18n>MaterialNo}" />
 						</header>
 					</Column>
-					<Column >
+					<Column hAlign="Center" >
 						<header>
 							<Text text="{i18n>MaterialDescription}" />
 						</header>
 					</Column>
-					<Column >
+					<Column hAlign="Center">
 						<header>
 							<Text text="{i18n>UOM}" />
 						</header>
