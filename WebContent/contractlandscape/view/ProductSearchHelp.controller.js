@@ -17,6 +17,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.ProductSearchHelp", {
 * @memberOf contractlandscape.view.ProductSearchHelp
 */
 	onInit: function() {
+		// Model Helper reference
+		this.ModelHelper = dia.cmc.common.helper.ModelHelper;
+		
 		// Common Controller reference
 		this.CommonController = dia.cmc.common.helper.CommonController;
 	},
@@ -73,14 +76,31 @@ sap.ui.controller("dia.cmc.contractlandscape.view.ProductSearchHelp", {
     		
     	var oTable = this.getView().byId("idProductSearchTable");
     	var oBinding = oTable.getBinding("items");
+    	
+    	if (oMaterialNumberInput.getValue() !== "" || oMaterialDescriptionInput.getValue() !== "") {
+    		 if (oMaterialNumberInput.getValue() !== "" && oMaterialDescriptionInput.getValue() !== "") {               
+                     oBinding.filter([/*new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()),
+                         new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionInput.getValue()),*/
+                         new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
+                     ]);               
+             }else if (oMaterialNumberInput.getValue() !== "" && oMaterialDescriptionInput.getValue() === "") {
+            	 oBinding.filter([ /*new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()),*/
+                                   new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue())
+                               ]);
+             }else{
+            	 oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, "4950"),
+             	                 new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
+             	                 ]);
+             }
+    	} else {
+            sap.m.MessageToast.show(this.ModelHelper.getText("ProductSearchValidation"));
+        }
     		
 //    	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, "4950"),
 //    	                 new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
 //    			 new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()) ]);
     	
-    	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, "4950"),
-    	                 new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
-    	                 ]);
+    	
     	
     },
     
