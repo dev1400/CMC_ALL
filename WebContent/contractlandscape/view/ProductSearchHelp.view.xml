@@ -4,7 +4,7 @@
 		xmlns:html="http://www.w3.org/1999/xhtml">
 		
 	<Dialog id="idProductSelectDialog" title="{i18n>SelectProduct}" class="sapUiPopupWithPadding"
-		stretchOnPhone="true">
+		contentWidth="60%" contentHeight="45%" stretchOnPhone="true">
 		
 		<content>
 			<Bar >
