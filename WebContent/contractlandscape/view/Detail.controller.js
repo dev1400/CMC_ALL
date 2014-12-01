@@ -336,11 +336,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	  /** Event handler for System line item selection. It will navigate to System Detail page
 	   */
 	  handleSystemLineItemPress : function(oEvent){
-		  
-//		  var oDetailView = sap.ui.getCore().byId("Detail");
-//		  
-//		  oDetailView.nav.to("SystemDetail",null);
-		  this.nav.to("SystemDetail",null);
+		  var oContext = oEvent.getParameter("listItem").getBindingContext("DealDetailModel");	
+		 
+	        var oODataModel = this.getView().getModel("DealDetailModel");
+	    	var oSystemDetail = oODataModel.getProperty(oContext.getPath());
+		
+		  this.CommonController.getRouter(this).navTo("systemDetail", {
+				from: "dealDetail", dealId: oSystemDetail.DealId,
+			}, false);
 	  },
 		
 	 /**********************************************************************************************************************************

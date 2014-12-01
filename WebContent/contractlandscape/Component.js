@@ -47,6 +47,13 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
                         },
                         
                         {
+							pattern : "SystemDetail({dealId})",
+							name : "systemDetail",
+							view : "SystemDetail",
+							transition : "show"
+						},
+                        
+                        {
 							pattern : ":all*:",
 							name : "catchallDetail",
 							view : "Empty",

@@ -209,7 +209,7 @@
 														        descending: false,
 														        group: true
 														      }
-														}">
+														}" itemPress="handleSystemLineItemPress">
 
 							<columns>
 
@@ -243,7 +243,7 @@
 							</columns>
 
 
-							<ColumnListItem type="Navigation" press="handleSystemLineItemPress">
+							<ColumnListItem type="Navigation" >
 
 								<ObjectIdentifier title="{DealDetailModel>SystemName}"
 									text="{DealDetailModel>SystemGroupName}" class="sapMTableContentMargin" />

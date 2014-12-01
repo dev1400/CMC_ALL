@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<core:View controllerName="dia.cmc.contractlandscape.view.detail.SystemDetail" xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" 
-		 xmlns:html="http://www.w3.org/1999/xhtml">
+<core:View controllerName="dia.cmc.contractlandscape.view.SystemDetail"
+	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml">
 
-		
-	<Page class="sapUiFioriObjectPage"
-		  title="System Detail"
-		  showNavButton="true"
-		  navButtonPress="handleNavButtonPress" > 
 
-		<content>
-			<Text text="Coming Soon" />
-			
-		</content>
+	<Page class="sapUiFioriObjectPage" title="System Detail"
+		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
+		<VBox width="auto">
+			<HBox alignItems="Center">
+				<VBox>
+					<Image src="common/mime/blank_img.png" height="20em" width="20em">
+					</Image>
+				</VBox>
 
+				<VBox width="100%" alignItems="Center">
+					<List>
+						<items>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Opportunity:" />
+								<Text text="" width="1rem" />
+								<Link text="SF100110001" />
+							</CustomListItem>
+						</items>
+					</List>
+				</VBox>
+			</HBox>
+			<List>
+				<items>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="Opportunity:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="SF100110001" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+				</items>
+			</List>
+		</VBox>
 	</Page>
 </core:View>
