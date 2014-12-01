@@ -1065,13 +1065,29 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 
 	readDealsInAmendmentCollection : function (){
+		
+		// Open busy dialog
+		this.openBusyDialog();
+		
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();
 
 		var that = this;		
 		
-		this.oODataModel.read("DealInAmendmentCollection", null, null , false, 
+		this.oODataModel.read("DealInAmendmentCollection", null, null , true, 
 			
 			function(oData, oResponse){
+				
 				that.oDealsInAmendmentCollectionModel.setData({DealsInAmendmentCollection:oData.results});
+				
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(jQuery.extend({}, that.oDealsInAmendmentCollectionModel.getData()));
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+		
+			
+				
 			},
 			
 			function(oResponse){
@@ -1080,6 +1096,11 @@ dia.cmc.common.helper.ModelHelper = {
 			   sap.m.MessageBox.alert(oResponse.error.message.value, {
 					title : "Result"
 				});
+			   // Reject deferred object
+			   oRequestFinishedDeferred.resolve();
+			   
+			   // Close busy dialog
+			   that.closeBusyDialog();
 			});
 		
             
