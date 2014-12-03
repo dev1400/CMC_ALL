@@ -16,23 +16,67 @@
 
 				<VBox width="100%" alignItems="Center">
 					<List>
-						<items>
-							<CustomListItem type="Inactive" height="auto">
-								<Label text="Opportunity:" />
-								<Text text="" width="1rem" />
-								<Link text="SF100110001" />
-							</CustomListItem>
-						</items>
-					</List>
+				<items>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="Deal Id:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="SF100110001" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="System Module Description:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="Roche System" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="System Module Serial:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="997744245" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="System Name:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="Roche M15" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+				</items>
+			</List>
 				</VBox>
 			</HBox>
 			<List>
 				<items>
 					<CustomListItem type="Inactive" height="auto">
-						<Label text="Opportunity:" textAlign="Right" width="35%"
+						<Label text="Deal Id:" textAlign="Right" width="35%"
 							wrapping="true" />
 						<Text text="" width="1rem" />
 						<Link text="SF100110001" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="System Module Description:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="Roche System" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="System Module Serial:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="997744245" textAlign="Left" target="_blank"
+							href="" wrapping="true" />
+					</CustomListItem>
+					<CustomListItem type="Inactive" height="auto">
+						<Label text="System Name:" textAlign="Right" width="35%"
+							wrapping="true" />
+						<Text text="" width="1rem" />
+						<Link text="Roche M15" textAlign="Left" target="_blank"
 							href="" wrapping="true" />
 					</CustomListItem>
 				</items>

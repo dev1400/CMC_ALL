@@ -47,7 +47,7 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
                         },
                         
                         {
-							pattern : "SystemDetail({dealId})",
+							pattern : "SystemDetail(systemmoduleserial/{systemModuleSerial}/systemmoduledescription/{systemModuleDescription}/systemname/{systemName}/dealid/{dealId}/systemsitename/{systemSiteName})",
 							name : "systemDetail",
 							view : "SystemDetail",
 							transition : "show"

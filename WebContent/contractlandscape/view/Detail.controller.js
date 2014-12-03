@@ -342,10 +342,28 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	    	var oSystemDetail = oODataModel.getProperty(oContext.getPath());
 		
 		  this.CommonController.getRouter(this).navTo("systemDetail", {
-				from: "dealDetail", dealId: oSystemDetail.DealId,
+				from: "dealDetail", systemModuleSerial : oSystemDetail.SystemModuleSerial,
+				systemModuleDescription : oSystemDetail.SystemModuleDescription,				
+				systemName : oSystemDetail.SystemName,
+				dealId : oSystemDetail.DealId,				
+				systemSiteName : oSystemDetail.SystemSiteName
 			}, false);
 	  },
-		
+	  
+	  /*dealId: oSystemDetail.DealId,
+	   * systemModuleSerial : oSystemDetail.SystemModuleSerial,
+				systemModuleDescription : oSystemDetail.SystemModuleDescription,
+				systemPlacementType : oSystemDetail.SystemPlacementType,
+				systemModule : oSystemDetail.SystemModule,
+				systemGroupName : oSystemDetail.SystemGroupName,
+				systemSiteNumber : oSystemDetail.SystemSiteNumber,
+				systemName : oSystemDetail.SystemName,
+				dealId : oSystemDetail.DealId,
+				systemModuleAsset : oSystemDetail.SystemModuleAsset,
+				systemModuleAssetValue : oSystemDetail.SystemModuleAssetValue,
+				systemSiteName : oSystemDetail.SystemSiteName
+			}*/
+	
 	 /**********************************************************************************************************************************
 	 * End - Other Code 
 	 ***********************************************************************************************************************************/

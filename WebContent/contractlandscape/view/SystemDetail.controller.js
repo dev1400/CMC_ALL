@@ -23,12 +23,33 @@ sap.ui.controller("dia.cmc.contractlandscape.view.SystemDetail", {
     
    
     handleSystemDetailRouteMatched: function(oEvent) {
+    	/*console.dir(oEvent.getSource().getBindingContext().getObject());*/
 
         if (oEvent.getParameter("name") === "systemDetail") { // check route name
-
-            this._sDealId = oEvent.getParameter("arguments").dealId;
-
-            this._readAndBindDealDetails();
+        	
+        	/*console.log(oEvent.getParameter("arguments")+" "+ this.getView().getModel());*/
+        	
+        	var listView = this.getView().byId("idSystemDetailList");
+        	
+        
+	/*		var oSystemModuleSerialLabel = new sap.m.Label({text:oEvent.getParameter("arguments").systemModuleSerial});
+			var oSystemModuleSerialLink = new sap.m.Link({text:oEvent.getParameter("arguments").systemModuleSerial});
+        	console.dir(oEvent.getParameter("arguments"));
+        	  var oModel = new sap.ui.model.json.JSONModel();        // created a JSON model      
+        	     oModel.setData({modelData: {dealId:oEvent.getParameter("arguments").dealId, 
+        	    	 systemModuleDescription:oEvent.getParameter("arguments").systemModuleDescription, 
+        	    	 systemModuleSerial:oEvent.getParameter("arguments").systemModuleSerial, 
+        	    	 systemName:oEvent.getParameter("arguments").systemName, 
+        	    	 systemSiteName:oEvent.getParameter("arguments").systemSiteName}}); 
+        	     
+        	  listView.setModel(oModel);
+        	 
+        	  var oItemTemplate = new sap.m.CustomListItem({  
+      			  content: [oSystemModuleSerialLabel, oSystemModuleSerialLink]
+                });
+        	   
+        	  listView.bindContent("/modelData", oItemTemplate);*/
+        	
         }
     },
     _readAndBindDealDetails: function() {
