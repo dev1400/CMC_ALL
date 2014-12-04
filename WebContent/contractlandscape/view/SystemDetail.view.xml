@@ -3,12 +3,12 @@
 	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core"
 	xmlns:layout="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	
+
 	<Page class="sapUiFioriObjectPage" title="System Detail"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
 		<VBox width="auto" alignItems="Center">
 			<HBox width="100%" alignItems="Center">
-				<HBox width="20%" alignItems="Center">
+				<HBox width="auto" alignItems="Start">
 					<Image src="common/mime/blank_img.png" height="10em" width="10em">
 					</Image>
 				</HBox>
@@ -26,7 +26,7 @@
 			</HBox>
 
 			<HBox width="100%" alignItems="Stretch">
-			    <Text text="" width="1rem" />
+				<Text text="" width="1rem" />
 				<VBox width="100%" alignItems="Stretch">
 					<List>
 						<items>
@@ -52,10 +52,11 @@
 									wrapping="true" />
 							</CustomListItem>
 							<CustomListItem type="Inactive" height="auto">
-							   <!--  <Label text="8640789" textAlign="Right" width="55%"
-									wrapping="true" /> -->
 
-								<Link text="SAP Equipment Record" textAlign="Center"   />
+								<Label text="" textAlign="Right" width="20%" wrapping="true" />
+								<Text text="" width="1rem" />
+
+								<Link text="SAP Equipment Record" textAlign="Center" />
 							</CustomListItem>
 
 						</items>
@@ -66,7 +67,7 @@
 					<List>
 						<items>
 							<CustomListItem type="Inactive" height="auto">
-								<Label text="Start up date:" textAlign="Right" width="35%"
+								<Label text="Start up date:" textAlign="Right" width="50%"
 									wrapping="true" />
 								<Text text="" width="1rem" />
 								<Label text="10/01/2014" textAlign="Left" width="35%"
@@ -74,27 +75,27 @@
 							</CustomListItem>
 							<CustomListItem type="Inactive" height="auto">
 								<Label text="First installation date:" textAlign="Right"
-									width="35%" wrapping="true" />
+									width="50%" wrapping="true" />
 								<Text text="" width="1rem" />
 								<Label text="11/12/2014" textAlign="Left" width="35%"
 									wrapping="true" />
 							</CustomListItem>
 							<CustomListItem type="Inactive" height="auto">
-								<Label text="Warranty start:" textAlign="Right" width="35%"
+								<Label text="Warranty start:" textAlign="Right" width="50%"
 									wrapping="true" />
 								<Text text="" width="1rem" />
 								<Label text="15/12/2014" textAlign="Left" width="35%"
 									wrapping="true" />
 							</CustomListItem>
 							<CustomListItem type="Inactive" height="auto">
-								<Label text="Warranty end:" textAlign="Right" width="35%"
+								<Label text="Warranty end:" textAlign="Right" width="50%"
 									wrapping="true" />
 								<Text text="" width="1rem" />
 								<Label text="20/12/2014" textAlign="Left" width="35%"
 									wrapping="true" />
 							</CustomListItem>
 							<CustomListItem type="Inactive" height="auto">
-								<Label text="SC renewal:" textAlign="Right" width="35%"
+								<Label text="SC renewal:" textAlign="Right" width="50%"
 									wrapping="true" />
 								<Text text="" width="1rem" />
 								<Label text="30/12/2014" textAlign="Left" width="35%"
@@ -102,13 +103,16 @@
 							</CustomListItem>
 							<CustomListItem type="Inactive" height="auto">
 
+								<Label text="" textAlign="Right" width="35%" wrapping="true" />
+								<Text text="" width="1rem" />
+
 								<Link text="SAP Installed Base" textAlign="Right" target="_blank"
 									href="" wrapping="true" />
 							</CustomListItem>
 						</items>
 					</List>
 				</VBox>
-			    <Text text="" width="1rem" />
+				<Text text="" width="1rem" />
 			</HBox>
 		</VBox>
 	</Page>
