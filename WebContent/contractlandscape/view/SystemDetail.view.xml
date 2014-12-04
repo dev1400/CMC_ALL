@@ -3,84 +3,113 @@
 	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core"
 	xmlns:layout="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-
-
+	
 	<Page class="sapUiFioriObjectPage" title="System Detail"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
-		<VBox width="auto">
-			<HBox alignItems="Center">
-				<VBox>
-					<Image src="common/mime/blank_img.png" height="20em" width="20em">
+		<VBox width="auto" alignItems="Center">
+			<HBox width="100%" alignItems="Center">
+				<HBox width="20%" alignItems="Center">
+					<Image src="common/mime/blank_img.png" height="10em" width="10em">
 					</Image>
-				</VBox>
+				</HBox>
 
-				<VBox width="100%" alignItems="Center">
-					<List>
-				<items>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="Deal Id:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="SF100110001" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="System Module Description:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="Roche System" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="System Module Serial:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="997744245" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="System Name:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="Roche M15" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-				</items>
-			</List>
-				</VBox>
+				<HBox width="100%" alignItems="Start">
+					<ObjectHeader title="COBAS 600 CORB">
+
+						<attributes>
+							<ObjectAttribute text="SAP. MAT CODE : 00100498" />
+							<ObjectAttribute text="Serial Number : 97645" />
+							<ObjectAttribute text="Status : Installed on 10/11/99 Rented" />
+						</attributes>
+					</ObjectHeader>
+				</HBox>
 			</HBox>
-			<List>
-				<items>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="Deal Id:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="SF100110001" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="System Module Description:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="Roche System" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="System Module Serial:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="997744245" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-					<CustomListItem type="Inactive" height="auto">
-						<Label text="System Name:" textAlign="Right" width="35%"
-							wrapping="true" />
-						<Text text="" width="1rem" />
-						<Link text="Roche M15" textAlign="Left" target="_blank"
-							href="" wrapping="true" />
-					</CustomListItem>
-				</items>
-			</List>
+
+			<HBox width="100%" alignItems="Stretch">
+			    <Text text="" width="1rem" />
+				<VBox width="100%" alignItems="Stretch">
+					<List>
+						<items>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Asset No:" textAlign="Right" width="35%"
+									wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="568345" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Residual Value:" textAlign="Right" width="35%"
+									wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="8640789" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Higher level equipment:" textAlign="Right"
+									width="35%" wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="EQUIP0098" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+							   <!--  <Label text="8640789" textAlign="Right" width="55%"
+									wrapping="true" /> -->
+
+								<Link text="SAP Equipment Record" textAlign="Center"   />
+							</CustomListItem>
+
+						</items>
+					</List>
+				</VBox>
+				<Text text="" width="1rem" />
+				<VBox width="100%" alignItems="Stretch">
+					<List>
+						<items>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Start up date:" textAlign="Right" width="35%"
+									wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="10/01/2014" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="First installation date:" textAlign="Right"
+									width="35%" wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="11/12/2014" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Warranty start:" textAlign="Right" width="35%"
+									wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="15/12/2014" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="Warranty end:" textAlign="Right" width="35%"
+									wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="20/12/2014" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+								<Label text="SC renewal:" textAlign="Right" width="35%"
+									wrapping="true" />
+								<Text text="" width="1rem" />
+								<Label text="30/12/2014" textAlign="Left" width="35%"
+									wrapping="true" />
+							</CustomListItem>
+							<CustomListItem type="Inactive" height="auto">
+
+								<Link text="SAP Installed Base" textAlign="Right" target="_blank"
+									href="" wrapping="true" />
+							</CustomListItem>
+						</items>
+					</List>
+				</VBox>
+			    <Text text="" width="1rem" />
+			</HBox>
 		</VBox>
 	</Page>
 </core:View>
