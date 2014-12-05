@@ -46,9 +46,71 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
     /**
      * Called when the View has been rendered.
      */
-    onAfterRendering: function() {
+    onAfterRendering: function(oEvent) {
         $("#__xmlview1--idIconTabBar-content").remove();
+        // Load user parameters and deal collection
+		this._loadInitialData(oEvent);
     },
+    /** Load check user default values, if available load Deal collection or ask user to select the default values
+	 */
+	_loadInitialData : function (oEvent){		
+		// Read user default parameters
+		var oRequestFinishedDeferred = this.ModelHelper.readDefaultParameters();
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDefaultParameters) {			
+			// if not available, ask user to select it
+			if ( oDefaultParameters.MessageType === "E"){	
+				this.handleDefaultParameterPopup(oEvent);
+			}
+			else{
+				// Create model and bind it to view
+				var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
+				this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
+				
+				//Read Deal Collection and bind it to View
+				this._readAndBindDealCollection(null);
+			}
+		
+		}, this));
+
+	},
+	
+	/** Read deal collection and bind model to view
+	 */
+	_readAndBindDealCollection : function (sFilter,oEvent,bClosePopup){
+		//Read Deal Collection and bind it to View		
+		var oSearchButtonEvent = jQuery.extend({}, oEvent);
+		
+		var oRequestFinishedDeferred = this.ModelHelper.readDealCollection(sFilter);
+		
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDealCollectionModel) {
+		
+			var sMsg = "";
+			
+			if(oDealCollectionModel.getData().DealCollection.length > 0){	// Some Deals found 
+				
+				// Set model to view
+				this.getView().setModel(oDealCollectionModel);
+				  
+				// If Search popup is open, close it
+				if(bClosePopup){
+					
+					this.handleSearchPopupClose(oSearchButtonEvent);
+					
+					// Show default screen and remove selection
+					this._showDefaultDetailView();
+					sMsg = 'Deal Contracts are filtered';
+				}
+			}else{
+				sMsg = 'No Deal Contract found';
+			}
+			
+			// Show message
+			if(sMsg != ""){
+				sap.m.MessageToast.show(sMsg);	
+			}
+			
+		}, this));
+	},
 
     /**
      * Get From and To date when date range is selected.
