@@ -459,7 +459,7 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 		var oSorter = new sap.ui.model.Sorter("DistChannelDescription",false, false);
 
 		// Create filter object
-		var oFilters = new sap.ui.model.Filter("SalesOrgCode", sSelectedSalesOrg);
+		var oFilters = new sap.ui.model.Filter("SalesOrgCode", sap.ui.model.FilterOperator.EQ, sSelectedSalesOrg);
 
 		// Bind data to Dist. Channel Combo Box
 		oDistChannelUI.bindItems("ODataModel>/DistChannelCollection", oItems, oSorter, oFilters);
