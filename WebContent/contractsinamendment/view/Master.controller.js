@@ -340,6 +340,175 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
         this.CommonController.JSONToCSVConvertor(this._oTable.getBinding("items").oModel.oData.DealsInAmendmentCollection,
             this.ModelHelper.getText("ContractsInAmendmentReport"), true);
 
-    }
+    },
+   
+	
+	/***************************************************************************
+	 * Start - Default Parameter related code
+	 **************************************************************************/
+    
+    /** Event handler for Default Parameter button
+	 * It will open Default Parameter popup window
+	 * @param oEvent
+	 */
+	handleDefaultParameterPopup : function (oEvent){
+				
+		if (!this._defaultParameters) {
+			this._defaultParameters = new sap.ui.xmlfragment(
+					"dia.cmc.contractsinamendment.fragment.DefaultParameters",
+					this
+			);
+
+			this.getView().addDependent(this._defaultParameters);
+			
+			this.handleSalesOrgChange(oEvent);
+			
+			this.handleDistChannelChange(oEvent);
+		}
+
+		this._defaultParameters.open();
+	},
+	
+	/** Event hanlder for Sales Org. Combo box ( In User Default Parameters screen ) selection change event.
+	 * It will load Distribution Channels
+	 * @para oEvent 
+	 */
+	handleSalesOrgChange : function(oEvent){
+
+		// Get selected Sales Org
+//		var sSelectedSalesOrg = oEvent.getParameter("selectedItem").getKey();
+
+		var oSalesOrgUI = this.CommonController.getUIElement("idDFSalesOrg");
+		var sSelectedSalesOrg = oSalesOrgUI.getSelectedKey();
+			
+		if ( sSelectedSalesOrg === undefined || sSelectedSalesOrg === null  || sSelectedSalesOrg === ""){
+			return;
+		}
+		
+		var oItems = new sap.ui.core.ListItem({
+			key : "{ODataModel>DistChannelCode}",
+			text : "{ODataModel>DistChannelCode} - {ODataModel>DistChannelDescription}",
+		});
+
+		// Get Dist Channel Combo box reference
+		var oDistChannelUI = this.CommonController.getUIElement("idDFDistChannel");
+
+		// Create sorter object
+		var oSorter = new sap.ui.model.Sorter("DistChannelDescription",false, false);
+
+		// Create filter object
+		var oFilters = new sap.ui.model.Filter("SalesOrgCode", sSelectedSalesOrg);
+
+		// Bind data to Dist. Channel Combo Box
+		oDistChannelUI.bindItems("ODataModel>/DistChannelCollection", oItems, oSorter, oFilters);
+	},
+	
+	
+	/** Event hanlder for Dist. Channel Combo box ( In User Default Parameters screen ) selection change event.
+	 * It will load the Divisions
+	 * @para oEvent 
+	 */
+	handleDistChannelChange : function(oEvent){
+		
+		var oDistChannelUI = this.CommonController.getUIElement("idDFDistChannel");
+		var sSelectedDistChannel = oDistChannelUI.getSelectedKey();
+			
+		if ( sSelectedDistChannel === undefined || sSelectedDistChannel === null  || sSelectedDistChannel === ""){
+			return;
+		}
+		
+		// Create item object
+		var sDivisionText = this.ModelHelper.getText("DefaultDivision");
+		
+		var oItems = new sap.ui.core.ListItem({
+			key : "45",
+			text : "45 - " + sDivisionText,
+		});
+		
+		
+		//Get Dist Channel Combo box reference
+		var oDivisionUI = this.CommonController.getUIElement("idDFDivision");
+
+		var sSelectedDivision = oDivisionUI.getSelectedKey();
+		
+		// Add item to Division combo box
+		oDivisionUI.removeAllItems();
+		oDivisionUI.addItem(oItems);
+		
+		// Set the existing selected key
+		if(sSelectedDivision != ""){
+			oDivisionUI.setSelectedKey(sSelectedDivision);
+		}
+		
+	},
+	/** Event handler for Default Parameter Save button
+	 * It will call model helper class to save details to SAP.
+	 * @param oEvent
+	 */
+	handleDefaultParameterSave : function(oEvent){
+		
+		// Array of controls on Commitment Amendment popup with OData service field names
+		var oControlList = [{id:"idDFSalesOrg", 	uiType:"TB",	value:"", 	mandatory:true, 	field:"SalesOrg" },
+		                    {id:"idDFDistChannel", 	uiType:"TB",	value:"", 	mandatory:true, 	field:"DistChannel" },
+		                    {id:"idDFDivision", 	uiType:"TB",	value:"", 	mandatory:true, 	field:"Division" }
+		                   ];
+		
+		
+		// Validate the default parameters
+		var canContinue = this.CommonController.validateInput(oEvent, oControlList, "");
+
+		if (canContinue == false) // Validation failed, return
+			return;
+		
+		var oButtonEvent = jQuery.extend({}, oEvent);
+		
+		// Get user default parameters
+		var oDefaultParameters = this.getView().getModel("DefaultParameters");
+
+		// Update default parameters to SAP
+		var oRequestFinishedDeferred = this.ModelHelper.updateDefaultParameters(oDefaultParameters.getData());
+
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDefaultParameters) {
+			
+			// Display message and close popup window if update is successful
+			if (oDefaultParameters.MessageType != "E") { 
+				
+				sap.m.MessageToast.show(oDefaultParameters.Message);	
+				this.CommonController.closePopupWindow(oButtonEvent);
+				
+//				// Load deal collection if it is still pending
+//				if(this._bLoadingDealListPending === true){
+	
+				//Read Deal Collection and bind it to View
+				this._readAndBindDealCollection(null);
+					
+				// Show default screen and remove selection if no search result found
+				this._showDefaultDetailView();
+				
+//					this._bLoadingDealListPending = false;
+//				}
+			}
+			else{
+				// Display Error message 
+				sap.m.MessageBox.alert(oDefaultParameters.Message, {
+					title : this.ModelHelper.getText("UpdateResult")
+				});
+			}
+
+		}, this));
+	},
+
+	/**
+	 * Event Handler for Close button on Search popup window. It will close the Search popup window
+	 */
+	handleSearchPopupClose: function (oEvent) {
+
+		this.CommonController.closePopupWindow(oEvent);
+
+	},
+	
+	/***************************************************************************
+	 * End - Default Parameter related code
+	**************************************************************************/
 
 });
