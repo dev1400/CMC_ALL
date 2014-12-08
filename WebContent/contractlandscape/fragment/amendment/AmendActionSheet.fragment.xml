@@ -23,11 +23,16 @@
 							formatter: 'dia.cmc.common.util.Formatter.isCancelAmendBtnEnable'
 						}" 
       		  press="handleCancelRecalculationPost" />
-      <!-- <Button id="idAddChangePrice" text="{i18n>AddChangePrice}" tooltip="{i18n>AddChangePrice}" icon="sap-icon://edit" press="handleAmendPricePopup" />
-      <Button id="idMaterialSub"	text="{i18n>MaterialSubstitution}" tooltip="{i18n>MaterialSubstitution}" icon="sap-icon://product" press="handleAmendProductSubPopup" />
-      <Button id="idAddChangeCommitment" text="{i18n>AddChangeCommitment}" tooltip="{i18n>AddChangeCommitment}" icon="sap-icon://edit" press="handleAmendCommitmentPopup" /> -->
-      <Button text="{i18n>ValidityChange}" tooltip="{i18n>ValidityChange}" icon="sap-icon://appointment" press="handleAmendValidityChangePopup" />
-      <Button text="{i18n>ContractTermination}" tooltip="{i18n>ContractTermination}" icon="sap-icon://contacts" press="handleAmendContractTermPopup" />
+
+      <Button text="{i18n>ValidityChange}" tooltip="{i18n>ValidityChange}" icon="sap-icon://appointment" 
+      		  enabled="{
+							path: 'DealDetailModel>/DealDetail/DealStatus',
+							formatter: 'dia.cmc.common.util.Formatter.isDealNotInAmend'
+						}"
+      		  press="handleAmendValidityChangePopup" />
+      		  
+      <Button text="{i18n>ContractTermination}" tooltip="{i18n>ContractTermination}" icon="sap-icon://contacts" 
+      		  enabled="{Property>/SimpleAmendEnable}" press="handleAmendContractTermPopup" />
     </buttons>
   </ActionSheet>
 </core:FragmentDefinition>

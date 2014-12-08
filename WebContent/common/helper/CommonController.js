@@ -28,7 +28,7 @@ dia.cmc.common.helper.CommonController = {
 	/** Validate the Amendment inputs
 	 * @param oEvent
 	 * @param oControlList : Array of UI Control on Amendment screen
-	 * @param sAmendType : Amendment Type ( R - Recalculation, P - Pricing, V - Validity Change, T - Termination
+	 * @param sAmendType : Amendment Type 
 	 */
 	validateInput : function(oEvent, oControlList, sAmendType) {
 
@@ -44,7 +44,7 @@ dia.cmc.common.helper.CommonController = {
 
 			oControl = sap.ui.getCore().byId(el.id);
 
-			if (el.uiType === "TB") { // Text Box or other String type control
+			if (el.uiType === "TB" || el.uiType === "NB" ) { // Text Box or other String type control
 				el.value = oControl.getValue();
 			} else if (el.uiType === "DT" || el.uiType === "DRF") { // Date Field or Date Range From 
 				
@@ -65,7 +65,7 @@ dia.cmc.common.helper.CommonController = {
 														// value
 					el.value = "";
 				} else {
-					if (sAmendType === "V" && ( el.id === "idHeaderLevel" || el.uiType === "CBGRP" )) { // Exception
+					if (sAmendType === "UVC" && ( el.id === "idHeaderLevel" || el.uiType === "CBGRP" )) { // Exception
 																									// case
 																									// for
 																									// Validity
@@ -88,6 +88,20 @@ dia.cmc.common.helper.CommonController = {
 				}
 			}
 			
+			
+			if(el.uiType === "NB"){			// If number field, validate the value
+			
+				var bValidNumber = (el.value.match(/^\d+(?:\.\d+)?$/));
+				
+				if(!bValidNumber){
+					oControl.setValueState("Error");
+					bCanContinue = false;
+					
+					sErrorMsg = that.ModelHelper.getText("MandatoryFields");
+				}
+			}
+
+			
 			if (bCanContinue && el.minLength > 0) {
 
 				if (el.value.length < el.minLength ) {
@@ -106,7 +120,7 @@ dia.cmc.common.helper.CommonController = {
 
 		// Exception case for Validity Amendment. Check at least one service
 		// item is selected
-		if (sAmendType === "V" && bAtLeastOneSelected === false) {
+		if (sAmendType === "UVC" && bAtLeastOneSelected === false) {
 			
 			bCanContinue = false;
 			sap.m.MessageToast.show(this.ModelHelper.getText("MandatoryServiceItem"));
@@ -139,16 +153,23 @@ dia.cmc.common.helper.CommonController = {
 		return sap.ui.core.UIComponent.getRouterFor(oView);
 	},
 	
-	
+	/**
+	 * Get language url parameter and if not available read browser language
+	 */
 	getBrowserLanguage : function(){
-		var sLang = null;
+		var sLang = undefined;
 		
-		if (navigator.userLanguage){ 			// Explorer
-			sLang = navigator.userLanguage;
+		sLang = this.getUrlParameter("sap-ui-language");
+		
+		if(!sLang){
+			if (navigator.userLanguage){ 			// Explorer
+				sLang = navigator.userLanguage;
+			}else{ // FF & Chrome
+				sLang = navigator.language;
+			}
 			
-		}else{ // FF & Chrome
-			sLang = navigator.language;
-		} 
+			sLang = sLang.substr(0,1).toUpperCase();
+		}
 		
 		return sLang;
 	},
@@ -202,6 +223,20 @@ dia.cmc.common.helper.CommonController = {
 //	closeBusyDialog: function(){
 //		this._busyDialog.close();
 //	},
+	
+	getUrlParameter:function(sParam)
+	{
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) 
+	    {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) 
+	        {
+	            return sParameterName[1];
+	        }
+	    }
+	},          
 	
 	/**
      * Generate Excel file using JSON data.

@@ -59,7 +59,8 @@
 						<Input id="idCAProduct"
 							value="{DealDetailModel>/NewCommitmentItem/Material}"
 							enabled="{Property>/MaterialEnable}" 
-							showValueHelp="true" valueHelpRequest="handleMaterialValueHelp">
+							showValueHelp="true" valueHelpRequest="handleProductValueHelpRequest"
+							change="handleProductChange">
 
 							<layoutData>
 								<l:GridData span="L2 M3 S4" />
@@ -79,7 +80,7 @@
 
 						<Label text="{i18n>MonthlyQty}" />
 
-						<Input id="idCAQty" type="Number"
+						<Input id="idCAQty" 
 							value="{DealDetailModel>/NewCommitmentItem/Quantity}">
 
 							<layoutData>

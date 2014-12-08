@@ -74,6 +74,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 
 			_sDealId = oEvent.getParameter("arguments").dealId;
 
+			this.getView().setModel(this.ModelHelper.oDealDetailModel, "DealDetailModel");
+			
 //			var oView = this.getView();
 //			oView.setModel(this.ModelHelper.oODataModel);
 //			
@@ -86,7 +88,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 			
 //			this._readTimeline();
 //		
-//			this.getView().setModel(this.ModelHelper.oDealDetailModel, "DealDetailModel");
+			
 		
 			
 		}
@@ -180,7 +182,26 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	    		sFilters += " ) ";
 	    	}
 	    }
+
+		var oPartnerUI = this.CommonController.getUIElement("idTLPartner");
+	    var sPartnerNumber = oPartnerUI.getSelectedKey();
+
+	    if ( sPartnerNumber != null || sPartnerNumber !== "" ){
+			sFilters += " and ( PartnerNumber eq '" + sPartnerNumber + "') "; 
+	    }
+
+		var oProductUI = this.CommonController.getUIElement("idTLProduct");
+	    var sProductNumber = oProductUI.getValue();
+
+	    if ( sProductNumber != null || sProductNumber !== "" ){
+			sFilters += " and ( Material eq '" + sProductNumber + "') "; 
+	    }
 	    
+		var oPriceDetailItemsUI = this.CommonController.getUIElement("idTLPriceDetailItems");
+	    var bPriceDetailItems = oPriceDetailItemsUI.getSelected();
+
+		sFilters += " and ( SubItem eq '" + bPriceDetailItems + "') "; 
+
 	    return sFilters;
 	    
 	},

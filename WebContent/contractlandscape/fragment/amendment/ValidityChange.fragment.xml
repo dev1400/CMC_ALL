@@ -10,7 +10,7 @@
   <Dialog
     title="{i18n>ValidityChange}"
     class="sapUiPopupWithPadding" 
-    contentWidth="50%" contentHeight="50%" stretchOnPhone="true"  >
+    contentWidth="50%" contentHeight="45%" stretchOnPhone="true"  >
 
 	<customHeader>
 		<Bar>
@@ -31,28 +31,36 @@
     <l:content>
     
 	<f:SimpleForm layout="ResponsiveGridLayout"
-		labelSpanL="4" labelSpanM="3" emptySpanL="4" emptySpanM="1" columnsL="1" columnsM="1"  editable="true"	>
+		labelSpanL="2" labelSpanM="3"  emptySpanM="1" emptySpanS="1" columnsL="1" columnsM="1"  editable="true"	>
 	
 		<f:content>
 		    <Label text="{i18n>ContractEndDate}" />
 		    
-		    <DatePicker id="idContractEndDate" displayFormat="{i18n>DateFormat}" >
+		    <DatePicker id="idVCContractEndDate" displayFormat="{i18n>DateFormat}" >
 	  			<layoutData>
-	              <l:GridData span="L2 M4 S6" />
+	              <l:GridData span="L2 M4 S4" />
 	            </layoutData>
 	        </DatePicker>
 	  		
 	  		<Label text="" />
-	 		<RadioButton groupName="Type" id="idHeaderLevel" text="{i18n>HeaderLevel}" selected="true" select="handleAmentValidityItemsSelect"/>
-	 		<Label text="" />
-            <RadioButton groupName="Type" id="idValiditySelectedItems" text="{i18n>SelectedItems}" select="handleAmentValidityItemsSelect" />
-          
-          	<VBox id="idSelectedItemsVBox" visible="false">
+	  		
+	  		<VBox id="idSelectedItemsVBox">
+		 		<RadioButton groupName="Type" id="idVCHeader" text="{i18n>HeaderLevel}" selected="true"/>
+	            <RadioButton groupName="Type" id="idVCServiceItem" text="{i18n>ServiceItems}"  />
+	            <RadioButton groupName="Type" id="idVCPricingItem" text="{i18n>PricingAgreements}"  />
+	            
+	            <layoutData>
+	              <l:GridData span="L2 M4 S4" />
+	            </layoutData>
+	            
+            </VBox>          
+            
+          	<!-- <VBox id="idSelectedItemsVBox" visible="false">
           		<CheckBox id="idServiceItems" text="{i18n>ServiceItems}" />
           		<CheckBox id="idInstrumentItems" text="{i18n>InstrumentItems}" />
           		<CheckBox id="idPricingAgreeItems" text="{i18n>PricingAgreements}" />
           	</VBox>
-          	
+ -->          	
           	<!-- 
             <CheckBox text="ServiceItems" >
             	<layoutData>

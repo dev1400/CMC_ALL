@@ -209,11 +209,11 @@
 														        descending: false,
 														        group: true
 														      }
-														}" itemPress="handleSystemLineItemPress">
+														}">
 
 							<columns>
 
-								<Column mergeDuplicates="true">
+								<Column mergeDuplicates="true" mergeFunctionName="getTitle">
 									<header>
 										<Label text="System" />
 									</header>
@@ -221,7 +221,7 @@
 
 								<Column hAlign="Center">
 									<header>
-										<Label text="Serial / Module" />
+										<Label text="Module / Serial" />
 									</header>
 								</Column>
 
@@ -243,13 +243,14 @@
 							</columns>
 
 
-							<ColumnListItem type="Navigation" >
+							<ColumnListItem type="Navigation" press="handleSystemLineItemPress">
 
 								<ObjectIdentifier title="{DealDetailModel>SystemName}"
-									text="{DealDetailModel>SystemGroupName}" class="sapMTableContentMargin" />
+ 									text="{DealDetailModel>SystemGroupName}"
+									class="sapMTableContentMargin" />
 
 								<ObjectIdentifier
-									title="{DealDetailModel>SystemModuleSerial} / {DealDetailModel>SystemModule}"
+									title="{DealDetailModel>SystemModule} / {DealDetailModel>SystemModuleSerial} "
 									text="{DealDetailModel>SystemModuleDescription}" class="sapMTableContentMargin" />
 
 								<ObjectIdentifier title="{DealDetailModel>SystemPlacementType}"
@@ -810,7 +811,7 @@
 
 							<columns>
 
-								<Column mergeDuplicates="true" hAlign="Center">
+								<Column mergeDuplicates="true"  mergeFunctionName="getTitle" hAlign="Center">
 									<header>
 										<Label text="Product" />
 									</header>
@@ -846,6 +847,11 @@
 								<ObjectIdentifier
 									title="{DealDetailModel>Quantity} {DealDetailModel>Uom}" class="sapMTableContentMargin" />
 
+<!-- 								 <ObjectNumber
+								        number="{DealDetailModel>Quantity}"
+								        unit="{DealDetailModel>Uom}" 
+								        class="sapMTableContentMargin" /> -->
+        
 								<Text
 									text="{
 											path: 'DealDetailModel>ValidFrom',

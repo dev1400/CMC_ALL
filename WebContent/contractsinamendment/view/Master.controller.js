@@ -437,9 +437,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 	 */
 	handleSalesOrgChange : function(oEvent){
 
-		// Get selected Sales Org
-//		var sSelectedSalesOrg = oEvent.getParameter("selectedItem").getKey();
-
 		var oSalesOrgUI = this.CommonController.getUIElement("idDFSalesOrg");
 		var sSelectedSalesOrg = oSalesOrgUI.getSelectedKey();
 			
@@ -538,8 +535,6 @@ sap.ui.controller("dia.cmc.contractsinamendment.view.Master", {
 				sap.m.MessageToast.show(oDefaultParameters.Message);	
 				this.CommonController.closePopupWindow(oButtonEvent);
 				
-//				// Load deal collection if it is still pending
-//				if(this._bLoadingDealListPending === true){
 	
 				//Read Deal Collection and bind it to View
 				this._readAndBindDealCollection(null);

@@ -159,13 +159,17 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 				this.handleDefaultParameterPopup(oEvent);
 			}
 			else{
-				// Create model and bind it to view
-				var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
-				this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
-				
+//				// Create model and bind it to view
+//				var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
+//				this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
+//				
 				//Read Deal Collection and bind it to View
 				this._readAndBindDealCollection(null);
 			}
+			
+			// Create model and bind it to view
+			var oDefaultParameterModel =  new sap.ui.model.json.JSONModel( oDefaultParameters );
+			this.getView().setModel(oDefaultParameterModel, "DefaultParameters");
 		
 		}, this));
 
@@ -668,6 +672,21 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 	 * Start - Backend Search related code
 	 **************************************************************************/
 
+	/**
+	 * Reset filter controls.
+	 * This method will be called after backend search
+	 */
+	_resetFilterControls: function(){
+		
+		// Set default value for Deal Filter Select control
+		var oDealSelectUI = this.CommonController.getUIElement("idDealSelect", this.getView());
+		oDealSelectUI.setSelectedKey("");
+		
+		// Clear value of Deal Search Field Control
+		var oDealSearchFieldUI = this.CommonController.getUIElement("idDealSearchField", this.getView());
+		oDealSearchFieldUI.setValue("");
+	},
+	
 //	// Displays the default Deal list and default detail page
 //	handleDefaultSearch : function(oEvent){
 //
@@ -1000,6 +1019,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		//Read Deal Collection and bind it to View
 		this._readAndBindDealCollection(sFilter,oEvent,true);
 		
+		// Reset filter control values
+		this._resetFilterControls();
 //		// Display message and close popup
 //		this._displayMessageAndClosePopup(oEvent);
 		
@@ -1194,7 +1215,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 
 		var sLang = this.CommonController.getBrowserLanguage();
 		
-		var oFilters = new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang.substr(0,1).toUpperCase());
+		var oFilters = new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang);
 
 		oCustomerCountry.bindItems("ODataModel>/CountryCollection", oItems, oSorter, oFilters);
 
@@ -1227,7 +1248,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Master", {
 		var sLang = this.CommonController.getBrowserLanguage();
 		
 		var oFilters =  new sap.ui.model.Filter( [
-		                                          new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang.substr(0,1).toUpperCase()),
+		                                          new sap.ui.model.Filter("Language", sap.ui.model.FilterOperator.EQ, sLang),
 		                                          new sap.ui.model.Filter("CountryKey", sap.ui.model.FilterOperator.EQ, sCountryKey),
 		                                          ], 
 		                                          true );

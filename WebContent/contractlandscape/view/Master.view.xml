@@ -21,7 +21,7 @@
 			<Bar>
 				<contentLeft>
 				
-					<Select id="idPricingSelect" type="IconOnly" icon="sap-icon://filter" tooltip="{i18n>SearchPlaceholder}"
+					<Select id="idDealSelect" type="IconOnly" icon="sap-icon://filter" tooltip="{i18n>SearchPlaceholder}"
 							autoAdjustWidth="true" change="handleDealFilter">
 							<core:Item key="" text="{i18n>All}" tooltip="{i18n>AllTooltip}" />
 							<core:Item key="1" text="{i18n>Valid}" tooltip="{i18n>ValidTooltip}" />
@@ -32,12 +32,11 @@
 				</contentLeft>
 				
 				<contentRight>	
-					<SearchField liveChange="handleSearch" search="handleSearch" tooltip="{i18n>SearchPlaceholder}"
+					<SearchField id="idDealSearchField" liveChange="handleSearch" search="handleSearch" tooltip="{i18n>SearchPlaceholder}"
 						placeholder="{i18n>SearchPlaceholder}" width="100%" showRefreshButton="false">
 					</SearchField>	
 				</contentRight>
 				
-
 			</Bar>
 		</subHeader>
 

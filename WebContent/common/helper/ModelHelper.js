@@ -259,6 +259,9 @@ dia.cmc.common.helper.ModelHelper = {
 													PartnerFunctionDescCollection:oPartnerFunctionDescCollection,
 													PartnerNameCollection:oPartnerNameCollection});
 
+					// Disable amendment, if required
+					that.disableSimpleAmend();
+					
 					// Resolve Deferred object and return the model
 					oRequestFinishedDeferred.resolve(that.oDealDetailModel);
 					
@@ -312,6 +315,9 @@ dia.cmc.common.helper.ModelHelper = {
 					that.oDealDetailModel.setProperty("/DealDetail",oDealDetail);
 					
 					that.oDealDetailModel.setProperty("/Properties",oPropertyObject);
+					
+					//Disable amendment, if required
+					that.disableSimpleAmend();
 					
 					// Resolve Deferred object and return the model
 					oRequestFinishedDeferred.resolve(that.oDealDetailModel);
@@ -368,7 +374,8 @@ dia.cmc.common.helper.ModelHelper = {
 	    	oSelectedItem.MaterialDescription = "";
 	    	oSelectedItem.Rate = "";
 	    	oSelectedItem.Unit = 1;
-	    	oSelectedItem.Uom = "PC";			// Temporary hard coded
+	    	oSelectedItem.Uom = "";
+//	    	oSelectedItem.Uom = "PC";			// Temporary hard coded
 	    	
 	    	if(!oSelectedItem.CurrencyCode){ // If currency is not available, read from deal header
 	    		oSelectedItem.CurrencyCode = this.oDealDetailModel.getData().DealDetail.CurrencyCode;	
@@ -510,6 +517,21 @@ dia.cmc.common.helper.ModelHelper = {
 		this.oPropertyModel;
 	},
 	
+	
+	/**Disable simple amendment button when contract is expired or is In Amendment.
+	 * 
+	 */
+	disableSimpleAmend:function(){
+		var oDealDetail = this.oDealDetailModel.getData().DealDetail;
+		
+		var bSimpleAmendEnable = true;
+		
+		if(oDealDetail.ValidTo < (new Date()) || oDealDetail.DealStatus === "AMEND"){
+			bSimpleAmendEnable = false;
+		}
+		
+		this.setProperty("SimpleAmendEnable", bSimpleAmendEnable);
+	},
 	
 	
 	// Set property values to Properties model
@@ -764,8 +786,7 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 	readDefaultParameters : function (){
 		
-		// Open busy dialog
-		this.openBusyDialog();
+		
 		
 		// Create deferred object so that calling program can wait till asynchronous call is finished
 		var oRequestFinishedDeferred = jQuery.Deferred();
@@ -774,6 +795,9 @@ dia.cmc.common.helper.ModelHelper = {
 		
 		// if default parameters are already read, don't do it again
 		if(this.oDefaultParameterModel === undefined || this.oDefaultParameterModel === null ){
+			
+			// Open busy dialog
+			that.openBusyDialog();
 
 			this.initializeDefaultParameterModel();
 			
@@ -782,7 +806,6 @@ dia.cmc.common.helper.ModelHelper = {
 				oData.MessageType = "S";
 				that.oDefaultParameterModel.setData(oData);
 				
-
 				// Resolve Deferred object and return the model
 				oRequestFinishedDeferred.resolve(jQuery.extend({}, that.oDefaultParameterModel.getData()));
 				
@@ -793,9 +816,11 @@ dia.cmc.common.helper.ModelHelper = {
 		   function(oResponse){
 //			   alert(oResponse);
 			   
-
+			   	var oDefaultParameter = that.oDefaultParameterModel.getData();
+				oDefaultParameter.MessageType = "E";
+				
 			   // Reject deferred object
-			   oRequestFinishedDeferred.resolve();
+			   oRequestFinishedDeferred.resolve(oDefaultParameter);
 			   
 			   // Close busy dialog
 			   that.closeBusyDialog();
@@ -1065,29 +1090,13 @@ dia.cmc.common.helper.ModelHelper = {
 	 */
 
 	readDealsInAmendmentCollection : function (){
-		
-		// Open busy dialog
-		this.openBusyDialog();
-		
-		// Create deferred object so that calling program can wait till asynchronous call is finished
-		var oRequestFinishedDeferred = jQuery.Deferred();
 
 		var that = this;		
 		
-		this.oODataModel.read("DealInAmendmentCollection", null, null , true, 
+		this.oODataModel.read("DealInAmendmentCollection", null, null , false, 
 			
 			function(oData, oResponse){
-				
 				that.oDealsInAmendmentCollectionModel.setData({DealsInAmendmentCollection:oData.results});
-				
-				// Resolve Deferred object and return the model
-				oRequestFinishedDeferred.resolve(jQuery.extend({}, that.oDealsInAmendmentCollectionModel.getData()));
-				
-				// close busy dialog 
-				that.closeBusyDialog();
-		
-			
-				
 			},
 			
 			function(oResponse){
@@ -1096,11 +1105,6 @@ dia.cmc.common.helper.ModelHelper = {
 			   sap.m.MessageBox.alert(oResponse.error.message.value, {
 					title : "Result"
 				});
-			   // Reject deferred object
-			   oRequestFinishedDeferred.resolve();
-			   
-			   // Close busy dialog
-			   that.closeBusyDialog();
 			});
 		
             

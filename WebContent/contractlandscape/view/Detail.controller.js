@@ -76,10 +76,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			this.getView().setModel(oDealDetailModel,"DealDetailModel");
 		
 			if(bResetControls){
-				this._resetViewControls();	
+				this._resetViewControls(true);	
 			}
 			
-			this._disableSimpleAmend();
+//			this._disableSimpleAmend();
 		}, this));		
 	},
 	
@@ -90,19 +90,29 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	/** 
 	 * Reset all the controls to default setting
 	 */
-	_resetViewControls: function(){
+	_resetViewControls: function(bResetMainTabBar){
+
+		// Reset main tab bar only if it has been told as this method is also getting called from Main TabBar change event
+		if(bResetMainTabBar){
+			// Set Landscape as default tab
+			var oMainTabBarUI = this.CommonController.getUIElement("idMainDetailTab", this.getView());
+			oMainTabBarUI.setSelectedKey("Landscape");
+			
+			// Set property value in model
+			this.ModelHelper.setProperty("PricingActionButtonVisi",	false);
+			
+			// Set property value in model
+			this.ModelHelper.setProperty("CommitmentActionButtonVisi", false);
+
+			// Hide Add Discount button, if its visible
+			this.ModelHelper.setProperty("DiscountActionButtonVisi", false);
+		}
 		
-		// Set Landscape as default tab
-		var oMainTabBarUI = this.CommonController.getUIElement("idMainDetailTab", this.getView());
-		oMainTabBarUI.setSelectedKey("Landscape");
-		
-		// Update the controls base on tab change
-		this.handleMainTabSelect();
 		
 		// Set Material Price as default tab
 		var oPricingTabBarUI = this.CommonController.getUIElement("idPricingTabBar", this.getView());
 		oPricingTabBarUI.setSelectedKey("MatPrice");
-
+ 
 		// Reset Landscape Facet Filter control
 		this._facetFilterReset("idLandscapeFacetFilter");
 		
@@ -128,28 +138,30 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		// Reset Pricing Valid As On Date
 		var oPriceValidOnDateUI = this.getView().byId("idPriceValidOnDate");
 		oPriceValidOnDateUI.setDateValue(new Date());
+		oPriceValidOnDateUI.setVisible(true);
 		
 		// Reset Commitment Valid As On Date
 		var oCommitValidOnDateUI = this.getView().byId("idCommitmentValidOnDate");
 		oCommitValidOnDateUI.setDateValue(new Date()); 
+		oCommitValidOnDateUI.setVisible(true);
 		
 	},
 	
 	
-	/**Disable simple amendment button when contract is expired or is In Amendment.
-	 * 
-	 */
-	_disableSimpleAmend:function(){
-		var oDealDetail = this.getView().getModel("DealDetailModel").getData().DealDetail;
-		
-		var bSimpleAmendEnable = true;
-		
-		if(oDealDetail.ValidTo < (new Date()) || oDealDetail.DealStatus === "AMEND"){
-			bSimpleAmendEnable = false;
-		}
-		
-		this.ModelHelper.setProperty("SimpleAmendEnable", bSimpleAmendEnable);
-	},
+//	/**Disable simple amendment button when contract is expired or is In Amendment.
+//	 * 
+//	 */
+//	_disableSimpleAmend:function(){
+//		var oDealDetail = this.getView().getModel("DealDetailModel").getData().DealDetail;
+//		
+//		var bSimpleAmendEnable = true;
+//		
+//		if(oDealDetail.ValidTo < (new Date()) || oDealDetail.DealStatus === "AMEND"){
+//			bSimpleAmendEnable = false;
+//		}
+//		
+//		this.ModelHelper.setProperty("SimpleAmendEnable", bSimpleAmendEnable);
+//	},
 	
 	/***************************************************************************
 	 * Start - Header Section related Code
@@ -336,17 +348,17 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	  /** Event handler for System line item selection. It will navigate to System Detail page
 	   */
 	  handleSystemLineItemPress : function(oEvent){
-		  var oContext = oEvent.getParameter("listItem").getBindingContext("DealDetailModel");	
+		 /* var oContext = oEvent.getParameter("listItem").getBindingContext("DealDetailModel");	
 		 
 	        var oODataModel = this.getView().getModel("DealDetailModel");
-	    	var oSystemDetail = oODataModel.getProperty(oContext.getPath());
+	    	var oSystemDetail = oODataModel.getProperty(oContext.getPath());*/
 		
 		  this.CommonController.getRouter(this).navTo("systemDetail", {
-				from: "dealDetail", systemModuleSerial : oSystemDetail.SystemModuleSerial,
+				from: "dealDetail"/*, systemModuleSerial : oSystemDetail.SystemModuleSerial,
 				systemModuleDescription : oSystemDetail.SystemModuleDescription,				
 				systemName : oSystemDetail.SystemName,
 				dealId : oSystemDetail.DealId,				
-				systemSiteName : oSystemDetail.SystemSiteName
+				systemSiteName : oSystemDetail.SystemSiteName*/
 			}, false);
 	  },
 	  
@@ -941,7 +953,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			field : "Material"
 		}, {
 			id : "idPANewPrice",
-			uiType : "TB",
+			uiType : "NB",
 			value : 0,
 			mandatory : true,
 			field : "Rate"
@@ -1443,7 +1455,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			this._amendComitment.destroy(true);
 		}
 		
-//	    if (!this._amendComitment) {
 	      this._amendComitment = new sap.ui.xmlfragment(
 	        "dia.cmc.contractlandscape.fragment.amendment.Commitment",
 	        this
@@ -1451,15 +1462,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	      
 	      this.getView().addDependent(this._amendComitment);
 	      
+	      // Add one extra item for "All Customers"
 	      var oItem = new sap.ui.core.Item();
-	      oItem.setKey("");
-	      oItem.setText("All Customer");
+	      oItem.setKey("0000000000");
+	      oItem.setText(this.ModelHelper.getText("AllCustomer"));
 	      
 	      var oPartnerUI = this.CommonController.getUIElement("idCAPartner");
-	      
 	      oPartnerUI.addItem(oItem);
-	      
-//	    }
+      
 
 	    this._amendComitment.open();
 
@@ -1478,7 +1488,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		// Array of controls on Commitment Amendment popup with OData service field names
 		var oControlList = [{id:"idCAPartner", 		uiType:"DDB",	value:"", 	mandatory:false, 	field:"CallOffPartner" },
 		                    {id:"idCAProduct", 		uiType:"TB",	value:"", 	mandatory:true, 	field:"Material" },
-		                    {id:"idCAQty",		 	uiType:"TB",	value:"", 	mandatory:true, 	field:"Quantity" },
+		                    {id:"idCAQty",		 	uiType:"NB",	value:"", 	mandatory:true, 	field:"Quantity" },
 		                    {id:"idCAUOM",	 		uiType:"TB",	value:"", 	mandatory:false, 	field:"Uom" },
 		                    {id:"idCAValidFrom", 	uiType:"DT",	value:"", 	mandatory:true, 	field:"ValidFrom" },
 		                    {id:"idCAValidTo", 		uiType:"DT",	value:"", 	mandatory:true, 	field:"ValidTo" }];
@@ -1538,10 +1548,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			oCommitmentAmendDetail.IsNew = "X";
 		}
 		
-		// Temporary hard coded for testing... need to remove it..
-		/////////////////////////////////
-		oCommitmentAmendDetail.Uom = "PC";
-		/////////////////////////////////////
+//		// Temporary hard coded for testing... need to remove it..
+//		/////////////////////////////////
+//		oCommitmentAmendDetail.Uom = "PC";
+//		/////////////////////////////////////
 		
 		
 		// Check for overlapping
@@ -1815,6 +1825,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			minLength : 50
 		} ];
 
+		// Validate the amendment input
+		var canContinue = this.CommonController.validateInput(oEvent, oControlList, "URC");
+
+		if (canContinue == false) // Validation failed, return
+			return;
+		
 		// Validate and post amendment to SAP
 		this._validateAndPostAmendment("URC", oControlList, oEvent);
 
@@ -1865,43 +1881,37 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		// Array of controls on Validity Amendment popup with OData service
 		// field names
 		var oControlList = [ {
-			id : "idContractEndDate",
+			id : "idVCContractEndDate",
 			uiType : "DT",
 			value : "",
 			mandatory : true,
 			field : "EndDate"
 		}, {
-			id : "idHeaderLevel",
+			id : "idVCHeader",
 			uiType : "RB",
 			value : "X",
 			mandatory : false,
-			field : "Level"
+			field : "IsHeader"
 		}, {
-			id : "idValiditySelectedItems",
+			id : "idVCServiceItem",
 			uiType : "RB",
-			value : "X",
-			mandatory : false,
-			field : "Level"
-		}, {
-			id : "idServiceItems",
-			uiType : "CBGRP",
 			value : "X",
 			mandatory : false,
 			field : "IsService"
 		}, {
-			id : "idInstrumentItems",
+			id : "idVCPricingItem",
 			uiType : "CBGRP",
 			value : "X",
 			mandatory : false,
-			field : "IsInstrument"
-		}, {
-			id : "idPricingAgreeItems",
-			uiType : "CBGRP",
-			value : "X",
-			mandatory : false,
-			field : "IsPriceAgree"
+			field : "IsPricing"
 		}, ];
 
+		// Validate the amendment input
+		var canContinue = this.CommonController.validateInput(oEvent, oControlList, "UVC");
+
+		if (canContinue == false) // Validation failed, return
+			return;
+		
 		// Validate and post amendment to SAP
 		this._validateAndPostAmendment("UVC", oControlList, oEvent);
 
@@ -1928,6 +1938,30 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			field : "EndDate"
 		} ];
 
+		// Validate the amendment input
+		var canContinue = this.CommonController.validateInput(oEvent, oControlList, "UCT");
+
+		if (canContinue == false) // Validation failed, return
+			return;
+		
+		// Contract Termination end date should not be in pass
+		var oEndDateUI = this.CommonController.getUIElement("idTermEndDate");
+		var dEndDate = new Date(oEndDateUI.getDateValue());
+		var dToday = new Date((new Date().toJSON().slice(0,10) + " 00:00:00"));
+		
+		if( dEndDate < dToday){
+			var sMsg = this.ModelHelper.getText("InvalidTermEndDate");
+			sap.m.MessageToast.show(sMsg);
+			oEndDateUI.setValueState("Error");
+			canContinue = false;
+		}
+		else {
+			oEndDateUI.setValueState("None");
+		}
+		
+		if (canContinue == false) // Validation failed, return
+			return;
+		
 		// Validate and post amendment to SAP
 		this._validateAndPostAmendment("UCT", oControlList, oEvent);
 
@@ -1937,11 +1971,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	// Validate the Amendment input and Post it to SAP
 	_validateAndPostAmendment : function(sAmendType, oControlList, oEvent) {
 
-		// Validate the amendment input
-		var canContinue = this.CommonController.validateInput(oEvent, oControlList, sAmendType);
-
-		if (canContinue == false) // Validation failed, return
-			return;
+//		// Validate the amendment input
+//		var canContinue = this.CommonController.validateInput(oEvent, oControlList, sAmendType);
+//
+//		if (canContinue == false) // Validation failed, return
+//			return;
 
 		// Get DealDetail object reference
 		var oAmendDetail = {}; // this.getView().getModel("DealDetailModel").getProperty("/DealDetail");
@@ -2177,11 +2211,14 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		var bPricingActionButtonVisi = false;
 		var bCommitmentActionButtonVisi = false;
 
+		// Reset all the search and filter controls
+		this._resetViewControls(false);
+		
+		
 		// Get selected tab's key
 //		var sSelectedTabKey = oEvent.getParameter("key");
 		var oMainTabBarUI = this.CommonController.getUIElement("idMainDetailTab", this.getView());
 		var sSelectedTabKey = oMainTabBarUI.getSelectedKey();
-		
 		
 		// To reduce the initial application load, load google map library when
 		// user select any contract from least instead of loading at start of
@@ -2194,10 +2231,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		// If pricing tab is select, make visibility = true
 		else if (sSelectedTabKey === "Pricing") { // Pricing tab is selected
 
-			// Set first tab ( Product Prices ) as selected by default
-			var oPricingTabBarUI = this.CommonController.getUIElement("idPricingTabBar", this.getView());
-//			var oPricingTabBarUI = this.getView().byId("idPricingTabBar");
-			oPricingTabBarUI.setSelectedKey("MatPrice");
+//			// Set first tab ( Product Prices ) as selected by default
+//			var oPricingTabBarUI = this.CommonController.getUIElement("idPricingTabBar", this.getView());
+////			var oPricingTabBarUI = this.getView().byId("idPricingTabBar");
+//			oPricingTabBarUI.setSelectedKey("MatPrice");
 			
 			// Set flag to show Add Price button
 			bPricingActionButtonVisi = true;
@@ -2205,12 +2242,12 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			// Filter pricing data
 			this.handlePricingFilterChange(oEvent);
 			
-		} else if (sSelectedTabKey === "Commitments") { // Commitment tab is
-															// selected
+		} else if (sSelectedTabKey === "Commitments") { // Commitment tab is selected
 
 			bCommitmentActionButtonVisi = true;
 
 			this.handleCommitmentFilterChange(oEvent);
+			
 		} else if (sSelectedTabKey === "Documents"){
 			this._bindDocumentList();
 		}
@@ -2273,99 +2310,215 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
 	
 	/*******************************************************************************
-	 * Start - Material Search help related code
+	 * Start - Product Search help related code
 	 ******************************************************************************/
 	
-	 /**
-     * Material search using value help dialog
-     */   
-    handleMaterialSearchValueHelpRequest: function(oController) {
-
-//        // create value help dialog
-//        if (!this._productSelectDialog) {
-//            this._productSelectDialog = sap.ui.xmlfragment(
-//                "dia.cmc.contractlandscape.fragment.amendment.AddPriceHelper",
-//                this
-//            );
-//            this.getView().addDependent(this._productSelectDialog);
-//        }
-//
-//        // open value help dialog
-//        this._productSelectDialog.open();
+	/***
+	 * Event handler for ValueHelpRequest event. It will show value help dialog
+	 */   
+    handleProductValueHelpRequest: function(oEvent, bFromChangeEvent) {
     	
-    	 // create value help dialog
-        if (!this._productSelectDialog) {
-//            this._productSelectDialog = sap.ui.xmlview("idProductSearchHelpView",
-//                "dia.cmc.contractlandscape.view.ProductSearchHelp"
-//            );
-            
-            var oProductSearchHelpView = sap.ui.view({id:"idProductSearchHelpView", 
-            										  viewName:"dia.cmc.contractlandscape.view.ProductSearchHelp", 
-            										  type:sap.ui.core.mvc.ViewType.XML});
-        
-            this._productSelectDialog = this.CommonController.getUIElement("idProductSelectDialog", oProductSearchHelpView);
-            
-            this.getView().addDependent(oProductSearchHelpView);
-            
-//            oProductSearchHelpView.attachProductSelected(this.handlePriceProductSelected,this);
-            
-            oProductSearchHelpView.attachEvent("productSelected", null, this.handlePriceProductSelected);
-            
-            
-        }
+    	this._sProductValueHelpActiveFor = oEvent.getSource().getId();
+    	
+    	// Get the material entered by user if any
+    	var sEnteredMaterial = this.CommonController.getUIElement(oEvent.getSource().getId()).getValue();
+    	
+    	// if user has not entered any material and this event is called by Change event, just return no action is required
+    	if(bFromChangeEvent === true && (sEnteredMaterial == undefined || sEnteredMaterial.length <= 0)){
+    		return;
+    	}
 
-//        var ProductHelpDialogUI = this.CommonController.getUIElement("idProductHelpDialog", this._productSelectDialog);
+        // create value help dialog
+        if (this._productSelectDialog) {
+        	this._productSelectDialog.destroy(true);
+        }
         
+        this._productSelectDialog = sap.ui.xmlfragment(
+            "dia.cmc.contractlandscape.fragment.amendment.ProductValueHelp",
+            this
+        );
+        this.getView().addDependent(this._productSelectDialog);
+
         // open value help dialog
         this._productSelectDialog.open();
-        
-        
-    },
-    
-    handlePriceProductSelected: function(oEvent){
-//    	alert(oEvent);
-    },
-    
-//    /**
-//     * Close material selection dialog
-//     */
-//    handleProductSelectDialogClosePress: function(oEvent) {
-//        this._productSelectDialog.close();
-//    },
-//    /**
-//     * Search materials with in Table.
-//     */
-//    handleMaterialSearchButtonPress: function(oEvent){
-//    	var oMaterialNumberInput = sap.ui.getCore().byId("idMaterialNumber");
-//    	var oMaterialDescriptionInput = sap.ui.getCore().byId("idMaterialDescription");
-//    		
-//    	var oTable = sap.ui.getCore().byId("idProductSearchTable");
-//    	var oBinding = oTable.getBinding("items");
-//    		
-////    	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, "4950"),
-////    	                 new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
-////    			 new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()) ]);
-//    	
-//    	oBinding.filter([new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, "4950"),
-//    	                 new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberInput.getValue()), 
-//    	                 ]);
-//    	
-//    },
-//    /**
-//     * Select material with in Table.
-//     */
-//    handleTableRowSelect: function(oEvent) {
-//    	
-//    	var oContext = oEvent.getParameter("listItem").getBindingContext("ODataModel");	
-//    	
-//    	var oODataModel = this.getView().getModel("ODataModel");
-//    	var oSelectedProduct = oODataModel.getProperty(oContext.getPath());
-//    	
-//    	alert(oSelectedProduct.MaterialNo);
-//    }
 
+        // Copy entered material in value help screen
+    	if(sEnteredMaterial){
+    		var oMaterialNumberUI = this.CommonController.getUIElement("idMaterialNumber");
+        	oMaterialNumberUI.setValue(sEnteredMaterial);	
+    	}
+    	
+    	// Call Search button press event handler so that by default it can serach for products
+       	this.handleProductSearchPress(oEvent,true,bFromChangeEvent);
+    },
+          
+    /**
+     * Event handler for Product Input field change event. It will fired when user press enter or tab
+     * @param oEvent
+     */
+    handleProductChange: function(oEvent){
+    	
+    	// Call value help event handler to open the value help
+    	this.handleProductValueHelpRequest(oEvent, true);
+    },
+    
+    /**
+     * Event hander for Search button on Product Value help dialog. It will search for products
+     */
+    handleProductSearchPress: function(oEvent, bNoError, bFromChangeEvent){
+    	
+    	var oFilters = [];
+    	
+    	var oMaterialNumberUI = this.CommonController.getUIElement("idMaterialNumber");
+    	var oMaterialDescriptionUI = this.CommonController.getUIElement("idMaterialDescription");
+    	
+    	// At-least one search criteria must be there
+    	if (bNoError == undefined && oMaterialNumberUI.getValue() === "" && oMaterialDescriptionUI.getValue() === "") {
+
+    		sap.m.MessageToast.show(this.ModelHelper.getText("AtleastOneField"));	
+    		return;
+    	}
+    	
+//    	// At-least one search criteria must be there
+//    	if (oMaterialNumberUI.getValue().length < 5  && oMaterialDescriptionUI.getValue().length < 5) {
+//    		
+//    		sap.m.MessageToast.show(this.ModelHelper.getText("MinLengthError"));
+//    		
+////    		if(!bNoError){
+////    			sap.m.MessageToast.show(this.ModelHelper.getText("MinLengthError"));	
+////    		}
+//    		
+//    		return;
+//    	}
+    	
+    	// Build Filter object as per the entered serach criteria
+		if (oMaterialNumberUI.getValue() !== ""){
+			oFilters.push(new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberUI.getValue()));
+		}
+		
+		if(oMaterialDescriptionUI.getValue() !== ""){
+			oFilters.push(new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionUI.getValue()));	
+		}
+
+		// Create filter object with default Sales Org parameter
+		oFilters.push(new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, this.ModelHelper.oDefaultParameterModel.getData().SalesOrg ));
+
+		// Set filter binding to product table
+    	var oProductTableUI = this.CommonController.getUIElement("idProductTable");
+    	var oBinding = oProductTableUI.getBinding("items");
+    	oBinding.filter(oFilters);
+
+    	// If it is from Product field change event ( user press enter )
+    	if(bFromChangeEvent){
+	    	oProductTableUI.attachEventOnce("updateFinished", function() {
+	        	
+	    		// Check if there is only one product found, select it by default
+	    		
+	    		var oProducts = oProductTableUI.getItems();
+	
+	        	if(oProducts.length === 1){
+	        		this._showSelectedProductDetail(oProducts[0].getBindingContext("ODataModel"));
+	        	}
+	        	
+			}, this);
+    	}
+    },
+    
+    
+//    /**
+//     * Event hander for Search button on Product Value help dialog. It will search for products
+//     */
+//    handleSuggest: function(oEvent){
+//    	
+//    	var oFilters = [];
+//    	
+////    	var oMaterialNumberUI = this.CommonController.getUIElement("idMaterialNumber");
+////    	var oMaterialDescriptionUI = this.CommonController.getUIElement("idMaterialDescription");
+////    	
+////    	// At-least one search criteria must be there
+////    	if (oMaterialNumberUI.getValue() === "" && oMaterialDescriptionUI.getValue() === "") {
+////    		sap.m.MessageToast.show(this.ModelHelper.getText("SelectOnlyOneField"));
+////    		return;
+////    	}
+////    	
+////    	// Build Filter object as per the entered serach criteria
+////		if (oMaterialNumberUI.getValue() !== ""){
+////			oFilters.push(new sap.ui.model.Filter("MaterialNo", sap.ui.model.FilterOperator.EQ, oMaterialNumberUI.getValue()));
+////		}
+////		
+////		if(oMaterialDescriptionUI.getValue() !== ""){
+////			oFilters.push(new sap.ui.model.Filter("MaterialDesc", sap.ui.model.FilterOperator.EQ, oMaterialDescriptionUI.getValue()));	
+////		}
+//
+//		// Create filter object with default Sales Org parameter
+//		oFilters.push(new sap.ui.model.Filter("SalesOrg", sap.ui.model.FilterOperator.EQ, this.ModelHelper.oDefaultParameterModel.getData().SalesOrg ));
+//
+//		// Set filter binding to product table
+//    	var oProductTableUI = this.CommonController.getUIElement("idPAProduct");
+//    	var oBinding = oProductTableUI.getBinding("suggestionItems");
+//    	oBinding.filter(oFilters);
+//    },
+//    
+    
+	 /**
+     * Event handler for Close button on Product value help dialog.
+     * 
+     * */
+    handleProductSelectDialogClosePress: function(oEvent) {
+        this._productSelectDialog.close();
+    },
+
+    
+    /**
+     * Event handler for Product Table's selectionChange event 
+     * It will set the selected product details to new item
+     */
+    handleProductSelectionChange: function(oEvent) {
+    	
+    	// Get selected product context binding
+    	var oSelectedProductContext = oEvent.getParameter("listItem").getBindingContext("ODataModel");	
+
+    	this._showSelectedProductDetail(oSelectedProductContext);
+    	
+    },
+    
+    /***
+     * Show selected product detail to calling screen
+     * @param oSelectedProductContext: Context of selected item from Product List
+     */
+    _showSelectedProductDetail: function(oSelectedProductContext){
+    	
+    	// Get ODate Model object reference
+    	var oODataModel = this.getView().getModel("ODataModel");
+    	
+    	// Get selected product record
+    	var oSelectedProduct = oODataModel.getProperty(oSelectedProductContext.getPath());
+    	
+    	// Base on source who called Product Search help, read the new item object
+    	var sNewItemPath = "";
+    	if(this._sProductValueHelpActiveFor === "idPAProduct"){	// Price Amendment
+    		sNewItemPath = "/NewPriceItem";
+    	}else if(this._sProductValueHelpActiveFor === "idCAProduct"){	// Commitment Amendment
+    		sNewItemPath = "/NewCommitmentItem";
+    	}
+    	
+    	// Get Deal Detail Model object
+    	var oDealDetailModel = this.getView().getModel("DealDetailModel");
+    	var oNewItem = oDealDetailModel.getProperty(sNewItemPath);
+
+    	// Set selected product details in new item and bind it again to Deal Detail Model
+    	oNewItem.Material = oSelectedProduct.MaterialNo;
+    	oNewItem.MaterialDescription = oSelectedProduct.MaterialDesc;
+    	oNewItem.Uom = oSelectedProduct.Uom;
+    	
+    	oDealDetailModel.setProperty(sNewItemPath,oNewItem);
+    	
+    	// Close the dialog
+    	this.handleProductSelectDialogClosePress();
+    },
+    
 /*******************************************************************************
- * Start - Material Search help related code
+ * Start - Product Search help related code
  ******************************************************************************/
 
 

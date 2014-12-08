@@ -25,9 +25,10 @@
 
 					<f:content>
 						<Label text="{Property>/MaterialLabel}" />
-						<Input id="idPAProduct" value="{DealDetailModel>/NewPriceItem/Material}"
+							<Input id="idPAProduct" value="{DealDetailModel>/NewPriceItem/Material}"
 							enabled="{Property>/MaterialEnable}"
-							showValueHelp="true" valueHelpRequest="handleMaterialSearchValueHelpRequest">
+							showValueHelp="true" valueHelpRequest="handleProductValueHelpRequest" 
+							change="handleProductChange">
 
 							<layoutData>
 								<l:GridData span="L2 M3 S4" />
@@ -72,7 +73,7 @@
 						
 						<Label text="{i18n>NewPrice} / {i18n>Currency}" />
 
-						<Input id="idPANewPrice" value="{DealDetailModel>/NewPriceItem/Rate}" type="Number">
+						<Input id="idPANewPrice" value="{DealDetailModel>/NewPriceItem/Rate}" >
 							<layoutData>
 								<l:GridData span="L2 M3 S4" />
 							</layoutData>
