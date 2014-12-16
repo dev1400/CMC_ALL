@@ -72,6 +72,31 @@
 			</f:content>
 
 		</f:SimpleForm>
+		
+		<footer>
+
+			<Bar>
+				<contentRight>
+
+					<!-- <Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}"
+						icon="sap-icon://add" press="handleAmendPricePopup" 
+						visible="{Property>/PricingActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}"	/>
+						
+					<Button id="idAddCommitment" text="{i18n>AddCommitment}"
+						tooltip="{i18n>AddCommitment}" icon="sap-icon://add" press="handleAmendCommitmentPopup"
+						visible="{Property>/CommitmentActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}"	/>
+
+					<Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit"
+						tooltip="{i18n>AmendButtonText}" press="handleAmend" />
+
+					<Button icon="sap-icon://action" press="handleFurtherAction"
+						text="{i18n>AdditionalActions}" tooltip="{i18n>FurtherActions}" /> -->
+
+				</contentRight>
+			</Bar>
+		</footer>
 
 	</Page>
 </core:View>
