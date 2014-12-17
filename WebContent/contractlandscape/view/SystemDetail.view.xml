@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:View controllerName="dia.cmc.contractlandscape.view.SystemDetail"
+	xmlns="sap.m" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:form="sap.ui.layout.form"
+	xmlns:layout="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Page class="sapUiFioriObjectPage" title="System Detail"
+		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
+		<VBox width="auto" alignItems="Center">
+			<HBox width="100%" alignItems="Center">
+				<HBox width="auto" alignItems="Start">
+					<Image src="common/mime/blank_img.png" height="10em" width="10em">
+					</Image>
+				</HBox>
+
+				<HBox width="100%" alignItems="Start">
+					<ObjectHeader title="COBAS 600 CORB">
+
+						<attributes>
+							<ObjectAttribute text="SAP. MAT CODE : 00100498" />
+							<ObjectAttribute text="Serial Number : 97645" />
+							<ObjectAttribute text="Status : Installed on 10/11/99 Rented" />
+						</attributes>
+					</ObjectHeader>
+				</HBox>
+			</HBox>
+
+			<HBox width="100%" alignItems="Stretch">
+			</HBox>
+		</VBox>
+		
+		<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="3"
+			labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+
+			<f:content>
+				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
+					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
+					columnsL="2" columnsM="2">
+
+					<f:content>
+						<Label text="Asset No" />
+						<Text text="3456" />
+						<Label text="Residual Value" />
+						<Text text="0376" />
+						<Label text="Higher level Equipment" />
+						<Text text="YES" />
+						
+						<Label text="" />
+						<Link text="SAP Equipment Record" />
+						
+					</f:content>
+
+				</f:SimpleForm>
+
+				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
+					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
+					columnsL="2" columnsM="2">
+					<f:content>
+						<Label text="Start up date" />
+						<Text text="10/01/2014" />
+						<Label text="First installation date" />
+						<Text text="11/12/2014" />
+						<Label text="Warranty start" />
+						<Text text="15/12/2014" />
+						<Label text="Warranty end" />
+						<Text text="20/12/2014" />
+						<Label text="SC renewal" />
+						<Text text="30/12/2014" />
+						<Label />
+						<Link text="SAP Installed Base" target="_blank" />
+					</f:content>
+				</f:SimpleForm>
+
+			</f:content>
+
+		</f:SimpleForm>
+		
+		<footer>
+
+			<Bar>
+				<contentRight>
+
+					<!-- <Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}"
+						icon="sap-icon://add" press="handleAmendPricePopup" 
+						visible="{Property>/PricingActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}"	/>
+						
+					<Button id="idAddCommitment" text="{i18n>AddCommitment}"
+						tooltip="{i18n>AddCommitment}" icon="sap-icon://add" press="handleAmendCommitmentPopup"
+						visible="{Property>/CommitmentActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}"	/>
+
+					<Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit"
+						tooltip="{i18n>AmendButtonText}" press="handleAmend" />
+
+					<Button icon="sap-icon://action" press="handleFurtherAction"
+						text="{i18n>AdditionalActions}" tooltip="{i18n>FurtherActions}" /> -->
+
+				</contentRight>
+			</Bar>
+		</footer>
+
+	</Page>
+</core:View>

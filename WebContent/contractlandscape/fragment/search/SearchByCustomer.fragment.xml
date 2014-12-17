@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+
+	<Dialog title="{i18n>SearchByCustomer}" class="sapUiPopupWithPadding"
+		contentWidth="50%" contentHeight="55%" stretchOnPhone="true">
+
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<core:Icon src="sap-icon://customer" />
+				</contentLeft>
+				<contentMiddle>
+					<Label text="{i18n>SearchByCustomer}" />
+				</contentMiddle>
+			</Bar>
+		</customHeader>
+
+
+
+		<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="10"
+			labelSpanM="4" emptySpanL="0" emptySpanM="3" columnsL="2" columnsM="2"  editable="true"	>
+
+			<f:content>
+				<Label text="{i18n>CustomerNumber}" />
+				<Input id="idCustomerNumber" placeholder="{i18n>CustomerNumberPlaceHolder}" />
+				<Label text="{i18n>CustomerName}" />
+				<Input id="idCustomerName" placeholder="{i18n>CommonPlaceHolder}" />
+
+				<Label text="{i18n>CustomerCountry}" />
+
+				<HBox justifyContent="SpaceBetween" alignItems="Center">
+				
+					<ComboBox id="idCustomerCountry" placeholder="{i18n>CountryPlaceHolder}"
+						selectionChange="handleCustomerCountryChange">
+						<core:ListItem key="{ODataModel>CountryKey}" text="{ODataModel>CountryName}" />
+					</ComboBox>
+
+					<Image id="idCountryFlag" src="{Property>/CustomerCountryFlag}"
+						width="3em" height="2em" />
+
+				</HBox>
+
+				<Label text="{i18n>CustomerRegion}" />
+
+				<ComboBox id="idCustomerRegion" placeholder="{i18n>RegionPlaceHolder}">
+					<core:ListItem key="{ODataModel>RegionCode}" text="{ODataModel>RegionDescription}" />
+				</ComboBox>
+
+				<Label text="{i18n>CustomerCity}" />
+				<Input id="idCustomerCity" placeholder="{i18n>CommonPlaceHolder}" />
+
+				<Label />
+
+				<CheckBox id="idCustomerValidDeals" text="{i18n>ValidDeals}"
+					selected="true" />
+
+			</f:content>
+
+		</f:SimpleForm>
+
+
+		<beginButton>
+			<Button icon="sap-icon://sys-find" press="handleSearchByCustomer" />
+		</beginButton>
+
+		<endButton>
+			<Button icon="sap-icon://decline" press="handleSearchPopupClose" />
+		</endButton>
+
+	</Dialog>
+
+</core:FragmentDefinition>

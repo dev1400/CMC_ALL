@@ -1,0 +1,66 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:gmaps="openui5.googlemaps"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+  
+  <Dialog
+    title="Partner Address"
+    class="sapUiPopupWithoutPadding" 
+    contentWidth="70%" contentHeight="80%" stretchOnPhone="true"  
+    afterOpen="handleLocateAddressAfterOpen"
+    >
+
+    <content>
+    
+		 <l:Grid
+		    defaultSpan="L12 M12 S12"
+		    vSpacing="0"
+		    hSpacing="0"
+		    width="auto">
+		    
+		    <l:content>
+		    
+			<f:SimpleForm layout="ResponsiveGridLayout"
+				labelSpanL="4" labelSpanM="2" emptySpanL="2" emptySpanM="2" columnsL="2" columnsM="2">
+			
+				<f:content>
+		  		
+			 		<Label text="Address" />
+			 		
+			        <Input id="idCurrentPrice" value="{MapModel>/Locations/0/name}" showSuggestion="true" suggest="handleSearchAddressSuggest" change="handleSearchAddressChange" >
+		         		<layoutData>
+			              <l:GridData span="L5 M6 S8" />
+			            </layoutData>
+			        </Input>
+			        
+			        <Button id="idSearchAddressBtn" icon="sap-icon://sys-find" press="handleSearchAddress" width="3em" height="1.4em">
+				        <layoutData>
+			              <l:GridData span="L1 M2 S3" />
+			            </layoutData>
+			        </Button>
+		
+				 </f:content>
+			</f:SimpleForm>
+		
+			</l:content>
+		
+		  </l:Grid>
+				
+	
+	     <gmaps:Map id="idMap" height="390px" zoom="10" lat="-33.920" lng="151.2" >  
+	        <gmaps:markers id="idMapMarker">  
+	            <gmaps:Marker lat="{MapModel>/Locations/0/lat}" lng="{MapModel>/Locations/0/lng}" info="{MapModel>/Locations/0/name}"  />  
+	        </gmaps:markers>  
+	    </gmaps:Map>  
+	    
+    </content>
+    
+    <endButton>
+      <Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+    </endButton>
+    
+  </Dialog>
+</core:FragmentDefinition>
+

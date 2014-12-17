@@ -1,0 +1,36 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" xmlns:suite="sap.suite.ui.commons" controllerName="dia.cmc.contractsinamendment.view.AmendmentFlow"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:z="sap.ca.ui">
+	<Page enableScrolling="true" title="{i18n>DealsinAmendment}" showNavButton="true" navButtonPress="handleNavButtonPress">
+
+		<content>
+
+			<Panel >
+		
+				<z:ZoomableScrollContainer zoomable="true">
+				     <suite:ProcessFlow id="idProcessFlow" zoomLevel="Two"
+					scrollable="false" nodes="{processFlow>/nodes}" lanes="{processFlow>/lanes}"
+					headerPress="onHeaderPress">
+					
+					<suite:nodes>
+						<suite:ProcessFlowNode laneId="{processFlow>lane}" nodeId="{processFlow>id}"
+							title="{processFlow>title}" children="{processFlow>children}" state="{processFlow>state}"
+							stateText="{processFlow>stateText}" texts="{processFlow>texts}" highlighted="{processFlow>highlighted}"
+							focused="{processFlow>focused}" />
+					</suite:nodes>
+					<suite:lanes>
+						<suite:ProcessFlowLaneHeader laneId="{processFlow>id}"
+							iconSrc="{processFlow>icon}" text="{processFlow>label}" position="{processFlow>position}" />
+					</suite:lanes>
+					
+				</suite:ProcessFlow>
+				<html:br /> 
+				
+				</z:ZoomableScrollContainer>				
+
+			</Panel>
+
+		</content>
+	</Page>
+</core:View>

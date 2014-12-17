@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:commons="sap.ui.commons" xmlns:layout="sap.ui.commons.layout">
+	<Popover title="{i18n>AmendmentDescription}">
+		<VBox width="auto" alignItems="Center">
+		
+			<layout:MatrixLayout layoutFixed="false">
+				<layout:MatrixLayoutRow>
+					<layout:MatrixLayoutCell padding="Both"
+						vAlign="Middle" hAlign="Right" rowSpan="1" colSpan="1">
+						<commons:TextView id="idFragmentTextView" text=""
+							width="20em" />
+					</layout:MatrixLayoutCell>
+
+				</layout:MatrixLayoutRow>
+			</layout:MatrixLayout>
+		</VBox>
+
+	</Popover>
+</core:FragmentDefinition>

@@ -1,0 +1,114 @@
+<core:FragmentDefinition
+
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  xmlns:commons="sap.ui.commons"
+  >
+  
+  <Dialog
+    title="{i18n>MaterialSubstitution}"
+    class="sapUiPopupWithPadding" 
+    contentWidth="50%" contentHeight="45%" stretchOnPhone="true"  >
+
+	<customHeader>
+		<Bar>
+			<contentLeft>
+				<core:Icon src="sap-icon://product" />
+			</contentLeft>
+			<contentMiddle>
+				<Label text="{i18n>MaterialSubstitution}" />
+			</contentMiddle>
+		</Bar>
+	</customHeader>
+
+  
+  <l:Grid
+    defaultSpan="L12 M12 S12"
+    width="auto">
+    
+    <l:content>
+    
+	<f:SimpleForm layout="ResponsiveGridLayout"
+		labelSpanL="4" labelSpanM="3" emptySpanL="4" emptySpanM="1" columnsL="1" columnsM="1"  editable="true"	>
+	
+		<f:content>
+		    <Label text="{i18n>OldProduct}" />
+	  		<Input id="idPSCurrentProduct" value="{DealDetailModel>/SelectedPriceItem/Material}"  
+	  				enabled="{Property>/MaterialEnable}"
+	  				showValueHelp="true" valueHelpRequest="handleValueHelp">
+        		<layoutData>
+			    	<l:GridData span="L2 M3 S4" />
+			   	</layoutData>
+			</Input>
+	  		
+	  		
+	  		<Input id="idPSOldProductDesc" value="{DealDetailModel>/SelectedPriceItem/MaterialDescription}"  
+        			enabled="false">
+        			
+        		<layoutData>
+			    	<l:GridData span="L4 M6 S9" />
+			   	</layoutData>
+			   
+        	</Input>
+        	
+        	
+	 		<Label text="{i18n>CurrentPrice}" />
+	 		
+	        <Input value="{DealDetailModel>/SelectedPriceItem/Rate}" enabled="false">
+				<layoutData>
+			    	<l:GridData span="L2 M3 S6" />
+			   	</layoutData>
+	        </Input>
+	        
+	        <Input value="{DealDetailModel>/SelectedPriceItem/Unit}" placeholder="{i18n>PerX}" enabled="false">
+				<layoutData>
+	              <l:GridData span="L2 M2 S3" />
+	            </layoutData>
+	        </Input>
+	        
+	        <Label text="{i18n>NewProduct}" />
+	        
+	        <Input id="idPSNewProduct" value="" 
+	        		showValueHelp="true" valueHelpRequest="handleValueHelp">
+				<layoutData>
+			    	<l:GridData span="L2 M3 S4" />
+			   	</layoutData>
+			</Input>
+
+			<Input id="idPSNewProductDesc" enabled="false">
+        			
+        		<layoutData>
+			    	<l:GridData span="L4 M6 S9" />
+			   	</layoutData>
+			   
+        	</Input>
+        	
+	        <Label text="{i18n>ConversionFactor}" />
+	        
+	        <Input id="idPSConvFact" value="" type="Number" maxLength="3" >
+	        	<layoutData>
+	              <l:GridData span="L2 M3 S4" />
+	            </layoutData>
+	        </Input>
+
+		 </f:content>
+	</f:SimpleForm>
+
+	</l:content>
+
+  </l:Grid>
+  
+  
+  	<beginButton>
+   		<Button icon="sap-icon://save"  press="handleAmendMaterialSubPost" />
+    </beginButton>
+    
+ 	<endButton>
+      <Button icon="sap-icon://decline" press="handleAmendPopupClose" />
+    </endButton>
+    
+   </Dialog>
+  
+</core:FragmentDefinition>

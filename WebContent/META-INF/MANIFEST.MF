@@ -1,0 +1,8 @@
+Manifest-Version: 1.2
+ 
+
+./common/css/style.css
+././resources/sap-ui-core.js
+./common
+./contractlandscape
+./index.html
