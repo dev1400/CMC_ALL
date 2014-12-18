@@ -42,9 +42,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * 
 	 * @memberOf view.detail.Partner
 	 */
-	 onAfterRendering: function() {
+	// Begin of change by Abdul - {18/12/2014}
+	 /*onAfterRendering: function() {
 		
-	 },
+	 },*/
+	// End of Change by Adbul
 	/**
 	 * Called when the Controller is destroyed. Use this one to free resources
 	 * and finalize activities.
@@ -87,8 +89,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 			
 //			this._readTimeline();
 //		
+			// Begin of change by Abdul - {18/12/2014}
 			this.handleTimelineSelectionPress();
-		
+			// End of change by Abdul 
 			
 		}
 	},
