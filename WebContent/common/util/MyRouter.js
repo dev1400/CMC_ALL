@@ -7,7 +7,7 @@ sap.ui.core.routing.Router.extend("dia.cmc.common.util.MyRouter", {
 
 	constructor : function() {
 		sap.ui.core.routing.Router.apply(this, arguments);
-		this._oRouteMatchedHandler = new sap.m.routing.RouteMatchedHandler(this);
+		this._oRouteMatchedHandler = new sap.m.routing.RouteMatchedHandler(this, false);
 	},
 
 	myNavBack : function(sRoute, mData) {

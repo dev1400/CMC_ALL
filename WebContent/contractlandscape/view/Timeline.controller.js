@@ -43,8 +43,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * @memberOf view.detail.Partner
 	 */
 	 onAfterRendering: function() {
-		 
-		 this.handleTimelineSelectionPress();
+		
 	 },
 	/**
 	 * Called when the Controller is destroyed. Use this one to free resources
@@ -88,7 +87,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 			
 //			this._readTimeline();
 //		
-			
+			this.handleTimelineSelectionPress();
 		
 			
 		}
