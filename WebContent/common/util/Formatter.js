@@ -241,6 +241,22 @@ dia.cmc.common.util.Formatter = {
 			return oValue;
 		}
 	},
+	/**Check & convert SAP Value in required format
+	 * @param oPrice: Product Price
+	 */
+	convertPrice : function(oPrice){
+		if(X){
+			oPrice = oPrice.toString().split(".");
+			oPrice = oPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (oPrice[1] ? "." + oPrice[1] : "");
+		}else if(Y){
+			oPrice = oPrice.toString().split(".");
+			oPrice = oPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (oPrice[1] ? "," + oPrice[1] : "");
+		}else{
+			oPrice = oPrice.toString().split(".");
+			oPrice = oPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ") + (oPrice[1] ? "," + oPrice[1] : "");
+		}
+		
+	}
 	
 //	fileSize : function(oValue){
 //		
