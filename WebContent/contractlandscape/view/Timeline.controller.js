@@ -212,6 +212,9 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * Close Timeline selection window
 	 */
 	handlePopupClose: function(oEvent){
+		// Begin of change by Abdul - {19/12/2014}
+		this.handleTimelineNavButtonPress();
+		// End of change by Abdul - {19/12/2014}
 		this.CommonController.closePopupWindow(oEvent);
 	},
 	
