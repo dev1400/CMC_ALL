@@ -241,6 +241,7 @@ dia.cmc.common.util.Formatter = {
 			return oValue;
 		}
 	},
+	// Begin of change by Abdul - {19/12/2014}
 	/**Check & convert SAP Value in required format
 	 * @param oPrice: Product Price
 	 */
@@ -257,6 +258,7 @@ dia.cmc.common.util.Formatter = {
 		}
 		
 	}
+	// End of change by Abdul - {19/12/2014}
 	
 //	fileSize : function(oValue){
 //		
