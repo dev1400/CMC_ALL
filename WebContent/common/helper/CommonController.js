@@ -90,15 +90,17 @@ dia.cmc.common.helper.CommonController = {
 			
 			
 			if(el.uiType === "NB"){			// If number field, validate the value
-			
-				var bValidNumber = (el.value.match(/^\d+(?:\.\d+)?$/));
-				
-				if(!bValidNumber){
-					oControl.setValueState("Error");
-					bCanContinue = false;
+				// Begin of change by Abdul - {22/12/2014}
+			    if(el.value.match(/^\d*[,.\s\d]*\d*$/)){
 					
-					sErrorMsg = that.ModelHelper.getText("MandatoryFields");
+					bCanContinue = true;
+					
+				}else{					
+					oControl.setValueState("Error");
+					bCanContinue = false;					
+					sErrorMsg = that.ModelHelper.getText("MandatoryFields");					
 				}
+			    // End of change by Abdul - {22/12/2014}
 			}
 
 			
