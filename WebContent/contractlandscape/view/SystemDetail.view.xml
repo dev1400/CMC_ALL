@@ -15,14 +15,16 @@
 				</HBox>
 
 				<HBox width="100%" alignItems="Start">
-					<ObjectHeader title="COBAS 600 CORB">
+				<!-- Begin of change by Abdul - {23/12/2014} -->
+					<ObjectHeader title="{i18n>SystemTitle}">
 
 						<attributes>
-							<ObjectAttribute text="SAP. MAT CODE : 00100498" />
-							<ObjectAttribute text="Serial Number : 97645" />
-							<ObjectAttribute text="Status : Installed on 10/11/99 Rented" />
+							<ObjectAttribute text="{i18n>SystemCode}" />
+							<ObjectAttribute text="{i18n>SystemSerialNumber}" />
+							<ObjectAttribute text="{i18n>SystemStatus}" />
 						</attributes>
 					</ObjectHeader>
+				<!-- End of change by Abdul - {23/12/2014} -->
 				</HBox>
 			</HBox>
 
@@ -37,39 +39,42 @@
 				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
 					columnsL="2" columnsM="2">
-
+                    <!-- Begin of change by Abdul - {23/12/2014} -->
 					<f:content>
-						<Label text="Asset No" />
+						<Label text="{i18n>SystemAssentNumberLabel}" />
 						<Text text="3456" />
-						<Label text="Residual Value" />
+						<Label text="{i18n>SystemResidualValueLabel}" />
 						<Text text="0376" />
-						<Label text="Higher level Equipment" />
+						<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
 						<Text text="YES" />
 						
 						<Label text="" />
-						<Link text="SAP Equipment Record" />
+						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
 						
 					</f:content>
+					<!-- End of change by Abdul - {23/12/2014} -->
 
 				</f:SimpleForm>
 
 				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
 					columnsL="2" columnsM="2">
+					<!-- Begin of change by Abdul - {23/12/2014} -->
 					<f:content>
-						<Label text="Start up date" />
+						<Label text="{i18n>SystemStartupDateLabel}" />
 						<Text text="10/01/2014" />
-						<Label text="First installation date" />
+						<Label text="{i18n>SystemFirstInstallationDatLabele}" />
 						<Text text="11/12/2014" />
-						<Label text="Warranty start" />
+						<Label text="{i18n>SystemWarrantyStartLabel}" />
 						<Text text="15/12/2014" />
-						<Label text="Warranty end" />
+						<Label text="{i18n>SystemWarrantyEndLabel}" />
 						<Text text="20/12/2014" />
-						<Label text="SC renewal" />
+						<Label text="{i18n>SystemSCrenewalLabel}" />
 						<Text text="30/12/2014" />
 						<Label />
-						<Link text="SAP Installed Base" target="_blank" />
+						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
 					</f:content>
+					<!-- End of change by Abdul - {23/12/2014} -->
 				</f:SimpleForm>
 
 			</f:content>
