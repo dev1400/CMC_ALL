@@ -261,9 +261,23 @@ dia.cmc.common.util.Formatter = {
 		}
 		
 		return oValue;
-	}
+	},
 	
-	
+	// Begin of change by Abdul - {29/12/2014}	
+	/**Format price to decimal format.
+	 * @param oValue: Price or Qty
+	 */
+	reverseToDecimalFormat : function(oValue){
+		   //Extract only digits, exclude . and , and space
+		   oValue = oValue.replace(/[^0-9]/g,"");
+		   //Split the value with each digit to an array
+		   oValue = oValue.split("");
+		   //Add . before last two digits
+		   oValue.splice(-2,0,".");
+		   //Join array elements
+		   oValue.join("");	//has formatted value	  
+	},
+	// End of Change by Adbul - {29/12/2014}
 //	fileSize : function(oValue){
 //		
 //		var sSize = oValue + "KB";
