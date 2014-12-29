@@ -81,6 +81,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			
 //			this._disableSimpleAmend();
 		}, this));		
+		
+		return oRequestFinishedDeferred;
 	},
 	
 	/***************************************************************************
@@ -1032,27 +1034,52 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		});
 
 		var oButtonEvent = jQuery.extend({}, oEvent);
+		var that = this;
 		
 		// Call Helper class method to update Deal Details to SAP
 //		oPriceAmendDetail = this.ModelHelper
 //				.postPriceAmendment(oPriceAmendDetail);
 		var oRequestFinishedDeferred = this.ModelHelper.postPriceAmendment(oPriceAmendDetail);
 		
-		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oPriceAmendDetail) {
-			// Display Success or Error message. It will be passed from SAP
-			sap.m.MessageBox.alert(oPriceAmendDetail.Message, {
-				title : "Amendment Result"
-			});
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oPriceAmendDetail, oDealDetailModel) {
 	
 			// Refresh details and Close popup window if Amendment was successful
 			if (oPriceAmendDetail.MessageType != "E") { // Message will not be "E"
 														// if Amendment is created
 														// successfully
-	
-				// Refresh the details 
-				this._readAndBindDealDetails(false);
+
+				// Bind Deal Detail model
+				if(oDealDetailModel != undefined){
+					this.getView().setModel(oDealDetailModel,"DealDetailModel");	
+				}
 				
-				this.CommonController.closePopupWindow(oButtonEvent);
+				// Display success message passed from SAP
+				sap.m.MessageBox.alert(oPriceAmendDetail.Message, {
+					title : "Amendment Result"
+				});
+				
+				that.CommonController.closePopupWindow(oButtonEvent);
+				
+//				// Refresh the details 
+//				var oRequestFinishedDeferred = this._readAndBindDealDetails(false);
+//				
+//				// Wait for details to be refreshed
+//				jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function() {
+//					
+//					// Display success message passed from SAP
+//					sap.m.MessageBox.alert(oPriceAmendDetail.Message, {
+//						title : "Amendment Result"
+//					});
+//					
+//					that.CommonController.closePopupWindow(oButtonEvent);
+//				}));
+				
+			}
+			else{
+				// Display Error message passed from SAP
+				sap.m.MessageBox.alert(oPriceAmendDetail.Message, {
+					title : "Amendment Result"
+				});
 			}
 			
 		}, this));
@@ -1220,27 +1247,63 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			}
 		});
 
+		var oButtonEvent = jQuery.extend({}, oEvent);
+		var that = this;
+		
 		// Call Helper class method to update Deal Details to SAP
-		oDiscountAmendDetail = this.ModelHelper
+		var oRequestFinishedDeferred = oDiscountAmendDetail = this.ModelHelper
 				.postDiscountAmendment(oDiscountAmendDetail);
 
-		// Display Success or Error message. It will be passed from SAP
-		sap.m.MessageBox.alert(oDiscountAmendDetail.Message, {
-			title : "Amendment Result"
-		});
 
-		// Refresh details and Close popup window if Amendment was successful
-		if (oDiscountAmendDetail.MessageType != "E") { // Message will not be "E"
-													// if Amendment is created
-													// successfully
-
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDiscountAmendDetail) {
+	
+			// Refresh details and Close popup window if Amendment was successful
+			if (oDiscountAmendDetail.MessageType != "E") { // Message will not be "E"
+														// if Amendment is created
+														// successfully
+	
+				// Refresh the details 
+				var oRequestFinishedDeferred = this._readAndBindDealDetails(false);
+				
+				// Wait for details to be refreshed
+				jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function() {
+					
+					// Display success message passed from SAP
+					sap.m.MessageBox.alert(oDiscountAmendDetail.Message, {
+						title : "Amendment Result"
+					});
+					
+					that.CommonController.closePopupWindow(oButtonEvent);
+				}));
+				
+			}
+			else{
+				// Display Error message passed from SAP
+				sap.m.MessageBox.alert(oDiscountAmendDetail.Message, {
+					title : "Amendment Result"
+				});
+			}
 			
-			// Refresh the details 
-			this._readAndBindDealDetails(false);
-			
-			this.CommonController.closePopupWindow(oEvent);
-
-		}
+		}, this));
+		
+//		
+//		// Display Success or Error message. It will be passed from SAP
+//		sap.m.MessageBox.alert(oDiscountAmendDetail.Message, {
+//			title : "Amendment Result"
+//		});
+//
+//		// Refresh details and Close popup window if Amendment was successful
+//		if (oDiscountAmendDetail.MessageType != "E") { // Message will not be "E"
+//													// if Amendment is created
+//													// successfully
+//
+//			
+//			// Refresh the details 
+//			this._readAndBindDealDetails(false);
+//			
+//			this.CommonController.closePopupWindow(oEvent);
+//
+//		}
 	},
 
 /*******************************************************************************
@@ -1607,23 +1670,45 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		var oRequestFinishedDeferred = this.ModelHelper
 				.postCommitmentAmendment(oCommitmentAmendDetail);
 
-		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oDealCollectionModel) {
+		var that = this;
 		
-			// Display Success or Error message. It will be passed from SAP
-			sap.m.MessageBox.alert(oCommitmentAmendDetail.Message, {
-				title : "Amendment Result"
-			});
-	
+		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oCommitmentAmendDetail, oDealDetailModel) {
+		
 			// Referesh Deal details and Close popup window if Amendment was successful
 			if (oCommitmentAmendDetail.MessageType != "E") { // Message will not be "E" if Amendment is created successfully
-	
-				this._readAndBindDealDetails(false);
 				
-				this._amendComitment.close();
+				// Bind Deal Detail model
+				if(oDealDetailModel != undefined){
+					this.getView().setModel(oDealDetailModel,"DealDetailModel");	
+				}
 				
-	//			this.CommonController.closePopupWindow(oEvent);
+				// Display Success message return from SAP
+				sap.m.MessageBox.alert(oCommitmentAmendDetail.Message, {
+					title : "Amendment Result"
+				});
+				
+				that._amendComitment.close();	
+				
+//				// Refresh the details 
+//				var oRequestFinishedDeferred = this._readAndBindDealDetails(false);
+//				
+//				// Wait for details to be refreshed
+//				jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function() {
+//					
+//					// Display Success message return from SAP
+//					sap.m.MessageBox.alert(oCommitmentAmendDetail.Message, {
+//						title : "Amendment Result"
+//					});
+//					
+//					that._amendComitment.close();	
+//				}));
 
-		}
+			}else{
+				// Display error message return from SAP
+				sap.m.MessageBox.alert(oCommitmentAmendDetail.Message, {
+					title : "Amendment Result"
+				});
+			}
 		
 		}, this));
 	},

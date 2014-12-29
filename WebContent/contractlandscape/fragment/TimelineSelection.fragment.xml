@@ -36,12 +36,17 @@
 								
 						<Label text="{i18n>Amendments}" />
 						<MultiComboBox id="idAmendCat"  placeholder="{i18n>AmendmentPlaceholder}"
-							selectionChange="handleAmendCatChange">
+										selectionChange="handleAmendCatChange">
+										
 							<!-- <core:Item key="AL" text="{i18n>All}" tooltip="{i18n>AllTooltip}" /> -->
 							<core:Item key="RC" text="{i18n>ComplexAmend}" tooltip="{i18n>ComplexAmend}" />
 							<core:Item key="VL" text="{i18n>ValidityAmend}" tooltip="{i18n>ValidityAmend}" />
 							<core:Item key="PT" text="{i18n>PartnerAmend}" tooltip="{i18n>PartnerAmend}" />
 							<core:Item key="PR" text="{i18n>PriceAmend}" tooltip="{i18n>PriceAmend}" />
+							<core:Item key="CM" text="{i18n>CommitmentAmend}" tooltip="{i18n>CommitmentAmend}" />
+							<core:Item key="SY" text="{i18n>SystemAmend}" tooltip="{i18n>SystemAmend}" />
+							<core:Item key="SR" text="{i18n>ServiceAmend}" tooltip="{i18n>ServiceAmend}" />
+							
 							<layoutData>
 								<l:GridData span="L2 M5 S6" />
 							</layoutData>

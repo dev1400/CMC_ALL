@@ -2,6 +2,12 @@ jQuery.sap.require("dia.cmc.common.util.Formatter");
 
 sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 
+	// Flag to indicate whether to navigate to deail screen or not when close button is clicked
+	_bNavigate: false,
+	
+	// Deal Id for which timeline is displayed
+	_sDealId: "",
+	
 	/***************************************************************************
 	 * Start - Standard hook events
 	 **************************************************************************/
@@ -24,7 +30,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	
 		// Attached event handler for route match event
 		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
-
+		
+		this.getView().setModel(this.ModelHelper.oPropertyModel, "PropertyModel");
 	},
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
@@ -42,11 +49,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * 
 	 * @memberOf view.detail.Partner
 	 */
-	// Begin of change by Abdul - {18/12/2014}
-	 /*onAfterRendering: function() {
-		
-	 },*/
-	// End of Change by Adbul
+	 onAfterRendering: function() {
+		 
+
+	 },
 	/**
 	 * Called when the Controller is destroyed. Use this one to free resources
 	 * and finalize activities.
@@ -60,12 +66,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	/***************************************************************************
 	 * End - Standard hook events
 	 **************************************************************************/
-	
-	 onBeforeShow:function(oEvent){
-		 alert("BeforeShow");
-	 },
 
-	/** Event handler for Route Matched event 
+	 /** Event handler for Route Matched event 
 	 * It will check for deal id and if available, reads the deal details
 	 * @param oEvent
 	 */
@@ -73,51 +75,65 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 		
 		if (oEvent.getParameter("name") === "dealTimeline") {		// check route name
 
-			_sDealId = oEvent.getParameter("arguments").dealId;
+			this._sDealId = oEvent.getParameter("arguments").dealId;
 
 			this.getView().setModel(this.ModelHelper.oDealDetailModel, "DealDetailModel");
-			
-//			var oView = this.getView();
-//			oView.setModel(this.ModelHelper.oODataModel);
+
+//			var oTimelineUI = this.CommonController.getUIElement("idTimeline", this.getView());
 //			
-//			var sPath = "/DealCollection('" + sDealId + "')";
-////			var sPath = "/DealCollection/0";
-//			var oContext = new sap.ui.model.Context(oView.getModel(), sPath);
-//			oView.setBindingContext(oContext);
+//			oTimelineUI.invalidate();
+//			
+////			oTimelineUI.setVisible(false);
+//			
+//			// Hide Timeline control by default
+//			this.ModelHelper.setProperty("TimelineVisi", false);
 			
-	
+			// Flag to indicate whether to navigate to deail screen or not when close button is clicked
+			this._bNavigate = true;
 			
-//			this._readTimeline();
-//		
-			// Begin of change by Abdul - {18/12/2014}
-			this.handleTimelineSelectionPress();
-			// End of change by Abdul 
+			// Open selection popup
+			 this._openTimelineSelectionPopup();
 			
 		}
 	},
 
-	_setTimelinePeriodDefaultValue:function(){
-		
-		var oPeriodUI = this.CommonController.getUIElement("idTimelinePeriod",this.getView());
-
-		dFromDate = new Date();
-		dFromDate.setMonth(dFromDate.getMonth() - 3);
-		
-	    oPeriodUI.setDateValue(dFromDate);
-	    oPeriodUI.setSecondDateValue(new Date());
-	    
-	},
+//	_setTimelinePeriodDefaultValue:function(){
+//		
+//		var oPeriodUI = this.CommonController.getUIElement("idTimelinePeriod",this.getView());
+//
+//		dFromDate = new Date();
+//		dFromDate.setMonth(dFromDate.getMonth() - 3);
+//		
+//	    oPeriodUI.setDateValue(dFromDate);
+//	    oPeriodUI.setSecondDateValue(new Date());
+//	    
+//	},
 	
+	/***
+	 * Event handler for navigation back button
+	 */
 	handleTimelineNavButtonPress : function(oEvent){
-//		this.getView().destroy(true);
-		
+		// Navigate back to details screen
 		this.CommonController.getRouter(this).myNavBack("main");
 		
 	},
 	
-	
+	/**
+	 * Event handler for timeline selection press event. It will open the Timeline selection screen
+	 * @param oEvent
+	 */
 	handleTimelineSelectionPress : function(oEvent){
 		
+		this._bNavigate = false;
+		
+		// Open selection popup
+		this._openTimelineSelectionPopup();
+	},
+	
+	/**
+	 * Open timeline selection popup 
+	 */
+	_openTimelineSelectionPopup:function(){
 		// Destroy popup if its already there
 		if (this._timelineSelection) {
 			this._timelineSelection.destroy(true);
@@ -131,17 +147,25 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 		this._timelineSelection.open();
 	},
 	
+	/**
+	 * Event handler for Search button. It will search for timeline data and displays in timeline control
+	 * @param oEvent
+	 */
 	handleTimelineSearchPress : function(oEvent){
 		
 		var sFilters = this._buildFilterString();
 		
-		var oRequestFinishedDeferred = this.ModelHelper.readDealTimeline(_sDealId, sFilters);
+		var oRequestFinishedDeferred = this.ModelHelper.readDealTimeline(this._sDealId, sFilters);
 
 		jQuery.when(oRequestFinishedDeferred).then(jQuery.proxy(function(oTimelineModel) {
 		
 			if(oTimelineModel.getData().AmendmentCollection.length > 0){	// Some Amendments found
 				this.getView().setModel(oTimelineModel);
 				this._timelineSelection.close();	// Close Timeline selection window
+				
+				//Show Timeline
+				this.ModelHelper.setProperty("TimelineVisi", true);
+				
 			}else{
 				sap.m.MessageToast.show("No data found");	
 			}
@@ -150,6 +174,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 
 	},
 	
+	/**
+	 * It builds filter string base on selection screen parameters
+	 * @returns {String}
+	 */
 	_buildFilterString: function(){
 
 		var sFilters = " Action eq 'RTL'";
@@ -212,11 +240,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 	 * Close Timeline selection window
 	 */
 	handlePopupClose: function(oEvent){
-		// Begin of change by Abdul - {19/12/2014}
-		this.handleTimelineNavButtonPress();
-		// End of change by Abdul - {19/12/2014}
 		this.CommonController.closePopupWindow(oEvent);
+		
+		//Navigate back to details screen
+		if(this._bNavigate){
+			this.CommonController.getRouter(this).myNavBack("main");	
+		}
+		
+		
 	},
+	
 	
 	handleAmendCatChange: function(oEvent){
 //		var oSelectedItem = oEvent.getParameter("selectedItem");
@@ -234,7 +267,10 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 //		}
 	},
 	
-	
+	/**
+	 * Event handler for Price detail button. It will display the popover with price details
+	 * @param oEvent
+	 */
 	handlePriceDetailsPress: function(oEvent){
 		
 //		var oPriceDetailListUI1 = this.CommonController.getUIElement("idPriceDetailList1",this.getView());
@@ -256,8 +292,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 
 		var oSelectedContext = oEvent.getSource().getBindingContext();
 		
-		this._oPriceTimeline.bindElement(oSelectedContext.getPath());
+        var oAmendDetail = this.getView().getModel().getProperty(oSelectedContext.getPath());
+
+        if(oAmendDetail.AmendCat === 'PR'){
+			this.ModelHelper.setProperty("TimelineDetailTitle",this.ModelHelper.getText("PriceChanges"));
+		}
+        else if(oAmendDetail.AmendCat === 'CM'){
+        	this.ModelHelper.setProperty("TimelineDetailTitle",this.ModelHelper.getText("CommitmentChanges"));
+        }
 		
+		this._oPriceTimeline.bindElement(oSelectedContext.getPath());
 		
 		var sPath = oSelectedContext.getPath() + "/PriceDetailCollection";
 		

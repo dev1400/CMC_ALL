@@ -464,7 +464,11 @@
 													class="sapMTableContentMargin" text="{DealDetailModel>Material}" />
 
 												<ObjectIdentifier
-													title="{DealDetailModel>Rate} {DealDetailModel>CurrencyCode}"
+													title="{
+															path: 'DealDetailModel>Rate',
+															formatter: 'dia.cmc.common.util.Formatter.formatDecimal'
+															} 
+															{DealDetailModel>CurrencyCode}"
 													class="sapMTableContentMargin"
 													text="{i18n>Per} {DealDetailModel>Unit} {DealDetailModel>Uom}" />
 

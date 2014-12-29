@@ -41,15 +41,14 @@
 
 		<content>
 
-			<suite:Timeline showHeaderBar="false" sortOldestFirst="true"
-				content="{		
-								path: '/AmendmentCollection'					
-							}">
+			<suite:Timeline id="idTimeline" showHeaderBar="false" sortOldestFirst="true" 	
+				content="{/AmendmentCollection}"	>
 
 				<suite:content>
 				
 					<suite:TimelineItem userName="{ChangedByName}"
-						dateTime="{ChangedOn}" filterValue="{RequestType}" icon="sap-icon://task" 
+						dateTime="{ChangedOn}"
+   						filterValue="{RequestType}" icon="sap-icon://task" 
 						text="{RequestDesc}">
 
 						<suite:embeddedControl> 

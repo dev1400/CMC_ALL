@@ -479,7 +479,9 @@ dia.cmc.common.helper.ModelHelper = {
 								MaterialLabel:"",
 								DiscountFieldLabel:"",
 								CustomerCountryFlag:"",
-								AdvanceCustomerCountryFlag:""
+								AdvanceCustomerCountryFlag:"",
+							    TimelineVisi:false,
+							    TimelineDetailTitle:""
 							});
 
 		return this.oPropertyModel;
@@ -703,15 +705,21 @@ dia.cmc.common.helper.ModelHelper = {
 				
 			// This is create success event handler. Will be called when create operation is successful.
 				
-//			oPriceDetail.AmendmentId = oData.AmendmentId;
-			oPriceDetail.Message = oData.Message;
-			oPriceDetail.MessageType = oData.MessageType;
-
-			// Resolve Deferred object and return the model
-			oRequestFinishedDeferred.resolve(oPriceDetail);
+			var oRequestFinishedDeferredDealDetail = that.readDealDetail(that.sSelectedDealId);
 			
-			// close busy dialog 
-			that.closeBusyDialog();
+			jQuery.when(oRequestFinishedDeferredDealDetail).then(jQuery.proxy(function(oDealDetailModel) {
+				
+	//			oPriceDetail.AmendmentId = oData.AmendmentId;
+				oPriceDetail.Message = oData.Message;
+				oPriceDetail.MessageType = oData.MessageType;
+	
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oPriceDetail, oDealDetailModel);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+
+			}));
 			
 		}, error: function(oResponse){
 			// This is create error event handler. Will be called when create operation is failed.
@@ -749,15 +757,20 @@ dia.cmc.common.helper.ModelHelper = {
 			
 			// This is create success event handler. Will be called when create operation is successful.
 				
-//			oCommitmentDetail.AmendmentId = oData.AmendmentId;
-			oCommitmentDetail.Message = oData.Message;
-			oCommitmentDetail.MessageType = oData.MessageType;
-
-			// Resolve Deferred object and return the model
-			oRequestFinishedDeferred.resolve(oCommitmentDetail);
+			var oRequestFinishedDeferredDealDetail = that.readDealDetail(that.sSelectedDealId);
 			
-			// close busy dialog 
-			that.closeBusyDialog();
+			jQuery.when(oRequestFinishedDeferredDealDetail).then(jQuery.proxy(function(oDealDetailModel) {
+				
+	//			oCommitmentDetail.AmendmentId = oData.AmendmentId;
+				oCommitmentDetail.Message = oData.Message;
+				oCommitmentDetail.MessageType = oData.MessageType;
+	
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oCommitmentDetail, oDealDetailModel);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+			}));
 			
 		}, error: function(oResponse){
 			// This is create error event handler. Will be called when create operation is failed.
@@ -788,6 +801,8 @@ dia.cmc.common.helper.ModelHelper = {
 								SalesOrg:"",
 								DistChannel:"",
 								Division:"",
+								CountryKey:"",
+								DecimalFormat:null,
 								Message:"",
 								MessageType:"E"
 							});

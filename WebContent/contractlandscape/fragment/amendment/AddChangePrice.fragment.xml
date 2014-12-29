@@ -79,7 +79,10 @@
 						
 						<Label text="{i18n>NewPrice} / {i18n>Currency}" />
 
-						<Input id="idPANewPrice" value="{DealDetailModel>/NewPriceItem/Rate}" >
+						<Input id="idPANewPrice" value="{
+															path: 'DealDetailModel>/NewPriceItem/Rate',
+															formatter: 'dia.cmc.common.util.Formatter.formatDecimal'
+														}" >
 							<layoutData>
 								<l:GridData span="L2 M3 S4" />
 							</layoutData>

@@ -35,7 +35,7 @@ dia.cmc.common.util.Formatter = {
 					.getDateTimeInstance({
 						pattern : "dd-MMM-yyyy HH:mm:ss"
 					});
-			return oDateFormat.format(new Date(oValue));
+			return oDateFormat.format(new Date(oValue),true);
 		} else {
 			return oValue;
 		}
@@ -133,7 +133,7 @@ dia.cmc.common.util.Formatter = {
      */
 	isPriceAmend : function(oValue) {
 		
-		if(oValue === "PR") {
+		if(oValue === "PR" || oValue === "CM" ) {
 			return true;
 		}else{
 			return false;
@@ -241,24 +241,28 @@ dia.cmc.common.util.Formatter = {
 			return oValue;
 		}
 	},
-	// Begin of change by Abdul - {19/12/2014}
-	/**Check & convert SAP Value in required format
-	 * @param oPrice: Product Price
+	
+	/**Format thousand and decimal point as per user's default setting in SAP
+	 * @param oValue: Price or Qty
 	 */
-	convertPrice : function(oPrice){
-		if(X){
-			oPrice = oPrice.toString().split(".");
-			oPrice = oPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (oPrice[1] ? "." + oPrice[1] : "");
-		}else if(Y){
-			oPrice = oPrice.toString().split(".");
-			oPrice = oPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (oPrice[1] ? "," + oPrice[1] : "");
-		}else{
-			oPrice = oPrice.toString().split(".");
-			oPrice = oPrice[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ") + (oPrice[1] ? "," + oPrice[1] : "");
+	formatDecimal : function(oValue){
+		
+		var sDecimalFormat = dia.cmc.common.helper.ModelHelper.oDefaultParameterModel.getProperty("/DecimalFormat");
+		
+		if(sDecimalFormat === "X"){
+			oValue = oValue.toString().split(".");
+			oValue = oValue[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (oValue[1] ? "." + oValue[1] : "");
+		}else if(sDecimalFormat === ""){
+			oValue = oValue.toString().split(".");
+			oValue = oValue[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (oValue[1] ? "," + oValue[1] : "");
+		}else if(sDecimalFormat === "Y"){
+			oValue = oValue.toString().split(".");
+			oValue = oValue[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ") + (oValue[1] ? "," + oValue[1] : "");
 		}
 		
+		return oValue;
 	}
-	// End of change by Abdul - {19/12/2014}
+	
 	
 //	fileSize : function(oValue){
 //		

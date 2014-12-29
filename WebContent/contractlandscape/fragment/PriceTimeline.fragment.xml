@@ -2,9 +2,9 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core">
   <Popover
-    title="{i18n>PriceChanges}"
-    class="sapUiPopupWithPadding" 
-		>
+    title="{PropertyModel>/TimelineDetailTitle}"
+    class="sapUiPopupWithPadding">
+    
     <content>
 
       <List id="idPriceDetailList" visible="true"
