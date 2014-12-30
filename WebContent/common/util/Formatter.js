@@ -264,20 +264,36 @@ dia.cmc.common.util.Formatter = {
 	},
 	
 	// Begin of change by Abdul - {29/12/2014}	
-	/**Format price to decimal format.
+	/**Format any price type to decimal format.
 	 * @param oValue: Price or Qty
 	 */
-	reverseToDecimalFormat : function(oValue){
-		   //Extract only digits, exclude . and , and space
-		   oValue = oValue.replace(/[^0-9]/g,"");
-		   //Split the value with each digit to an array
-		   oValue = oValue.split("");
-		   //Add . before last two digits
-		   oValue.splice(-2,0,".");
-		   //Join array elements
-		   oValue.join("");	//has formatted value	  
-	},
+	reverseToDecimalFormat : function(){
+		   
+		   var sDecimalFormat = dia.cmc.common.helper.ModelHelper.oDefaultParameterModel.getProperty("/DecimalFormat");
+		
+    	   //Stores index number of . or , within sDecimalFormat
+		   var decimalValueAt=0;
+		   //Search array in reverse for . or ,
+		   for (var index = sDecimalFormat.length - 1; index >= 0; index--) {
+			   //Store current index number
+			   decimalValueAt = decimalValueAt+1;
+			   if(sDecimalFormat[index] === "." || sDecimalFormat[index] === ","){	
+				     //Exit from loop if . or , is found
+					 break; 
+			   }
+		   }		   
+		   decimalValueAt = 1-decimalValueAt;	
+		   //Remove spaces or non digits if any  
+		   sDecimalFormat = sDecimalFormat.replace(/[^0-9]/g,"");
+		   sDecimalFormat = sDecimalFormat.split("");
+		   //Add . based on decimalValueAt value 
+		   sDecimalFormat = sDecimalFormat.splice(decimalValueAt,0,".");
+		   
+		   return sDecimalFormat;
+    },
 	// End of Change by Adbul - {29/12/2014}
+    
+    
 //	fileSize : function(oValue){
 //		
 //		var sSize = oValue + "KB";
