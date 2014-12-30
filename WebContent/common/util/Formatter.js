@@ -287,9 +287,9 @@ dia.cmc.common.util.Formatter = {
 		   sDecimalFormat = sDecimalFormat.replace(/[^0-9]/g,"");
 		   sDecimalFormat = sDecimalFormat.split("");
 		   //Add . based on decimalValueAt value 
-		   sDecimalFormat = sDecimalFormat.splice(decimalValueAt,0,".");
+		   sDecimalFormat.splice(decimalValueAt,0,".");		   
 		   
-		   return sDecimalFormat;
+		   return sDecimalFormat.join("");
     },
 	// End of Change by Adbul - {29/12/2014}
     
