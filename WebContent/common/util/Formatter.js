@@ -291,7 +291,7 @@ dia.cmc.common.util.Formatter = {
 		   
 		   return sDecimalFormat.join("");
     },
-	// End of Change by Adbul - {29/12/2014}
+	// End of Change by Abdul - {29/12/2014}
     
     
 //	fileSize : function(oValue){
