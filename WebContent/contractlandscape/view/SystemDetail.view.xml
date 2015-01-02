@@ -15,7 +15,7 @@
 				</HBox>
 
 				<HBox width="100%" alignItems="Start">
-				<!-- Begin of change by Abdul - {23/12/2014} -->
+				
 					<ObjectHeader title="{i18n>SystemTitle}">
 
 						<attributes>
@@ -24,7 +24,7 @@
 							<ObjectAttribute text="{i18n>SystemStatus}" />
 						</attributes>
 					</ObjectHeader>
-				<!-- End of change by Abdul - {23/12/2014} -->
+				
 				</HBox>
 			</HBox>
 
@@ -39,7 +39,7 @@
 				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
 					columnsL="2" columnsM="2">
-                    <!-- Begin of change by Abdul - {23/12/2014} -->
+                   
 					<f:content>
 						<Label text="{i18n>SystemAssentNumberLabel}" />
 						<Text text="3456" />
@@ -52,14 +52,14 @@
 						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
 						
 					</f:content>
-					<!-- End of change by Abdul - {23/12/2014} -->
+					
 
 				</f:SimpleForm>
 
 				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
 					columnsL="2" columnsM="2">
-					<!-- Begin of change by Abdul - {23/12/2014} -->
+					
 					<f:content>
 						<Label text="{i18n>SystemStartupDateLabel}" />
 						<Text text="10/01/2014" />
@@ -74,7 +74,7 @@
 						<Label />
 						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
 					</f:content>
-					<!-- End of change by Abdul - {23/12/2014} -->
+					
 				</f:SimpleForm>
 
 			</f:content>

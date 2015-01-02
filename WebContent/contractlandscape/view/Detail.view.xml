@@ -22,9 +22,10 @@
 			</Bar> </customHeader> -->
 
 		<content>
-
+            <!-- Begin of change by Abdul - {02/01/2015}	 -->
 			<Table id="idHeaderTable" width="100%" backgroundDesign="Transparent"
-				showSeparators="None">
+				showSeparators="None" columnHeaderVisible="false">
+			<!-- End of change by Abdul - {02/01/2015}	 -->
 				<columns>
 					<Column hAlign="Left" width="8rem" />
 
