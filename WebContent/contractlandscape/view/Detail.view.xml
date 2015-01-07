@@ -410,8 +410,10 @@
 						<IconTabBar id="idPricingTabBar" expanded="true"
 							expandable="false" select="handlePricingTabSelect">
 							<items>
-								<IconTabFilter key="MatPrice"
+							<!-- Change Begin by Abdul {07/01/2015} -->
+								<IconTabFilter key="MatPrice" id="idMatPrice"
 									text="{i18n&gt;ProductPriceAgreements}">
+							<!-- Change End by Abdul {07/01/2015} -->
 									<Table id="idMatPriceTable"
 										items="{  path: 'DealDetailModel>/MaterialPriceCollection',
 																	      sorter: {
@@ -503,8 +505,9 @@
 							</items>
 
 							<items>
-
-								<IconTabFilter key="TestPrice" text="{i18n&gt;TestPriceAgreements}">
+							<!-- Change Begin by Abdul {07/01/2015} -->                      
+								<IconTabFilter key="TestPrice" id="idTestPrice" text="{i18n&gt;TestPriceAgreements}">
+							<!-- Change End by Abdul {07/01/2015} -->
 									<Table id="idTestPriceTable"
 										items="{  path: 'DealDetailModel>/TestPriceCollection',
 																	      sorter: {
@@ -587,8 +590,10 @@
 								</IconTabFilter>
 							</items>
 							<items>
-								<IconTabFilter key="MatDisc"
+							<!-- Change Begin by Abdul {07/01/2015} -->
+								<IconTabFilter key="MatDisc" id="idMatDisc"
 									text="{i18n&gt;ProductPriceDiscounts}">
+							<!-- Change End by Abdul {07/01/2015} -->
 
 									<Table id="idMatDiscTable"
 										items="{  path: 'DealDetailModel>/MaterialDiscountCollection',
@@ -661,8 +666,10 @@
 								</IconTabFilter>
 							</items>
 							<items>
-								<IconTabFilter key="HierDisc"
+							<!-- Change Begin by Abdul {07/01/2015} -->
+								<IconTabFilter key="HierDisc" id="idHierDisc"
 									text="{i18n&gt;HierarchicalDiscounts}">
+							<!-- Change End by Abdul {07/01/2015} -->
 									<Table id="idHierDiscTable"
 										items="{DealDetailModel>/HierarchyDiscountCollection}"
 										showNoData="true" selectionMode="None">
@@ -712,7 +719,9 @@
 								</IconTabFilter>
 							</items>
 							<items>
-								<IconTabFilter key="GrpDisc" text="{i18n&gt;MatGroupDiscounts}">
+							<!-- Change Begin by Abdul {07/01/2015} -->
+								<IconTabFilter key="GrpDisc" id="idGrpDisc" text="{i18n&gt;MatGroupDiscounts}">
+							<!-- Change End by Abdul {07/01/2015} -->
 									<Table id="idGrpDiscTable" items="{DealDetailModel>/GroupDiscountCollection}"
 										showNoData="true" selectionMode="None">
 										<columns>

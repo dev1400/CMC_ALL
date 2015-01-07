@@ -2292,6 +2292,59 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		}
 		// If pricing tab is select, make visibility = true
 		else if (sSelectedTabKey === "Pricing") { // Pricing tab is selected
+			//Change Begin by Abdul {07/01/2015}
+			if(!this.ModelHelper.oDealDetailModel.getProperty("/MaterialPriceCollection").length > 0){
+				this.getView().byId("idMatPrice").setVisible(false);
+				this.getView().byId("idMatPriceTable").setVisible(false);				
+			}else{
+				this.getView().byId("idMatPrice").setVisible(true);
+				this.getView().byId("idMatPriceTable").setVisible(true);
+			}
+			
+			if(!this.ModelHelper.oDealDetailModel.getProperty("/TestPriceCollection").length > 0){
+				this.getView().byId("idTestPrice").setVisible(false);
+				this.getView().byId("idTestPriceTable").setVisible(false);				
+			}else{
+				this.getView().byId("idTestPrice").setVisible(true);
+				this.getView().byId("idTestPriceTable").setVisible(true);	
+			}
+			
+			if(!this.ModelHelper.oDealDetailModel.getProperty("/MaterialDiscountCollection").length > 0){
+				this.getView().byId("idMatDisc").setVisible(false);
+				this.getView().byId("idMatDiscTable").setVisible(false);				
+			}else{
+				this.getView().byId("idMatDisc").setVisible(true);
+				this.getView().byId("idMatDiscTable").setVisible(true);	
+			}
+			
+			if(!this.ModelHelper.oDealDetailModel.getProperty("/HierarchyDiscountCollection").length > 0){
+				this.getView().byId("idHierDisc").setVisible(false);
+				this.getView().byId("idHierDiscTable").setVisible(false);				
+			}else{
+				this.getView().byId("idHierDisc").setVisible(true);
+				this.getView().byId("idHierDiscTable").setVisible(true);
+			}
+			
+			if(!this.ModelHelper.oDealDetailModel.getProperty("/GroupDiscountCollection").length > 0){
+				this.getView().byId("idGrpDisc").setVisible(false);
+				this.getView().byId("idGrpDiscTable").setVisible(false);				
+			}else{
+				this.getView().byId("idGrpDisc").setVisible(true);
+				this.getView().byId("idGrpDiscTable").setVisible(true);
+			}
+			
+			if(!this.ModelHelper.oDealDetailModel.getProperty("/MaterialPriceCollection").length > 0 &&
+			   !this.ModelHelper.oDealDetailModel.getProperty("/TestPriceCollection").length > 0 &&
+			   !this.ModelHelper.oDealDetailModel.getProperty("/MaterialDiscountCollection").length > 0 &&
+			   !this.ModelHelper.oDealDetailModel.getProperty("/HierarchyDiscountCollection").length > 0 &&
+			   !this.ModelHelper.oDealDetailModel.getProperty("/GroupDiscountCollection").length > 0){
+				
+				this.getView().byId("idPricingTabBar").setVisible(false);
+				
+			}else{
+				this.getView().byId("idPricingTabBar").setVisible(true);
+			}
+		    //Change End by Abdul {07/01/2015}
 
 //			// Set first tab ( Product Prices ) as selected by default
 //			var oPricingTabBarUI = this.CommonController.getUIElement("idPricingTabBar", this.getView());
