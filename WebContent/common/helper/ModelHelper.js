@@ -61,34 +61,6 @@ dia.cmc.common.helper.ModelHelper = {
 		this.oODataModel.setSizeLimit(300);
 				
 		this.oODataModel.setCountSupported(false);
-		      
-		
-//		this.oODataModel.attachRequestSent(null,function(){
-//            sap.ui.core.BusyIndicator.show(10);
-//		});
-//		
-//		this.oODataModel.attachRequestCompleted(null,function(){
-//            sap.ui.core.BusyIndicator.hide();
-//		});
-//		
-//		
-//		this.oDealCollectionModel.attachRequestSent(null,function(){
-//            sap.ui.core.BusyIndicator.show(10);
-//		});
-//		
-//		this.oDealCollectionModel.attachRequestCompleted(null,function(){
-//            sap.ui.core.BusyIndicator.hide();
-//		});
-//		
-//		
-//		this.oDealDetailModel.attachRequestSent(null,function(){
-//            sap.ui.core.BusyIndicator.show(10);
-//		});
-//		
-//		this.oDealDetailModel.attachRequestCompleted(null,function(){
-//            sap.ui.core.BusyIndicator.hide();
-//		});
-		
 		
 		return this.oODataModel;
 	},

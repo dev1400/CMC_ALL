@@ -33,7 +33,6 @@ dia.cmc.common.helper.CommonController = {
 	validateInput : function(oEvent, oControlList, sAmendType) {
 
 		var bCanContinue = true;
-		var bAtLeastOneSelected = false;
 		var sErrorMsg = null;
 		var that = this;
 		
@@ -44,7 +43,7 @@ dia.cmc.common.helper.CommonController = {
 
 			oControl = sap.ui.getCore().byId(el.id);
 
-			if (el.uiType === "TB" || el.uiType === "NB" ) { // Text Box or other String type control
+			if (el.uiType === "TB" || el.uiType === "NB" || el.uiType === "NBQ") { // Text Box or other String type control
 				el.value = oControl.getValue();
 			} else if (el.uiType === "DT" || el.uiType === "DRF") { // Date Field or Date Range From 
 				
@@ -89,10 +88,16 @@ dia.cmc.common.helper.CommonController = {
 			}
 			
 			
-			if(el.uiType === "NB"){			// If number field, validate the value
+			if(el.uiType === "NB" || el.uiType === "NBQ"){			// If number or qty field, validate the value
 			
-//				var bValidNumber = (el.value.match(/^\d+(?:\.\d+)?$/));
-				var bValidNumber = (el.value.match(/^\d*[,.\s\d]*\d*$/));
+				var bValidNumber = false;
+				
+				if(el.uiType === "NB"){
+					bValidNumber = (el.value.match(/^\d+(?:\.\d+)?$/));
+				}
+				else{
+					bValidNumber = (el.value.match(/^\d*[,.\s\d]*\d*$/));	
+				}
 				
 				if(!bValidNumber){
 					oControl.setValueState("Error");
@@ -115,8 +120,6 @@ dia.cmc.common.helper.CommonController = {
 					oControl.setValueState("None");
 				}
 			}
-			
-
 		});
 
 //		// Exception case for Validity Amendment. Check at least one service
@@ -240,6 +243,37 @@ dia.cmc.common.helper.CommonController = {
 	        }
 	    }
 	},          
+	
+	
+	/** Reverse thousand and decimal point as per user's default setting in SAP
+	 * @param oValue: Price or Qty
+	 */
+	reverseDecimalFormat : function(oValue){
+		
+		var sDecimalFormat = "";
+		var sThousandFormat = "";
+		
+		// User's default decimal format setting from SAP
+		var sDecimalFormatCode = this.ModelHelper.oDefaultParameterModel.getProperty("/DecimalFormat");
+	
+		// Base of setting, set the decimal format
+		if(sDecimalFormatCode === "X"){
+			sThousandFormat = ",";
+			sDecimalFormat = ".";
+		}else if(sDecimalFormatCode === ""){
+			sThousandFormat = ".";
+			sDecimalFormat = ",";
+		}else if(sDecimalFormatCode === "Y"){
+			sThousandFormat = " ";
+			sDecimalFormat = ",";
+		}
+
+		oValue = oValue.replace(eval("/\\" + sThousandFormat + "/g"),"");
+		oValue = oValue.replace(sDecimalFormat,".");
+		
+		return oValue;
+	},
+	
 	
 	/**
      * Generate Excel file using JSON data.

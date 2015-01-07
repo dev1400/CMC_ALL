@@ -11,33 +11,6 @@
 			<Button icon="sap-icon://sys-find"
 					tooltip="{i18n>SearchTimelineTooltip}" press="handleTimelineSelectionPress" />
 		</headerContent>
-		
-<!-- 		<subHeader>
-			<Bar>
-				<contentMiddle>
-
-					<Label text="{i18n>TimelinePeriod}" />
-
-					<DateRangeSelection id="idTimelinePeriod"
-						delimiter="{i18n>To}" from="" to="" displayFormat="{i18n>DateFormat}"
-						width="17em"/>
-						
-					<Label text="{i18n>Amendments}" />
-					<MultiComboBox id="idAmendCat" width="15em" style="height:2.375rem" placeholder="{i18n>AmendmentPlaceholder}"
-						selectionChange="handleAmendCatChange">
-						<core:Item key="AL" text="{i18n>All}" tooltip="{i18n>AllTooltip}" />
-						<core:Item key="RC" text="{i18n>ComplexAmend}" tooltip="{i18n>ComplexAmend}" />
-						<core:Item key="VL" text="{i18n>ValidityAmend}" tooltip="{i18n>ValidityAmend}" />
-						<core:Item key="PR" text="{i18n>PriceAmend}" tooltip="{i18n>PriceAmend}" />
-						<core:Item key="PT" text="{i18n>PartnerAmend}" tooltip="{i18n>PartnerAmend}" />
-					</MultiComboBox>
-						
-					<Button icon="sap-icon://sys-find"
-						tooltip="{i18n>SearchTimelineTooltip}" press="handleTimelineSearchPress" />
-				</contentMiddle>
-
-			</Bar>
-		</subHeader> -->
 
 		<content>
 
@@ -52,94 +25,34 @@
 						text="{RequestDesc}">
 
 						<suite:embeddedControl> 
-						
-<!-- 						<Panel expanded="true" headerText="{RequestDesc}"
-								visible="{
-												path: 'AmendCat',
-												formatter: 'dia.cmc.common.util.Formatter.isPriceAmend'
-											}" >    
-						    <content>
-						      <l:HorizontalLayout>
-						      	<List id="idPriceDetailList" width="auto" 
-								    items="{PriceDetailCollection}"
-								    visible="{
-												path: 'AmendCat',
-												formatter: 'dia.cmc.common.util.Formatter.isPriceAmend'
-											}" >    
-								    <items>
-								      <CustomListItem>
-								        <Text text="{RequestDesc}" /> 
-								       </CustomListItem>
-								    </items>
-							  	</List>
-							  	</l:HorizontalLayout>
-						    </content>
-						</Panel> -->
-  
-  
-							<HBox hAlign="justifyContent">
-								<Text text="{RequestDesc}"/>
-								<Text width="1em" />
-								<core:Icon src="sap-icon://display-more" press="handlePriceDetailsPress"
-											width="auto" height="1.5rem" color="#007cc0"
-											tooltip="{i18n>PriceChangeDetails}"
-											visible="{
-													path: 'AmendCat',
-													formatter: 'dia.cmc.common.util.Formatter.isPriceAmend'
-												}" />
-
-								
-<!-- 								<Link text="Details" press="handlePriceDetailsLinkPress" 
-										visible="{
-													path: 'AmendCat',
-													formatter: 'dia.cmc.common.util.Formatter.isPriceAmend'
-												}" /> -->
-							</HBox>
-								
-<!-- 								<HBox>				
-									<List id="idPriceDetailList1" visible="false"
-									    items="{PriceDetailCollection}">
-									    <items>
-									      <CustomListItem>
-									        <Text text="{RequestDesc}" /> 
-									       </CustomListItem>
-									    </items>
-								  	</List>
-	  
+							<VBox>
+								<HBox hAlign="justifyContent">
+									<Text text="{RequestDesc}"/>
+									<Text width="1em" />
+									<core:Icon src="sap-icon://display-more" press="handlePriceDetailsPress"
+												width="auto" height="1.5em" color="#007cc0"
+												tooltip="{i18n>PriceChangeDetails}"
+												visible="{
+														path: 'AmendCat',
+														formatter: 'dia.cmc.common.util.Formatter.isPriceOrCommitAmendCat'
+													}" />
 								</HBox>
-							</VBox>	 -->					
-							
+								<HBox height="0.5em">
+								</HBox>
+								<HBox>
+									<Label text="{DetailDesc}" 
+										   visible="{
+										   				path: 'DetailDesc',
+														formatter: 'dia.cmc.common.util.Formatter.isTimelineAmendDetailVisi'
+													}" />
+								</HBox>
+							</VBox>
 						</suite:embeddedControl>
           
 					</suite:TimelineItem>
 
 				</suite:content>
 			</suite:Timeline>
-		
-			<!-- <Table id="idTimelineTable" width="100%" backgroundDesign="Transparent"
-				showSeparators="None"
-				items="{  
-							path: '/AmendmentCollection'					
-							}">
-
-				<columns>
-					<Column hAlign="Left" width="3em" />
-
-					<Column demandPopin="true" hAlign="Left" />
-
-					<Column demandPopin="true" hAlign="Left" />
-				</columns>
-
-				<ColumnListItem>
-
-					<core:Icon src="sap-icon://expand-group" />
-
-					<ObjectIdentifier title="{RequestDescr}" class="sapMTableContentMargin" />
-
-
-
-				</ColumnListItem>
-			</Table> -->
 
 		</content>
 

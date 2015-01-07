@@ -2,7 +2,7 @@
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 
 	<Dialog title="{i18n>SearchByCustomer}" class="sapUiPopupWithPadding"
-		contentWidth="50%" contentHeight="55%" stretchOnPhone="true">
+		stretchOnPhone="true">
 
 		<customHeader>
 			<Bar>
@@ -14,15 +14,17 @@
 				</contentMiddle>
 			</Bar>
 		</customHeader>
-
-
-
-		<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="10"
-			labelSpanM="4" emptySpanL="0" emptySpanM="3" columnsL="2" columnsM="2"  editable="true"	>
+		    
+		<f:SimpleForm layout="ResponsiveGridLayout" editable="true"	 
+					  labelSpanL="2" labelSpanM="3" labelSpanS="3" 
+					  emptySpanL="1" emptySpanM="1" emptySpanS="1" 
+					  columnsL="2" columnsM="2" columnsS="2" >
 
 			<f:content>
 				<Label text="{i18n>CustomerNumber}" />
-				<Input id="idCustomerNumber" placeholder="{i18n>CustomerNumberPlaceHolder}" />
+				<Input id="idCustomerNumber" placeholder="{i18n>CustomerNumberPlaceHolder}" >
+
+	            </Input>
 				<Label text="{i18n>CustomerName}" />
 				<Input id="idCustomerName" placeholder="{i18n>CommonPlaceHolder}" />
 
@@ -52,12 +54,12 @@
 				<Label />
 
 				<CheckBox id="idCustomerValidDeals" text="{i18n>ValidDeals}"
-					selected="true" />
+					selected="true" width="23em">
+
+		        </CheckBox>
 
 			</f:content>
-
 		</f:SimpleForm>
-
 
 		<beginButton>
 			<Button icon="sap-icon://sys-find" press="handleSearchByCustomer" />

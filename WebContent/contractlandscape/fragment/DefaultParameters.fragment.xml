@@ -2,7 +2,7 @@
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 
 	<Dialog title="{i18n>DefaultParameters}" class="sapUiPopupWithPadding"
-		contentWidth="50%" contentHeight="40%" stretchOnPhone="true">
+		stretchOnPhone="true">
 
 		<customHeader>
 			<Bar>
@@ -16,8 +16,10 @@
 		</customHeader>
 
 
-		<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="10"
-			labelSpanM="4" emptySpanL="0" emptySpanM="2" columnsL="2" columnsM="2">
+		<f:SimpleForm layout="ResponsiveGridLayout" editable="true"	
+			labelSpanL="6"	labelSpanM="4" labelSpanS="4" 
+			emptySpanL="1" emptySpanM="1" emptySpanS="1" 
+			columnsL="2" columnsM="2" columnsS="2">
 
 			<f:content>
 
@@ -25,8 +27,10 @@
 
 				<ComboBox id="idDFSalesOrg" placeholder="{i18n>SalesOrgPlaceHolder}"
 					items="{ODataModel>/SalesOrgCollection}" selectedKey="{DefaultParameters>/SalesOrg}"
-					selectionChange="handleSalesOrgChange" >
+					selectionChange="handleSalesOrgChange" width="25em">
 					<core:ListItem key="{ODataModel>SalesOrgCode}" text="{ODataModel>SalesOrgCode} - {ODataModel>SalesOrgDescription}" />
+					
+					
 				</ComboBox>
 
 				<Label text="{i18n>DistributionChannel}" />

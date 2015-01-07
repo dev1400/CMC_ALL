@@ -3,7 +3,7 @@
 	xmlns:f="sap.ui.layout.form">
 
 		<Dialog id="idProductSelectDialog" title="{i18n>SelectProduct}" class="sapUiPopupWithPadding"
-		contentWidth="55%" contentHeight="45%" stretchOnPhone="true">
+		 stretchOnPhone="true">
 		
 		<content>
 		
@@ -31,7 +31,7 @@
 							<layoutData>
 								<l:GridData span="L2 M2 S3" />
 							</layoutData>
-						</Label>
+						</Label>3
 						<Input id="idMaterialDescription" type="Text" placeholder="{i18n>CommonPlaceHolder}" >
 							<layoutData>
 								<l:GridData span="L2 M4 S5" />
@@ -60,7 +60,7 @@
 							
 			</HBox>
 			
-			<Table id="idProductTable" fixedLayout="true" mode="SingleSelectMaster"
+			<Table id="idProductTable" fixedLayout="true" mode="SingleSelectMaster" width="42rem"
 			selectionChange="handleProductSelectionChange" items="{ODataModel>/MaterialCollection}">
 			
 				<columns>

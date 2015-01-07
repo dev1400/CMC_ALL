@@ -2,7 +2,7 @@
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 
 	<Dialog title="{i18n>SearchByCustomer}" class="sapUiPopupWithPadding"
-		contentWidth="50%" contentHeight="40%" stretchOnPhone="true">
+		stretchOnPhone="true">
 
 		<customHeader>
 			<Bar>
@@ -17,43 +17,22 @@
 
 
 		<l:Grid defaultSpan="L12 M12 S12" width="auto">
-
 			<l:content>
-
-				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="4"
-					labelSpanM="2" emptySpanL="4" emptySpanM="1" columnsL="2" columnsM="2"  editable="true"	>
+				<f:SimpleForm layout="ResponsiveGridLayout"  editable="true" 
+								labelSpanL="1" labelSpanM="1" labelSpanS="2" 
+								emptySpanL="0" emptySpanM="0" emptySpanS="0"
+								columnsL="2" columnsM="2" >
 
 					<f:content>
 						<Label text="" />
 
 						<RadioButton id="idAmendContract" groupName="Type"
-							text="{i18n>AmendContract}" selected="true" enabled="{Property>/SimpleAmendEnable}">
-							<layoutData>
-								<l:GridData span="L4 M4 S6" />
-							</layoutData>
-						</RadioButton>
+							text="{i18n>AmendContract}" selected="true" enabled="{Property>/SimpleAmendEnable}" />
 
-						<RadioButton id="idRenewContract" groupName="Type"
-							text="{i18n>RenewContract}">
-							<layoutData>
-								<l:GridData span="L4 M4 S6" />
-							</layoutData>
-						</RadioButton>
+						<RadioButton id="idRenewContract" groupName="Type" text="{i18n>RenewContract}" />
 
-						<Label text="{i18n>Description}" >
-							<layoutData>
-								<l:GridData span="L4 M3 S3" />
-							</layoutData>
-						</Label>
-
-						<TextArea id="idDesc" value="" cols="40" rows="5"
-							valueStateText="Please enter description.">
-
-							<layoutData>
-								<l:GridData span="L4 M8 S9" />
-							</layoutData>
-
-						</TextArea>
+						<Label text="{i18n>Description}" />
+						<TextArea id="idDesc" value="" cols="60" rows="5" />
 
 					</f:content>
 				</f:SimpleForm>

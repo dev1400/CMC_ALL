@@ -1,10 +1,11 @@
 jQuery.sap.declare("dia.cmc.common.util.Formatter");
+
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
+jQuery.sap.require("dia.cmc.common.helper.CommonController");
 jQuery.sap.require("sap.ui.core.format.DateFormat");
 
 dia.cmc.common.util.Formatter = {
 
-	
 	/** Convert value to boolean
 	 * 'X' -> true
 	 * '' -> false
@@ -131,15 +132,29 @@ dia.cmc.common.util.Formatter = {
 	/** Returns True if Price Amendment Type, else false 
      * @param oValue : Amendment Type
      */
-	isPriceAmend : function(oValue) {
+	isPriceOrCommitAmendCat : function(oValue) {
 		
-		if(oValue === "PR" || oValue === "CM" ) {
+		// Read selection parameter from Timeline selection screen
+		var oAmendDetailItemsUI = dia.cmc.common.helper.CommonController.getUIElement("idTLAmendDetailItems");
+	    var bAmendDetailItems = oAmendDetailItemsUI.getSelected();
+	    
+		if(bAmendDetailItems === false && (oValue === "PR" || oValue === "CM" )) {
 			return true;
 		}else{
 			return false;
 		}
 	},
 	
+	/** Returns True if Amendment details description is available 
+     */
+	isTimelineAmendDetailVisi : function(oValue) {
+		
+		if(oValue && oValue.length > 0){
+			return true;
+		}else{
+			return false;
+		}
+	},
 	
 	
     /** Format System Install Date and add the prefix
@@ -247,53 +262,37 @@ dia.cmc.common.util.Formatter = {
 	 */
 	formatDecimal : function(oValue){
 		
-		var sDecimalFormat = dia.cmc.common.helper.ModelHelper.oDefaultParameterModel.getProperty("/DecimalFormat");
-		
-		if(sDecimalFormat === "X"){
-			oValue = oValue.toString().split(".");
-			oValue = oValue[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (oValue[1] ? "." + oValue[1] : "");
-		}else if(sDecimalFormat === ""){
-			oValue = oValue.toString().split(".");
-			oValue = oValue[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".") + (oValue[1] ? "," + oValue[1] : "");
-		}else if(sDecimalFormat === "Y"){
-			oValue = oValue.toString().split(".");
-			oValue = oValue[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ") + (oValue[1] ? "," + oValue[1] : "");
+		if(oValue === undefined || oValue === null || oValue === ""){
+			return;
 		}
+			
+		var sDecimalFormat = "";
+		var sThousandFormat = "";
+		var oValueArr = [];
+		
+		// User's default decimal format setting from SAP
+		var sDecimalFormatCode = dia.cmc.common.helper.ModelHelper.oDefaultParameterModel.getProperty("/DecimalFormat");
+	
+		// Base of setting, set the decimal format
+		if(sDecimalFormatCode === "X"){
+			sThousandFormat = ",";
+			sDecimalFormat = ".";
+		}else if(sDecimalFormatCode === ""){
+			sThousandFormat = ".";
+			sDecimalFormat = ",";
+		}else if(sDecimalFormatCode === "Y"){
+			sThousandFormat = ",";
+			sDecimalFormat = " ";
+		}
+		
+		oValueArr = oValue.toString().split(".");
+		oValueArr[0] = oValueArr[0].replace(/\B(?=(\d{3})+(?!\d))/g, sThousandFormat); 
+		oValue = oValueArr[0] + (oValueArr[1] ? sDecimalFormat  + oValueArr[1] : "");
 		
 		return oValue;
 	},
 	
-	// Begin of change by Abdul - {29/12/2014}	
-	/**Format any price type to decimal format.
-	 * @param oValue: Price or Qty
-	 */
-	reverseToDecimalFormat : function(){
-		   
-		   var sDecimalFormat = dia.cmc.common.helper.ModelHelper.oDefaultParameterModel.getProperty("/DecimalFormat");
-		
-    	   //Stores index number of . or , within sDecimalFormat
-		   var decimalValueAt=0;
-		   //Search array in reverse for . or ,
-		   for (var index = sDecimalFormat.length - 1; index >= 0; index--) {
-			   //Store current index number
-			   decimalValueAt = decimalValueAt+1;
-			   if(sDecimalFormat[index] === "." || sDecimalFormat[index] === ","){	
-				     //Exit from loop if . or , is found
-					 break; 
-			   }
-		   }		   
-		   decimalValueAt = 1-decimalValueAt;	
-		   //Remove spaces or non digits if any  
-		   sDecimalFormat = sDecimalFormat.replace(/[^0-9]/g,"");
-		   sDecimalFormat = sDecimalFormat.split("");
-		   //Add . based on decimalValueAt value 
-		   sDecimalFormat.splice(decimalValueAt,0,".");		   
-		   
-		   return sDecimalFormat.join("");
-    },
-	// End of Change by Abdul - {29/12/2014}
-    
-    
+	
 //	fileSize : function(oValue){
 //		
 //		var sSize = oValue + "KB";

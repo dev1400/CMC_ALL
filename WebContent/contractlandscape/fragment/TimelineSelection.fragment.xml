@@ -59,7 +59,7 @@
 				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="2" labelSpanM="3" labelSpanS="3" 
 							emptySpanL="0" emptySpanM="0" 
 							columnsL="2" columnsM="2"  
-							editable="true"	title="Additional Parameters" >
+							editable="true"	title="{i18n>TimelineAdditionalParameters}" >
 		
 					<f:content>
 						
@@ -85,7 +85,7 @@
 						</Input>
 						
 						<Label  />
-						<CheckBox id="idTLPriceDetailItems" text="{i18n>PriceDetailCheckboxLabel}"
+						<CheckBox id="idTLAmendDetailItems" text="{i18n>AmendDetailCheckboxLabel}"
 									selected="false" />
 											
  					</f:content>

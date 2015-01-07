@@ -1,7 +1,7 @@
 jQuery.sap.declare("dia.cmc.contractlandscape.Component");
+
 jQuery.sap.require("dia.cmc.common.helper.ModelHelper");
 jQuery.sap.require("dia.cmc.common.util.MyRouter");
-//
 
 sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
 

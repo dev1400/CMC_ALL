@@ -9,7 +9,6 @@ jQuery.sap.require("sap.ca.ui.dialog.factory");
 
 sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 
-	
 	/***************************************************************************
 	 * Start - Standard hook events
 	 **************************************************************************/
@@ -29,6 +28,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		this.CommonController.getRouter(this).attachRouteMatched(this.handleRouteMatched, this);
         
 	},
+	
 	
 	/**
 	 * Called when the View has been rendered (so its HTML is part of the
@@ -932,6 +932,8 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	 */
 	handleAmendPricePost : function(oEvent) {
 
+		var that = this;
+		
 		// Array of controls on Price Amendment popup with OData service field
 		// names
 		var oControlList = [ {
@@ -942,7 +944,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			field : "Material"
 		}, {
 			id : "idPANewPrice",
-			uiType : "NB",
+			uiType : "NBQ",
 			value : 0,
 			mandatory : true,
 			field : "Rate"
@@ -978,6 +980,7 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			field : "ValidTo"
 		} ];
 
+		
 		// Validate the price amendment input
 		var canContinue = this.CommonController.validateInput(oEvent,
 				oControlList, "P");
@@ -987,21 +990,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		
 		// Check - Valid From date should be greater than current date
 		
-//		var oValidFromUI = this.CommonController.getUIElement("idPAValidFrom");
-//		var dValidFrom = new Date(oValidFromUI.getValue());
-//		var dToday = new Date();
-//		
-//		if( dValidFrom < dToday){
-//			var sMsg = this.ModelHelper.getText("InvalidFromDate");
-//			sap.m.MessageToast.show(sMsg);
-//			oValidFromUI.setValueState("Error");
-//			canContinue = false;
-//		}
-//		else {
-//			oValidFromUI.setValueState("None");
-//		}
-		
-	
 		var oValidityUI = this.CommonController.getUIElement("idPAValidity");
 		var dValidFrom = new Date(oValidityUI.getDateValue());
 		var dToday = new Date((new Date().toJSON().slice(0,10) + " 00:00:00"));
@@ -1029,12 +1017,17 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		jQuery.each(oControlList, function(i, el) {
 
 			if (el.value) {
+				
+				if(el.uiType === "NBQ"){
+					el.value = that.CommonController.reverseDecimalFormat(el.value);
+				}
+				
 				oPriceAmendDetail[el.field] = el.value;
 			}
 		});
 
 		var oButtonEvent = jQuery.extend({}, oEvent);
-		var that = this;
+
 		
 		// Call Helper class method to update Deal Details to SAP
 //		oPriceAmendDetail = this.ModelHelper
@@ -1534,11 +1527,13 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	 * @param oEvent
 	 */
 	handleAmendCommitmentPost : function(oEvent) {
-
+		
+		var that = this;
+		
 		// Array of controls on Commitment Amendment popup with OData service field names
 		var oControlList = [{id:"idCAPartner", 		uiType:"DDB",	value:"", 	mandatory:false, 	field:"CallOffPartner" },
 		                    {id:"idCAProduct", 		uiType:"TB",	value:"", 	mandatory:true, 	field:"Material" },
-		                    {id:"idCAQty",		 	uiType:"NB",	value:"", 	mandatory:true, 	field:"Quantity" },
+		                    {id:"idCAQty",		 	uiType:"NBQ",	value:"", 	mandatory:true, 	field:"Quantity" },
 		                    {id:"idCAUOM",	 		uiType:"TB",	value:"", 	mandatory:false, 	field:"Uom" },
 		                    {id:"idCAValidFrom", 	uiType:"DT",	value:"", 	mandatory:true, 	field:"ValidFrom" },
 		                    {id:"idCAValidTo", 		uiType:"DT",	value:"", 	mandatory:true, 	field:"ValidTo" }];
@@ -1586,10 +1581,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		var oCommitmentAmendDetail = this.ModelHelper
 				.oDealDetailModel.getProperty("/NewCommitmentItem");
 
+		
 		// Set the value in model
 		jQuery.each(oControlList, function(i, el) {
 
 			if (el.value) {
+				
+				if(el.uiType === "NBQ"){
+					el.value = that.CommonController.reverseDecimalFormat(el.value);
+				}
+				
 				oCommitmentAmendDetail[el.field] = el.value;
 			}
 		});
@@ -1608,7 +1609,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		
 		var oCommitmentCollection = this.ModelHelper.oDealDetailModel.getProperty("/CommitmentCollection");
 		
-		var that = this;
 		var bIsOverlapping = false;
 		
 		$.each(oCommitmentCollection, function(i, el){
@@ -1855,28 +1855,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		
 	},
 
-	/** Event handler for Selected Items radio button in Validity Change Amendment
-	 * @param oEvent
-	 */
-	handleAmentValidityItemsSelect : function(oEvent) {
-
-		// // Get the reference of Selected Items radio button
-		// var oSelectedItems =
-		// sap.ui.getCore().byId(oEvent.getSource().getId());
-
-		// alert(oEvent.getSource().getId());
-
-		// Get the reference of Selected Items VBox which contains item
-		// checkboxs
-		var oSelectedItemsVBox = sap.ui.getCore().byId("idSelectedItemsVBox");
-
-		if (oEvent.getSource().getId().indexOf("idValiditySelectedItems")) {
-			oSelectedItemsVBox.setVisible(false);
-		} else {
-			oSelectedItemsVBox.setVisible(true);
-		}
-
-	},
 
 	/** Event handler for Recalculation Amendment
 	 * @param oEvent

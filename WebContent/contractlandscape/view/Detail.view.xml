@@ -22,9 +22,9 @@
 			</Bar> </customHeader> -->
 
 		<content>
-           
-			<Table id="idHeaderTable" width="100%" backgroundDesign="Transparent"
-				showSeparators="None" >			
+
+			<Table id="idHeaderTable" width="100%" backgroundDesign="Transparent" columnHeaderVisible="false"
+				showSeparators="None">
 				<columns>
 					<Column hAlign="Left" width="8rem" />
 
@@ -551,7 +551,10 @@
 													class="sapMTableContentMargin" text="{DealDetailModel>Material}" />
 
 												<ObjectIdentifier
-													title="{DealDetailModel>Rate} {DealDetailModel>CurrencyCode}"
+													title="{	path: 'DealDetailModel>Rate',
+																formatter: 'dia.cmc.common.util.Formatter.formatDecimal'
+															} 
+															{DealDetailModel>CurrencyCode}"
 													class="sapMTableContentMargin"
 													text="{i18n>Per} {DealDetailModel>Unit} {DealDetailModel>Uom}" />
 
@@ -849,7 +852,9 @@
 									text="{DealDetailModel>Material}" class="sapMTableContentMargin" />
 
 								<ObjectIdentifier
-									title="{DealDetailModel>Quantity} {DealDetailModel>Uom}" class="sapMTableContentMargin" />
+									title="{	path: 'DealDetailModel>Quantity',
+												formatter: 'dia.cmc.common.util.Formatter.formatDecimal'
+											} {DealDetailModel>Uom}" class="sapMTableContentMargin" />
 
 <!-- 								 <ObjectNumber
 								        number="{DealDetailModel>Quantity}"

@@ -227,10 +227,17 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Timeline", {
 			sFilters += " and ( Material eq '" + sProductNumber + "') "; 
 	    }
 	    
-		var oPriceDetailItemsUI = this.CommonController.getUIElement("idTLPriceDetailItems");
-	    var bPriceDetailItems = oPriceDetailItemsUI.getSelected();
+	    var oAmendDetailItemsUI = dia.cmc.common.helper.CommonController.getUIElement("idTLAmendDetailItems");
+	    var bAmendDetailItems = oAmendDetailItemsUI.getSelected();
 
-		sFilters += " and ( SubItem eq '" + bPriceDetailItems + "') "; 
+	    if(bAmendDetailItems){
+	    	bAmendDetailItems = "X";
+	    }
+	    else{
+	    	bAmendDetailItems = "";
+	    }
+	    
+		sFilters += " and ( SubItem eq '" + bAmendDetailItems + "') "; 
 
 	    return sFilters;
 	    

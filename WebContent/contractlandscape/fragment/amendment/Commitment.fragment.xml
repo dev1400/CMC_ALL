@@ -2,7 +2,7 @@
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons">
 
 	<Dialog title="{i18n>AddChangeCommitment}" class="sapUiPopupWithPadding"
-		contentWidth="50%" contentHeight="50%" stretchOnPhone="true">
+		 stretchOnPhone="true">
 
 		<customHeader>
 			<Bar>
@@ -15,43 +15,28 @@
 			</Bar>
 		</customHeader>
 
+		
+		
+
 
 		<l:Grid defaultSpan="L12 M12 S12" width="auto">
 
 			<l:content>
 
-				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="4"
-					labelSpanM="3" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1"  editable="true"	>
+				<f:SimpleForm layout="ResponsiveGridLayout" editable="true"	
+							labelSpanL="2" labelSpanM="3" labelSpanS="3" 
+							emptySpanL="0" emptySpanM="1" emptySpanS="2" 
+							columnsL="2" columnsM="2" columnsS="2" >
 
 					<f:content>
 
 						<Label text="{i18n>Customer}" />
 						
-						
-<!-- 						<Input id="idCAPartner"
-							value="{DealDetailModel>/NewCommitmentItem/CallOffPartner}"
-							enabled="{Property>/MaterialEnable}"
-							showValueHelp="true" valueHelpRequest="handleCustomerValueHelp">
-							<layoutData>
-								<l:GridData span="L2 M3 S4" />
-							</layoutData>
-						</Input> -->
-
-<!-- 						<Input id="idCAPartnerName"
-							value="{DealDetailModel>/NewCommitmentItem/PartnerName}"
-							enabled="false">
-
-							<layoutData>
-								<l:GridData span="L4 M6 S9" />
-							</layoutData>
-
-						</Input> -->
-
 						<ComboBox id="idCAPartner" items="{DealDetailModel>/PartnerNameCollection}" selectedKey="{DealDetailModel>/NewCommitmentItem/CallOffPartner}" enabled="{Property>/MaterialEnable}">
 							<core:ListItem key="{DealDetailModel>PartnerNumber}" text="{DealDetailModel>PartnerNumber} - {DealDetailModel>PartnerName}" />
 							
 							<layoutData>
-								<l:GridData span="L4 M6 S9" />
+								<l:GridData span="L4 M6 S8" />
 							</layoutData>
 						</ComboBox>
 				
@@ -63,7 +48,7 @@
 							change="handleProductChange">
 
 							<layoutData>
-								<l:GridData span="L2 M3 S4" />
+								<l:GridData span="L2 M3 S3" />
 							</layoutData>
 
 						</Input>
@@ -73,7 +58,7 @@
 							enabled="false">
 
 							<layoutData>
-								<l:GridData span="L4 M6 S9" />
+								<l:GridData span="L4 M5 S6" />
 							</layoutData>
 
 						</Input>
@@ -81,10 +66,12 @@
 						<Label text="{i18n>MonthlyQty}" />
 
 						<Input id="idCAQty" 
-							value="{DealDetailModel>/NewCommitmentItem/Quantity}">
+								value="{	path: 'DealDetailModel>/NewCommitmentItem/Quantity',
+											formatter: 'dia.cmc.common.util.Formatter.formatDecimal'
+									   }" >
 
 							<layoutData>
-								<l:GridData span="L4 M4 S6" />
+								<l:GridData span="L2 M3 S4" />
 							</layoutData>
 
 						</Input>
@@ -92,28 +79,24 @@
 						<Input id="idCAUOM" value="{DealDetailModel>/NewCommitmentItem/Uom}"
 							enabled="false">
 							<layoutData>
-								<l:GridData span="L2 M2 S3" />
+								<l:GridData span="L2 M2 S2" />
 							</layoutData>
 						</Input>
 
-						<!-- <Label text="{i18n>NewQty}" /> <Input id="idCANewQuantity" value="" 
-							> <layoutData> <l:GridData span="L4 M4 S6" /> </layoutData> </Input> <Input 
-							id="idCANewUOM" value="" placeholder="{i18n>UOM}"> <layoutData> <l:GridData 
-							span="L2 M2 S3" /> </layoutData> </Input> -->
 
 						<Label text="{i18n>ValidityDate}" />
 
 						<DatePicker id="idCAValidFrom" displayFormat="{i18n>DateFormat}"
 							enabled="{Property>/MaterialEnable}" dateValue="{DealDetailModel>/NewCommitmentItem/ValidFrom}">
 							<layoutData>
-								<l:GridData span="L4 M3 S7" />
+								<l:GridData span="L2 M3 S4" />
 							</layoutData>
 						</DatePicker>
 
 						<DatePicker id="idCAValidTo" displayFormat="{i18n>DateFormat}"
 							dateValue="{DealDetailModel>/NewCommitmentItem/ValidTo}">
 							<layoutData>
-								<l:GridData span="L4 M3 S7" />
+								<l:GridData span="L2 M3 S4" />
 							</layoutData>
 						</DatePicker>
 
