@@ -7,14 +7,14 @@
 
 	<Page class="sapUiFioriObjectPage" title="System Detail"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
+		<!-- Change Begin by Abdul {08/01/2015} -->
 		<VBox width="auto" alignItems="Center">
 			<HBox width="100%" alignItems="Center">
 				<HBox width="auto" alignItems="Start">
 					<Image src="common/mime/blank_img.png" height="10em" width="10em">
 					</Image>
 				</HBox>
-
-				<HBox width="100%" alignItems="Start">
+				<HBox width="auto" alignItems="Start">
 					<ObjectHeader title="{i18n>SystemTitle}">
 
 						<attributes>
@@ -25,9 +25,26 @@
 						</attributes>
 					</ObjectHeader>
 				</HBox>
-			</HBox>
 
-			<HBox width="100%" alignItems="Stretch">
+				<VBox width="auto" alignItems="Center">
+					<l:Grid defaultSpan="L12 M12 S12" width="auto">
+						<l:content>
+							<f:SimpleForm minWidth="1024" layout="ResponsiveGridLayout" labelSpanL="3" 
+							labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+								<f:content>
+									<Label text="Name" />
+									<Text text="Queen Elizabeth Hospital" />
+									<Label text="Address" />
+									<Text text="28 WoodVille Road, South - AU" />
+									<Label text="Phone" />
+									<Text text="+61 78786767" />
+									<Label text="E-mail" />
+									<Text text="joji@yahoo.com" />
+								</f:content>
+							</f:SimpleForm>
+						</l:content>
+					</l:Grid>
+				</VBox>
 			</HBox>
 		</VBox>
 
@@ -66,27 +83,20 @@
 				</f:SimpleForm>
 			</l:content>
 		</l:Grid>
-
+		<!-- Change End by Abdul {08/01/2015} -->
 
 		<footer>
 
 			<Bar>
 				<contentRight>
 
-					<!-- <Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}"
-						icon="sap-icon://add" press="handleAmendPricePopup" 
-						visible="{Property>/PricingActionButtonVisi}" 
-						enabled="{Property>/SimpleAmendEnable}"	/>
-						
-					<Button id="idAddCommitment" text="{i18n>AddCommitment}"
-						tooltip="{i18n>AddCommitment}" icon="sap-icon://add" press="handleAmendCommitmentPopup"
-						visible="{Property>/CommitmentActionButtonVisi}" 
-						enabled="{Property>/SimpleAmendEnable}"	/>
-
-					<Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit"
-						tooltip="{i18n>AmendButtonText}" press="handleAmend" />
-
-					<Button icon="sap-icon://action" press="handleFurtherAction"
+					<!-- <Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}" 
+						icon="sap-icon://add" press="handleAmendPricePopup" visible="{Property>/PricingActionButtonVisi}" 
+						enabled="{Property>/SimpleAmendEnable}" /> <Button id="idAddCommitment" text="{i18n>AddCommitment}" 
+						tooltip="{i18n>AddCommitment}" icon="sap-icon://add" press="handleAmendCommitmentPopup" 
+						visible="{Property>/CommitmentActionButtonVisi}" enabled="{Property>/SimpleAmendEnable}" 
+						/> <Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit" tooltip="{i18n>AmendButtonText}" 
+						press="handleAmend" /> <Button icon="sap-icon://action" press="handleFurtherAction" 
 						text="{i18n>AdditionalActions}" tooltip="{i18n>FurtherActions}" /> -->
 
 				</contentRight>
