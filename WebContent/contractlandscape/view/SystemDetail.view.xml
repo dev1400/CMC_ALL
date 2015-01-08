@@ -15,16 +15,15 @@
 				</HBox>
 
 				<HBox width="100%" alignItems="Start">
-				<!-- Begin of change by Abdul - {23/12/2014} -->
 					<ObjectHeader title="{i18n>SystemTitle}">
 
 						<attributes>
 							<ObjectAttribute text="{i18n>SystemCode}" />
 							<ObjectAttribute text="{i18n>SystemSerialNumber}" />
+							<ObjectAttribute text="{i18n>InstrumentLineDesc}" />
 							<ObjectAttribute text="{i18n>SystemStatus}" />
 						</attributes>
 					</ObjectHeader>
-				<!-- End of change by Abdul - {23/12/2014} -->
 				</HBox>
 			</HBox>
 
@@ -36,35 +35,13 @@
 			labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
 
 			<f:content>
-				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
-					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
-					columnsL="2" columnsM="2">
-                    <!-- Begin of change by Abdul - {23/12/2014} -->
-					<f:content>
-						<Label text="{i18n>SystemAssentNumberLabel}" />
-						<Text text="3456" />
-						<Label text="{i18n>SystemResidualValueLabel}" />
-						<Text text="0376" />
-						<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
-						<Text text="YES" />
-						
-						<Label text="" />
-						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
-						
-					</f:content>
-					<!-- End of change by Abdul - {23/12/2014} -->
-
-				</f:SimpleForm>
 
 				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
 					columnsL="2" columnsM="2">
-					<!-- Begin of change by Abdul - {23/12/2014} -->
 					<f:content>
 						<Label text="{i18n>SystemStartupDateLabel}" />
 						<Text text="10/01/2014" />
-						<Label text="{i18n>SystemFirstInstallationDatLabele}" />
-						<Text text="11/12/2014" />
 						<Label text="{i18n>SystemWarrantyStartLabel}" />
 						<Text text="15/12/2014" />
 						<Label text="{i18n>SystemWarrantyEndLabel}" />
@@ -74,8 +51,31 @@
 						<Label />
 						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
 					</f:content>
-					<!-- End of change by Abdul - {23/12/2014} -->
 				</f:SimpleForm>
+
+				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
+					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
+					columnsL="2" columnsM="2">
+					<f:content>
+						<Label text="{i18n>SystemAssentNumberLabel}" />
+						<Text text="3456" />
+						<Label text="{i18n>SystemResidualValueLabel}" />
+						<Text text="0376" />
+						<Label text="{i18n>SystemInstallationDatLabel}" />
+						<Text text="11/12/2014" />
+						<Label text="{i18n>SystemCaptialDatLabel}" />
+						<Text text="11/12/2014" />
+						
+						<!-- <Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
+						<Text text="YES" /> -->
+						
+						<Label text="" />
+						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
+						
+					</f:content>
+
+				</f:SimpleForm>
+				
 
 			</f:content>
 
