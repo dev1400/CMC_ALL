@@ -30,16 +30,15 @@
 			<HBox width="100%" alignItems="Stretch">
 			</HBox>
 		</VBox>
-		
-		<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="3"
-			labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
 
-			<f:content>
-
-				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
-					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
-					columnsL="2" columnsM="2">
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+			<l:content>
+				<f:SimpleForm minWidth="1024" maxContainerCols="2"
+					editable="true" layout="ResponsiveGridLayout" 
+					labelSpanL="4" labelSpanM="4" emptySpanL="0" emptySpanM="0"
+					columnsL="2" columnsM="2" class="editableForm">
 					<f:content>
+						<core:Title text="" />
 						<Label text="{i18n>SystemStartupDateLabel}" />
 						<Text text="10/01/2014" />
 						<Label text="{i18n>SystemWarrantyStartLabel}" />
@@ -48,15 +47,9 @@
 						<Text text="20/12/2014" />
 						<Label text="{i18n>SystemSCrenewalLabel}" />
 						<Text text="30/12/2014" />
-						<Label />
+						<Label text="{i18n>Link}" />
 						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
-					</f:content>
-				</f:SimpleForm>
-
-				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
-					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0"
-					columnsL="2" columnsM="2">
-					<f:content>
+						<core:Title text="" />
 						<Label text="{i18n>SystemAssentNumberLabel}" />
 						<Text text="3456" />
 						<Label text="{i18n>SystemResidualValueLabel}" />
@@ -65,22 +58,16 @@
 						<Text text="11/12/2014" />
 						<Label text="{i18n>SystemCaptialDatLabel}" />
 						<Text text="11/12/2014" />
-						
-						<!-- <Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
-						<Text text="YES" /> -->
-						
-						<Label text="" />
+						<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
+						<Text text="YES" />
+						<Label text="{i18n>Link}" />
 						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
-						
 					</f:content>
-
 				</f:SimpleForm>
-				
+			</l:content>
+		</l:Grid>
 
-			</f:content>
 
-		</f:SimpleForm>
-		
 		<footer>
 
 			<Bar>
