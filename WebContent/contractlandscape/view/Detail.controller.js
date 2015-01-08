@@ -2360,9 +2360,11 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 			}
 		}
 		if(bAllCollectionsAreEmpty){
-			this.getView().byId("idPricingTabBar").setVisible(false);			
+			this.getView().byId("idPricingTabBar").setVisible(false);
+			this.getView().byId("idEmptyPricingLabel").setVisible(true);
 		}else{
 			this.getView().byId("idPricingTabBar").setVisible(true);
+			this.getView().byId("idEmptyPricingLabel").setVisible(false);
 		}
 	},
 	/**

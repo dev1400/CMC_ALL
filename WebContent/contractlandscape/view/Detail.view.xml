@@ -405,6 +405,9 @@
 							</contentRight>
 
 						</Bar>
+						<!-- Change Begin by Abdul {08/01/2015} -->
+						<VBox alignItems="Center"><Label id="idEmptyPricingLabel" text="{i18n>EmptyPricingLabelText}" visible="false" design="Bold"/></VBox>						
+						<!-- Change End by Abdul {08/01/2015} -->
 
 
 						<IconTabBar id="idPricingTabBar" expanded="true"
