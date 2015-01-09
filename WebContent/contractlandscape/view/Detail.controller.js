@@ -349,20 +349,16 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	  
 	  /** Event handler for System line item selection. It will navigate to System Detail page
 	   */
-	  handleSystemLineItemPress : function(oEvent){
-		  
-		  /* var oContext = oEvent.getParameter("listItem").getBindingContext("DealDetailModel");	
-			 
-	        var oODataModel = this.getView().getModel("DealDetailModel");
-	    	var oSystemDetail = oODataModel.getProperty(oContext.getPath());*/
-		
+	  handleSystemLineItemPress : function(oEvent){	  
+		  //Change Start by Abdul {09/01/2015} 	
+		  var oContext = oEvent.getSource().getBindingContext("DealDetailModel");			 
+	      var oODataModel = this.getView().getModel("DealDetailModel");
+	      var oSystemDetail = oODataModel.getProperty(oContext.getPath());
 		  this.CommonController.getRouter(this).navTo("systemDetail", {
-				from: "dealDetail"/*, systemModuleSerial : oSystemDetail.SystemModuleSerial,
-				systemModuleDescription : oSystemDetail.SystemModuleDescription,				
-				systemName : oSystemDetail.SystemName,
-				dealId : oSystemDetail.DealId,				
-				systemSiteName : oSystemDetail.SystemSiteName*/
+				from: "dealDetail", dealId : oSystemDetail.DealId, systemModuleSerial : oSystemDetail.SystemModuleSerial, 
+				systemModule : oSystemDetail.SystemModule
 			}, false);
+		  //Change End by Abdul {09/01/2015}
 	  },
 		
 	 /**********************************************************************************************************************************

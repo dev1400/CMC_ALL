@@ -8,6 +8,9 @@ dia.cmc.common.helper.ModelHelper = {
 
 	oODataModel : null,
 	oDealCollectionModel : new sap.ui.model.json.JSONModel(),
+	//Change Start by Abdul {09/01/2015}
+	oSystemDetailCollection : new sap.ui.model.json.JSONModel(),
+	//Change End by Abdul {09/01/2015}
 	oDealDetailModel: new sap.ui.model.json.JSONModel(),
 	sSelectedDealPathIndex:null,
 	sSelectedDealPathKey:null,
@@ -64,7 +67,61 @@ dia.cmc.common.helper.ModelHelper = {
 		
 		return this.oODataModel;
 	},
+	//Change Start by Abdul {09/01/2015}
+	/**
+	 * Read System Detai Collection and convert it to JSON Model
+	 * @param sDealId
+	 * @param sSystemModuleSerial
+	 * @param sSystemModule
+	 */	 
+	readSystemDetailCollection : function (sDealId, sSystemModuleSerial, sSystemModule){
+		
+		var that = this;
+		// Open busy dialog
+		this.openBusyDialog();
+		// Create deferred object so that calling program can wait till asynchronous call is finished
+		var oRequestFinishedDeferred = jQuery.Deferred();		
+		var oModel = new sap.ui.model.json.JSONModel();	
+		
+		// Call OData read method and get System Detai Collection
+		this.oODataModel.read("/SystemCollection(DealId='" + sDealId + "',SystemModuleSerial='" +sSystemModuleSerial+ "',SystemModule='"+sSystemModule+"')", null, null , true, 
+			
+			function(oData, oResponse){		// Call is successful
+				oModel.setData({SystemCollection:oData});
+				
+				if(oModel.getData().SystemCollection.length > 0){
+					that.oSystemDetailCollection = oModel;
+				}
+				
+				// Resolve Deferred object and return the model
+				oRequestFinishedDeferred.resolve(oModel);
+				
+				// close busy dialog 
+				that.closeBusyDialog();
+				
+			},
+			
+			function(oResponse){			// Error occured
+				
+				// Read error message and display
+			   oResponse = jQuery.parseJSON(oResponse.response.body);
+
+			   sap.m.MessageBox.alert(oResponse.error.message.value, {
+					title : "Result"
+				});
+			   
+			   // Reject deferred object
+			   oRequestFinishedDeferred.resolve();
+			   
+			   // Close busy dialog
+			   that.closeBusyDialog();
+			   
+		});
+			
+		return oRequestFinishedDeferred;
+	},
 	
+	//Change End by Abdul {09/01/2015}
 	
 	// Read Deal Collection and convert it to JSON Model
 	readDealCollection : function (sFilters){

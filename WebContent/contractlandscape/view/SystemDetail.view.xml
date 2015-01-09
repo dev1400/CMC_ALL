@@ -4,10 +4,10 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:form="sap.ui.layout.form"
 	xmlns:layout="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-
-	<Page class="sapUiFioriObjectPage" title="System Detail"
+    <!-- Change Begin by Abdul {08/01/2015} -->
+	<Page class="sapUiFioriObjectPage" title="{i18n>SystemDetail}"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
-		<!-- Change Begin by Abdul {08/01/2015} -->
+		
 		<VBox width="auto" alignItems="Center">
 			<HBox width="100%" alignItems="Center">
 				<HBox width="auto" alignItems="Start">
@@ -15,13 +15,13 @@
 					</Image>
 				</HBox>
 				<HBox width="auto" alignItems="Start">
-					<ObjectHeader title="{i18n>SystemTitle}">
+					<ObjectHeader title="{SystemDetailModel>/SystemCollection/SystemName}">
 
 						<attributes>
-							<ObjectAttribute text="{i18n>SystemCode}" />
-							<ObjectAttribute text="{i18n>SystemSerialNumber}" />
-							<ObjectAttribute text="{i18n>InstrumentLineDesc}" />
-							<ObjectAttribute text="{i18n>SystemStatus}" />
+							<ObjectAttribute text="{i18n>SystemCode} {SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
+							<ObjectAttribute text="{i18n>SystemSerialNumber} {SystemDetailModel>/SystemCollection/SystemModuleSerial}" />
+							<ObjectAttribute text="{SystemDetailModel>/SystemCollection/SystemModuleDescription}" />
+							<ObjectAttribute text="{i18n>SystemStatus} {SystemDetailModel>/SystemCollection/SystemPlacementType}" />
 						</attributes>
 					</ObjectHeader>
 				</HBox>
@@ -32,14 +32,21 @@
 							<f:SimpleForm minWidth="1024" layout="ResponsiveGridLayout" labelSpanL="3" 
 							labelSpanM="3" labelSpanS="5" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
 								<f:content>
-									<Label text="Name" />
-									<Text text="Queen Elizabeth Hospital" />
-									<Label text="Address" />
-									<Text text="28 WoodVille Road, South - AU" />
-									<Label text="Phone" />
-									<Text text="+61 78786767" />
-									<Label text="E-mail" />
-									<Text text="joji@yahoo.com" />
+									<Label text="{i18n>SystemSiteName}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
+									<Label text="{i18n>SystemSiteAddress}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
+									<Label text="{i18n>SystemSiteCountry}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
+									<Label text="{i18n>SystemSiteRegion}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
+									<Label text="{i18n>SystemSiteZip}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
+									
+									<Label text="{i18n>SystemSitePhone}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
+									<Label text="{i18n>SystemSiteEmail}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
 								</f:content>
 							</f:SimpleForm>
 						</l:content>
@@ -57,22 +64,26 @@
 					<f:content>
 						<core:Title text="" />
 						<Label text="{i18n>SystemStartupDateLabel}" />
-						<Text text="10/01/2014" />
+						<Text text="{path: 'SystemDetailModel>/SystemCollection/StartupDate',
+									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 						<Label text="{i18n>SystemWarrantyStartLabel}" />
-						<Text text="15/12/2014" />
+						<Text text="{path: 'SystemDetailModel>/SystemCollection/WarrantyStart',
+									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 						<Label text="{i18n>SystemWarrantyEndLabel}" />
-						<Text text="20/12/2014" />
+						<Text text="{path: 'SystemDetailModel>/SystemCollection/WarrantyEnd',
+									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 						<Label text="{i18n>SystemSCrenewalLabel}" />
 						<Text text="30/12/2014" />
 						<Label text="{i18n>Link}" />
 						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
 						<core:Title text="" />
-						<Label text="{i18n>SystemAssentNumberLabel}" />
-						<Text text="3456" />
+						<Label text="{i18n>SystemAssetNumberLabel}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
 						<Label text="{i18n>SystemResidualValueLabel}" />
 						<Text text="0376" />
-						<Label text="{i18n>SystemInstallationDatLabel}" />
-						<Text text="11/12/2014" />
+						<Label text="{i18n>SystemInstallationDateLabel}" />
+						<Text text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
+									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 						<Label text="{i18n>SystemCaptialDatLabel}" />
 						<Text text="11/12/2014" />
 						<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
