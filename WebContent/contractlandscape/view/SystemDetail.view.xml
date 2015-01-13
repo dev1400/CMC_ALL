@@ -97,9 +97,9 @@
 			</HBox>
 		</VBox>
 
-		<VBox width="auto" alignItems="Center">
-			<HBox width="auto">
-				<VBox width="auto" alignItems="Center">
+		<VBox width="100%" alignItems="Center">
+			<HBox width="100%" >
+				<VBox width="100%" alignItems="Center">
 					<l:Grid class="gridMarginTop" hSpacing="1"  defaultSpan="L8 M8 S10"
 						vSpacing="0">
 						<l:content>
@@ -151,7 +151,7 @@
 						</l:content>
 					</l:Grid>
 				</VBox>
-				<VBox width="auto" alignItems="Center">
+				<VBox width="100%" alignItems="Center">
 					<l:Grid class="gridMarginTop" hSpacing="2" defaultSpan="L8 M8 S10"
 						vSpacing="0">
 						<l:content>
