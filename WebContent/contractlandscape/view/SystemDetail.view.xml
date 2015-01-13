@@ -41,7 +41,7 @@
 								</layoutData>
 							</Label>
 							<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
-							
+
 
 							<Label text="{i18n>SystemSiteAddress}">
 								<layoutData>
@@ -97,121 +97,119 @@
 			</HBox>
 		</VBox>
 
-		<VBox width="100%" alignItems="Center">
-			<HBox width="100%" >
-				<VBox width="100%" alignItems="Center">
-					<l:Grid class="gridMarginTop" hSpacing="1"  defaultSpan="L8 M8 S10"
-						vSpacing="0">
-						<l:content>
-						
-						<Label text="{i18n>SystemStartupDateLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8"  />
-								</layoutData>
-						</Label>
-						<Text text="{path: 'SystemDetailModel>/SystemCollection/StartupDate', formatter: 'dia.cmc.common.util.Formatter.date'}"/>
-						
+
+		<HBox>
+			<VBox width="100%" alignItems="Stretch">
+				<l:Grid class="gridMarginTop" hSpacing="1" vSpacing="0">
+					<l:content>
+
+						<Label text="{i18n>SystemStartupDateLabel}" />
+						<Text
+							text="{path: 'SystemDetailModel>/SystemCollection/StartupDate', formatter: 'dia.cmc.common.util.Formatter.date'}" />
+
+
 						<Label text="{i18n>SystemWarrantyStartLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text
-								text="{path: 'SystemDetailModel>/SystemCollection/WarrantyStart',
-									formatter: 'dia.cmc.common.util.Formatter.date'}" />
-							
-									
-							<Label text="{i18n>SystemWarrantyEndLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text
-								text="{path: 'SystemDetailModel>/SystemCollection/WarrantyEnd',
+							<layoutData>
+								<l:GridData linebreakL="true" linebreakM="true"
+									linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text
+							text="{path: 'SystemDetailModel>/SystemCollection/WarrantyStart',
 									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 
+						<Label text="{i18n>SystemWarrantyEndLabel}">
+							<layoutData>
+								<l:GridData linebreakL="true" linebreakM="true"
+									linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text
+							text="{path: 'SystemDetailModel>/SystemCollection/WarrantyEnd',
+									formatter: 'dia.cmc.common.util.Formatter.date'}" />
+						<Label text="{i18n>SystemSCrenewalLabel}">
+							<layoutData>
+								<l:GridData linebreakL="true" linebreakM="true"
+									linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text text="30/12/2014" />
+						<Label text="{i18n>Link}">
+							<layoutData>
+								<l:GridData linebreakL="true" linebreakM="true"
+									linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" />
+							</layoutData>
+						</Link>
 
-							<Label text="{i18n>SystemSCrenewalLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="30/12/2014" />
-							<Label text="{i18n>Link}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
+					</l:content>
+				</l:Grid>
+			</VBox>
+			<VBox width="100%" alignItems="Stretch">
+				<l:Grid class="gridMarginTop" hSpacing="1" defaultSpan="L8 M8 S10"
+					vSpacing="0">
+					<l:content>
+						<Label text="{i18n>SystemAssetNumberLabel}">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" linebreakL="true"
+									linebreakM="true" linebreakS="true" />
+							</layoutData>
+						</Label>
+						<VBox>
+							<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
+						</VBox>
 
-						</l:content>
-					</l:Grid>
-				</VBox>
-				<VBox width="100%" alignItems="Center">
-					<l:Grid class="gridMarginTop" hSpacing="2" defaultSpan="L8 M8 S10"
-						vSpacing="0">
-						<l:content>
-							<Label text="{i18n>SystemAssetNumberLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<VBox>
-								<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
-							</VBox>
+						<Label text="{i18n>SystemResidualValueLabel}">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" linebreakL="true"
+									linebreakM="true" linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text text="0376" />
 
-							<Label text="{i18n>SystemResidualValueLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="0376" />
-
-							<Label text="{i18n>SystemInstallationDateLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text
-								text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
+						<Label text="{i18n>SystemInstallationDateLabel}">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" linebreakL="true"
+									linebreakM="true" linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text
+							text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
 									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 
-							<Label text="{i18n>SystemCaptialDatLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="11/12/2014" />
+						<Label text="{i18n>SystemCaptialDatLabel}">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" linebreakL="true"
+									linebreakM="true" linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text text="11/12/2014" />
 
-							<Label text="{i18n>SystemHigherlevelEquipmentLabel}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="YES" />
+						<Label text="{i18n>SystemHigherlevelEquipmentLabel}">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" linebreakL="true"
+									linebreakM="true" linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Text text="YES" />
 
-							<Label text="{i18n>Link}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
-						</l:content>
-					</l:Grid>
+						<Label text="{i18n>Link}">
+							<layoutData>
+								<l:GridData span="L4 M4 S8" linebreakL="true"
+									linebreakM="true" linebreakS="true" />
+							</layoutData>
+						</Label>
+						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
+					</l:content>
+				</l:Grid>
 
-				</VBox>
-			</HBox>
-		</VBox>
+			</VBox>
+		</HBox>
+
 		<!-- Change End by Abdul {08/01/2015} -->
 
 		<footer>
