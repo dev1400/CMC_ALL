@@ -100,7 +100,7 @@
 
 		<HBox>
 			<VBox width="100%" alignItems="Stretch">
-				<l:Grid class="gridMarginTop" hSpacing="1" vSpacing="0">
+				<l:Grid class="gridMarginTop" hSpacing="1" vSpacing="0" defaultIndent="L2 M4 S6">
 					<l:content>
 
 						<Label text="{i18n>SystemStartupDateLabel}" />
