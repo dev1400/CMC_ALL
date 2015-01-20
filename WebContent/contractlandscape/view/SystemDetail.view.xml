@@ -4,219 +4,120 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:form="sap.ui.layout.form"
 	xmlns:layout="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<!-- Change Begin by Abdul {08/01/2015} -->
-	<Page class="sapUiFioriObjectPage" title="{i18n>SystemDetail}"
+
+	<Page class="sapUiFioriObjectPage" title="System Detail"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
-
-		<VBox width="auto" alignItems="Center">
-			<HBox width="100%" alignItems="Center">
-				<HBox width="auto" alignItems="Start">
-					<Image src="common/mime/blank_img.png" height="10em" width="10em">
-					</Image>
-				</HBox>
-				<HBox width="auto" alignItems="Start">
-					<ObjectHeader title="{SystemDetailModel>/SystemCollection/SystemName}">
-
-						<attributes>
-							<ObjectAttribute
-								text="{i18n>SystemCode} {SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
-							<ObjectAttribute
-								text="{i18n>SystemSerialNumber} {SystemDetailModel>/SystemCollection/SystemModuleSerial}" />
-							<ObjectAttribute
-								text="{SystemDetailModel>/SystemCollection/SystemModuleDescription}" />
-							<ObjectAttribute
-								text="{i18n>SystemStatus} {SystemDetailModel>/SystemCollection/SystemPlacementType}" />
-						</attributes>
-					</ObjectHeader>
-				</HBox>
-
-				<VBox width="auto" alignItems="Center">
-					<l:Grid class="gridMarginTop" hSpacing="1" defaultSpan="L8 M8 S10"
-						vSpacing="0">
-						<l:content>
-							<Label text="{i18n>SystemSiteName}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
-
-
-							<Label text="{i18n>SystemSiteAddress}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text
-								text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
-
-							<Label text="{i18n>SystemSiteCountry}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
-
-							<Label text="{i18n>SystemSiteRegion}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
-
-							<Label text="{i18n>SystemSiteZip}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
-
-							<Label text="{i18n>SystemSitePhone}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
-
-							<Label text="{i18n>SystemSiteEmail}">
-								<layoutData>
-									<l:GridData span="L4 M4 S8" linebreakL="true"
-										linebreakM="true" linebreakS="true" />
-								</layoutData>
-							</Label>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
-						</l:content>
-					</l:Grid>
-				</VBox>
+        <!-- Change Start by Abdul {20/01/2014} -->
+		<HBox width="auto" >
+			<HBox width="30%" alignItems="Center">
+				<Image src="common/mime/blank_img.png" height="10em" width="10em">
+				</Image>
 			</HBox>
-		</VBox>
 
+			<HBox width="100%">
+				<ObjectHeader title="{SystemDetailModel>/SystemCollection/SystemName}">
+					<attributes>
+						<ObjectAttribute
+							text="{i18n>SystemCode} {SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
+						<ObjectAttribute
+							text="{i18n>SystemSerialNumber} {SystemDetailModel>/SystemCollection/SystemModuleSerial}" />
+						<ObjectAttribute
+							text="{SystemDetailModel>/SystemCollection/SystemModuleDescription}" />
+						<ObjectAttribute
+							text="{i18n>SystemStatus} {path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate', formatter: 'dia.cmc.common.util.Formatter.date'} {SystemDetailModel>/SystemCollection/SystemPlacementType}" />
+					</attributes>
+				</ObjectHeader>
+			</HBox>
 
-		<HBox>
-			<VBox width="100%" alignItems="Stretch">
-				<l:Grid class="gridMarginTop" hSpacing="1" vSpacing="0" defaultIndent="L2 M4 S6">
+			<HBox width="100%" alignItems="Center" justifyContent="End" >
+				<l:Grid defaultSpan="L12 M12 S12" width="auto">
 					<l:content>
+						<f:SimpleForm minWidth="1024" layout="ResponsiveGridLayout"
+							labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
+							emptySpanM="0" columnsL="2" columnsM="2">
+							<f:content>
+								<Label text="{i18n>SystemSiteName}" />
+								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
+								<Label text="{i18n>SystemSiteAddress}" />
+								<Text
+									text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
+								<Label text="{i18n>SystemSiteCountry}" />
+								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
+								<Label text="{i18n>SystemSiteRegion}" />
+								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
+								<Label text="{i18n>SystemSiteZip}" />
+								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
 
+								<Label text="{i18n>SystemSitePhone}" />
+								<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
+								<Label text="{i18n>SystemSiteEmail}" />
+								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
+							</f:content>
+						</f:SimpleForm>
+					</l:content>
+				</l:Grid>
+			</HBox>
+		</HBox>
+
+		<f:SimpleForm layout="ResponsiveGridLayout" labelSpanL="3"
+			labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+			<f:content>
+				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
+					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
+					emptySpanM="0" columnsL="2" columnsM="2">
+					<f:content>
+						<Label text="{i18n>SystemSiteName}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
+						<Label text="{i18n>SystemSiteAddress}" />
+						<Text
+							text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
+						<Label text="{i18n>SystemSiteCountry}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
+						<Label text="{i18n>SystemSiteRegion}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
+						<Label text="{i18n>SystemSiteZip}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
+
+						<Label text="{i18n>SystemSitePhone}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
+						<Label text="{i18n>SystemSiteEmail}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
+					</f:content>
+				</f:SimpleForm>
+
+				<f:SimpleForm layout="ResponsiveGridLayout" minWidth="1024"
+					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
+					emptySpanM="0" columnsL="2" columnsM="2">
+					<f:content>
 						<Label text="{i18n>SystemStartupDateLabel}" />
 						<Text
 							text="{path: 'SystemDetailModel>/SystemCollection/StartupDate', formatter: 'dia.cmc.common.util.Formatter.date'}" />
 
 
-						<Label text="{i18n>SystemWarrantyStartLabel}">
-							<layoutData>
-								<l:GridData linebreakL="true" linebreakM="true"
-									linebreakS="true" />
-							</layoutData>
-						</Label>
+						<Label text="{i18n>SystemWarrantyStartLabel}" />
 						<Text
 							text="{path: 'SystemDetailModel>/SystemCollection/WarrantyStart',
 									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 
-						<Label text="{i18n>SystemWarrantyEndLabel}">
-							<layoutData>
-								<l:GridData linebreakL="true" linebreakM="true"
-									linebreakS="true" />
-							</layoutData>
-						</Label>
+						<Label text="{i18n>SystemWarrantyEndLabel}" />
 						<Text
 							text="{path: 'SystemDetailModel>/SystemCollection/WarrantyEnd',
 									formatter: 'dia.cmc.common.util.Formatter.date'}" />
-						<Label text="{i18n>SystemSCrenewalLabel}">
-							<layoutData>
-								<l:GridData linebreakL="true" linebreakM="true"
-									linebreakS="true" />
-							</layoutData>
-						</Label>
+
+						<Label text="{i18n>SystemSCrenewalLabel}" />
 						<Text text="30/12/2014" />
-						<Label text="{i18n>Link}">
-							<layoutData>
-								<l:GridData linebreakL="true" linebreakM="true"
-									linebreakS="true" />
-							</layoutData>
-						</Label>
-						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" />
-							</layoutData>
-						</Link>
 
-					</l:content>
-				</l:Grid>
-			</VBox>
-			<VBox width="100%" alignItems="Stretch">
-				<l:Grid class="gridMarginTop" hSpacing="1" defaultSpan="L8 M8 S10"
-					vSpacing="0">
-					<l:content>
-						<Label text="{i18n>SystemAssetNumberLabel}">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" linebreakL="true"
-									linebreakM="true" linebreakS="true" />
-							</layoutData>
-						</Label>
-						<VBox>
-							<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
-						</VBox>
-
-						<Label text="{i18n>SystemResidualValueLabel}">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" linebreakL="true"
-									linebreakM="true" linebreakS="true" />
-							</layoutData>
-						</Label>
-						<Text text="0376" />
-
-						<Label text="{i18n>SystemInstallationDateLabel}">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" linebreakL="true"
-									linebreakM="true" linebreakS="true" />
-							</layoutData>
-						</Label>
-						<Text
-							text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
-									formatter: 'dia.cmc.common.util.Formatter.date'}" />
-
-						<Label text="{i18n>SystemCaptialDatLabel}">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" linebreakL="true"
-									linebreakM="true" linebreakS="true" />
-							</layoutData>
-						</Label>
-						<Text text="11/12/2014" />
-
-						<Label text="{i18n>SystemHigherlevelEquipmentLabel}">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" linebreakL="true"
-									linebreakM="true" linebreakS="true" />
-							</layoutData>
-						</Label>
-						<Text text="YES" />
-
-						<Label text="{i18n>Link}">
-							<layoutData>
-								<l:GridData span="L4 M4 S8" linebreakL="true"
-									linebreakM="true" linebreakS="true" />
-							</layoutData>
-						</Label>
-						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
-					</l:content>
-				</l:Grid>
-
-			</VBox>
-		</HBox>
-
-		<!-- Change End by Abdul {08/01/2015} -->
+						<Label text="{i18n>Link}" />
+						<Link text="{i18n>SystemSAPInstalledBaseLink}" target="_blank" />
+					</f:content>
+				</f:SimpleForm>
+			</f:content>
+		</f:SimpleForm>
+		<!-- Change End by Abdul {20/01/2014} -->
 
 		<footer>
-
 			<Bar>
 				<contentRight>
-
 					<!-- <Button id="idAddPrice" text="{i18n>AddPrice}" tooltip="{i18n>AddPrice}" 
 						icon="sap-icon://add" press="handleAmendPricePopup" visible="{Property>/PricingActionButtonVisi}" 
 						enabled="{Property>/SimpleAmendEnable}" /> <Button id="idAddCommitment" text="{i18n>AddCommitment}" 
@@ -225,10 +126,8 @@
 						/> <Button text="{i18n&gt;AmendButtonText}" icon="sap-icon://edit" tooltip="{i18n>AmendButtonText}" 
 						press="handleAmend" /> <Button icon="sap-icon://action" press="handleFurtherAction" 
 						text="{i18n>AdditionalActions}" tooltip="{i18n>FurtherActions}" /> -->
-
 				</contentRight>
 			</Bar>
 		</footer>
-
 	</Page>
 </core:View>

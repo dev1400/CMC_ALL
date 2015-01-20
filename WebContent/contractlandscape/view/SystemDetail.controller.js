@@ -23,7 +23,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.SystemDetail", {
     
    
     handleSystemDetailRouteMatched: function(oEvent) {
-        //Change Start by Abdul {09/01/2015}
         if (oEvent.getParameter("name") === "systemDetail") { // check route name
         	
 			this._sDealId = oEvent.getParameter("arguments").dealId;
@@ -39,7 +38,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.SystemDetail", {
 				
 			}, this));	
         	
-			//Change End by Abdul {09/01/2015}
         }
     },
     

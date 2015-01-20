@@ -350,7 +350,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 	  /** Event handler for System line item selection. It will navigate to System Detail page
 	   */
 	  handleSystemLineItemPress : function(oEvent){	  
-		  //Change Start by Abdul {09/01/2015} 	
 		  var oContext = oEvent.getSource().getBindingContext("DealDetailModel");			 
 	      var oODataModel = this.getView().getModel("DealDetailModel");
 	      var oSystemDetail = oODataModel.getProperty(oContext.getPath());
@@ -358,7 +357,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 				from: "dealDetail", dealId : oSystemDetail.DealId, systemModuleSerial : oSystemDetail.SystemModuleSerial, 
 				systemModule : oSystemDetail.SystemModule
 			}, false);
-		  //Change End by Abdul {09/01/2015}
 	  },
 		
 	 /**********************************************************************************************************************************
@@ -2288,7 +2286,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 		}
 		// If pricing tab is select, make visibility = true
 		else if (sSelectedTabKey === "Pricing") { // Pricing tab is selected
-			//Change Begin by Abdul {07/01/2015}
 			var aCollections = ["/MaterialPriceCollection", 
 			                    "/TestPriceCollection", 
 			                    "/MaterialDiscountCollection", 
@@ -2305,7 +2302,6 @@ sap.ui.controller("dia.cmc.contractlandscape.view.Detail", {
 					                    "idHierDiscTable",
 					                    "idGrpDiscTable"];
 			this._hidePricingIconTabBars(aCollections, oPricingIconTabBars, oPricingTables);
-		    //Change End by Abdul {07/01/2015}
 
 //			// Set first tab ( Product Prices ) as selected by default
 //			var oPricingTabBarUI = this.CommonController.getUIElement("idPricingTabBar", this.getView());

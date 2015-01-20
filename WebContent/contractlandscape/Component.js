@@ -46,9 +46,8 @@ sap.ui.core.UIComponent.extend("dia.cmc.contractlandscape.Component", {
                             transition : "show"
                         },
                         
-                        {   //Change Start by Abdul {09/01/2015}
+                        {   
 							pattern : "SystemDetail({dealId},{systemModuleSerial},{systemModule})",
-							//Change End by Abdul {09/01/2015}
 							name : "systemDetail",
 							view : "SystemDetail",
 							transition : "show"
