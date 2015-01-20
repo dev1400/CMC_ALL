@@ -66,22 +66,27 @@
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
 					emptySpanM="0" columnsL="2" columnsM="2">
 					<f:content>
-						<Label text="{i18n>SystemSiteName}" />
-						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
-						<Label text="{i18n>SystemSiteAddress}" />
-						<Text
-							text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
-						<Label text="{i18n>SystemSiteCountry}" />
-						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
-						<Label text="{i18n>SystemSiteRegion}" />
-						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
-						<Label text="{i18n>SystemSiteZip}" />
-						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
+							<Label text="{i18n>SystemAssetNumberLabel}" />
+				<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
 
-						<Label text="{i18n>SystemSitePhone}" />
-						<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
-						<Label text="{i18n>SystemSiteEmail}" />
-						<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
+
+				<Label text="{i18n>SystemResidualValueLabel}" />
+				<Text text="0376" />
+
+				<Label text="{i18n>SystemInstallationDateLabel}" />
+				<Text
+					text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
+									formatter: 'dia.cmc.common.util.Formatter.date'}" />
+
+				<Label text="{i18n>SystemCaptialDatLabel}" />
+				<Text text="11/12/2014" />
+
+				<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
+				<Text text="YES" />
+
+				<Label text="{i18n>Link}" />
+				<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
+			
 					</f:content>
 				</f:SimpleForm>
 
