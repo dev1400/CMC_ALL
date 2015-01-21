@@ -7,55 +7,56 @@
 
 	<Page class="sapUiFioriObjectPage" title="System Detail"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
-        <!-- Change Start by Abdul {20/01/2014} -->
-		<HBox width="auto" >
-			<HBox width="30%" alignItems="Center">
+		<!-- Change Start by Abdul {20/01/2014} -->
+		<HBox>
+			<HBox width="15%" alignItems="Center">
 				<Image src="common/mime/blank_img.png" height="10em" width="10em">
 				</Image>
 			</HBox>
-
 			<HBox width="100%">
-				<ObjectHeader title="{SystemDetailModel>/SystemCollection/SystemName}">
-					<attributes>
-						<ObjectAttribute
-							text="{i18n>SystemCode} {SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
-						<ObjectAttribute
-							text="{i18n>SystemSerialNumber} {SystemDetailModel>/SystemCollection/SystemModuleSerial}" />
-						<ObjectAttribute
-							text="{SystemDetailModel>/SystemCollection/SystemModuleDescription}" />
-						<ObjectAttribute
-							text="{i18n>SystemStatus} {path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate', formatter: 'dia.cmc.common.util.Formatter.date'} {SystemDetailModel>/SystemCollection/SystemPlacementType}" />
-					</attributes>
-				</ObjectHeader>
-			</HBox>
+				<HBox width="100%">
+					<ObjectHeader title="{SystemDetailModel>/SystemCollection/SystemName}">
+						<attributes>
+							<ObjectAttribute
+								text="{i18n>SystemCode} {SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
+							<ObjectAttribute
+								text="{i18n>SystemSerialNumber} {SystemDetailModel>/SystemCollection/SystemModuleSerial}" />
+							<ObjectAttribute
+								text="{SystemDetailModel>/SystemCollection/SystemModuleDescription}" />
+							<ObjectAttribute
+								text="{i18n>SystemStatus} {path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate', formatter: 'dia.cmc.common.util.Formatter.date'} {SystemDetailModel>/SystemCollection/SystemPlacementType}" />
+						</attributes>
+					</ObjectHeader>
+				</HBox>
 
-			<HBox width="100%" alignItems="Center" justifyContent="End" >
-				<l:Grid defaultSpan="L12 M12 S12" width="auto">
-					<l:content>
-						<f:SimpleForm minWidth="1024" layout="ResponsiveGridLayout"
-							labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
-							emptySpanM="0" columnsL="2" columnsM="2">
-							<f:content>
-								<Label text="{i18n>SystemSiteName}" />
-								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
-								<Label text="{i18n>SystemSiteAddress}" />
-								<Text
-									text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
-								<Label text="{i18n>SystemSiteCountry}" />
-								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
-								<Label text="{i18n>SystemSiteRegion}" />
-								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
-								<Label text="{i18n>SystemSiteZip}" />
-								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
+				<HBox width="100%" alignItems="Center" justifyContent="End">
+					<l:Grid defaultSpan="L12 M12 S12" width="auto">
+						<l:content>
+							<f:SimpleForm minWidth="1024" layout="ResponsiveGridLayout"
+								labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
+								emptySpanM="0" columnsL="2" columnsM="2">
+								<f:content>
+									<Label text="{i18n>SystemSiteName}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteName}" />
+									<Label text="{i18n>SystemSiteAddress}" />
+									<Text
+										text="{SystemDetailModel>/SystemCollection/SystemSiteStreet1} {SystemDetailModel>/SystemCollection/SystemSiteStreet2}" />
+									<Label text="{i18n>SystemSiteCountry}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteCountry}" />
+									<Label text="{i18n>SystemSiteRegion}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteRegion}" />
+									<Label text="{i18n>SystemSiteZip}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteZip}" />
 
-								<Label text="{i18n>SystemSitePhone}" />
-								<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
-								<Label text="{i18n>SystemSiteEmail}" />
-								<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
-							</f:content>
-						</f:SimpleForm>
-					</l:content>
-				</l:Grid>
+									<Label text="{i18n>SystemSitePhone}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSitePhone}" />
+									<Label text="{i18n>SystemSiteEmail}" />
+									<Text text="{SystemDetailModel>/SystemCollection/SystemSiteEmail}" />
+								</f:content>
+							</f:SimpleForm>
+						</l:content>
+					</l:Grid>
+				</HBox>
 			</HBox>
 		</HBox>
 
@@ -66,27 +67,27 @@
 					labelSpanL="3" labelSpanM="3" labelSpanS="5" emptySpanL="0"
 					emptySpanM="0" columnsL="2" columnsM="2">
 					<f:content>
-							<Label text="{i18n>SystemAssetNumberLabel}" />
-				<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
+						<Label text="{i18n>SystemAssetNumberLabel}" />
+						<Text text="{SystemDetailModel>/SystemCollection/SystemModuleAsset}" />
 
 
-				<Label text="{i18n>SystemResidualValueLabel}" />
-				<Text text="0376" />
+						<Label text="{i18n>SystemResidualValueLabel}" />
+						<Text text="0376" />
 
-				<Label text="{i18n>SystemInstallationDateLabel}" />
-				<Text
-					text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
+						<Label text="{i18n>SystemInstallationDateLabel}" />
+						<Text
+							text="{path: 'SystemDetailModel>/SystemCollection/SystemModuleInstallDate',
 									formatter: 'dia.cmc.common.util.Formatter.date'}" />
 
-				<Label text="{i18n>SystemCaptialDatLabel}" />
-				<Text text="11/12/2014" />
+						<Label text="{i18n>SystemCaptialDatLabel}" />
+						<Text text="11/12/2014" />
 
-				<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
-				<Text text="YES" />
+						<Label text="{i18n>SystemHigherlevelEquipmentLabel}" />
+						<Text text="YES" />
 
-				<Label text="{i18n>Link}" />
-				<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
-			
+						<Label text="{i18n>Link}" />
+						<Link text="{i18n>SystemSAPEquipmentRecordLink}" />
+
 					</f:content>
 				</f:SimpleForm>
 
