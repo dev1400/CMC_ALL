@@ -7,7 +7,7 @@
 
 	<Page class="sapUiFioriObjectPage" title="System Detail"
 		showNavButton="true" navButtonPress="handleSystemDetailNavButtonPress">
-		<!-- Change Start by Abdul {20/01/2014} -->
+		
 		<HBox>
 			<HBox width="15%" alignItems="Center">
 				<Image src="common/mime/blank_img.png" height="10em" width="10em">
@@ -119,7 +119,6 @@
 				</f:SimpleForm>
 			</f:content>
 		</f:SimpleForm>
-		<!-- Change End by Abdul {20/01/2014} -->
 
 		<footer>
 			<Bar>
